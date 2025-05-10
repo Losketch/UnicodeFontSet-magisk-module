@@ -1,0 +1,410 @@
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1686" viewBox="0 0 650 1686" overflow="visible">
+  <style>
+    :root {
+        --md-sys-color-primary: #D0BCFF;
+        --md-sys-color-on-primary: #371E73;
+        --md-sys-color-primary-container: #4F378B;
+        --md-sys-color-on-primary-container: #EADDFF;
+        --md-sys-color-secondary: #CCC2DC;
+        --md-sys-color-on-secondary: #332D41;
+        --md-sys-color-secondary-container: #4A4458;
+        --md-sys-color-on-secondary-container: #E8DEF8;
+        --md-sys-color-tertiary: #EFB8C8;
+        --md-sys-color-on-tertiary: #492532;
+        --md-sys-color-tertiary-container: #633B48;
+        --md-sys-color-on-tertiary-container: #FFD8E4;
+        --md-sys-color-background: #121212;
+        --md-sys-color-on-background: #E0E0E0;
+        --md-sys-color-surface: #1E1E1E;
+        --md-sys-color-on-surface: #E0E0E0;
+        --md-sys-color-surface-variant: #2C2C2C;
+        --md-sys-color-on-surface-variant: #CAC4D0;
+        --md-sys-color-outline: #49454E;
+        --md-sys-color-surface-container: #29252E;
+        --md-sys-color-surface-container-high: #35303F;
+        --md-sys-color-surface-container-highest: #3E3A47;
+        background: var(--md-sys-color-background);
+    }
+    body {
+        font-family: 'Roboto', 'Google Sans', sans-serif;
+        color: var(--md-sys-color-on-surface);
+        background-color: var(--md-sys-color-background);
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+    .header {
+        padding: 18px;
+        background-color: var(--md-sys-color-surface);
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        margin-bottom: 4px;
+    }
+    h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--md-sys-color-on-surface);
+    }
+    .subtitle {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 0 0 16px 16px;
+        overflow: hidden;
+    }
+    th {
+        padding: 10px 16px;
+        font-weight: 900;
+        text-align: left;
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        border-bottom: 1px solid var(--md-sys-color-outline);
+    }
+    td {
+        padding: 2px 16px;
+        font-family: 'Roboto Mono', monospace;
+    }
+    tr:nth-child(even) {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    tr:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+    .coverage-cell {
+        position: relative;
+        font-weight: 500;
+        border-top: 1px solid var(--md-sys-color-outline);
+        text-align: center;
+    }
+    </style>
+  <foreignObject width="650" height="1686" x="0" y="0" style="overflow: visible;">
+    <body xmlns="http://www.w3.org/1999/xhtml">
+      <div class="header">
+        <h2>Unicode Block Coverage: NotoSansSC-Regular.otf</h2>
+        <p class="subtitle">Total supported glyphs: 30890</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Block Range</th>
+            <th>Block Name</th>
+            <th>Coverage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0000..007F</td>
+            <td>Basic Latin</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">95/95</td>
+          </tr>
+          <tr>
+            <td>0080..00FF</td>
+            <td>Latin-1 Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>0100..017F</td>
+            <td>Latin Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 23.4%, var(--md-sys-color-tertiary-container) 23.4%);color: var(--md-sys-color-on-tertiary-container);">30/128</td>
+          </tr>
+          <tr>
+            <td>0180..024F</td>
+            <td>Latin Extended-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 11.1%, var(--md-sys-color-tertiary-container) 11.1%);color: var(--md-sys-color-on-tertiary-container);">23/208</td>
+          </tr>
+          <tr>
+            <td>0250..02AF</td>
+            <td>IPA Extensions</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.1%, var(--md-sys-color-tertiary-container) 2.1%);color: var(--md-sys-color-on-tertiary-container);">2/96</td>
+          </tr>
+          <tr>
+            <td>02B0..02FF</td>
+            <td>Spacing Modifier Letters</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 10.0%, var(--md-sys-color-tertiary-container) 10.0%);color: var(--md-sys-color-on-tertiary-container);">8/80</td>
+          </tr>
+          <tr>
+            <td>0300..036F</td>
+            <td>Combining Diacritical Marks</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 4.5%, var(--md-sys-color-tertiary-container) 4.5%);color: var(--md-sys-color-on-tertiary-container);">5/112</td>
+          </tr>
+          <tr>
+            <td>0370..03FF</td>
+            <td>Greek and Coptic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 36.3%, var(--md-sys-color-tertiary-container) 36.3%);color: var(--md-sys-color-on-tertiary-container);">49/135</td>
+          </tr>
+          <tr>
+            <td>0400..04FF</td>
+            <td>Cyrillic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 25.8%, var(--md-sys-color-tertiary-container) 25.8%);color: var(--md-sys-color-on-tertiary-container);">66/256</td>
+          </tr>
+          <tr>
+            <td>1E00..1EFF</td>
+            <td>Latin Extended Additional</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 35.9%, var(--md-sys-color-tertiary-container) 35.9%);color: var(--md-sys-color-on-tertiary-container);">92/256</td>
+          </tr>
+          <tr>
+            <td>2000..206F</td>
+            <td>General Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 30.6%, var(--md-sys-color-tertiary-container) 30.6%);color: var(--md-sys-color-on-tertiary-container);">34/111</td>
+          </tr>
+          <tr>
+            <td>2070..209F</td>
+            <td>Superscripts and Subscripts</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.4%, var(--md-sys-color-tertiary-container) 2.4%);color: var(--md-sys-color-on-tertiary-container);">1/42</td>
+          </tr>
+          <tr>
+            <td>20A0..20CF</td>
+            <td>Currency Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 9.1%, var(--md-sys-color-tertiary-container) 9.1%);color: var(--md-sys-color-on-tertiary-container);">3/33</td>
+          </tr>
+          <tr>
+            <td>20D0..20FF</td>
+            <td>Combining Diacritical Marks for Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 6.1%, var(--md-sys-color-tertiary-container) 6.1%);color: var(--md-sys-color-on-tertiary-container);">2/33</td>
+          </tr>
+          <tr>
+            <td>2100..214F</td>
+            <td>Letterlike Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 20.0%, var(--md-sys-color-tertiary-container) 20.0%);color: var(--md-sys-color-on-tertiary-container);">16/80</td>
+          </tr>
+          <tr>
+            <td>2150..218F</td>
+            <td>Number Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 40.0%, var(--md-sys-color-tertiary-container) 40.0%);color: var(--md-sys-color-on-tertiary-container);">24/60</td>
+          </tr>
+          <tr>
+            <td>2190..21FF</td>
+            <td>Arrows</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 22.3%, var(--md-sys-color-tertiary-container) 22.3%);color: var(--md-sys-color-on-tertiary-container);">25/112</td>
+          </tr>
+          <tr>
+            <td>2200..22FF</td>
+            <td>Mathematical Operators</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 28.9%, var(--md-sys-color-tertiary-container) 28.9%);color: var(--md-sys-color-on-tertiary-container);">74/256</td>
+          </tr>
+          <tr>
+            <td>2300..23FF</td>
+            <td>Miscellaneous Technical</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 10.5%, var(--md-sys-color-tertiary-container) 10.5%);color: var(--md-sys-color-on-tertiary-container);">27/256</td>
+          </tr>
+          <tr>
+            <td>2400..243F</td>
+            <td>Control Pictures</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.4%, var(--md-sys-color-tertiary-container) 2.4%);color: var(--md-sys-color-on-tertiary-container);">1/42</td>
+          </tr>
+          <tr>
+            <td>2460..24FF</td>
+            <td>Enclosed Alphanumerics</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">160/160</td>
+          </tr>
+          <tr>
+            <td>2500..257F</td>
+            <td>Box Drawing</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">128/128</td>
+          </tr>
+          <tr>
+            <td>2580..259F</td>
+            <td>Block Elements</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>25A0..25FF</td>
+            <td>Geometric Shapes</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 40.6%, var(--md-sys-color-tertiary-container) 40.6%);color: var(--md-sys-color-on-tertiary-container);">39/96</td>
+          </tr>
+          <tr>
+            <td>2600..26FF</td>
+            <td>Miscellaneous Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 19.5%, var(--md-sys-color-tertiary-container) 19.5%);color: var(--md-sys-color-on-tertiary-container);">50/256</td>
+          </tr>
+          <tr>
+            <td>2700..27BF</td>
+            <td>Dingbats</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 19.8%, var(--md-sys-color-tertiary-container) 19.8%);color: var(--md-sys-color-on-tertiary-container);">38/192</td>
+          </tr>
+          <tr>
+            <td>2900..297F</td>
+            <td>Supplemental Arrows-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.6%, var(--md-sys-color-tertiary-container) 1.6%);color: var(--md-sys-color-on-tertiary-container);">2/128</td>
+          </tr>
+          <tr>
+            <td>2980..29FF</td>
+            <td>Miscellaneous Mathematical Symbols-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.3%, var(--md-sys-color-tertiary-container) 2.3%);color: var(--md-sys-color-on-tertiary-container);">3/128</td>
+          </tr>
+          <tr>
+            <td>2B00..2BFF</td>
+            <td>Miscellaneous Symbols and Arrows</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.0%, var(--md-sys-color-tertiary-container) 2.0%);color: var(--md-sys-color-on-tertiary-container);">5/254</td>
+          </tr>
+          <tr>
+            <td>2E00..2E7F</td>
+            <td>Supplemental Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.1%, var(--md-sys-color-tertiary-container) 2.1%);color: var(--md-sys-color-on-tertiary-container);">2/94</td>
+          </tr>
+          <tr>
+            <td>2E80..2EFF</td>
+            <td>CJK Radicals Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">115/115</td>
+          </tr>
+          <tr>
+            <td>2F00..2FDF</td>
+            <td>Kangxi Radicals</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">214/214</td>
+          </tr>
+          <tr>
+            <td>2FF0..2FFF</td>
+            <td>Ideographic Description Characters</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 75.0%, var(--md-sys-color-secondary-container) 75.0%);color: var(--md-sys-color-on-secondary);">12/16</td>
+          </tr>
+          <tr>
+            <td>3000..303F</td>
+            <td>CJK Symbols and Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">64/64</td>
+          </tr>
+          <tr>
+            <td>3040..309F</td>
+            <td>Hiragana</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">93/93</td>
+          </tr>
+          <tr>
+            <td>30A0..30FF</td>
+            <td>Katakana</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>3100..312F</td>
+            <td>Bopomofo</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">43/43</td>
+          </tr>
+          <tr>
+            <td>3130..318F</td>
+            <td>Hangul Compatibility Jamo</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 98.9%, var(--md-sys-color-primary-container) 98.9%);color: var(--md-sys-color-on-primary);">93/94</td>
+          </tr>
+          <tr>
+            <td>3190..319F</td>
+            <td>Kanbun</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">16/16</td>
+          </tr>
+          <tr>
+            <td>31A0..31BF</td>
+            <td>Bopomofo Extended</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 87.5%, var(--md-sys-color-secondary-container) 87.5%);color: var(--md-sys-color-on-secondary);">28/32</td>
+          </tr>
+          <tr>
+            <td>31C0..31EF</td>
+            <td>CJK Strokes</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 92.3%, var(--md-sys-color-primary-container) 92.3%);color: var(--md-sys-color-on-primary);">36/39</td>
+          </tr>
+          <tr>
+            <td>31F0..31FF</td>
+            <td>Katakana Phonetic Extensions</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">16/16</td>
+          </tr>
+          <tr>
+            <td>3200..32FF</td>
+            <td>Enclosed CJK Letters and Months</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">255/255</td>
+          </tr>
+          <tr>
+            <td>3300..33FF</td>
+            <td>CJK Compatibility</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.6%, var(--md-sys-color-primary-container) 99.6%);color: var(--md-sys-color-on-primary);">255/256</td>
+          </tr>
+          <tr>
+            <td>3400..4DBF</td>
+            <td>CJK Unified Ideographs Extension A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.8%, var(--md-sys-color-primary-container) 99.8%);color: var(--md-sys-color-on-primary);">6582/6592</td>
+          </tr>
+          <tr>
+            <td>4E00..9FFF</td>
+            <td>CJK Unified Ideographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.9%, var(--md-sys-color-primary-container) 99.9%);color: var(--md-sys-color-on-primary);">20976/20992</td>
+          </tr>
+          <tr>
+            <td>F900..FAFF</td>
+            <td>CJK Compatibility Ideographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 25.8%, var(--md-sys-color-tertiary-container) 25.8%);color: var(--md-sys-color-on-tertiary-container);">122/472</td>
+          </tr>
+          <tr>
+            <td>FB00..FB4F</td>
+            <td>Alphabetic Presentation Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 8.6%, var(--md-sys-color-tertiary-container) 8.6%);color: var(--md-sys-color-on-tertiary-container);">5/58</td>
+          </tr>
+          <tr>
+            <td>FE10..FE1F</td>
+            <td>Vertical Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">10/10</td>
+          </tr>
+          <tr>
+            <td>FE30..FE4F</td>
+            <td>CJK Compatibility Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>FE50..FE6F</td>
+            <td>Small Form Variants</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">26/26</td>
+          </tr>
+          <tr>
+            <td>FF00..FFEF</td>
+            <td>Halfwidth and Fullwidth Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.6%, var(--md-sys-color-primary-container) 99.6%);color: var(--md-sys-color-on-primary);">224/225</td>
+          </tr>
+          <tr>
+            <td>1F100..1F1FF</td>
+            <td>Enclosed Alphanumeric Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 83.5%, var(--md-sys-color-secondary-container) 83.5%);color: var(--md-sys-color-on-secondary);">167/200</td>
+          </tr>
+          <tr>
+            <td>1F200..1F2FF</td>
+            <td>Enclosed Ideographic Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 90.6%, var(--md-sys-color-primary-container) 90.6%);color: var(--md-sys-color-on-primary);">58/64</td>
+          </tr>
+          <tr>
+            <td>20000..2A6DF</td>
+            <td>CJK Unified Ideographs Extension B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">54/42720</td>
+          </tr>
+          <tr>
+            <td>2A700..2B73F</td>
+            <td>CJK Unified Ideographs Extension C</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">44/4159</td>
+          </tr>
+          <tr>
+            <td>2B740..2B81F</td>
+            <td>CJK Unified Ideographs Extension D</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.6%, var(--md-sys-color-tertiary-container) 3.6%);color: var(--md-sys-color-on-tertiary-container);">8/222</td>
+          </tr>
+          <tr>
+            <td>2B820..2CEAF</td>
+            <td>CJK Unified Ideographs Extension E</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.9%, var(--md-sys-color-tertiary-container) 1.9%);color: var(--md-sys-color-on-tertiary-container);">108/5762</td>
+          </tr>
+          <tr>
+            <td>2CEB0..2EBEF</td>
+            <td>CJK Unified Ideographs Extension F</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">1/7473</td>
+          </tr>
+          <tr>
+            <td>2F800..2FA1F</td>
+            <td>CJK Compatibility Ideographs Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.4%, var(--md-sys-color-tertiary-container) 0.4%);color: var(--md-sys-color-on-tertiary-container);">2/542</td>
+          </tr>
+          <tr>
+            <td>30000..3134F</td>
+            <td>CJK Unified Ideographs Extension G</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">3/4939</td>
+          </tr>
+        </tbody>
+      </table>
+    </body>
+  </foreignObject>
+</svg>
