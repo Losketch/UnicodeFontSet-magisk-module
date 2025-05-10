@@ -12,7 +12,7 @@
 
 ## 使用须知
 
-- 本脚本并非适配所有机型和系统，兼容性参考了 simonsmh 的 notocjk 模块和 lakejason0 的 又又一个遍黑体 Magisk 模块，用户可参考 lxgw 提供的 [CJK 字体 Magisk 模块兼容性调整指南](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#%E5%85%BC%E5%AE%B9%E6%80%A7%E8%B0%83%E6%95%B4-%E4%BB%85%E4%BE%9B%E5%8F%82%E8%80%83) 以及 notocjk 模块的说明。因使用本模块造成的任何设备问题，作者概不负责。
+- 本脚本并非适配所有机型和系统，兼容性参考了 simonsmh 的 notocjk 模块和 lakejason0 的 又又一个遍黑体 Magisk 模块，用户可参考 lxgw 提供的 [CJK 字体 Magisk 模块兼容性调整指南](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#%E5%85%BC%E5%AE%B9%E6%80%A7%E8%B0%83%E6%95%B4-%E4%BB%85%E4%BE%9B%E5%8F%82%E8%80%83) 以及 [simonsmh 制作的 notocjk 模块](https://github.com/simonsmh/notocjk) 的说明。因使用本模块造成的任何设备问题，作者概不负责。
 - 请勿将本模块用于商业用途。
 
 ## 字体来源
