@@ -1,0 +1,240 @@
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="836" viewBox="0 0 650 836" overflow="visible">
+  <style>
+    :root {
+        --md-sys-color-primary: #D0BCFF;
+        --md-sys-color-on-primary: #371E73;
+        --md-sys-color-primary-container: #4F378B;
+        --md-sys-color-on-primary-container: #EADDFF;
+        --md-sys-color-secondary: #CCC2DC;
+        --md-sys-color-on-secondary: #332D41;
+        --md-sys-color-secondary-container: #4A4458;
+        --md-sys-color-on-secondary-container: #E8DEF8;
+        --md-sys-color-tertiary: #EFB8C8;
+        --md-sys-color-on-tertiary: #492532;
+        --md-sys-color-tertiary-container: #633B48;
+        --md-sys-color-on-tertiary-container: #FFD8E4;
+        --md-sys-color-background: #121212;
+        --md-sys-color-on-background: #E0E0E0;
+        --md-sys-color-surface: #1E1E1E;
+        --md-sys-color-on-surface: #E0E0E0;
+        --md-sys-color-surface-variant: #2C2C2C;
+        --md-sys-color-on-surface-variant: #CAC4D0;
+        --md-sys-color-outline: #49454E;
+        --md-sys-color-surface-container: #29252E;
+        --md-sys-color-surface-container-high: #35303F;
+        --md-sys-color-surface-container-highest: #3E3A47;
+        background: var(--md-sys-color-background);
+    }
+    body {
+        font-family: 'Roboto', 'Google Sans', sans-serif;
+        color: var(--md-sys-color-on-surface);
+        background-color: var(--md-sys-color-background);
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+    .header {
+        padding: 18px;
+        background-color: var(--md-sys-color-surface);
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        margin-bottom: 4px;
+    }
+    h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--md-sys-color-on-surface);
+    }
+    .subtitle {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 0 0 16px 16px;
+        overflow: hidden;
+    }
+    th {
+        padding: 10px 16px;
+        font-weight: 900;
+        text-align: left;
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        border-bottom: 1px solid var(--md-sys-color-outline);
+    }
+    td {
+        padding: 2px 16px;
+        font-family: 'Roboto Mono', monospace;
+    }
+    tr:nth-child(even) {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    tr:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+    .coverage-cell {
+        position: relative;
+        font-weight: 500;
+        border-top: 1px solid var(--md-sys-color-outline);
+        text-align: center;
+    }
+    </style>
+  <foreignObject width="650" height="836" x="0" y="0" style="overflow: visible;">
+    <body xmlns="http://www.w3.org/1999/xhtml">
+      <div class="header">
+        <h2>Unicode Block Coverage: NotoColorEmoji.ttf</h2>
+        <p class="subtitle">Total supported glyphs: 1492</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Block Range</th>
+            <th>Block Name</th>
+            <th>Coverage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0000..007F</td>
+            <td>Basic Latin</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 13.7%, var(--md-sys-color-tertiary-container) 13.7%);color: var(--md-sys-color-on-tertiary-container);">13/95</td>
+          </tr>
+          <tr>
+            <td>0080..00FF</td>
+            <td>Latin-1 Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.1%, var(--md-sys-color-tertiary-container) 2.1%);color: var(--md-sys-color-on-tertiary-container);">2/96</td>
+          </tr>
+          <tr>
+            <td>2000..206F</td>
+            <td>General Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.7%, var(--md-sys-color-tertiary-container) 2.7%);color: var(--md-sys-color-on-tertiary-container);">3/111</td>
+          </tr>
+          <tr>
+            <td>20D0..20FF</td>
+            <td>Combining Diacritical Marks for Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.0%, var(--md-sys-color-tertiary-container) 3.0%);color: var(--md-sys-color-on-tertiary-container);">1/33</td>
+          </tr>
+          <tr>
+            <td>2100..214F</td>
+            <td>Letterlike Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.5%, var(--md-sys-color-tertiary-container) 2.5%);color: var(--md-sys-color-on-tertiary-container);">2/80</td>
+          </tr>
+          <tr>
+            <td>2190..21FF</td>
+            <td>Arrows</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 7.1%, var(--md-sys-color-tertiary-container) 7.1%);color: var(--md-sys-color-on-tertiary-container);">8/112</td>
+          </tr>
+          <tr>
+            <td>2300..23FF</td>
+            <td>Miscellaneous Technical</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 7.0%, var(--md-sys-color-tertiary-container) 7.0%);color: var(--md-sys-color-on-tertiary-container);">18/256</td>
+          </tr>
+          <tr>
+            <td>2460..24FF</td>
+            <td>Enclosed Alphanumerics</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.6%, var(--md-sys-color-tertiary-container) 0.6%);color: var(--md-sys-color-on-tertiary-container);">1/160</td>
+          </tr>
+          <tr>
+            <td>25A0..25FF</td>
+            <td>Geometric Shapes</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 8.3%, var(--md-sys-color-tertiary-container) 8.3%);color: var(--md-sys-color-on-tertiary-container);">8/96</td>
+          </tr>
+          <tr>
+            <td>2600..26FF</td>
+            <td>Miscellaneous Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 32.4%, var(--md-sys-color-tertiary-container) 32.4%);color: var(--md-sys-color-on-tertiary-container);">83/256</td>
+          </tr>
+          <tr>
+            <td>2700..27BF</td>
+            <td>Dingbats</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 17.2%, var(--md-sys-color-tertiary-container) 17.2%);color: var(--md-sys-color-on-tertiary-container);">33/192</td>
+          </tr>
+          <tr>
+            <td>2900..297F</td>
+            <td>Supplemental Arrows-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.6%, var(--md-sys-color-tertiary-container) 1.6%);color: var(--md-sys-color-on-tertiary-container);">2/128</td>
+          </tr>
+          <tr>
+            <td>2B00..2BFF</td>
+            <td>Miscellaneous Symbols and Arrows</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.8%, var(--md-sys-color-tertiary-container) 2.8%);color: var(--md-sys-color-on-tertiary-container);">7/254</td>
+          </tr>
+          <tr>
+            <td>3000..303F</td>
+            <td>CJK Symbols and Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.1%, var(--md-sys-color-tertiary-container) 3.1%);color: var(--md-sys-color-on-tertiary-container);">2/64</td>
+          </tr>
+          <tr>
+            <td>3200..32FF</td>
+            <td>Enclosed CJK Letters and Months</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.8%, var(--md-sys-color-tertiary-container) 0.8%);color: var(--md-sys-color-on-tertiary-container);">2/255</td>
+          </tr>
+          <tr>
+            <td>1F000..1F02F</td>
+            <td>Mahjong Tiles</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.3%, var(--md-sys-color-tertiary-container) 2.3%);color: var(--md-sys-color-on-tertiary-container);">1/44</td>
+          </tr>
+          <tr>
+            <td>1F0A0..1F0FF</td>
+            <td>Playing Cards</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.2%, var(--md-sys-color-tertiary-container) 1.2%);color: var(--md-sys-color-on-tertiary-container);">1/82</td>
+          </tr>
+          <tr>
+            <td>1F100..1F1FF</td>
+            <td>Enclosed Alphanumeric Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 20.5%, var(--md-sys-color-tertiary-container) 20.5%);color: var(--md-sys-color-on-tertiary-container);">41/200</td>
+          </tr>
+          <tr>
+            <td>1F200..1F2FF</td>
+            <td>Enclosed Ideographic Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 23.4%, var(--md-sys-color-tertiary-container) 23.4%);color: var(--md-sys-color-on-tertiary-container);">15/64</td>
+          </tr>
+          <tr>
+            <td>1F300..1F5FF</td>
+            <td>Miscellaneous Symbols and Pictographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 82.9%, var(--md-sys-color-secondary-container) 82.9%);color: var(--md-sys-color-on-secondary);">637/768</td>
+          </tr>
+          <tr>
+            <td>1F600..1F64F</td>
+            <td>Emoticons</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">80/80</td>
+          </tr>
+          <tr>
+            <td>1F680..1F6FF</td>
+            <td>Transport and Map Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 88.2%, var(--md-sys-color-secondary-container) 88.2%);color: var(--md-sys-color-on-secondary);">105/119</td>
+          </tr>
+          <tr>
+            <td>1F780..1F7FF</td>
+            <td>Geometric Shapes Extended</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 12.6%, var(--md-sys-color-tertiary-container) 12.6%);color: var(--md-sys-color-on-tertiary-container);">13/103</td>
+          </tr>
+          <tr>
+            <td>1F900..1F9FF</td>
+            <td>Supplemental Symbols and Pictographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 94.5%, var(--md-sys-color-primary-container) 94.5%);color: var(--md-sys-color-on-primary);">242/256</td>
+          </tr>
+          <tr>
+            <td>1FA70..1FAFF</td>
+            <td>Symbols and Pictographs Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 94.2%, var(--md-sys-color-primary-container) 94.2%);color: var(--md-sys-color-on-primary);">114/121</td>
+          </tr>
+          <tr>
+            <td>E0000..E007F</td>
+            <td>Tags</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 38.1%, var(--md-sys-color-tertiary-container) 38.1%);color: var(--md-sys-color-on-tertiary-container);">37/97</td>
+          </tr>
+          <tr>
+            <td>F0000..FFFFF</td>
+            <td>Supplementary Private Use Area-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">21/65534</td>
+          </tr>
+        </tbody>
+      </table>
+    </body>
+  </foreignObject>
+</svg>

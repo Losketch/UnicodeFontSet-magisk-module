@@ -1,0 +1,1115 @@
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="5211" viewBox="0 0 650 5211" overflow="visible">
+  <style>
+    :root {
+        --md-sys-color-primary: #D0BCFF;
+        --md-sys-color-on-primary: #371E73;
+        --md-sys-color-primary-container: #4F378B;
+        --md-sys-color-on-primary-container: #EADDFF;
+        --md-sys-color-secondary: #CCC2DC;
+        --md-sys-color-on-secondary: #332D41;
+        --md-sys-color-secondary-container: #4A4458;
+        --md-sys-color-on-secondary-container: #E8DEF8;
+        --md-sys-color-tertiary: #EFB8C8;
+        --md-sys-color-on-tertiary: #492532;
+        --md-sys-color-tertiary-container: #633B48;
+        --md-sys-color-on-tertiary-container: #FFD8E4;
+        --md-sys-color-background: #121212;
+        --md-sys-color-on-background: #E0E0E0;
+        --md-sys-color-surface: #1E1E1E;
+        --md-sys-color-on-surface: #E0E0E0;
+        --md-sys-color-surface-variant: #2C2C2C;
+        --md-sys-color-on-surface-variant: #CAC4D0;
+        --md-sys-color-outline: #49454E;
+        --md-sys-color-surface-container: #29252E;
+        --md-sys-color-surface-container-high: #35303F;
+        --md-sys-color-surface-container-highest: #3E3A47;
+        background: var(--md-sys-color-background);
+    }
+    body {
+        font-family: 'Roboto', 'Google Sans', sans-serif;
+        color: var(--md-sys-color-on-surface);
+        background-color: var(--md-sys-color-background);
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+    .header {
+        padding: 18px;
+        background-color: var(--md-sys-color-surface);
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        margin-bottom: 4px;
+    }
+    h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--md-sys-color-on-surface);
+    }
+    .subtitle {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 0 0 16px 16px;
+        overflow: hidden;
+    }
+    th {
+        padding: 10px 16px;
+        font-weight: 900;
+        text-align: left;
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        border-bottom: 1px solid var(--md-sys-color-outline);
+    }
+    td {
+        padding: 2px 16px;
+        font-family: 'Roboto Mono', monospace;
+    }
+    tr:nth-child(even) {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    tr:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+    .coverage-cell {
+        position: relative;
+        font-weight: 500;
+        border-top: 1px solid var(--md-sys-color-outline);
+        text-align: center;
+    }
+    </style>
+  <foreignObject width="650" height="5211" x="0" y="0" style="overflow: visible;">
+    <body xmlns="http://www.w3.org/1999/xhtml">
+      <div class="header">
+        <h2>Unicode Block Coverage: NotoUnicode.otf</h2>
+        <p class="subtitle">Total supported glyphs: 21690</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Block Range</th>
+            <th>Block Name</th>
+            <th>Coverage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0000..007F</td>
+            <td>Basic Latin</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">95/95</td>
+          </tr>
+          <tr>
+            <td>0080..00FF</td>
+            <td>Latin-1 Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>0100..017F</td>
+            <td>Latin Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">128/128</td>
+          </tr>
+          <tr>
+            <td>0180..024F</td>
+            <td>Latin Extended-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">208/208</td>
+          </tr>
+          <tr>
+            <td>0250..02AF</td>
+            <td>IPA Extensions</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>02B0..02FF</td>
+            <td>Spacing Modifier Letters</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">80/80</td>
+          </tr>
+          <tr>
+            <td>0300..036F</td>
+            <td>Combining Diacritical Marks</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">112/112</td>
+          </tr>
+          <tr>
+            <td>0370..03FF</td>
+            <td>Greek and Coptic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">135/135</td>
+          </tr>
+          <tr>
+            <td>0400..04FF</td>
+            <td>Cyrillic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
+          </tr>
+          <tr>
+            <td>0500..052F</td>
+            <td>Cyrillic Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">48/48</td>
+          </tr>
+          <tr>
+            <td>0530..058F</td>
+            <td>Armenian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">91/91</td>
+          </tr>
+          <tr>
+            <td>0590..05FF</td>
+            <td>Hebrew</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">88/88</td>
+          </tr>
+          <tr>
+            <td>0600..06FF</td>
+            <td>Arabic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
+          </tr>
+          <tr>
+            <td>0750..077F</td>
+            <td>Arabic Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">48/48</td>
+          </tr>
+          <tr>
+            <td>0800..083F</td>
+            <td>Samaritan</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">61/61</td>
+          </tr>
+          <tr>
+            <td>0840..085F</td>
+            <td>Mandaic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">29/29</td>
+          </tr>
+          <tr>
+            <td>0860..086F</td>
+            <td>Syriac Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">11/11</td>
+          </tr>
+          <tr>
+            <td>0870..089F</td>
+            <td>Arabic Extended-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 95.3%, var(--md-sys-color-primary-container) 95.3%);color: var(--md-sys-color-on-primary);">41/43</td>
+          </tr>
+          <tr>
+            <td>08A0..08FF</td>
+            <td>Arabic Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>0900..097F</td>
+            <td>Devanagari</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">128/128</td>
+          </tr>
+          <tr>
+            <td>0980..09FF</td>
+            <td>Bengali</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.0%, var(--md-sys-color-primary-container) 99.0%);color: var(--md-sys-color-on-primary);">96/97</td>
+          </tr>
+          <tr>
+            <td>0A00..0A7F</td>
+            <td>Gurmukhi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">80/80</td>
+          </tr>
+          <tr>
+            <td>0A80..0AFF</td>
+            <td>Gujarati</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">91/91</td>
+          </tr>
+          <tr>
+            <td>0B00..0B7F</td>
+            <td>Oriya</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 97.8%, var(--md-sys-color-primary-container) 97.8%);color: var(--md-sys-color-on-primary);">91/93</td>
+          </tr>
+          <tr>
+            <td>0C00..0C7F</td>
+            <td>Telugu</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.0%, var(--md-sys-color-primary-container) 99.0%);color: var(--md-sys-color-on-primary);">100/101</td>
+          </tr>
+          <tr>
+            <td>0C80..0CFF</td>
+            <td>Kannada</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 98.9%, var(--md-sys-color-primary-container) 98.9%);color: var(--md-sys-color-on-primary);">91/92</td>
+          </tr>
+          <tr>
+            <td>0D00..0D7F</td>
+            <td>Malayalam</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">118/118</td>
+          </tr>
+          <tr>
+            <td>0D80..0DFF</td>
+            <td>Sinhala</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">91/91</td>
+          </tr>
+          <tr>
+            <td>0E80..0EFF</td>
+            <td>Lao</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">83/83</td>
+          </tr>
+          <tr>
+            <td>0F00..0FFF</td>
+            <td>Tibetan</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">211/211</td>
+          </tr>
+          <tr>
+            <td>16A0..16FF</td>
+            <td>Runic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">89/89</td>
+          </tr>
+          <tr>
+            <td>1700..171F</td>
+            <td>Tagalog</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">23/23</td>
+          </tr>
+          <tr>
+            <td>1720..173F</td>
+            <td>Hanunoo</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">23/23</td>
+          </tr>
+          <tr>
+            <td>1740..175F</td>
+            <td>Buhid</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">20/20</td>
+          </tr>
+          <tr>
+            <td>1760..177F</td>
+            <td>Tagbanwa</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">18/18</td>
+          </tr>
+          <tr>
+            <td>1800..18AF</td>
+            <td>Mongolian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">158/158</td>
+          </tr>
+          <tr>
+            <td>1900..194F</td>
+            <td>Limbu</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">68/68</td>
+          </tr>
+          <tr>
+            <td>1A20..1AAF</td>
+            <td>Tai Tham</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">127/127</td>
+          </tr>
+          <tr>
+            <td>1AB0..1AFF</td>
+            <td>Combining Diacritical Marks Extended</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 53.4%, var(--md-sys-color-secondary-container) 53.4%);color: var(--md-sys-color-on-secondary);">31/58</td>
+          </tr>
+          <tr>
+            <td>1B00..1B7F</td>
+            <td>Balinese</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 97.6%, var(--md-sys-color-primary-container) 97.6%);color: var(--md-sys-color-on-primary);">124/127</td>
+          </tr>
+          <tr>
+            <td>1B80..1BBF</td>
+            <td>Sundanese</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">64/64</td>
+          </tr>
+          <tr>
+            <td>1BC0..1BFF</td>
+            <td>Batak</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">56/56</td>
+          </tr>
+          <tr>
+            <td>1C00..1C4F</td>
+            <td>Lepcha</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">74/74</td>
+          </tr>
+          <tr>
+            <td>1C80..1C8F</td>
+            <td>Cyrillic Extended-C</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 81.8%, var(--md-sys-color-secondary-container) 81.8%);color: var(--md-sys-color-on-secondary);">9/11</td>
+          </tr>
+          <tr>
+            <td>1CC0..1CCF</td>
+            <td>Sundanese Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">8/8</td>
+          </tr>
+          <tr>
+            <td>1CD0..1CFF</td>
+            <td>Vedic Extensions</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">43/43</td>
+          </tr>
+          <tr>
+            <td>1D00..1D7F</td>
+            <td>Phonetic Extensions</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">128/128</td>
+          </tr>
+          <tr>
+            <td>1D80..1DBF</td>
+            <td>Phonetic Extensions Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">64/64</td>
+          </tr>
+          <tr>
+            <td>1DC0..1DFF</td>
+            <td>Combining Diacritical Marks Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">64/64</td>
+          </tr>
+          <tr>
+            <td>1E00..1EFF</td>
+            <td>Latin Extended Additional</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
+          </tr>
+          <tr>
+            <td>1F00..1FFF</td>
+            <td>Greek Extended</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">233/233</td>
+          </tr>
+          <tr>
+            <td>2000..206F</td>
+            <td>General Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">111/111</td>
+          </tr>
+          <tr>
+            <td>2070..209F</td>
+            <td>Superscripts and Subscripts</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">42/42</td>
+          </tr>
+          <tr>
+            <td>20A0..20CF</td>
+            <td>Currency Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">33/33</td>
+          </tr>
+          <tr>
+            <td>20D0..20FF</td>
+            <td>Combining Diacritical Marks for Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">33/33</td>
+          </tr>
+          <tr>
+            <td>2100..214F</td>
+            <td>Letterlike Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">80/80</td>
+          </tr>
+          <tr>
+            <td>2150..218F</td>
+            <td>Number Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">60/60</td>
+          </tr>
+          <tr>
+            <td>2300..23FF</td>
+            <td>Miscellaneous Technical</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
+          </tr>
+          <tr>
+            <td>2B00..2BFF</td>
+            <td>Miscellaneous Symbols and Arrows</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.6%, var(--md-sys-color-primary-container) 99.6%);color: var(--md-sys-color-on-primary);">253/254</td>
+          </tr>
+          <tr>
+            <td>2C00..2C5F</td>
+            <td>Glagolitic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>2C60..2C7F</td>
+            <td>Latin Extended-C</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>2DE0..2DFF</td>
+            <td>Cyrillic Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>2E00..2E7F</td>
+            <td>Supplemental Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">94/94</td>
+          </tr>
+          <tr>
+            <td>A640..A69F</td>
+            <td>Cyrillic Extended-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>A6A0..A6FF</td>
+            <td>Bamum</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">88/88</td>
+          </tr>
+          <tr>
+            <td>A720..A7FF</td>
+            <td>Latin Extended-D</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 94.6%, var(--md-sys-color-primary-container) 94.6%);color: var(--md-sys-color-on-primary);">193/204</td>
+          </tr>
+          <tr>
+            <td>A800..A82F</td>
+            <td>Syloti Nagri</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">45/45</td>
+          </tr>
+          <tr>
+            <td>A830..A83F</td>
+            <td>Common Indic Number Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">10/10</td>
+          </tr>
+          <tr>
+            <td>A880..A8DF</td>
+            <td>Saurashtra</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">82/82</td>
+          </tr>
+          <tr>
+            <td>A8E0..A8FF</td>
+            <td>Devanagari Extended</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>A900..A92F</td>
+            <td>Kayah Li</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">48/48</td>
+          </tr>
+          <tr>
+            <td>A930..A95F</td>
+            <td>Rejang</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">37/37</td>
+          </tr>
+          <tr>
+            <td>AA00..AA5F</td>
+            <td>Cham</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">83/83</td>
+          </tr>
+          <tr>
+            <td>AA80..AADF</td>
+            <td>Tai Viet</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">72/72</td>
+          </tr>
+          <tr>
+            <td>AAE0..AAFF</td>
+            <td>Meetei Mayek Extensions</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">23/23</td>
+          </tr>
+          <tr>
+            <td>AB30..AB6F</td>
+            <td>Latin Extended-E</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">60/60</td>
+          </tr>
+          <tr>
+            <td>E000..F8FF</td>
+            <td>Private Use Area</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">3/6400</td>
+          </tr>
+          <tr>
+            <td>FB00..FB4F</td>
+            <td>Alphabetic Presentation Forms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">58/58</td>
+          </tr>
+          <tr>
+            <td>FB50..FDFF</td>
+            <td>Arabic Presentation Forms-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 96.2%, var(--md-sys-color-primary-container) 96.2%);color: var(--md-sys-color-on-primary);">631/656</td>
+          </tr>
+          <tr>
+            <td>FE00..FE0F</td>
+            <td>Variation Selectors</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">16/16</td>
+          </tr>
+          <tr>
+            <td>FE20..FE2F</td>
+            <td>Combining Half Marks</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">16/16</td>
+          </tr>
+          <tr>
+            <td>FE70..FEFF</td>
+            <td>Arabic Presentation Forms-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">141/141</td>
+          </tr>
+          <tr>
+            <td>FFF0..FFFF</td>
+            <td>Specials</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">5/5</td>
+          </tr>
+          <tr>
+            <td>10000..1007F</td>
+            <td>Linear B Syllabary</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">88/88</td>
+          </tr>
+          <tr>
+            <td>10080..100FF</td>
+            <td>Linear B Ideograms</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">123/123</td>
+          </tr>
+          <tr>
+            <td>10100..1013F</td>
+            <td>Aegean Numbers</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">57/57</td>
+          </tr>
+          <tr>
+            <td>10140..1018F</td>
+            <td>Ancient Greek Numbers</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">79/79</td>
+          </tr>
+          <tr>
+            <td>10190..101CF</td>
+            <td>Ancient Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">14/14</td>
+          </tr>
+          <tr>
+            <td>101D0..101FF</td>
+            <td>Phaistos Disc</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">46/46</td>
+          </tr>
+          <tr>
+            <td>102E0..102FF</td>
+            <td>Coptic Epact Numbers</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">28/28</td>
+          </tr>
+          <tr>
+            <td>10300..1032F</td>
+            <td>Old Italic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">39/39</td>
+          </tr>
+          <tr>
+            <td>10350..1037F</td>
+            <td>Old Permic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">43/43</td>
+          </tr>
+          <tr>
+            <td>10500..1052F</td>
+            <td>Elbasan</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">40/40</td>
+          </tr>
+          <tr>
+            <td>10530..1056F</td>
+            <td>Caucasian Albanian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">53/53</td>
+          </tr>
+          <tr>
+            <td>10570..105BF</td>
+            <td>Vithkuqi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">70/70</td>
+          </tr>
+          <tr>
+            <td>10600..1077F</td>
+            <td>Linear A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">341/341</td>
+          </tr>
+          <tr>
+            <td>10780..107BF</td>
+            <td>Latin Extended-F</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">57/57</td>
+          </tr>
+          <tr>
+            <td>10860..1087F</td>
+            <td>Palmyrene</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>10880..108AF</td>
+            <td>Nabataean</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">40/40</td>
+          </tr>
+          <tr>
+            <td>108E0..108FF</td>
+            <td>Hatran</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">26/26</td>
+          </tr>
+          <tr>
+            <td>10980..1099F</td>
+            <td>Meroitic Hieroglyphs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>109A0..109FF</td>
+            <td>Meroitic Cursive</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">90/90</td>
+          </tr>
+          <tr>
+            <td>10A00..10A5F</td>
+            <td>Kharoshthi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">68/68</td>
+          </tr>
+          <tr>
+            <td>10A80..10A9F</td>
+            <td>Old North Arabian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
+          </tr>
+          <tr>
+            <td>10AC0..10AFF</td>
+            <td>Manichaean</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">51/51</td>
+          </tr>
+          <tr>
+            <td>10B00..10B3F</td>
+            <td>Avestan</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">61/61</td>
+          </tr>
+          <tr>
+            <td>10B80..10BAF</td>
+            <td>Psalter Pahlavi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">29/29</td>
+          </tr>
+          <tr>
+            <td>10C80..10CFF</td>
+            <td>Old Hungarian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">108/108</td>
+          </tr>
+          <tr>
+            <td>10D00..10D3F</td>
+            <td>Hanifi Rohingya</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">50/50</td>
+          </tr>
+          <tr>
+            <td>10E60..10E7F</td>
+            <td>Rumi Numeral Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">31/31</td>
+          </tr>
+          <tr>
+            <td>10E80..10EBF</td>
+            <td>Yezidi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">47/47</td>
+          </tr>
+          <tr>
+            <td>10EC0..10EFF</td>
+            <td>Arabic Extended-C</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 14.3%, var(--md-sys-color-tertiary-container) 14.3%);color: var(--md-sys-color-on-tertiary-container);">3/21</td>
+          </tr>
+          <tr>
+            <td>10F00..10F2F</td>
+            <td>Old Sogdian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">40/40</td>
+          </tr>
+          <tr>
+            <td>10F30..10F6F</td>
+            <td>Sogdian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">42/42</td>
+          </tr>
+          <tr>
+            <td>10F70..10FAF</td>
+            <td>Old Uyghur</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">26/26</td>
+          </tr>
+          <tr>
+            <td>10FB0..10FDF</td>
+            <td>Chorasmian</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">28/28</td>
+          </tr>
+          <tr>
+            <td>10FE0..10FFF</td>
+            <td>Elymaic</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">23/23</td>
+          </tr>
+          <tr>
+            <td>11000..1107F</td>
+            <td>Brahmi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">115/115</td>
+          </tr>
+          <tr>
+            <td>11080..110CF</td>
+            <td>Kaithi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">68/68</td>
+          </tr>
+          <tr>
+            <td>11100..1114F</td>
+            <td>Chakma</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">71/71</td>
+          </tr>
+          <tr>
+            <td>11150..1117F</td>
+            <td>Mahajani</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">39/39</td>
+          </tr>
+          <tr>
+            <td>11180..111DF</td>
+            <td>Sharada</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
+          </tr>
+          <tr>
+            <td>111E0..111FF</td>
+            <td>Sinhala Archaic Numbers</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">20/20</td>
+          </tr>
+          <tr>
+            <td>11200..1124F</td>
+            <td>Khojki</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">65/65</td>
+          </tr>
+          <tr>
+            <td>11280..112AF</td>
+            <td>Multani</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">38/38</td>
+          </tr>
+          <tr>
+            <td>112B0..112FF</td>
+            <td>Khudawadi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">69/69</td>
+          </tr>
+          <tr>
+            <td>11300..1137F</td>
+            <td>Grantha</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">86/86</td>
+          </tr>
+          <tr>
+            <td>11400..1147F</td>
+            <td>Newa</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">97/97</td>
+          </tr>
+          <tr>
+            <td>11480..114DF</td>
+            <td>Tirhuta</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">82/82</td>
+          </tr>
+          <tr>
+            <td>11580..115FF</td>
+            <td>Siddham</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">92/92</td>
+          </tr>
+          <tr>
+            <td>11600..1165F</td>
+            <td>Modi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">79/79</td>
+          </tr>
+          <tr>
+            <td>11660..1167F</td>
+            <td>Mongolian Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">13/13</td>
+          </tr>
+          <tr>
+            <td>11680..116CF</td>
+            <td>Takri</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">68/68</td>
+          </tr>
+          <tr>
+            <td>11700..1174F</td>
+            <td>Ahom</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">65/65</td>
+          </tr>
+          <tr>
+            <td>11800..1184F</td>
+            <td>Dogra</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">60/60</td>
+          </tr>
+          <tr>
+            <td>118A0..118FF</td>
+            <td>Warang Citi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">84/84</td>
+          </tr>
+          <tr>
+            <td>11900..1195F</td>
+            <td>Dives Akuru</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">72/72</td>
+          </tr>
+          <tr>
+            <td>119A0..119FF</td>
+            <td>Nandinagari</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">65/65</td>
+          </tr>
+          <tr>
+            <td>11A00..11A4F</td>
+            <td>Zanabazar Square</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">72/72</td>
+          </tr>
+          <tr>
+            <td>11A50..11AAF</td>
+            <td>Soyombo</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">83/83</td>
+          </tr>
+          <tr>
+            <td>11AB0..11ABF</td>
+            <td>Unified Canadian Aboriginal Syllabics Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">16/16</td>
+          </tr>
+          <tr>
+            <td>11AC0..11AFF</td>
+            <td>Pau Cin Hau</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">57/57</td>
+          </tr>
+          <tr>
+            <td>11C00..11C6F</td>
+            <td>Bhaiksuki</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">97/97</td>
+          </tr>
+          <tr>
+            <td>11C70..11CBF</td>
+            <td>Marchen</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">68/68</td>
+          </tr>
+          <tr>
+            <td>11D00..11D5F</td>
+            <td>Masaram Gondi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">75/75</td>
+          </tr>
+          <tr>
+            <td>11D60..11DAF</td>
+            <td>Gunjala Gondi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">63/63</td>
+          </tr>
+          <tr>
+            <td>11EE0..11EFF</td>
+            <td>Makasar</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">25/25</td>
+          </tr>
+          <tr>
+            <td>11F00..11F5F</td>
+            <td>Kawi</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">86(+1!)/87</td>
+          </tr>
+          <tr>
+            <td>11FB0..11FBF</td>
+            <td>Lisu Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">1/1</td>
+          </tr>
+          <tr>
+            <td>11FC0..11FFF</td>
+            <td>Tamil Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">51/51</td>
+          </tr>
+          <tr>
+            <td>12000..123FF</td>
+            <td>Cuneiform</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">922/922</td>
+          </tr>
+          <tr>
+            <td>12480..1254F</td>
+            <td>Early Dynastic Cuneiform</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">196/196</td>
+          </tr>
+          <tr>
+            <td>12F90..12FFF</td>
+            <td>Cypro-Minoan</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">99/99</td>
+          </tr>
+          <tr>
+            <td>13000..1342F</td>
+            <td>Egyptian Hieroglyphs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">1072/1072</td>
+          </tr>
+          <tr>
+            <td>13430..1345F</td>
+            <td>Egyptian Hieroglyph Format Controls</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">38/38</td>
+          </tr>
+          <tr>
+            <td>14400..1467F</td>
+            <td>Anatolian Hieroglyphs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">583/583</td>
+          </tr>
+          <tr>
+            <td>16800..16A3F</td>
+            <td>Bamum Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">569/569</td>
+          </tr>
+          <tr>
+            <td>16A40..16A6F</td>
+            <td>Mro</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">43/43</td>
+          </tr>
+          <tr>
+            <td>16A70..16ACF</td>
+            <td>Tangsa</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">89/89</td>
+          </tr>
+          <tr>
+            <td>16AD0..16AFF</td>
+            <td>Bassa Vah</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">36/36</td>
+          </tr>
+          <tr>
+            <td>16B00..16B8F</td>
+            <td>Pahawh Hmong</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">127/127</td>
+          </tr>
+          <tr>
+            <td>16E40..16E9F</td>
+            <td>Medefaidrin</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">91/91</td>
+          </tr>
+          <tr>
+            <td>16F00..16F9F</td>
+            <td>Miao</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">149/149</td>
+          </tr>
+          <tr>
+            <td>16FE0..16FFF</td>
+            <td>Ideographic Symbols and Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 58.3%, var(--md-sys-color-secondary-container) 58.3%);color: var(--md-sys-color-on-secondary);">7/12</td>
+          </tr>
+          <tr>
+            <td>18B00..18CFF</td>
+            <td>Khitan Small Script</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.8%, var(--md-sys-color-primary-container) 99.8%);color: var(--md-sys-color-on-primary);">470/471</td>
+          </tr>
+          <tr>
+            <td>1B170..1B2FF</td>
+            <td>Nushu</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">396/396</td>
+          </tr>
+          <tr>
+            <td>1BC00..1BC9F</td>
+            <td>Duployan</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">143/143</td>
+          </tr>
+          <tr>
+            <td>1BCA0..1BCAF</td>
+            <td>Shorthand Format Controls</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">4/4</td>
+          </tr>
+          <tr>
+            <td>1CF00..1CFCF</td>
+            <td>Znamenny Musical Notation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">185/185</td>
+          </tr>
+          <tr>
+            <td>1D000..1D0FF</td>
+            <td>Byzantine Musical Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">246/246</td>
+          </tr>
+          <tr>
+            <td>1D100..1D1FF</td>
+            <td>Musical Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">233/233</td>
+          </tr>
+          <tr>
+            <td>1D200..1D24F</td>
+            <td>Ancient Greek Musical Notation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">70/70</td>
+          </tr>
+          <tr>
+            <td>1D2C0..1D2DF</td>
+            <td>Kaktovik Numerals</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">20/20</td>
+          </tr>
+          <tr>
+            <td>1D2E0..1D2FF</td>
+            <td>Mayan Numerals</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">20/20</td>
+          </tr>
+          <tr>
+            <td>1D360..1D37F</td>
+            <td>Counting Rod Numerals</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">25/25</td>
+          </tr>
+          <tr>
+            <td>1D800..1DAAF</td>
+            <td>Sutton SignWriting</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">672/672</td>
+          </tr>
+          <tr>
+            <td>1DF00..1DFFF</td>
+            <td>Latin Extended-G</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">37/37</td>
+          </tr>
+          <tr>
+            <td>1E000..1E02F</td>
+            <td>Glagolitic Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">38/38</td>
+          </tr>
+          <tr>
+            <td>1E030..1E08F</td>
+            <td>Cyrillic Extended-D</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">63/63</td>
+          </tr>
+          <tr>
+            <td>1E100..1E14F</td>
+            <td>Nyiakeng Puachue Hmong</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">71/71</td>
+          </tr>
+          <tr>
+            <td>1E290..1E2BF</td>
+            <td>Toto</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">31/31</td>
+          </tr>
+          <tr>
+            <td>1E2C0..1E2FF</td>
+            <td>Wancho</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">59/59</td>
+          </tr>
+          <tr>
+            <td>1E4D0..1E4FF</td>
+            <td>Nag Mundari</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">42/42</td>
+          </tr>
+          <tr>
+            <td>1E7E0..1E7FF</td>
+            <td>Ethiopic Extended-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">28/28</td>
+          </tr>
+          <tr>
+            <td>1E800..1E8DF</td>
+            <td>Mende Kikakui</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">213/213</td>
+          </tr>
+          <tr>
+            <td>1EC70..1ECBF</td>
+            <td>Indic Siyaq Numbers</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">68/68</td>
+          </tr>
+          <tr>
+            <td>1ED00..1ED4F</td>
+            <td>Ottoman Siyaq Numbers</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">61/61</td>
+          </tr>
+          <tr>
+            <td>1EE00..1EEFF</td>
+            <td>Arabic Mathematical Alphabetic Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">143/143</td>
+          </tr>
+          <tr>
+            <td>1F100..1F1FF</td>
+            <td>Enclosed Alphanumeric Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">200/200</td>
+          </tr>
+          <tr>
+            <td>1F200..1F2FF</td>
+            <td>Enclosed Ideographic Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">64/64</td>
+          </tr>
+          <tr>
+            <td>1F300..1F5FF</td>
+            <td>Miscellaneous Symbols and Pictographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">768/768</td>
+          </tr>
+          <tr>
+            <td>1F680..1F6FF</td>
+            <td>Transport and Map Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.2%, var(--md-sys-color-primary-container) 99.2%);color: var(--md-sys-color-on-primary);">118/119</td>
+          </tr>
+          <tr>
+            <td>1F700..1F77F</td>
+            <td>Alchemical Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 96.9%, var(--md-sys-color-primary-container) 96.9%);color: var(--md-sys-color-on-primary);">124/128</td>
+          </tr>
+          <tr>
+            <td>1F780..1F7FF</td>
+            <td>Geometric Shapes Extended</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">103/103</td>
+          </tr>
+          <tr>
+            <td>1F800..1F8FF</td>
+            <td>Supplemental Arrows-C</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 87.7%, var(--md-sys-color-secondary-container) 87.7%);color: var(--md-sys-color-on-secondary);">150/171</td>
+          </tr>
+          <tr>
+            <td>1F900..1F9FF</td>
+            <td>Supplemental Symbols and Pictographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
+          </tr>
+          <tr>
+            <td>1FA00..1FA6F</td>
+            <td>Chess Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 96.1%, var(--md-sys-color-primary-container) 96.1%);color: var(--md-sys-color-on-primary);">98/102</td>
+          </tr>
+          <tr>
+            <td>1FA70..1FAFF</td>
+            <td>Symbols and Pictographs Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 88.4%, var(--md-sys-color-secondary-container) 88.4%);color: var(--md-sys-color-on-secondary);">107/121</td>
+          </tr>
+          <tr>
+            <td>1FB00..1FBFF</td>
+            <td>Symbols for Legacy Computing</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 84.8%, var(--md-sys-color-secondary-container) 84.8%);color: var(--md-sys-color-on-secondary);">212/250</td>
+          </tr>
+          <tr>
+            <td>E0000..E007F</td>
+            <td>Tags</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">97/97</td>
+          </tr>
+          <tr>
+            <td>E0100..E01EF</td>
+            <td>Variation Selectors Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">240/240</td>
+          </tr>
+          <tr>
+            <td>F0000..FFFFF</td>
+            <td>Supplementary Private Use Area-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">22/65534</td>
+          </tr>
+        </tbody>
+      </table>
+    </body>
+  </foreignObject>
+</svg>

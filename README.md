@@ -25,6 +25,22 @@
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
 - NotoSansSuper.ttf：该字体是由 49 个 Noto 家族字体缝合而成的
 
+<details>
+<summary><b>点击查看字体 Unicode 区块覆盖范围</b></summary>
+
+<div align="center">
+<img alt="CtrlCtrl" src="./documentation/samples/CtrlCtrl_unicode_coverage.svg">
+<img alt="MonuTemp" src="./documentation/samples/MonuTemp_unicode_coverage.svg">
+<img alt="NotoColorEmoji" src="./documentation/samples/NotoColorEmoji_unicode_coverage.svg">
+<img alt="NotoSansKR-Regular" src="./documentation/samples/NotoSansKR-Regular_unicode_coverage.svg">
+<img alt="NotoSansSC-Regular" src="./documentation/samples/NotoSansSC-Regular_unicode_coverage.svg">
+<img alt="NotoSansSuper" src="./documentation/samples/NotoSansSuper_unicode_coverage.svg">
+<img alt="NotoUnicode" src="./documentation/samples/NotoUnicode_unicode_coverage.svg">
+<img alt="PlangothicP1-Regular" src="./documentation/samples/PlangothicP1-Regular_unicode_coverage.svg">
+<img alt="PlangothicP2-Regular" src="./documentation/samples/PlangothicP2-Regular_unicode_coverage.svg">
+</div>
+</details>
+
 ## 鸣谢
 
 - [Fitzgerald Yu](https://github.com/Fitzgerald-Porthmouth-Koenigsegg)
