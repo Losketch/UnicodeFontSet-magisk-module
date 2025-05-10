@@ -44,7 +44,7 @@ jobs:
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: "${{ secrets.PAT }}"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "nightly-release"
           prerelease: true
           title: "Test build"
@@ -71,4 +71,3 @@ jobs:
           files: |
             UnicodeFontSet-magisk-module.zip
             UnicodeFontSet-magisk-module.zip.sha256sum
-          body_path: extra/changelog_latest.md
