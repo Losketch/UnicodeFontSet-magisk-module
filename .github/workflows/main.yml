@@ -56,7 +56,12 @@ jobs:
 
       - name: Package ZIP & compute checksum
         run: |
-          zip -9 -x "*.git*" -x "extra/*" -r ../${{ env.ZIP_NAME }} ./
+          zip -9 \
+             -x "*.git*" \
+             -x "extra/*" \
+             -x "${{ env.BUILD_DIR }}/**" \
+             -x "documentation/**" \
+             -r ../${{ env.ZIP_NAME }} ./
           sha256sum ../${{ env.ZIP_NAME }} > ../${{ env.SUM_NAME }}
 
       - name: Collect artifacts
