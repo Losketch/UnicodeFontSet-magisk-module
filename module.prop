@@ -3,5 +3,5 @@ name=Unicode Font Set - 字体集
 version=V16.0
 versionCode=202505100
 author=Losketch
-description=扩充字库，实现Unicode全字形覆盖(?)。GitHub 项目地址：https://github.com/Losketch/UnicodeFontSet-magisk-module。
+description=扩充字库，实现Unicode全字形覆盖。GitHub 项目地址：https://github.com/Losketch/UnicodeFontSet-magisk-module。
 updateJson=https://github.com/Losketch/UnicodeFontSet-magisk-module/raw/main/update.json
