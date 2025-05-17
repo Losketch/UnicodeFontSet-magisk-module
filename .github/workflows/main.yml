@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - '[vV]*'
   workflow_dispatch:
 
 concurrency:
@@ -16,7 +18,6 @@ permissions:
   id-token: write
 
 env:
-  # 目录与文件统一管理
   FONT_DIR: system/fonts
   UPDATE_BIN: META-INF/com/google/android/update-binary
   BUILD_DIR: build
@@ -50,7 +51,6 @@ jobs:
           for name in "${!files[@]}"; do
             wget -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"
           done
-          # 更新脚本
           wget -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
                -O "${{ env.UPDATE_BIN }}"
 
