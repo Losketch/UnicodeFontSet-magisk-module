@@ -1,73 +1,114 @@
-name: Upload zip
-on: [push, workflow_dispatch]
-  
+name: Build & Release UnicodeFontSet Magisk Module
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+env:
+  # 目录与文件统一管理
+  FONT_DIR: system/fonts
+  UPDATE_BIN: META-INF/com/google/android/update-binary
+  BUILD_DIR: build
+  ZIP_NAME: UnicodeFontSet-magisk-module.zip
+  SUM_NAME: UnicodeFontSet-magisk-module.zip.sha256sum
+
 jobs:
   build:
+    name: Build ZIP Artifact
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Make release zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
-      run: |
-        wget https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/refs/heads/main/fonts/static/PlangothicP1-Regular.ttf -O system/fonts/PlangothicP1-Regular.ttf
-        wget https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/refs/heads/main/fonts/static/PlangothicP2-Regular.ttf -O system/fonts/PlangothicP2-Regular.ttf
-        wget https://github.com/googlefonts/noto-emoji/raw/refs/heads/main/fonts/NotoColorEmoji.ttf -O system/fonts/NotoColorEmoji.ttf
-        wget https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf -O system/fonts/CtrlCtrl.otf
-        wget https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf -O system/fonts/NotoUnicode.otf
-        wget https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf -O system/fonts/MonuTemp.ttf
-        wget https://github.com/notofonts/noto-cjk/raw/refs/heads/main/Sans/SubsetOTF/KR/NotoSansKR-Regular.otf -O system/fonts/NotoSansKR-Regular.otf
-        wget https://github.com/notofonts/noto-cjk/raw/refs/heads/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf -O system/fonts/NotoSansSC-Regular.otf
-
-        wget https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh -O META-INF/com/google/android/update-binary
-        zip -9 -x "*.git*" -x "extra/*" -x "extra" -r ../UnicodeFontSet-magisk-module.zip ./
-        sha256sum ../UnicodeFontSet-magisk-module.zip > ../UnicodeFontSet-magisk-module.zip.sha256sum
-        mkdir -p build
-        cp ../UnicodeFontSet-magisk-module.zip build/
-        cp ../UnicodeFontSet-magisk-module.zip.sha256sum build/
-    - uses: actions/upload-artifact@v4
-      with:
-        name: UnicodeFontSet-magisk-module
-        path: |
-          build/UnicodeFontSet-magisk-module.zip
-          build/UnicodeFontSet-magisk-module.zip.sha256sum
-  
-  nightly-release:
-    permissions: write-all
-    needs: build
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') != true
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: UnicodeFontSet-magisk-module
-
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "nightly-release"
-          prerelease: true
-          title: "Test build"
-          files: |
-            UnicodeFontSet-magisk-module.zip
-            UnicodeFontSet-magisk-module.zip.sha256sum
-
-  release:
-    permissions: write-all
-    runs-on: ubuntu-latest
-    needs: build
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: UnicodeFontSet-magisk-module
+      - name: Create directories
+        run: |
+          mkdir -p ${{ env.FONT_DIR }} ${{ env.BUILD_DIR }} $(dirname ${{ env.UPDATE_BIN }})
 
-      - name: Release Action
+      - name: Download fonts & scripts
+        run: |
+          declare -A files=(
+            [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/main/fonts/static/PlangothicP1-Regular.ttf
+            [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/main/fonts/static/PlangothicP2-Regular.ttf
+            [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
+            [CtrlCtrl.otf]=https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf
+            [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
+            [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
+            [NotoSansKR-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/KR/NotoSansKR-Regular.otf
+            [NotoSansSC-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf
+          )
+          for name in "${!files[@]}"; do
+            wget -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"
+          done
+          # 更新脚本
+          wget -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
+               -O "${{ env.UPDATE_BIN }}"
+
+      - name: Package ZIP & compute checksum
+        run: |
+          zip -9 -x "*.git*" -x "extra/*" -r ../${{ env.ZIP_NAME }} ./
+          sha256sum ../${{ env.ZIP_NAME }} > ../${{ env.SUM_NAME }}
+
+      - name: Collect artifacts
+        run: |
+          mv ../${{ env.ZIP_NAME }} ../${{ env.SUM_NAME }} ${{ env.BUILD_DIR }}/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-artifacts
+          path: ${{ env.BUILD_DIR }}
+
+  release:
+    name: 正式 Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: module-artifacts
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
           files: |
-            UnicodeFontSet-magisk-module.zip
-            UnicodeFontSet-magisk-module.zip.sha256sum
+            ${{ env.ZIP_NAME }}
+            ${{ env.SUM_NAME }}
+          draft: false
+          prerelease: false
+
+  nightly:
+    name: Nightly Release
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: module-artifacts
+
+      - name: Create Nightly Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: nightly
+          title: Nightly build ${{ github.run_number }}
+          files: |
+            ${{ env.ZIP_NAME }}
+            ${{ env.SUM_NAME }}
+          prerelease: true
