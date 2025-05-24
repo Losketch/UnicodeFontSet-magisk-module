@@ -46,6 +46,8 @@
 <img alt="PlangothicP1-Regular" src="./documentation/samples/PlangothicP1-Regular_unicode_coverage.svg">
 <img alt="PlangothicP2-Regular" src="./documentation/samples/PlangothicP2-Regular_unicode_coverage.svg">
 <img alt="Unicode" src="./documentation/samples/Unicode_unicode_coverage.svg">
+
+<img alt="MonuLast" src="./documentation/samples/MonuLast_unicode_coverage.svg">
 </div>
 </details>
 
