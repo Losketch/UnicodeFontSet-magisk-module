@@ -14,15 +14,15 @@ if [ -z "$API" ]; then
     exit 1
 fi
 
+remove_old_fonts(){
+  sed -i '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' "$1"
+}
+
 insert_fonts() {
     local file="$1"
-    # 如果已经插入过，就跳过
-    if grep -q "NotoSansSuper\.ttf" "$file"; then
-        ui_print "  • $file 已包含目标字体，跳过"
-        return
-    fi
-    # 增量插入所有需要的 <family> 块
+    remove_old_fonts "$file"
     sed -i '/<\/familyset>/i \
+<!-- UnicodeFontSetModule Start -->\
 <family>\
 <font weight="400" style="normal">CtrlCtrl.otf<\/font>\
 <\/family>\
@@ -49,9 +49,13 @@ insert_fonts() {
 <\/family>\
 <family>\
 <font weight="400" style="normal">Unicode.ttf<\/font>\
-<\/family>' \
+<\/family>\
+<family>\
+<font weight="400" style="normal">MonuLast.ttf<\/font>\
+<\/family>\
+<!-- UnicodeFontSetModule End -->' \
     "$file"
-    ui_print "  ✓ 已向 $file 注入字体"
+    ui_print "  ✓ 已向 $file 注入／刷新字体"
 }
 
 for FILE in $FILES; do
@@ -71,14 +75,23 @@ for FILE in $FILES; do
             ui_print "检测到已有模块已替换 $FILE，进行合并："
             insert_fonts "$DST"
 
+            SRC="$MIRRORPATH$P$FILE"
+            if [ -f "$SRC" ]; then
+                sha1sum "$SRC" | cut -d' ' -f1 > "$MODPATH/sha1_${P//\//_}_$FILE"
+            fi
+
         elif [ -f "$SRC" ]; then
             ui_print "迁移并修改 $FILE ："
             mkdir -p "$DSTDIR"
             cp -af "$SRC" "$DST"
             insert_fonts "$DST"
+
+            sha1sum "$SRC" | cut -d' ' -f1 > "$MODPATH/sha1_${P//\//_}_$FILE"
         fi
     done
 done
 
+chmod 755 "$MODPATH/service.sh"
+
 ui_print "- Migration done."
-rm -f "$MODPATH/LICENSE*" 2>/dev/null
+rm -f "$MODPATH/LICENSE*" "$MODPATH/LICENSE_*" 2>/dev/null
