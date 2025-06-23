@@ -18,7 +18,6 @@ permissions:
 env:
   FONT_DIR: tools/fonts
   BUILD_DIR: build
-  ZIP_NAME: NotoSansSuper.zip
 
 jobs:
   build:
@@ -56,17 +55,8 @@ jobs:
           ./merge_fonts.sh
           mv NotoSansSuper.ttf ../${{ env.BUILD_DIR }}/
 
-      - name: Package ZIP & compute checksum
-        run: |
-          cd ${{ env.BUILD_DIR }}
-          zip -9 "../${{ env.ZIP_NAME }}" NotoSansSuper.ttf
-
-      - name: Collect artifacts
-        run: |
-          mv "${{ env.ZIP_NAME }}" "${{ env.BUILD_DIR }}/"
-
-      - name: Upload build artifacts
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: module-artifacts
+          name: font-artifact-NotoSansSuper.zip
           path: ${{ env.BUILD_DIR }}
