@@ -46,8 +46,9 @@ jobs:
             wget -q "$url" -O "${{ env.FONT_DIR }}/$file"
           done
 
-      - name: Make merge script executable
-        run: chmod +x tools/merge_fonts.sh
+      - name: Make all font‐tools executable
+        run: |
+          chmod +x tools/{merge_fonts.sh,otfccdump,merge-otd,otfccbuild}
 
       - name: Merge fonts into NotoSansSuper.ttf
         run: |
@@ -62,7 +63,7 @@ jobs:
 
       - name: Collect artifacts
         run: |
-          mv "../${{ env.ZIP_NAME }}" ${{ env.BUILD_DIR }}/
+          mv "${{ env.ZIP_NAME }}" "${{ env.BUILD_DIR }}/"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
