@@ -2,13 +2,9 @@
 
 **将多款 Noto 字体合并为一款超字体（Noto Sans Super）的自动化构建工具。**
 
----
-
 ## 本分支简介
 
 本分支通过 [Warcraft-Font-Merger](https://github.com/nowar-fonts/Warcraft-Font-Merger) 系列工具，将 `tools/fonts/urls.txt` 中定义的若干 .ttf 字体下载、转换、合并，最终输出一份完整的 TrueType 字体 `NotoSansSuper.ttf`，并在 GitHub Actions 中打包为 ZIP 制品，方便分发和下载。
-
----
 
 ## 目录结构
 
@@ -27,8 +23,6 @@
 └── README.md
 ```
 
----
-
 ## 前置依赖
 
 1. Linux / macOS 环境（Bash）
@@ -40,8 +34,6 @@
 ```bash
 chmod +x tools/{otfccdump,merge-otd,otfccbuild,merge_fonts.sh}
 ```
-
----
 
 ## 本地构建
 
@@ -78,8 +70,6 @@ chmod +x tools/{otfccdump,merge-otd,otfccbuild,merge_fonts.sh}
    mv NotoSansSuper.ttf build/
    ```
 
----
-
 ## GitHub Actions 自动化
 
 `.github/workflows/build.yml` 定义了如下流程：
@@ -102,8 +92,6 @@ chmod +x tools/{otfccdump,merge-otd,otfccbuild,merge_fonts.sh}
 > - **zip 文件找不到**  
 >   注意每个 step 默认工作目录是 repository 根目录，打包路径和移动路径要对应。
 
----
-
 ## 常见问题 & 解决方案
 
 1. **`./otfccdump: Permission denied`**  
@@ -121,14 +109,10 @@ chmod +x tools/{otfccdump,merge-otd,otfccbuild,merge_fonts.sh}
 3. **下载失败**  
    检查 `tools/fonts/urls.txt` 中 URL 的有效性，或手动 `wget` 测试。
 
----
-
 ## 许可证
 
-本分支工具使用 MIT License，详见 [tools/LICENSE](LICENSE)。
-字体使用 OFL-1.1 License，详见 [tools/fonts/OFL.txt](LICENSE)。
-
----
+本分支工具使用 MIT License，详见 [LICENSE](tools/LICENSE)。  
+字体使用 OFL-1.1 License，详见 [LICENSE](tools/fonts/OFL.txt)。  
 
 ## 致谢
 
