@@ -17,7 +17,10 @@ for ttf in fonts/*.ttf; do
   base=$(basename "$ttf" .ttf)
   out="$workdir/${base}.otd"
   echo "  $ttf → $out"
-  ./otfccdump --ignore-hints "$ttf" -o "$out"
+  if ! ./otfccdump --ignore-hints "$ttf" -o "$out"; then
+    echo "警告: otfccdump 处理 $ttf 失败，已跳过。" >&2
+    continue
+  fi
 done
 
 echo "收集 .otd 文件并按大小排序（从大到小）..."
