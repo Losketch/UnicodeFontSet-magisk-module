@@ -35,7 +35,7 @@ echo "合并 .otd 文件到 notosanssuper.otd..."
   "${otd_files[@]}"
 
 echo "构建最终的 TrueType 字体 NotoSansSuper.ttf..."
-./otfccbuild notosanssuper.otd -O2 -o NotoSansSuper.ttf
+./otfccbuild notosanssuper.otd -O1 -o NotoSansSuper.ttf
 
 echo "正在清理中间的 .otd 文件..."
 rm -f notosanssuper.otd

@@ -49,3 +49,10 @@ https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansTifinagh
 https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansUgaritic/hinted/ttf/NotoSansUgaritic-Regular.ttf
 https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansVai/hinted/ttf/NotoSansVai-Regular.ttf
 https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansYi/hinted/ttf/NotoSansYi-Regular.ttf
+
+https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoMusic/hinted/ttf/NotoMusic-Regular.ttf
+https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansArabic/hinted/ttf/NotoSansArabic-Regular.ttf
+https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansDevanagari/hinted/ttf/NotoSansDevanagari-Regular.ttf
+https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSansKawi/hinted/ttf/NotoSansKawi-Regular.ttf
+
+https://cdn.jsdelivr.net/gh/Mercury13/unicodia/Fonts/UnicodiaFunky.ttf
