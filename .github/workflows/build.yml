@@ -1,4 +1,4 @@
-name: Build  NotoSansSuper font
+name: 🛠️ Build NotoSansSuper font
 
 on:
   push:
@@ -21,17 +21,17 @@ env:
 
 jobs:
   build:
-    name: Build ZIP Artifact
+    name: 📦 Build ZIP Artifact
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: 📦 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create directories
+      - name: 📂 Create directories
         run: |
           mkdir -p ${{ env.FONT_DIR }} ${{ env.BUILD_DIR }}
 
-      - name: Download fonts from urls.txt
+      - name: 🌐 Download fonts from urls.txt
         run: |
           grep -Ev '^\s*(#|$)' tools/fonts/urls.txt | while read -r path; do
             if [[ "$path" =~ ^https?:// ]]; then
@@ -41,21 +41,21 @@ jobs:
             fi
 
             file="${url##*/}"
-            echo "Downloading $url → ${{ env.FONT_DIR }}/$file"
+            echo "⬇️ Downloading $url → ${{ env.FONT_DIR }}/$file"
             wget -q "$url" -O "${{ env.FONT_DIR }}/$file"
           done
 
-      - name: Make all font‐tools executable
+      - name: ⚙️ Make all font-tools executable
         run: |
           chmod +x tools/{merge_fonts.sh,otfccdump,merge-otd,otfccbuild}
 
-      - name: Merge fonts into NotoSansSuper.ttf
+      - name: 🔗 Merge fonts into NotoSansSuper.ttf
         run: |
           cd tools
           ./merge_fonts.sh
           mv NotoSansSuper.ttf ../${{ env.BUILD_DIR }}/
 
-      - name: Upload build artifact
+      - name: ⬆️ Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: font-artifact-NotoSansSuper.zip
