@@ -1,11 +1,44 @@
-
-remove_old_fonts(){
-  sed -i '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' "$1"
+# 日志函数
+ui_print() {
+    if [ -n "$OUTFD" ]; then
+        echo "ui_print $1" >&$OUTFD
+        echo "ui_print" >&$OUTFD
+    else
+        echo "$1"
+    fi
 }
 
+# 移除旧的字体注入
+remove_old_fonts() {
+    local file="$1"
+    [ ! -f "$file" ] && return 1
+    sed -i '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' "$file"
+}
+
+# 检查XML文件格式
+check_xml_format() {
+    local file="$1"
+    if ! grep -q '</familyset>' "$file"; then
+        ui_print "  ⚠ 警告：$file 格式可能不正确"
+        return 1
+    fi
+    return 0
+}
+
+# 插入字体配置
 insert_fonts() {
     local file="$1"
+    
+    [ ! -f "$file" ] && { ui_print "  ✗ 文件不存在：$file"; return 1; }
+    
+    if ! check_xml_format "$file"; then
+        return 1
+    fi
+    
+    # 移除旧配置
     remove_old_fonts "$file"
+    
+    # 插入新配置
     sed -i '/<\/familyset>/i \
 <!-- UnicodeFontSetModule Start -->\
 <family>\
@@ -38,7 +71,13 @@ insert_fonts() {
 <family>\
 <font weight="400" style="normal">MonuLast.ttf<\/font>\
 <\/family>\
-<!-- UnicodeFontSetModule End -->' \
-    "$file"
-    ui_print "  ✓ 已向 $file 注入／刷新字体"
+<!-- UnicodeFontSetModule End -->' "$file"
+    
+    if [ $? -eq 0 ]; then
+        ui_print "  ✓ 已向 $(basename "$file") 注入字体配置"
+        return 0
+    else
+        ui_print "  ✗ 注入失败：$(basename "$file")"
+        return 1
+    fi
 }
