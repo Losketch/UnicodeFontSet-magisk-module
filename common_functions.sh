@@ -15,6 +15,14 @@ remove_old_fonts() {
     sed -i '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' "$file"
 }
 
+# 移除指定模块的字体注入
+remove_module_fonts() {
+    local file="$1"
+    local module_name="$2"
+    [ ! -f "$file" ] && return 1
+    sed -i "/<!-- ${module_name} fonts start -->/,/<!-- ${module_name} fonts end -->/d" "$file"
+}
+
 # 检查XML文件格式
 check_xml_format() {
     local file="$1"
@@ -25,7 +33,19 @@ check_xml_format() {
     return 0
 }
 
-# 插入字体配置
+# 从备份文件中提取字体配置
+extract_font_families() {
+    local backup_file="$1"
+    local module_name="$2"
+    
+    # 提取所有 <family> 块，排除本模块注入内容
+    sed -n '/<family>/,/<\/family>/p' "$backup_file" | \
+    sed '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' | \
+    sed "1i <!-- ${module_name} fonts start -->" | \
+    sed "$ a <!-- ${module_name} fonts end -->"
+}
+
+# 插入本模块字体配置
 insert_fonts() {
     local file="$1"
     
