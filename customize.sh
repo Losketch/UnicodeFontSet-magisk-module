@@ -21,6 +21,8 @@ fi
 
 # 优先处理其他模块的字体文件
 ui_print "正在处理其他模块的字体文件..."
+FOUND_MODULES=0
+
 for MODULE_DIR in "$MODULE_PARENT"/*; do
     [ ! -d "$MODULE_DIR" ] && continue
     
@@ -31,6 +33,8 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
         continue
     fi
     
+    MODULE_HAS_FONTS=0
+    
     for SUB in system/etc system_ext/etc; do
         TARGET_DIR="$MODULE_DIR/$SUB"
         [ ! -d "$TARGET_DIR" ] && continue
@@ -38,6 +42,12 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
         for F in $FILES; do
             TARGET_FILE="$TARGET_DIR/$F"
             [ ! -f "$TARGET_FILE" ] && continue
+            
+            if [ "$MODULE_HAS_FONTS" -eq 0 ]; then
+                ui_print "  发现模块: $MOD_NAME"
+                MODULE_HAS_FONTS=1
+                FOUND_MODULES=$((FOUND_MODULES + 1))
+            fi
             
             # 备份原始文件和记录SHA1
             BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
@@ -69,6 +79,10 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
         done
     done
 done
+
+if [ "$FOUND_MODULES" -eq 0 ]; then
+    ui_print "  未发现其他字体模块"
+fi
 
 # 如果还有系统的字体文件,则进行迁移
 for FILE in $FILES; do

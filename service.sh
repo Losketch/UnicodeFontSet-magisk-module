@@ -16,7 +16,7 @@ TARGET_FILES="fonts.xml fonts_base.xml"
 SELF_MOD_NAME=$(basename "$MODPATH")
 
 log_print() {
-    echo "[UnicodeFontSet] $1" >> /cache/magisk.log
+    echo "[UnicodeFontSet] $1" >> /cache/ufs.log
 }
 
 log_print "开始监控其他模块的字体文件变化..."
