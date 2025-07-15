@@ -1,3 +1,26 @@
+# --- 全局配置变量 ---
+# 字体XML配置文件列表
+FONT_XML_FILES="fonts.xml fonts_base.xml"
+FONT_XML_SUBDIRS="system/etc system_ext/etc"
+
+true <<'EOF'
+flyme_fallback.xml      flyme_font_fallback.xml
+fonts.xml               fonts_base.xml
+fonts_fallback.xml      fonts_flyme.xml
+fonts_inter.xml         fonts_slate.xml
+fonts_ule.xml           font_fallback.xml
+EOF
+
+true <<'EOF'
+system/etc
+system/product/etc
+system/system_ext/etc
+EOF
+
+FONT_BINARY_SUBDIRS="system/fonts"
+
+# --- 辅助函数 ---
+
 # 日志函数
 ui_print() {
     if [ -n "$OUTFD" ]; then
@@ -8,14 +31,54 @@ ui_print() {
     fi
 }
 
-# 移除旧的字体注入
+log_print() {
+    mkdir -p "$(dirname /cache/ufs.log)" 2>/dev/null
+    echo "[UnicodeFontSet] $1" >> /cache/ufs.log
+}
+
+# 根据原始子目录路径获取本模块内部的目标路径
+# 用法: get_module_target_path <原始子目录>
+# 示例: get_module_target_path system/etc -> $MODPATH/system/etc
+# 示例: get_module_target_path system_ext/etc -> $MODPATH/system/system_ext/etc
+# 示例: get_module_target_path system/fonts -> $MODPATH/system/fonts
+get_module_target_path() {
+    local original_subdir="$1"
+    # 如果路径以 "system_ext/" 开头，则映射到 $MODPATH/system/system_ext/...
+    if echo "$original_subdir" | grep -q "^system_ext/"; then
+        echo "$MODPATH/system/$original_subdir"
+    else
+        # 否则，映射到 $MODPATH/system/... (例如 system/etc, system/fonts)
+        echo "$MODPATH/$original_subdir"
+    fi
+}
+
+# 获取本模块提供的字体二进制文件列表 (仅文件名)
+# 结果返回一个空格分隔的字符串，每个文件名都带有一个前导空格，方便后续grep匹配
+get_this_module_font_binaries() {
+    local module_fonts_dir="$MODPATH/system/fonts"
+    local font_list_raw=""
+
+    if [ -d "$module_fonts_dir" ]; then
+        # 查找目录下的所有文件，并提取文件名，每个文件名添加一个前导空格
+        # 这样最终的字符串会是 " filename1 filename2 filename3 ..."
+        # 便后续使用 " filename " 进行精确匹配
+        font_list_raw=$(find "$module_fonts_dir" -maxdepth 1 -type f -print | \
+                        while read -r FONT_PATH; do
+                            echo " $(basename "$FONT_PATH")"
+                        done | xargs)
+    fi
+    echo "$font_list_raw"
+}
+
+# 从XML文件中移除本模块旧的字体注入块
 remove_old_fonts() {
     local file="$1"
     [ ! -f "$file" ] && return 1
+    # 使用sed的'd'命令删除指定模式范围内的行
     sed -i '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' "$file"
 }
 
-# 移除指定模块的字体注入
+# 从XML文件中移除指定模块的字体注入块 (如果它们使用了类似的标记)
 remove_module_fonts() {
     local file="$1"
     local module_name="$2"
@@ -23,42 +86,31 @@ remove_module_fonts() {
     sed -i "/<!-- ${module_name} fonts start -->/,/<!-- ${module_name} fonts end -->/d" "$file"
 }
 
-# 检查XML文件格式
+# 检查XML文件格式是否包含基本的<familyset>标签
 check_xml_format() {
     local file="$1"
     if ! grep -q '</familyset>' "$file"; then
-        ui_print "  ⚠ 警告：$file 格式可能不正确"
+        ui_print "  ⚠ 警告：$file 格式可能不正确，跳过处理。"
         return 1
     fi
     return 0
 }
 
-# 从备份文件中提取字体配置
-extract_font_families() {
-    local backup_file="$1"
-    local module_name="$2"
-    
-    # 提取所有 <family> 块，排除本模块注入内容
-    sed -n '/<family>/,/<\/family>/p' "$backup_file" | \
-    sed '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' | \
-    sed "1i <!-- ${module_name} fonts start -->" | \
-    sed "$ a <!-- ${module_name} fonts end -->"
-}
-
-# 插入本模块字体配置
+# 插入本模块的字体配置到XML文件中
 insert_fonts() {
     local file="$1"
-    
+
     [ ! -f "$file" ] && { ui_print "  ✗ 文件不存在：$file"; return 1; }
-    
+
     if ! check_xml_format "$file"; then
         return 1
     fi
-    
-    # 移除旧配置
+
+    # 移除本模块已存在的配置，防止重复注入
     remove_old_fonts "$file"
-    
-    # 插入新配置
+
+    # 在</familyset>闭合标签前插入新的配置
+    # XML块作为sed的'i' (insert) 命令的字面字符串提供
     sed -i '/<\/familyset>/i \
 <!-- UnicodeFontSetModule Start -->\
 <family>\
@@ -92,7 +144,7 @@ insert_fonts() {
 <font weight="400" style="normal">MonuLast.ttf<\/font>\
 <\/family>\
 <!-- UnicodeFontSetModule End -->' "$file"
-    
+
     if [ $? -eq 0 ]; then
         ui_print "  ✓ 已向 $(basename "$file") 注入字体配置"
         return 0
