@@ -116,5 +116,6 @@ chmod +x tools/{otfccdump,merge-otd,otfccbuild,merge_fonts.sh}
 
 ## 致谢
 
+- [Mercury13](https://github.com/Mercury13)  
 - [Noto Fonts](https://github.com/notofonts)  
 - [nowar-fonts/Warcraft-Font-Merger](https://github.com/nowar-fonts/Warcraft-Font-Merger)  
