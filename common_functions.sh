@@ -141,7 +141,7 @@ insert_fonts() {
 <font weight="400" style="normal">Unicode.ttf<\/font>\
 <\/family>\
 <family>\
-<font weight="400" style="normal">MonuLast.ttf<\/font>\
+<font weight="400" style="normal">LastResort-Regular.ttf<\/font>\
 <\/family>\
 <!-- UnicodeFontSetModule End -->' "$file"
 
