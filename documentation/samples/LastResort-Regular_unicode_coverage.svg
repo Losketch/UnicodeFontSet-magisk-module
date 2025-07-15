@@ -5,25 +5,18 @@
         --md-sys-color-primary: #D0BCFF;
         --md-sys-color-on-primary: #371E73;
         --md-sys-color-primary-container: #4F378B;
-        --md-sys-color-on-primary-container: #EADDFF;
         --md-sys-color-secondary: #CCC2DC;
         --md-sys-color-on-secondary: #332D41;
         --md-sys-color-secondary-container: #4A4458;
-        --md-sys-color-on-secondary-container: #E8DEF8;
         --md-sys-color-tertiary: #EFB8C8;
-        --md-sys-color-on-tertiary: #492532;
         --md-sys-color-tertiary-container: #633B48;
         --md-sys-color-on-tertiary-container: #FFD8E4;
         --md-sys-color-background: #121212;
-        --md-sys-color-on-background: #E0E0E0;
         --md-sys-color-surface: #1E1E1E;
         --md-sys-color-on-surface: #E0E0E0;
         --md-sys-color-surface-variant: #2C2C2C;
         --md-sys-color-on-surface-variant: #CAC4D0;
         --md-sys-color-outline: #49454E;
-        --md-sys-color-surface-container: #29252E;
-        --md-sys-color-surface-container-high: #35303F;
-        --md-sys-color-surface-container-highest: #3E3A47;
         background: var(--md-sys-color-background);
     }
     body {
@@ -86,7 +79,7 @@
   <foreignObject width="650" height="8836" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
-        <h2>Unicode Block Coverage: MonuLast.ttf</h2>
+        <h2>Unicode Block Coverage: LastResort-Regular.ttf</h2>
         <p class="subtitle">Total supported glyphs: 303791</p>
       </div>
       <table>
@@ -471,7 +464,7 @@
           <tr>
             <td>20A0..20CF</td>
             <td>Currency Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 145.5%, var(--md-sys-color-primary-container) 145.5%);color: var(--md-sys-color-on-primary);">33(+15!)/33</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 141.2%, var(--md-sys-color-primary-container) 141.2%);color: var(--md-sys-color-on-primary);">34(+14!)/34</td>
           </tr>
           <tr>
             <td>20D0..20FF</td>
@@ -1076,7 +1069,7 @@
           <tr>
             <td>10940..1095F</td>
             <td>Sidetic</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 110.3%, var(--md-sys-color-primary-container) 110.3%);color: var(--md-sys-color-on-primary);">29(+3!)/29</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 123.1%, var(--md-sys-color-primary-container) 123.1%);color: var(--md-sys-color-on-primary);">26(+6!)/26</td>
           </tr>
           <tr>
             <td>10980..1099F</td>
@@ -1771,7 +1764,7 @@
           <tr>
             <td>2A700..2B73F</td>
             <td>CJK Unified Ideographs Extension C</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">4159(+1!)/4159</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">4160/4160</td>
           </tr>
           <tr>
             <td>2B740..2B81F</td>
@@ -1781,7 +1774,7 @@
           <tr>
             <td>2B820..2CEAF</td>
             <td>CJK Unified Ideographs Extension E</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.2%, var(--md-sys-color-primary-container) 100.2%);color: var(--md-sys-color-on-primary);">5762(+14!)/5762</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">5774(+2!)/5774</td>
           </tr>
           <tr>
             <td>2CEB0..2EBEF</td>
