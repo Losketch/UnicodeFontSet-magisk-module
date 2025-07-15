@@ -22,10 +22,6 @@
 - 如果系统中已安装其它字体类 Magisk 模块，本模块将以增量方式插入新字体和 XML 配置，不会覆盖原有字体配置，确保已装模块的功能得以保留。
 - 本模块仅供个人学习交流，请勿用于商业用途。因使用本模块造成的任何设备问题，作者概不负责。
 
-### 关于更新模块
-
-- 无论在什么情况下，都 **推荐** 先卸载本模块重启后确认卸载干净后再安装新的版本。
-
 ## 字体来源
 
 - [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1)
@@ -51,7 +47,7 @@
 <img alt="PlangothicP2-Regular" src="./documentation/samples/PlangothicP2-Regular_unicode_coverage.svg">
 <img alt="Unicode" src="./documentation/samples/Unicode_unicode_coverage.svg">
 
-<img alt="MonuLast" src="./documentation/samples/MonuLast_unicode_coverage.svg">
+<img alt="LastResort-Regular" src="./documentation/samples/LastResort-Regular_unicode_coverage.svg">
 </div>
 </details>
 
@@ -64,3 +60,4 @@
 - [MY1L](https://github.com/MY1L)
 - [NotoFonts](https://github.com/notofonts)
 - [simonsmh](https://github.com/simonsmh)
+- [The Unicode Consortium](https://github.com/unicode-org)

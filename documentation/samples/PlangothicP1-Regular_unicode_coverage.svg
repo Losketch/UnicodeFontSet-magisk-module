@@ -1,29 +1,22 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1161" viewBox="0 0 650 1161" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1011" viewBox="0 0 650 1011" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
         --md-sys-color-on-primary: #371E73;
         --md-sys-color-primary-container: #4F378B;
-        --md-sys-color-on-primary-container: #EADDFF;
         --md-sys-color-secondary: #CCC2DC;
         --md-sys-color-on-secondary: #332D41;
         --md-sys-color-secondary-container: #4A4458;
-        --md-sys-color-on-secondary-container: #E8DEF8;
         --md-sys-color-tertiary: #EFB8C8;
-        --md-sys-color-on-tertiary: #492532;
         --md-sys-color-tertiary-container: #633B48;
         --md-sys-color-on-tertiary-container: #FFD8E4;
         --md-sys-color-background: #121212;
-        --md-sys-color-on-background: #E0E0E0;
         --md-sys-color-surface: #1E1E1E;
         --md-sys-color-on-surface: #E0E0E0;
         --md-sys-color-surface-variant: #2C2C2C;
         --md-sys-color-on-surface-variant: #CAC4D0;
         --md-sys-color-outline: #49454E;
-        --md-sys-color-surface-container: #29252E;
-        --md-sys-color-surface-container-high: #35303F;
-        --md-sys-color-surface-container-highest: #3E3A47;
         background: var(--md-sys-color-background);
     }
     body {
@@ -83,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="1161" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="1011" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: PlangothicP1-Regular.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 65682</p>
+        <p class="subtitle">Total supported glyphs: 65349</p>
       </div>
       <table>
         <thead>
@@ -191,7 +184,7 @@
           <tr>
             <td>31C0..31EF</td>
             <td>CJK Strokes</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 7.7%, var(--md-sys-color-tertiary-container) 7.7%);color: var(--md-sys-color-on-tertiary-container);">3/39</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 10.3%, var(--md-sys-color-tertiary-container) 10.3%);color: var(--md-sys-color-on-tertiary-container);">4/39</td>
           </tr>
           <tr>
             <td>3400..4DBF</td>
@@ -214,11 +207,6 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">472/472</td>
           </tr>
           <tr>
-            <td>16FE0..16FFF</td>
-            <td>Ideographic Symbols and Punctuation</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">12/12</td>
-          </tr>
-          <tr>
             <td>18800..18AFF</td>
             <td>Tangut Components</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.7%, var(--md-sys-color-tertiary-container) 0.7%);color: var(--md-sys-color-on-tertiary-container);">5/768</td>
@@ -226,37 +214,12 @@
           <tr>
             <td>18B00..18CFF</td>
             <td>Khitan Small Script</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.5%, var(--md-sys-color-tertiary-container) 5.5%);color: var(--md-sys-color-on-tertiary-container);">26/471</td>
-          </tr>
-          <tr>
-            <td>1AFF0..1AFFF</td>
-            <td>Kana Extended-B</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">13/13</td>
-          </tr>
-          <tr>
-            <td>1B000..1B0FF</td>
-            <td>Kana Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
-          </tr>
-          <tr>
-            <td>1B100..1B12F</td>
-            <td>Kana Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">35/35</td>
-          </tr>
-          <tr>
-            <td>1D360..1D37F</td>
-            <td>Counting Rod Numerals</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 20.0%, var(--md-sys-color-tertiary-container) 20.0%);color: var(--md-sys-color-on-tertiary-container);">5/25</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.7%, var(--md-sys-color-tertiary-container) 5.7%);color: var(--md-sys-color-on-tertiary-container);">27/471</td>
           </tr>
           <tr>
             <td>1F000..1F02F</td>
             <td>Mahjong Tiles</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">44/44</td>
-          </tr>
-          <tr>
-            <td>1FA00..1FA6F</td>
-            <td>Chess Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 13.7%, var(--md-sys-color-tertiary-container) 13.7%);color: var(--md-sys-color-on-tertiary-container);">14/102</td>
           </tr>
           <tr>
             <td>20000..2A6DF</td>
@@ -266,7 +229,7 @@
           <tr>
             <td>2A700..2B73F</td>
             <td>CJK Unified Ideographs Extension C</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">4159(+1!)/4159</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">4160/4160</td>
           </tr>
           <tr>
             <td>2B740..2B81F</td>
@@ -276,7 +239,7 @@
           <tr>
             <td>2B820..2CEAF</td>
             <td>CJK Unified Ideographs Extension E</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.2%, var(--md-sys-color-primary-container) 100.2%);color: var(--md-sys-color-on-primary);">5762(+12!)/5762</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">5774/5774</td>
           </tr>
           <tr>
             <td>2CEB0..2EBEF</td>

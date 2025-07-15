@@ -123,22 +123,22 @@ insert_fonts() {
 <font weight="400" style="normal">PlangothicP2-Regular.ttf<\/font>\
 <\/family>\
 <family>\
-<font weight="400" style="normal">NotoUnicode.otf<\/font>\
-<\/family>\
-<family>\
 <font weight="400" style="normal">NotoSansSC-Regular.otf<\/font>\
 <\/family>\
 <family>\
 <font weight="400" style="normal">NotoSansKR-Regular.otf<\/font>\
 <\/family>\
 <family>\
-<font weight="400" style="normal">MonuTemp.ttf<\/font>\
-<\/family>\
-<family>\
 <font weight="400" style="normal">NotoSansSuper.ttf<\/font>\
 <\/family>\
 <family>\
+<font weight="400" style="normal">NotoUnicode.otf<\/font>\
+<\/family>\
+<family>\
 <font weight="400" style="normal">Unicode.ttf<\/font>\
+<\/family>\
+<family>\
+<font weight="400" style="normal">MonuTemp.ttf<\/font>\
 <\/family>\
 <family>\
 <font weight="400" style="normal">LastResort-Regular.ttf<\/font>\
