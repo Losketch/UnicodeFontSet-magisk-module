@@ -25,12 +25,13 @@
 ## 字体来源
 
 - [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1)
+- [Last Resort](https://github.com/unicode-org/last-resort-font)
 - [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
 - [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
 - [NotoSansKR & NotoSansSC](https://github.com/notofonts/noto-cjk/raw/refs/heads/main/Sans/SubsetOTF)
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
-- NotoSansSuper.ttf：该字体是由 49 个 Noto 家族字体缝合而成的
+- [NotoSansSuper.ttf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper)：该字体是由 n 个 Noto 家族字体加其他 OFL-1.1 许可的字体缝合而成的
 
 <details>
 <summary><b>点击查看字体 Unicode 区块覆盖范围</b></summary>
