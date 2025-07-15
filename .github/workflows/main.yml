@@ -22,7 +22,6 @@ env:
   UPDATE_BIN: META-INF/com/google/android/update-binary
   BUILD_DIR: build
   ZIP_NAME: UnicodeFontSet-magisk-module.zip
-  SUM_NAME: UnicodeFontSet-magisk-module.zip.sha256sum
 
 jobs:
   build:
@@ -39,8 +38,8 @@ jobs:
       - name: Download fonts & scripts
         run: |
           declare -A files=(
-            [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/main/fonts/static/PlangothicP1-Regular.ttf
-            [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/main/fonts/static/PlangothicP2-Regular.ttf
+            [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP1-Regular.ttf
+            [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP2-Regular.ttf
             [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
             [CtrlCtrl.otf]=https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf
             [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
@@ -58,16 +57,15 @@ jobs:
       - name: Package ZIP & compute checksum
         run: |
           zip -9 \
-             -x "*.git*" \
-             -x "extra/*" \
-             -x "${{ env.BUILD_DIR }}/*" \
-             -x "documentation/*" \
-             -r ../${{ env.ZIP_NAME }} ./
-          sha256sum ../${{ env.ZIP_NAME }} > ../${{ env.SUM_NAME }}
+           -x "*.git*" \
+           -x "extra/*" \
+           -x "${{ env.BUILD_DIR }}/*" \
+           -x "documentation/*" \
+           -r ../${{ env.ZIP_NAME }} ./
 
       - name: Collect artifacts
         run: |
-          mv ../${{ env.ZIP_NAME }} ../${{ env.SUM_NAME }} ${{ env.BUILD_DIR }}/
+          mv ../${{ env.ZIP_NAME }} ${{ env.BUILD_DIR }}/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -93,7 +91,6 @@ jobs:
           release_name: Release ${{ github.ref_name }}
           files: |
             ${{ env.ZIP_NAME }}
-            ${{ env.SUM_NAME }}
           draft: false
           prerelease: false
 
@@ -116,5 +113,4 @@ jobs:
           title: Nightly build ${{ github.run_number }}
           files: |
             ${{ env.ZIP_NAME }}
-            ${{ env.SUM_NAME }}
           prerelease: true
