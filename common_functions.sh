@@ -141,6 +141,9 @@ insert_fonts() {
 <font weight="400" style="normal">NewGardiner.ttf<\/font>\
 <\/family>\
 <family>\
+<font weight="400" style="normal">UnicodiaDaarage.otf<\/font>\
+<\/family>\
+<family>\
 <font weight="400" style="normal">Unicode.ttf<\/font>\
 <\/family>\
 <family>\

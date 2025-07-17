@@ -47,6 +47,7 @@ jobs:
             [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
             [NotoSansKR-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/KR/NotoSansKR-Regular.otf
             [NotoSansSC-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf
+            [UnicodiaDaarage.otf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaDaarage.otf
             [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
             [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
           )
