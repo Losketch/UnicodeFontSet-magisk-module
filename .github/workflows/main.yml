@@ -47,6 +47,8 @@ jobs:
             [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
             [NotoSansKR-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/KR/NotoSansKR-Regular.otf
             [NotoSansSC-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf
+            [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
+            [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
           )
           for name in "${!files[@]}"; do
             wget -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"
