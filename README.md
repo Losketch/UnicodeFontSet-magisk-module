@@ -1,4 +1,41 @@
+<div align="center">
+
 # Unicode 字体合集 Magisk 模块
+
+<img src="https://api.visitorbadge.io/api/visitors?path=Losketch.UnicodeFontSet-magisk-module&countColor=%234ecdc4" alt="Github Visitors">
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/stargazers">
+  <img src="https://img.shields.io/github/stars/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=yellow" alt="GitHub Stars">
+</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/forks">
+  <img src="https://img.shields.io/github/forks/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=8a2be2" alt="GitHub Forks">
+</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/issues">
+  <img src="https://img.shields.io/github/issues-raw/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&label=Issues&color=orange" alt="Github Issues">
+</a>
+<br/>
+
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/latest">
+  <img src="https://img.shields.io/github/downloads/Losketch/UnicodeFontSet-magisk-module/total?style=for-the-badge" alt="Github Downloads">
+</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/releases">
+  <img src="https://img.shields.io/github/v/release/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=brightgreen" alt="Version">
+</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/actions">
+  <img src="https://img.shields.io/github/actions/workflow/status/Losketch/UnicodeFontSet-magisk-module/main.yml?style=for-the-badge" alt="Github Action">
+</a>
+<img src="https://img.shields.io/badge/Platform-Android-lightgreen?style=for-the-badge" alt="Platform">
+<br/>
+
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/commits">
+  <img src="https://img.shields.io/github/last-commit/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge" alt="Last Commit">
+</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/commits">
+  <img src="https://img.shields.io/github/commit-activity/m/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge" alt="Commit Activity">
+</a>
+<img src="https://img.shields.io/badge/language-Bash/sh-89e051?style=for-the-badge">
+
+</div>
+<br/>
 
 > **本模块无需依赖系统自带字体，即可实现 Unicode 全字符覆盖。**  
 > **本模块以增量方式插入新字体和配置，其他字体模块显示得以保留。**
