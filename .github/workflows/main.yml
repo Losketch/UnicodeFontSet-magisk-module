@@ -40,7 +40,7 @@ jobs:
           declare -A files=(
             [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP1-Regular.ttf
             [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP2-Regular.ttf
-            [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
+            [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf
             [CtrlCtrl.otf]=https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf
             [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
             [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
@@ -56,6 +56,14 @@ jobs:
           done
           wget -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
                -O "${{ env.UPDATE_BIN }}"
+
+      - name: Update versionCode for Nightly Builds
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          VERSION_DATE=$(date +%Y%m%d)
+          VERSION_CODE="${VERSION_DATE}1"
+          sed -i "s/^versionCode=.*/versionCode=${VERSION_CODE}/" module.prop
+          sed -i "/^version=/ s/$/ (${GITHUB_SHA:0:7}-Nightly)/" module.prop
 
       - name: Package ZIP & compute checksum
         run: |
