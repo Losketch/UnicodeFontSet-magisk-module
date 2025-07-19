@@ -116,12 +116,33 @@ jobs:
         with:
           name: module-artifacts
 
+      - name: Format commit message
+        id: format_commit
+        run: |
+          commit_message="${{ github.event.head_commit.message }}"
+          title=$(echo "$commit_message" | head -n1)
+          body=$(echo "$commit_message" | tail -n +2 | sed 's/^/>/g' | tr '\n' '\n')
+
+          if [ -n "$body" ]; then
+            formatted_message="$title (${{ github.actor }})\n$body"
+          else
+            formatted_message="$title (${{ github.actor }})"
+          fi
+
+          echo "FORMATTED_MESSAGE<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$formatted_message" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create Nightly Release
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: nightly
-          title: Nightly build ${{ github.run_number }}
+          tag_name: nightly
+          name: Nightly build ${{ github.run_number }}
+          body: |
+            ## Commits
+            ${{ steps.commits.outputs.COMMITS }}
+            - ${{ github.sha }}: ${{ steps.format_commit.outputs.FORMATTED_MESSAGE }}
           files: |
             ${{ env.ZIP_NAME }}
           prerelease: true
+          make_latest: false
