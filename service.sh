@@ -18,6 +18,7 @@ SELF_MOD_NAME=$(basename "$MODPATH")
 SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
+[ -f /cache/ufs.log ] && rm -f /cache/ufs.log
 log_print "开始监控其他模块的字体文件变化..."
 
 # --- 监控其他模块的字体XML文件 ---
