@@ -133,6 +133,13 @@ jobs:
           echo -e "$formatted_message" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Delete existing nightly release
+        run: |
+          gh release delete nightly --yes || true
+          git push --delete origin nightly || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Nightly Release
         uses: softprops/action-gh-release@v2
         with:
