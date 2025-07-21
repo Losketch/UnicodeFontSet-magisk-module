@@ -38,18 +38,24 @@ jobs:
       - name: Download fonts & scripts
         run: |
           declare -A files=(
-            [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP1-Regular.ttf
-            [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP2-Regular.ttf
             [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf
-            [CtrlCtrl.otf]=https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf
-            [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
-            [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
-            [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
             [NotoSansKR-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/KR/NotoSansKR-Regular.otf
             [NotoSansSC-Regular.otf]=https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf
+            
+            [CtrlCtrl.otf]=https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf
+            [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
+            [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
+            
+            [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
             [UnicodiaDaarage.otf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaDaarage.otf
             [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
-            [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
+            
+            [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP1-Regular.ttf
+            [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP2-Regular.ttf
+            
+            [KreativeSquare.ttf]=https://github.com/kreativekorp/open-relay/raw/master/KreativeSquare/KreativeSquare.ttf
+            
+            [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
           )
           for name in "${!files[@]}"; do
             wget -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"

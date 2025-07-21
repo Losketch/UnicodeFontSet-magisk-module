@@ -135,6 +135,9 @@ insert_fonts() {
 <font weight="400" style="normal">NotoUnicode.otf<\/font>\
 <\/family>\
 <family>\
+<font weight="400" style="normal">KreativeSquare.ttf<\/font>\
+<\/family>\
+<family>\
 <font weight="400" style="normal">UnicodiaSesh.ttf<\/font>\
 <\/family>\
 <family>\
@@ -142,9 +145,6 @@ insert_fonts() {
 <\/family>\
 <family>\
 <font weight="400" style="normal">UnicodiaDaarage.otf<\/font>\
-<\/family>\
-<family>\
-<font weight="400" style="normal">Unicode.ttf<\/font>\
 <\/family>\
 <family>\
 <font weight="400" style="normal">MonuTemp.ttf<\/font>\
