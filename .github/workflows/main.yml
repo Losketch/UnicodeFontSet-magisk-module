@@ -113,27 +113,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: module-artifacts
 
-      - name: Format commit message
-        id: format_commit
+      - name: Get commits since last nightly
+        id: commits
         run: |
-          commit_message="${{ github.event.head_commit.message }}"
-          title=$(echo "$commit_message" | head -n1)
-          body=$(echo "$commit_message" | tail -n +2 | sed 's/^/>/g' | tr '\n' '\n')
-
-          if [ -n "$body" ]; then
-            formatted_message="$title (${{ github.actor }})\n$body"
-          else
-            formatted_message="$title (${{ github.actor }})"
+          LAST_NIGHTLY=$(git tag -l "nightly" | head -n1)
+          if [ -n "$LAST_NIGHTLY" ]; then
+            LAST_COMMIT=$(git rev-list -n 1 $LAST_NIGHTLY 2>/dev/null || echo "")
           fi
 
-          echo "FORMATTED_MESSAGE<<EOF" >> $GITHUB_OUTPUT
-          echo -e "$formatted_message" >> $GITHUB_OUTPUT
+          if [ -z "$LAST_COMMIT" ]; then
+            COMMITS=$(git log --oneline -5 --pretty=format:"- %h: %s (%an)")
+          else
+            COMMITS=$(git log --oneline ${LAST_COMMIT}..HEAD --pretty=format:"- %h: %s (%an)")
+          fi
+
+          echo "COMMITS<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Delete existing nightly release
@@ -152,7 +155,6 @@ jobs:
           body: |
             ## Commits
             ${{ steps.commits.outputs.COMMITS }}
-            - ${{ github.sha }}: ${{ steps.format_commit.outputs.FORMATTED_MESSAGE }}
           files: |
             ${{ env.ZIP_NAME }}
           prerelease: true
