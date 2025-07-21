@@ -66,8 +66,9 @@
 - [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
 - [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
-- [NotoSansKR & NotoSansSC](https://github.com/notofonts/noto-cjk/raw/refs/heads/main/Sans/SubsetOTF)
+- [NotoSansKR & NotoSansSC](https://github.com/notofonts/noto-cjk/tree/refs/heads/main/Sans/SubsetOTF)
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
+- [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts)
 - [NotoSansSuper.ttf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper)：该字体是由 n 个 Noto 家族字体加其他 OFL-1.1 许可的字体缝合而成的
 
 <details>
