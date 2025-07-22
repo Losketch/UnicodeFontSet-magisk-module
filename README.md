@@ -64,6 +64,7 @@
 ## 字体来源
 
 - [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1)
+- [KreativeSquare](https://github.com/kreativekorp/open-relay/tree/master/KreativeSquare)
 - [Last Resort](https://github.com/unicode-org/last-resort-font)
 - [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
@@ -78,17 +79,18 @@
 
 <div align="center">
 <img alt="CtrlCtrl" src="./documentation/samples/CtrlCtrl_unicode_coverage.svg">
+<img alt="KreativeSquare" src="./documentation/samples/KreativeSquare_unicode_coverage.svg">
 <img alt="MonuTemp" src="./documentation/samples/MonuTemp_unicode_coverage.svg">
 <img alt="NotoColorEmoji" src="./documentation/samples/NotoColorEmoji_unicode_coverage.svg">
+<img alt="NewGardiner" src="./documentation/samples/NewGardiner_unicode_coverage.svg">
 <img alt="NotoSansKR-Regular" src="./documentation/samples/NotoSansKR-Regular_unicode_coverage.svg">
 <img alt="NotoSansSC-Regular" src="./documentation/samples/NotoSansSC-Regular_unicode_coverage.svg">
 <img alt="NotoSansSuper" src="./documentation/samples/NotoSansSuper_unicode_coverage.svg">
 <img alt="NotoUnicode" src="./documentation/samples/NotoUnicode_unicode_coverage.svg">
 <img alt="PlangothicP1-Regular" src="./documentation/samples/PlangothicP1-Regular_unicode_coverage.svg">
 <img alt="PlangothicP2-Regular" src="./documentation/samples/PlangothicP2-Regular_unicode_coverage.svg">
-<img alt="Unicode" src="./documentation/samples/Unicode_unicode_coverage.svg">
-
-<img alt="LastResort-Regular" src="./documentation/samples/LastResort-Regular_unicode_coverage.svg">
+<img alt="UnicodiaDaarage" src="./documentation/samples/UnicodiaDaarage_unicode_coverage.svg">
+<img alt="UnicodiaSesh" src="./documentation/samples/UnicodiaSesh_unicode_coverage.svg">
 </div>
 </details>
 
@@ -96,8 +98,10 @@
 
 - [Fitzgerald Yu](https://github.com/Fitzgerald-Porthmouth-Koenigsegg)
 - [GoogleFonts](https://github.com/googlefonts)
+- [Kreative Software](https://github.com/kreativekorp)
 - [lakejason0](https://github.com/lakejason0)
 - [lxgw](https://github.com/lxgw)
+- [Mercury13](https://github.com/Mercury13)
 - [MY1L](https://github.com/MY1L)
 - [NotoFonts](https://github.com/notofonts)
 - [simonsmh](https://github.com/simonsmh)
