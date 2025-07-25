@@ -47,7 +47,6 @@ jobs:
             [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
             
             [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
-            [UnicodiaDaarage.otf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaDaarage.otf
             [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
             
             [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP1-Regular.ttf
