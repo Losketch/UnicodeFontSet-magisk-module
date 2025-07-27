@@ -79,8 +79,8 @@
   <foreignObject width="650" height="411" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
-        <h2>Unicode Block Coverage: UFSAramusic.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 271</p>
+        <h2>Unicode Block Coverage: UFSZeroExt.ttf</h2>
+        <p class="subtitle">Total supported glyphs: 235</p>
       </div>
       <table>
         <thead>
@@ -102,6 +102,11 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.3%, var(--md-sys-color-tertiary-container) 2.3%);color: var(--md-sys-color-on-tertiary-container);">1/43</td>
           </tr>
           <tr>
+            <td>E000..F8FF</td>
+            <td>Private Use Area</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">1/6400</td>
+          </tr>
+          <tr>
             <td>FB50..FDFF</td>
             <td>Arabic Presentation Forms-A</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.8%, var(--md-sys-color-tertiary-container) 3.8%);color: var(--md-sys-color-on-tertiary-container);">25/656</td>
@@ -112,11 +117,6 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 61.9%, var(--md-sys-color-secondary-container) 61.9%);color: var(--md-sys-color-on-secondary);">13/21</td>
           </tr>
           <tr>
-            <td>16D80..16DAF</td>
-            <td>Chisoi</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">40/40</td>
-          </tr>
-          <tr>
             <td>17000..187FF</td>
             <td>Tangut</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">8/6144</td>
@@ -124,7 +124,7 @@
           <tr>
             <td>18D00..18D7F</td>
             <td>Tangut Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 67.7%, var(--md-sys-color-secondary-container) 67.7%);color: var(--md-sys-color-on-secondary);">21/31</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 77.4%, var(--md-sys-color-secondary-container) 77.4%);color: var(--md-sys-color-on-secondary);">22(+2!)/31</td>
           </tr>
           <tr>
             <td>18D80..18DFF</td>
