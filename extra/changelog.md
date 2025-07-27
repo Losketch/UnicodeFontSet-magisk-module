@@ -1,65 +1,58 @@
 
-## V1.5.0
+## V1.6.0
 
 ### 📝 字体更新与优化
-- **字体精简**：移除 `UnicodiaDaarage.otf` 字体，以优化模块体积和资源占用。
-- **UFSAramusic.ttf 新增**：引入 `UFSAramusic.ttf` 字体，此字体内的字形均为开源字体制作而成（拼这些阿拉伯连字累死我了）。
+- **字体重命名并更新**：将 `UFSAramusic.ttf` 字体重命名为 `UFSZeroExt.ttf` 字体，并更新和制作了新的字形。
 
 <details>
-<summary>点击查看 UFSAramusic 新增的字形</summary>
+<summary>点击查看 UFSZeroExt 新增的字形</summary>
 
-- **亚美尼亚文 (Armenian)**：新增 3 个字形
+- **西夏 (Tangut)**：新增 8 个字形
   ```
-  ՘ (U+0558)  ֋ (U+058B)  ֌ (U+058C)
-  ```
-
-- **阿拉伯文扩充乙 (Arabic Extended-B)**：新增 1 个字形
-  ```
-  ࢏ (U+088F)
+𘟸 (U+187F8)  𘟹 (U+187F9)  𘟺 (U+187FA)  𘟻 (U+187FB)  𘟼 (U+187FC)
+𘟽 (U+187FD)  𘟾 (U+187FE)  𘟿 (U+187FF)
   ```
 
-- **阿拉伯文扩充甲 (Arabic Extended-A)**：新增 25 个字形
+- **西夏补充 (Tangut Supplement)**：新增 24 个字形
   ```
-  ﯃ (U+FBC3)  ﯄ (U+FBC4)  ﯅ (U+FBC5)  ﯆ (U+FBC6)  ﯇ (U+FBC7)
-  ﯈ (U+FBC8)  ﯉ (U+FBC9)  ﯊ (U+FBCA)  ﯋ (U+FBCB)  ﯌ (U+FBCC)
-  ﯍ (U+FBCD)  ﯎ (U+FBCE)  ﯏ (U+FBCF)  ﯐ (U+FBD0)  ﯑ (U+FBD1)
-  ﯒ (U+FBD2)  ﶐ (U+FD90)  ﶑ (U+FD91)  ﷈ (U+FDC8)  ﷉ (U+FDC9)
-  ﷊ (U+FDCA)  ﷋ (U+FDCB)  ﷌ (U+FDCC)  ﷍ (U+FDCD)  ﷎ (U+FDCE)
-  ```
-
-- **阿拉伯扩充丙 (Arabic Extended-C)**：新增 13 个字形
-  ```
-   𐻅 (U+10EC5)  𐻆 (U+10EC6)  𐻐 (U+10ED0)  𐻑 (U+10ED1)  𐻒 (U+10ED2)
-   𐻓 (U+10ED3)  𐻔 (U+10ED4)  𐻕 (U+10ED5)  𐻖 (U+10ED6)  𐻗 (U+10ED7)
-   𐻘 (U+10ED8)  𐻺 (U+10EFA)  𐻻 (U+10EFB)
+𘴉 (U+18D09)  𘴊 (U+18D0A)  𘴋 (U+18D0B)  𘴌 (U+18D0C)  𘴍 (U+18D0D)
+𘴎 (U+18D0E)  𘴏 (U+18D0F)  𘴐 (U+18D10)  𘴑 (U+18D11)  𘴒 (U+18D12)
+𘴓 (U+18D13)  𘴔 (U+18D14)  𘴕 (U+18D15)  𘴖 (U+18D16)  𘴗 (U+18D17)
+𘴘 (U+18D18)  𘴙 (U+18D19)  𘴚 (U+18D1A)  𘴛 (U+18D1B)  𘴜 (U+18D1C)
+𘴝 (U+18D1D)  𘴞 (U+18D1E)  𘴟 (U+18D1F)  𘴠 (U+18D20)
   ```
 
-- **乐符 (Musical Symbols)**：新增 23 个字形
+- **西夏偏旁补充 (Tangut Components Supplement)**：新增 115 个字形
   ```
-   𝄧 (U+1D127)  𝄨 (U+1D128)  𝇫 (U+1D1EB)  𝇬 (U+1D1EC)  𝇭 (U+1D1ED)
-   𝇮 (U+1D1EE)  𝇯 (U+1D1EF)  𝇰 (U+1D1F0)  𝇱 (U+1D1F1)  𝇲 (U+1D1F2)
-   𝇳 (U+1D1F3)  𝇴 (U+1D1F4)  𝇵 (U+1D1F5)  𝇶 (U+1D1F6)  𝇷 (U+1D1F7)
-   𝇸 (U+1D1F8)  𝇹 (U+1D1F9)  𝇺 (U+1D1FA)  𝇻 (U+1D1FB)  𝇼 (U+1D1FC)
-   𝇽 (U+1D1FD)  𝇾 (U+1D1FE)  𝇿 (U+1D1FF)
-  ```
-
-- **拉丁扩充庚 (Latin Extended-G)**：新增 22 个字形
-  ```
-   𝼟 (U+1DF1F)  𝼠 (U+1DF20)  𝼡 (U+1DF21)  𝼢 (U+1DF22)  𝼣 (U+1DF23)
-   𝼤 (U+1DF24)  𝼫 (U+1DF2B)  𝼬 (U+1DF2C)  𝼭 (U+1DF2D)  𝼮 (U+1DF2E)
-   𝼯 (U+1DF2F)  𝼰 (U+1DF30)  𝼱 (U+1DF31)  𝼲 (U+1DF32)  𝼳 (U+1DF33)
-   𝼴 (U+1DF34)  𝼵 (U+1DF35)  𝼶 (U+1DF36)  𝼷 (U+1DF37)  𝼸 (U+1DF38)
-   𝼹 (U+1DF39)  𝼺 (U+1DF3A)
+𘶀 (U+18D80)  𘶁 (U+18D81)  𘶂 (U+18D82)  𘶃 (U+18D83)  𘶄 (U+18D84)
+𘶅 (U+18D85)  𘶆 (U+18D86)  𘶇 (U+18D87)  𘶈 (U+18D88)  𘶉 (U+18D89)
+𘶊 (U+18D8A)  𘶋 (U+18D8B)  𘶌 (U+18D8C)  𘶍 (U+18D8D)  𘶎 (U+18D8E)
+𘶏 (U+18D8F)  𘶐 (U+18D90)  𘶑 (U+18D91)  𘶒 (U+18D92)  𘶓 (U+18D93)
+𘶔 (U+18D94)  𘶕 (U+18D95)  𘶖 (U+18D96)  𘶗 (U+18D97)  𘶘 (U+18D98)
+𘶙 (U+18D99)  𘶚 (U+18D9A)  𘶛 (U+18D9B)  𘶜 (U+18D9C)  𘶝 (U+18D9D)
+𘶞 (U+18D9E)  𘶟 (U+18D9F)  𘶠 (U+18DA0)  𘶡 (U+18DA1)  𘶢 (U+18DA2)
+𘶣 (U+18DA3)  𘶤 (U+18DA4)  𘶥 (U+18DA5)  𘶦 (U+18DA6)  𘶧 (U+18DA7)
+𘶨 (U+18DA8)  𘶩 (U+18DA9)  𘶪 (U+18DAA)  𘶫 (U+18DAB)  𘶬 (U+18DAC)
+𘶭 (U+18DAD)  𘶮 (U+18DAE)  𘶯 (U+18DAF)  𘶰 (U+18DB0)  𘶱 (U+18DB1)
+𘶲 (U+18DB2)  𘶳 (U+18DB3)  𘶴 (U+18DB4)  𘶵 (U+18DB5)  𘶶 (U+18DB6)
+𘶷 (U+18DB7)  𘶸 (U+18DB8)  𘶹 (U+18DB9)  𘶺 (U+18DBA)  𘶻 (U+18DBB)
+𘶼 (U+18DBC)  𘶽 (U+18DBD)  𘶾 (U+18DBE)  𘶿 (U+18DBF)  𘷀 (U+18DC0)
+𘷁 (U+18DC1)  𘷂 (U+18DC2)  𘷃 (U+18DC3)  𘷄 (U+18DC4)  𘷅 (U+18DC5)
+𘷆 (U+18DC6)  𘷇 (U+18DC7)  𘷈 (U+18DC8)  𘷉 (U+18DC9)  𘷊 (U+18DCA)
+𘷋 (U+18DCB)  𘷌 (U+18DCC)  𘷍 (U+18DCD)  𘷎 (U+18DCE)  𘷏 (U+18DCF)
+𘷐 (U+18DD0)  𘷑 (U+18DD1)  𘷒 (U+18DD2)  𘷓 (U+18DD3)  𘷔 (U+18DD4)
+𘷕 (U+18DD5)  𘷖 (U+18DD6)  𘷗 (U+18DD7)  𘷘 (U+18DD8)  𘷙 (U+18DD9)
+𘷚 (U+18DDA)  𘷛 (U+18DDB)  𘷜 (U+18DDC)  𘷝 (U+18DDD)  𘷞 (U+18DDE)
+𘷟 (U+18DDF)  𘷠 (U+18DE0)  𘷡 (U+18DE1)  𘷢 (U+18DE2)  𘷣 (U+18DE3)
+𘷤 (U+18DE4)  𘷥 (U+18DE5)  𘷦 (U+18DE6)  𘷧 (U+18DE7)  𘷨 (U+18DE8)
+𘷩 (U+18DE9)  𘷪 (U+18DEA)  𘷫 (U+18DEB)  𘷬 (U+18DEC)  𘷭 (U+18DED)
+𘷮 (U+18DEE)  𘷯 (U+18DEF)  𘷰 (U+18DF0)  𘷱 (U+18DF1)  𘷲 (U+18DF2
   ```
 
 </details>
 
 ### 🔤 Unicode 字符支持增强
-- **Unicode 17.0 Beta 全字形覆盖**：通过集成 `UFSAramusic.ttf`，本模块现已实现对 Unicode 17.0 Beta 标准的**全**字形显示支持。
-- **特定西夏字符集说明**：目前，以下西夏文字符集暂未包含在全字形显示范围内：
-    - `西夏 (Tangut)` 区块的 8 个字符（U+187F8 至 U+187FF）
-    - `西夏偏旁 (Tangut Components)` 区块的 21 个字符（U+18D09 至 U+18D1E）
-    - 整个 `西夏偏旁补充 (Tangut Components Supplement)` 区块的 115 个字符（U+18D80 至 U+18DF2）
+- **Unicode 17.0 Beta 全字形覆盖**：至此，本模块现已实现对 Unicode 17.0 Beta 标准的**全**字形显示支持。
 
 ---
-*本版本主要聚焦于字体集的精简与 Unicode 17.0 Beta 的前瞻性支持，显著提升了字符显示的完整性。*
+*本版本主要聚焦于字体集的更新与 Unicode 17.0 Beta 的前瞻性支持，显著提升了字符显示的完整性。*
