@@ -114,6 +114,9 @@ insert_fonts() {
     sed -i '/<\/familyset>/i \
 <!-- UnicodeFontSetModule Start -->\
 <family>\
+<font weight="400" style="normal">UFSEmoji-Ext.ttf<\/font>\
+<\/family>\
+<family>\
 <font weight="400" style="normal">CtrlCtrl.otf<\/font>\
 <\/family>\
 <family>\
