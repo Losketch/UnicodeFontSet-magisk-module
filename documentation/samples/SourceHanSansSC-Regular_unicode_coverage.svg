@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1686" viewBox="0 0 650 1686" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1786" viewBox="0 0 650 1786" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="1686" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="1786" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
-        <h2>Unicode Block Coverage: NotoSansSC-Regular.otf</h2>
-        <p class="subtitle">Total supported glyphs: 30890</p>
+        <h2>Unicode Block Coverage: SourceHanSansSC-Regular.otf</h2>
+        <p class="subtitle">Total supported glyphs: 44853</p>
       </div>
       <table>
         <thead>
@@ -137,6 +137,11 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 25.8%, var(--md-sys-color-tertiary-container) 25.8%);color: var(--md-sys-color-on-tertiary-container);">66/256</td>
           </tr>
           <tr>
+            <td>1100..11FF</td>
+            <td>Hangul Jamo</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">256/256</td>
+          </tr>
+          <tr>
             <td>1E00..1EFF</td>
             <td>Latin Extended Additional</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 35.9%, var(--md-sys-color-tertiary-container) 35.9%);color: var(--md-sys-color-on-tertiary-container);">92/256</td>
@@ -179,7 +184,7 @@
           <tr>
             <td>2200..22FF</td>
             <td>Mathematical Operators</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 28.9%, var(--md-sys-color-tertiary-container) 28.9%);color: var(--md-sys-color-on-tertiary-container);">74/256</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 29.3%, var(--md-sys-color-tertiary-container) 29.3%);color: var(--md-sys-color-on-tertiary-container);">75/256</td>
           </tr>
           <tr>
             <td>2300..23FF</td>
@@ -209,7 +214,7 @@
           <tr>
             <td>25A0..25FF</td>
             <td>Geometric Shapes</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 40.6%, var(--md-sys-color-tertiary-container) 40.6%);color: var(--md-sys-color-on-tertiary-container);">39/96</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 41.7%, var(--md-sys-color-tertiary-container) 41.7%);color: var(--md-sys-color-on-tertiary-container);">40/96</td>
           </tr>
           <tr>
             <td>2600..26FF</td>
@@ -254,7 +259,7 @@
           <tr>
             <td>2FF0..2FFF</td>
             <td>Ideographic Description Characters</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 75.0%, var(--md-sys-color-secondary-container) 75.0%);color: var(--md-sys-color-on-secondary);">12/16</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">16/16</td>
           </tr>
           <tr>
             <td>3000..303F</td>
@@ -279,7 +284,7 @@
           <tr>
             <td>3130..318F</td>
             <td>Hangul Compatibility Jamo</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 98.9%, var(--md-sys-color-primary-container) 98.9%);color: var(--md-sys-color-on-primary);">93/94</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">94/94</td>
           </tr>
           <tr>
             <td>3190..319F</td>
@@ -289,12 +294,12 @@
           <tr>
             <td>31A0..31BF</td>
             <td>Bopomofo Extended</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 87.5%, var(--md-sys-color-secondary-container) 87.5%);color: var(--md-sys-color-on-secondary);">28/32</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">32/32</td>
           </tr>
           <tr>
             <td>31C0..31EF</td>
             <td>CJK Strokes</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 92.3%, var(--md-sys-color-primary-container) 92.3%);color: var(--md-sys-color-on-primary);">36/39</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">39/39</td>
           </tr>
           <tr>
             <td>31F0..31FF</td>
@@ -314,17 +319,32 @@
           <tr>
             <td>3400..4DBF</td>
             <td>CJK Unified Ideographs Extension A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.8%, var(--md-sys-color-primary-container) 99.8%);color: var(--md-sys-color-on-primary);">6582/6592</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">6592/6592</td>
           </tr>
           <tr>
             <td>4E00..9FFF</td>
             <td>CJK Unified Ideographs</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.9%, var(--md-sys-color-primary-container) 99.9%);color: var(--md-sys-color-on-primary);">20976/20992</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">20992/20992</td>
+          </tr>
+          <tr>
+            <td>A960..A97F</td>
+            <td>Hangul Jamo Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">29/29</td>
+          </tr>
+          <tr>
+            <td>AC00..D7AF</td>
+            <td>Hangul Syllables</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">11172/11172</td>
+          </tr>
+          <tr>
+            <td>D7B0..D7FF</td>
+            <td>Hangul Jamo Extended-B</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">72/72</td>
           </tr>
           <tr>
             <td>F900..FAFF</td>
             <td>CJK Compatibility Ideographs</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 25.8%, var(--md-sys-color-tertiary-container) 25.8%);color: var(--md-sys-color-on-tertiary-container);">122/472</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 77.5%, var(--md-sys-color-secondary-container) 77.5%);color: var(--md-sys-color-on-secondary);">366/472</td>
           </tr>
           <tr>
             <td>FB00..FB4F</td>
@@ -349,7 +369,7 @@
           <tr>
             <td>FF00..FFEF</td>
             <td>Halfwidth and Fullwidth Forms</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.6%, var(--md-sys-color-primary-container) 99.6%);color: var(--md-sys-color-on-primary);">224/225</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">225/225</td>
           </tr>
           <tr>
             <td>1F100..1F1FF</td>
@@ -364,37 +384,37 @@
           <tr>
             <td>20000..2A6DF</td>
             <td>CJK Unified Ideographs Extension B</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">54/42720</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 4.9%, var(--md-sys-color-tertiary-container) 4.9%);color: var(--md-sys-color-on-tertiary-container);">2109/42720</td>
           </tr>
           <tr>
             <td>2A700..2B73F</td>
             <td>CJK Unified Ideographs Extension C</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">44/4160</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.2%, var(--md-sys-color-tertiary-container) 1.2%);color: var(--md-sys-color-on-tertiary-container);">48/4160</td>
           </tr>
           <tr>
             <td>2B740..2B81F</td>
             <td>CJK Unified Ideographs Extension D</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.6%, var(--md-sys-color-tertiary-container) 3.6%);color: var(--md-sys-color-on-tertiary-container);">8/222</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 15.3%, var(--md-sys-color-tertiary-container) 15.3%);color: var(--md-sys-color-on-tertiary-container);">34/222</td>
           </tr>
           <tr>
             <td>2B820..2CEAF</td>
             <td>CJK Unified Ideographs Extension E</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.9%, var(--md-sys-color-tertiary-container) 1.9%);color: var(--md-sys-color-on-tertiary-container);">108/5774</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.0%, var(--md-sys-color-tertiary-container) 2.0%);color: var(--md-sys-color-on-tertiary-container);">113/5774</td>
           </tr>
           <tr>
             <td>2CEB0..2EBEF</td>
             <td>CJK Unified Ideographs Extension F</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">1/7473</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">6/7473</td>
           </tr>
           <tr>
             <td>2F800..2FA1F</td>
             <td>CJK Compatibility Ideographs Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.4%, var(--md-sys-color-tertiary-container) 0.4%);color: var(--md-sys-color-on-tertiary-container);">2/542</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 10.1%, var(--md-sys-color-tertiary-container) 10.1%);color: var(--md-sys-color-on-tertiary-container);">55/542</td>
           </tr>
           <tr>
             <td>30000..3134F</td>
             <td>CJK Unified Ideographs Extension G</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">3/4939</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">4/4939</td>
           </tr>
         </tbody>
       </table>

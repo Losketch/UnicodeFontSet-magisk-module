@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UFSZeroExt.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 235</p>
+        <p class="subtitle">Total supported glyphs: 240</p>
       </div>
       <table>
         <thead>
@@ -99,12 +99,12 @@
           <tr>
             <td>0870..089F</td>
             <td>Arabic Extended-B</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.3%, var(--md-sys-color-tertiary-container) 2.3%);color: var(--md-sys-color-on-tertiary-container);">1/43</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 4.7%, var(--md-sys-color-tertiary-container) 4.7%);color: var(--md-sys-color-on-tertiary-container);">2/43</td>
           </tr>
           <tr>
-            <td>E000..F8FF</td>
-            <td>Private Use Area</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.0%, var(--md-sys-color-tertiary-container) 0.0%);color: var(--md-sys-color-on-tertiary-container);">1/6400</td>
+            <td>2800..28FF</td>
+            <td>Braille Patterns</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.4%, var(--md-sys-color-tertiary-container) 0.4%);color: var(--md-sys-color-on-tertiary-container);">1/256</td>
           </tr>
           <tr>
             <td>FB50..FDFF</td>
@@ -119,7 +119,7 @@
           <tr>
             <td>17000..187FF</td>
             <td>Tangut</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">8/6144</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.2%, var(--md-sys-color-tertiary-container) 0.2%);color: var(--md-sys-color-on-tertiary-container);">12/6144</td>
           </tr>
           <tr>
             <td>18D00..18D7F</td>

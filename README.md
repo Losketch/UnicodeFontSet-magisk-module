@@ -69,7 +69,7 @@
 - [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
 - [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
-- [NotoSansKR & NotoSansSC](https://github.com/notofonts/noto-cjk/tree/refs/heads/main/Sans/SubsetOTF)
+- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
 - [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts)
 - [NotoSansSuper.ttf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper)：该字体是由 n 个 Noto 家族字体加其他 OFL-1.1 许可的字体缝合而成的
@@ -83,13 +83,13 @@
 <img alt="MonuTemp" src="./documentation/samples/MonuTemp_unicode_coverage.svg">
 <img alt="NotoColorEmoji" src="./documentation/samples/NotoColorEmoji_unicode_coverage.svg">
 <img alt="NewGardiner" src="./documentation/samples/NewGardiner_unicode_coverage.svg">
-<img alt="NotoSansKR-Regular" src="./documentation/samples/NotoSansKR-Regular_unicode_coverage.svg">
-<img alt="NotoSansSC-Regular" src="./documentation/samples/NotoSansSC-Regular_unicode_coverage.svg">
 <img alt="NotoSansSuper" src="./documentation/samples/NotoSansSuper_unicode_coverage.svg">
 <img alt="NotoUnicode" src="./documentation/samples/NotoUnicode_unicode_coverage.svg">
 <img alt="PlangothicP1-Regular" src="./documentation/samples/PlangothicP1-Regular_unicode_coverage.svg">
 <img alt="PlangothicP2-Regular" src="./documentation/samples/PlangothicP2-Regular_unicode_coverage.svg">
-<img alt="UnicodiaDaarage" src="./documentation/samples/UnicodiaDaarage_unicode_coverage.svg">
+<img alt="SourceHanSansSC-Regular" src="./documentation/samples/SourceHanSansSC-Regular_unicode_coverage.svg">
+<img alt="UFSEmoji-Ext" src="./documentation/samples/UFSEmoji-Ext_unicode_coverage.svg">
+<img alt="UFSZeroExt" src="./documentation/samples/UFSZeroExt_unicode_coverage.svg">
 <img alt="UnicodiaSesh" src="./documentation/samples/UnicodiaSesh_unicode_coverage.svg">
 </div>
 </details>
