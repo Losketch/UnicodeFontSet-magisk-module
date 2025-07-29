@@ -111,8 +111,8 @@ chmod +x tools/{otfccdump,merge-otd,otfccbuild,merge_fonts.sh}
 
 ## 许可证
 
-本分支工具使用 MIT License，详见 [LICENSE](tools/LICENSE)。  
-字体使用 OFL-1.1 License，详见 [LICENSE](tools/fonts/OFL.txt)。  
+本分支工具使用 MIT License，详见 [LICENSE-MIT](LICENSE-MIT)。  
+字体使用 OFL-1.1 License，详见 [LICENSE-OFL](LICENSE-OFL)。  
 
 ## 致谢
 
