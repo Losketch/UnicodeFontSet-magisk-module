@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="186" viewBox="0 0 650 186" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="286" viewBox="0 0 650 286" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="186" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="286" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
-        <h2>Unicode Block Coverage: UnicodiaSesh.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 3064</p>
+        <h2>Unicode Block Coverage: UFSEmoji-Ext.ttf</h2>
+        <p class="subtitle">Total supported glyphs: 12</p>
       </div>
       <table>
         <thead>
@@ -92,9 +92,29 @@
         </thead>
         <tbody>
           <tr>
-            <td>13460..143FF</td>
-            <td>Egyptian Hieroglyphs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 76.7%, var(--md-sys-color-secondary-container) 76.7%);color: var(--md-sys-color-on-secondary);">3064/3995</td>
+            <td>0000..007F</td>
+            <td>Basic Latin</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">1/95</td>
+          </tr>
+          <tr>
+            <td>2000..206F</td>
+            <td>General Punctuation</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.9%, var(--md-sys-color-tertiary-container) 0.9%);color: var(--md-sys-color-on-tertiary-container);">1/111</td>
+          </tr>
+          <tr>
+            <td>1F680..1F6FF</td>
+            <td>Transport and Map Symbols</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.8%, var(--md-sys-color-tertiary-container) 0.8%);color: var(--md-sys-color-on-tertiary-container);">1/119</td>
+          </tr>
+          <tr>
+            <td>1F900..1F9FF</td>
+            <td>Supplemental Symbols and Pictographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.4%, var(--md-sys-color-tertiary-container) 0.4%);color: var(--md-sys-color-on-tertiary-container);">1/256</td>
+          </tr>
+          <tr>
+            <td>1FA70..1FAFF</td>
+            <td>Symbols and Pictographs Extended-A</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 6.6%, var(--md-sys-color-tertiary-container) 6.6%);color: var(--md-sys-color-on-tertiary-container);">8/121</td>
           </tr>
         </tbody>
       </table>
