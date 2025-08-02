@@ -42,21 +42,21 @@ jobs:
 
             file="${url##*/}"
             echo "⬇️ Downloading $url → ${{ env.FONT_DIR }}/$file"
-            wget -q "$url" -O "${{ env.FONT_DIR }}/$file"
+            wget -q --timeout=30 --tries=3 "$url" -O "${{ env.FONT_DIR }}/$file"
           done
 
       - name: ⚙️ Make all font-tools executable
         run: |
           chmod +x tools/{merge_fonts.sh,otfccdump,merge-otd,otfccbuild}
 
-      - name: 🔗 Merge fonts into NotoSansSuper.ttf
+      - name: 🔗 Merge fonts into NotoSansSuper.otf
         run: |
           cd tools
           ./merge_fonts.sh
-          mv NotoSansSuper.ttf ../${{ env.BUILD_DIR }}/
+          mv NotoSansSuper.otf ../${{ env.BUILD_DIR }}/
 
       - name: ⬆️ Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: font-artifact-NotoSansSuper.zip
+          name: font-artifact-NotoSansSuper
           path: ${{ env.BUILD_DIR }}

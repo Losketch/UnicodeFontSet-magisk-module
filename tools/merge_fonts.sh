@@ -11,14 +11,14 @@ fi
 workdir=$(mktemp -d)
 trap 'rm -rf "$workdir"' EXIT
 
-echo "🔄 转换 .ttf → .otd..."
-for ttf in fonts/*.ttf; do
-  [[ -e "$ttf" ]] || continue
-  base=$(basename "$ttf" .ttf)
+echo "🔄 转换字体文件 → .otd..."
+for font in fonts/*.{ttf,otf}; do
+  [[ -e "$font" ]] || continue
+  base=$(basename "$font" | sed 's/\.$ttf\|otf$$//')
   out="$workdir/${base}.otd"
-  echo "  ➡️ $ttf → $out"
-  if ! ./otfccdump --ignore-hints "$ttf" -o "$out"; then
-    echo "⚠️ 警告: otfccdump 处理 $ttf 失败，已跳过。" >&2
+  echo "  ➡️ $font → $out"
+  if ! ./otfccdump --ignore-hints "$font" -o "$out"; then
+    echo "⚠️ 警告: otfccdump 处理 $font 失败，已跳过。" >&2
     continue
   fi
 done
@@ -37,10 +37,10 @@ echo "🔗 合并 .otd 文件到 notosanssuper.otd..."
   -n "Noto Sans Super;400;5;Normal" \
   "${otd_files[@]}"
 
-echo "🔨 构建最终的 TrueType 字体 NotoSansSuper.ttf..."
-./otfccbuild notosanssuper.otd -O1 -o NotoSansSuper.ttf
+echo "🔨 构建最终的 OpenType 字体 NotoSansSuper.otf..."
+./otfccbuild notosanssuper.otd -O1 -o NotoSansSuper.otf
 
 echo "🧹 正在清理中间的 .otd 文件..."
 rm -f notosanssuper.otd
 
-echo "🎉 完成。输出: NotoSansSuper.ttf"
+echo "🎉 完成。输出: NotoSansSuper.otf"

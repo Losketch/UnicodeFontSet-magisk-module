@@ -1,5 +1,6 @@
 
 /documentation/*.*tf
+/tools/fonts/*.*tf
 /fcp
 
 *-module.zip
