@@ -1,6 +1,6 @@
 <div align="center">
 
-# Unicode 字体合集 Magisk 模块
+# 一个可能全 Unicode 字体合集的 Magisk 模块
 
 <img src="https://api.visitorbadge.io/api/visitors?path=Losketch.UnicodeFontSet-magisk-module&countColor=%234ecdc4" alt="Github Visitors">
 <a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/stargazers">
