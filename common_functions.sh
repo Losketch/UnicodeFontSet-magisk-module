@@ -111,47 +111,47 @@ insert_fonts() {
 
     # 在</familyset>闭合标签前插入新的配置
     # XML块作为sed的'i' (insert) 命令的字面字符串提供
-    sed -i '/<\/familyset>/i \
+    sed -i '\|</familyset>|i \
 <!-- UnicodeFontSetModule Start -->\
 <family lang="und-Zsye">\
-<font weight="400" style="normal">UFSEmoji-Ext.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">UFSEmoji-Ext.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">CtrlCtrl.otf<\/font>\
-<\/family>\
+<font weight="400" style="normal">CtrlCtrl.otf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">PlangothicP1-Regular.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">PlangothicP1-Regular.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">PlangothicP2-Regular.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">PlangothicP2-Regular.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">SourceHanSansSC-Regular.otf<\/font>\
-<\/family>\
+<font weight="400" style="normal">SourceHanSansSC-Regular.otf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">NotoSansSuper.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">NotoSansSuper.otf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">NotoUnicode.otf<\/font>\
-<\/family>\
+<font weight="400" style="normal">NotoUnicode.otf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">KreativeSquare.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">KreativeSquare.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">UnicodiaSesh.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">UFSZeroExt.otf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">NewGardiner.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">UnicodiaSesh.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">UFSZeroExt.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">NewGardiner.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">MonuTemp.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">MonuTemp.ttf</font>\
+</family>\
 <family>\
-<font weight="400" style="normal">LastResort-Regular.ttf<\/font>\
-<\/family>\
+<font weight="400" style="normal">LastResort-Regular.ttf</font>\
+</family>\
 <!-- UnicodeFontSetModule End -->' "$file"
 
     if [ $? -eq 0 ]; then
