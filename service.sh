@@ -19,9 +19,9 @@ SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
 [ -f /cache/ufs.log ] && rm -f /cache/ufs.log
-log_print "开始监控其他模块的字体文件变化..."
+log_print "开始监控其他字体模块的变化..."
 
-# --- 监控其他模块的字体XML文件 ---
+# --- 监控其他字体模块的XML文件 ---
 for MODULE_DIR in "$MODULE_PARENT"/*; do
     [ ! -d "$MODULE_DIR" ] && continue
 
@@ -159,4 +159,4 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
     fi
 done
 
-log_print "字体文件监控完成"
+log_print "字体模块监控完成"
