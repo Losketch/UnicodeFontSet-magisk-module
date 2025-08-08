@@ -57,22 +57,32 @@
   - [lxgw 的 CJK 字体 Magisk 模块兼容性调整指南](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
   - [simonsmh 制作的 notocjk 模块说明](https://github.com/simonsmh/notocjk)
 - 如果系统中已安装其它字体类 Magisk 模块，本模块将以增量方式插入新字体和 XML 配置，不会覆盖原有字体配置，确保已装模块的功能得以保留。
-- **模块操作功能**：在管理器的模块页面中，本模块管理页面下可能显示"操作"按钮，点击该按钮可立即执行一次字体文件冲突检测和处理，无需重启设备即可解决新安装或更新的字体模块产生的兼容性问题，重启生效。
+
+
+- ~~**模块操作功能**：在管理器的模块页面中，本模块管理页面下可能显示"操作"按钮，点击该按钮可立即执行一次字体文件冲突检测和处理，无需重启设备即可解决新安装或更新的字体模块产生的兼容性问题，重启生效。~~
+
+
+- **关于模块显示**：模块默认只会修改 `"system/etc 和 system_ext/etc"` 下的 `"fonts.xml 和 fonts_base.xml"`。如果系统有其他字体xml，请修改模块中的 `common_functions.sh` 文件，确保`FONT_XML_FILES`和`FONT_XML_SUBDIRS`中没有换行且用空格分开项目。</br>
+建议**优先装其他字体模块重启，再装此模块重启生效**。
+
+
 - **内核管理器兼容性说明**：使用 KernelSU 或 APatch 等内核管理器时，建议关闭默认卸载模块功能以确保字体正常工作；若启用了 Shamiko 等隐藏工具，请使用黑名单模式。
 - 本模块仅供个人学习交流，请勿用于商业用途。因使用本模块造成的任何设备问题，作者概不负责。
 
 ## 字体来源
 
-- [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1)
+- [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1) (作者声明)
 - [KreativeSquare](https://github.com/kreativekorp/open-relay/tree/master/KreativeSquare)
 - [Last Resort](https://github.com/unicode-org/last-resort-font)
-- [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp)
+- [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp) (需自行承担风险，字体内字形大部分提取自Unicode PDF)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
 - [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
 - [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
-- [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts)
+- [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts) (CeCILL-C/OFL)
 - [NotoSansSuper.ttf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper)：该字体是由 n 个 Noto 家族字体加其他 OFL-1.1 许可的字体缝合而成的
+
+无特殊说明则默认其为 OFL-1.1 许可
 
 <details>
 <summary><b>点击查看字体 Unicode 区块覆盖范围</b></summary>
