@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UnicodiaSesh.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 3113</p>
+        <p class="subtitle">Total supported glyphs: 3141</p>
       </div>
       <table>
         <thead>
@@ -94,7 +94,7 @@
           <tr>
             <td>13460..143FF</td>
             <td>Egyptian Hieroglyphs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 77.9%, var(--md-sys-color-secondary-container) 77.9%);color: var(--md-sys-color-on-secondary);">3113/3995</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 78.6%, var(--md-sys-color-secondary-container) 78.6%);color: var(--md-sys-color-on-secondary);">3141/3995</td>
           </tr>
         </tbody>
       </table>

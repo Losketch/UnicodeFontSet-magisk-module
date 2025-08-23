@@ -18,7 +18,13 @@ SELF_MOD_NAME=$(basename "$MODPATH")
 SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
-[ -f /cache/ufs.log ] && rm -f /cache/ufs.log
+run_once() {
+
+THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
+if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
+    log_print "警告: 本模块的 system/fonts 目录下未发现字体文件，将无法处理其他模块的重名字体。"
+fi
+
 log_print "开始监控其他字体模块的变化..."
 
 # --- 监控其他字体模块的XML文件 ---
@@ -83,11 +89,6 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
         done
     done
 done
-
-THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
-if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
-    log_print "警告: 本模块的 system/fonts 目录下未发现字体文件，将无法处理其他模块的重名字体。"
-fi
 
 # --- 监控其他模块的字体二进制文件---
 for MODULE_DIR in "$MODULE_PARENT"/*; do
@@ -160,3 +161,13 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
 done
 
 log_print "字体模块监控完成"
+}
+
+if ! acquire_lock; then
+    log_print "另一实例正在运行，退出本次 service 启动"
+    exit 0
+fi
+
+trap 'release_lock; exit 0' INT TERM EXIT
+
+run_once

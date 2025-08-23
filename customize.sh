@@ -157,4 +157,8 @@ done
 chmod 755 "$MODPATH/action.sh"
 chmod 755 "$MODPATH/service.sh"
 ui_print "- 安装完成,已清理冲突的字体文件"
+
+if [ -x "$MODPATH/service.sh" ]; then
+    sh "$MODPATH/service.sh" &
+fi
 rm -f "$MODPATH/LICENSE"* "$MODPATH/LICENSE_"* 2>/dev/null

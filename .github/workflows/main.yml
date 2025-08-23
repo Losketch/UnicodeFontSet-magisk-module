@@ -56,9 +56,9 @@ jobs:
             [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
           )
           for name in "${!files[@]}"; do
-            wget -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"
+            wget --tries=5 -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"
           done
-          wget -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
+          wget --tries=5 -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
                -O "${{ env.UPDATE_BIN }}"
 
       - name: Update versionCode for Nightly Builds
