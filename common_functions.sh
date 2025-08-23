@@ -1,7 +1,7 @@
 # --- 全局配置变量 ---
 # 字体XML配置文件列表
-FONT_XML_FILES="fonts.xml fonts_base.xml"
-FONT_XML_SUBDIRS="system/etc system_ext/etc"
+FONT_XML_FILES="fonts.xml fonts_base.xml fonts_fallback.xml fonts_inter.xml fonts_slate.xml fonts_ule.xml font_fallback.xml fonts_flyme.xml flyme_fallback.xml flyme_font_fallback.xml"
+FONT_XML_SUBDIRS="system/etc system/product/etc system_ext/etc"
 
 true <<'EOF'
 flyme_fallback.xml      flyme_font_fallback.xml
@@ -18,6 +18,7 @@ system/system_ext/etc
 EOF
 
 FONT_BINARY_SUBDIRS="system/fonts"
+LOCK_DIR="/data/adb/ufs_lock"
 
 # --- 辅助函数 ---
 
@@ -161,4 +162,22 @@ insert_fonts() {
         ui_print "  ✗ 注入失败：$(basename "$file")"
         return 1
     fi
+}
+
+acquire_lock() {
+    # 使用 mkdir 原子操作作为锁
+    local i=0
+    while ! mkdir "$LOCK_DIR" 2>/dev/null; do
+        i=$((i+1))
+        sleep 0.1
+        # 超过 300 次（约30秒）则退出尝试，避免无限等待
+        if [ "$i" -gt 300 ]; then
+            return 1
+        fi
+    done
+    return 0
+}
+
+release_lock() {
+    rmdir "$LOCK_DIR" 2>/dev/null || true
 }
