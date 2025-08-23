@@ -62,7 +62,7 @@
 - ~~**模块操作功能**：在管理器的模块页面中，本模块管理页面下可能显示"操作"按钮，点击该按钮可立即执行一次字体文件冲突检测和处理，无需重启设备即可解决新安装或更新的字体模块产生的兼容性问题，重启生效。~~
 
 
-- **关于模块显示**：模块默认只会修改 `"system/etc 和 system_ext/etc"` 下的 `"fonts.xml 和 fonts_base.xml"`。如果系统有其他字体xml，请修改模块中的 `common_functions.sh` 文件，确保`FONT_XML_FILES`和`FONT_XML_SUBDIRS`中没有换行且用空格分开项目。</br>
+- **关于模块显示**：~~模块默认只会修改 `"system/etc 和 system_ext/etc"` 下的 `"fonts.xml 和 fonts_base.xml"`。如果系统有其他字体xml，请修改模块中的 `common_functions.sh` 文件，确保`FONT_XML_FILES`和`FONT_XML_SUBDIRS`中没有换行且用空格分开项目。~~</br>
 建议**优先装其他字体模块重启，再装此模块重启生效**。
 
 
