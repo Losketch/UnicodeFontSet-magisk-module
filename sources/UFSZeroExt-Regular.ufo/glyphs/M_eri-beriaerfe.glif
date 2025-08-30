@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Meri-beriaerfe" format="2">
+  <advance width="838"/>
+  <unicode hex="16EAB"/>
+  <outline>
+    <contour>
+      <point x="57" y="-139" type="line"/>
+      <point x="61" y="-116"/>
+      <point x="80" y="-23"/>
+      <point x="116" y="98"/>
+      <point x="172" y="233"/>
+      <point x="253" y="367"/>
+      <point x="308" y="425" type="qcurve"/>
+      <point x="397" y="518"/>
+      <point x="599" y="642"/>
+      <point x="708" y="684" type="qcurve"/>
+      <point x="732" y="624" type="line"/>
+      <point x="680" y="604"/>
+      <point x="578" y="554"/>
+      <point x="529" y="522" type="qcurve"/>
+      <point x="724" y="207" type="line"/>
+      <point x="666" y="171" type="line"/>
+      <point x="472" y="483" type="line"/>
+      <point x="442" y="461"/>
+      <point x="384" y="410"/>
+      <point x="357" y="381" type="qcurve"/>
+      <point x="306" y="328"/>
+      <point x="232" y="202"/>
+      <point x="179" y="74"/>
+      <point x="146" y="-41"/>
+      <point x="128" y="-129"/>
+      <point x="124" y="-151" type="qcurve"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="pepetcomb-arab" format="2">
+  <advance width="0"/>
+  <unicode hex="0897"/>
+  <anchor x="7" y="754" name="top-arab"/>
+  <anchor x="-14" y="939" name="top-arab"/>
+  <outline>
+    <contour>
+      <point x="26" y="766" type="qcurve"/>
+      <point x="12" y="766"/>
+      <point x="-16" y="789"/>
+      <point x="-45" y="821"/>
+      <point x="-61" y="834" type="qcurve"/>
+      <point x="-69" y="834"/>
+      <point x="-118" y="810"/>
+      <point x="-181" y="765"/>
+      <point x="-214" y="735" type="qcurve"/>
+      <point x="-217" y="733"/>
+      <point x="-217" y="753"/>
+      <point x="-213" y="779"/>
+      <point x="-209" y="784" type="qcurve"/>
+      <point x="-196" y="800"/>
+      <point x="-146" y="847"/>
+      <point x="-89" y="893"/>
+      <point x="-39" y="924"/>
+      <point x="-25" y="924" type="qcurve"/>
+      <point x="0" y="900"/>
+      <point x="37" y="855"/>
+      <point x="58" y="855" type="qcurve"/>
+      <point x="70" y="855"/>
+      <point x="153" y="910"/>
+      <point x="201" y="954" type="qcurve"/>
+      <point x="204" y="957"/>
+      <point x="205" y="934"/>
+      <point x="201" y="904"/>
+      <point x="196" y="898" type="qcurve"/>
+      <point x="183" y="883"/>
+      <point x="137" y="839"/>
+      <point x="86" y="795"/>
+      <point x="40" y="766"/>
+    </contour>
+  </outline>
+</glyph>

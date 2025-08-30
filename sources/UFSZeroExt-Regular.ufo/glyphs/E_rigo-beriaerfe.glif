@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Erigo-beriaerfe" format="2">
+  <advance width="868"/>
+  <unicode hex="16EB1"/>
+  <outline>
+    <contour>
+      <point x="259" y="-72" type="line"/>
+      <point x="400" y="-72" type="line"/>
+      <point x="400" y="264" type="line"/>
+      <point x="118" y="264" type="line"/>
+      <point x="118" y="630" type="line"/>
+      <point x="185" y="630" type="line"/>
+      <point x="185" y="328" type="line"/>
+      <point x="400" y="328" type="line"/>
+      <point x="400" y="675" type="line"/>
+      <point x="468" y="675" type="line"/>
+      <point x="468" y="328" type="line"/>
+      <point x="683" y="328" type="line"/>
+      <point x="683" y="630" type="line"/>
+      <point x="750" y="630" type="line"/>
+      <point x="750" y="264" type="line"/>
+      <point x="468" y="264" type="line"/>
+      <point x="468" y="-72" type="line"/>
+      <point x="609" y="-72" type="line"/>
+      <point x="609" y="-136" type="line"/>
+      <point x="259" y="-136" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>
