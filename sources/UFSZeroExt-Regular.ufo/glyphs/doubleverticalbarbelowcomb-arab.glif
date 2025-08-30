@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="doubleverticalbarbelowcomb-arab" format="2">
+  <advance width="0"/>
+  <unicode hex="10EFA"/>
+  <outline>
+    <contour>
+      <point x="82" y="-60" type="line"/>
+      <point x="82" y="173" type="line"/>
+      <point x="130" y="189" type="line"/>
+      <point x="129" y="-44" type="line"/>
+    </contour>
+    <contour>
+      <point x="-7" y="-89" type="line"/>
+      <point x="-7" y="144" type="line"/>
+      <point x="41" y="160" type="line"/>
+      <point x="40" y="-73" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.745098039215686,0.823529411764706,0.733333333333333,1</string>
+    </dict>
+  </lib>
+</glyph>

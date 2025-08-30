@@ -76,6 +76,7 @@ jobs:
            -x "extra/*" \
            -x "${{ env.BUILD_DIR }}/*" \
            -x "documentation/*" \
+           -x "sources/*" \
            -r ../${{ env.ZIP_NAME }} ./
 
       - name: Collect artifacts

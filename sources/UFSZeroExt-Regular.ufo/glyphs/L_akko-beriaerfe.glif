@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Lakko-beriaerfe" format="2">
+  <advance width="550"/>
+  <unicode hex="16EAA"/>
+  <outline>
+    <contour>
+      <point x="153" y="668" type="line"/>
+      <point x="398" y="668" type="line"/>
+      <point x="398" y="604" type="line"/>
+      <point x="309" y="604" type="line"/>
+      <point x="309" y="-72" type="line"/>
+      <point x="470" y="-72" type="line"/>
+      <point x="470" y="-136" type="line"/>
+      <point x="80" y="-136" type="line"/>
+      <point x="80" y="-72" type="line"/>
+      <point x="241" y="-72" type="line"/>
+      <point x="241" y="604" type="line"/>
+      <point x="153" y="604" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>

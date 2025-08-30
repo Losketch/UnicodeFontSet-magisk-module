@@ -1,0 +1,33 @@
+# nanoemoji UFSEmoji-Ext.toml
+# Tool: nanoemoji
+# Version: 0.15.8
+
+family = "UFSEmoji-Ext"
+output_file = "UFSEmoji-Ext.ttf"
+color_format = "glyf_colr_1"
+upem = 1024
+width = 1275
+ascender = 950
+descender = -250
+clipbox_quantization = 32
+
+[axis.wght]
+name = "Weight"
+default = 400
+
+[master.regular]
+style_name = "Regular"
+srcs = [
+    "./svg/emoji_u1f6d8.svg",
+    "./svg/emoji_u1f9d1_200d_1fa70.svg",
+    "./svg/emoji_u1fa8a.svg",
+    "./svg/emoji_u1fa8e.svg",
+    "./svg/emoji_u1fac8.svg",
+    "./svg/emoji_u1facd.svg",
+    "./svg/emoji_u1fadd.svg",
+    "./svg/emoji_u1faea.svg",
+    "./svg/emoji_u1faef.svg",
+]
+
+[master.regular.position]
+wght = 400

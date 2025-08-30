@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Ngay-beriaerfe" format="2">
+  <advance width="835"/>
+  <unicode hex="16EAE"/>
+  <outline>
+    <contour>
+      <point x="356" y="517" type="line"/>
+      <point x="144" y="-73" type="line"/>
+      <point x="275" y="-73" type="line"/>
+      <point x="275" y="-136" type="line"/>
+      <point x="72" y="-136" type="line"/>
+      <point x="72" y="-78" type="line"/>
+      <point x="342" y="668" type="line"/>
+      <point x="677" y="668" type="line"/>
+      <point x="677" y="604" type="line"/>
+      <point x="397" y="604" type="line"/>
+      <point x="642" y="-72" type="line"/>
+      <point x="781" y="-72" type="line"/>
+      <point x="781" y="-136" type="line"/>
+      <point x="593" y="-136" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>
