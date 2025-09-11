@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1011" viewBox="0 0 650 1011" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1036" viewBox="0 0 650 1036" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,7 +76,7 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="1011" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="1036" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: PlangothicP1-Regular.ttf</h2>
@@ -189,17 +189,17 @@
           <tr>
             <td>3400..4DBF</td>
             <td>CJK Unified Ideographs Extension A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">66/6592</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">67/6592</td>
           </tr>
           <tr>
             <td>4E00..9FFF</td>
             <td>CJK Unified Ideographs</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.2%, var(--md-sys-color-tertiary-container) 5.2%);color: var(--md-sys-color-on-tertiary-container);">1086/20992</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.2%, var(--md-sys-color-tertiary-container) 5.2%);color: var(--md-sys-color-on-tertiary-container);">1090/20992</td>
           </tr>
           <tr>
             <td>E000..F8FF</td>
             <td>Private Use Area</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 23.7%, var(--md-sys-color-tertiary-container) 23.7%);color: var(--md-sys-color-on-tertiary-container);">1514/6400</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 23.5%, var(--md-sys-color-tertiary-container) 23.5%);color: var(--md-sys-color-on-tertiary-container);">1505/6400</td>
           </tr>
           <tr>
             <td>F900..FAFF</td>
@@ -220,6 +220,11 @@
             <td>1F000..1F02F</td>
             <td>Mahjong Tiles</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">44/44</td>
+          </tr>
+          <tr>
+            <td>1F300..1F5FF</td>
+            <td>Miscellaneous Symbols and Pictographs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.5%, var(--md-sys-color-tertiary-container) 0.5%);color: var(--md-sys-color-on-tertiary-container);">4/768</td>
           </tr>
           <tr>
             <td>20000..2A6DF</td>
