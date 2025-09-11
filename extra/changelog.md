@@ -1,42 +1,42 @@
 
-## V1.6.1
+## V1.7.0
 
 ### 📝 字体更新与优化
-- **字体轮廓问题修复**：修复 `UFSZeroExt` 字体由于FontCreator导出优化后字形轮廓出现问题，取消锚点优化。
-- **字体更新与删除**：将 `NotoSans*-Regular.otf` 字体统一替换为非地区子集的 `SourceHanSansSC-Regular.otf`。
-- **字体更新**：将 `UFS*Ext` 和 `NotoSansSuper.otf` 字体换为三次贝塞尔曲线版本。 
-`UFSZeroExt` 和 `UFSEmoji-Ext` 字体更新和制作了新的字形。
+- **字体轮廓更新**：修复 `UFSZeroExt` 字体中「𘴞」(U+18D1E) 的错误部件，且添加了字体源文件。
+- **字体更新**：`UFSZeroExt`新增了120个字形，跟进`遍黑体（Plangothic）`、`Last Resort`和`UnicodiaSesh`字体更新
 
-<details>
-<summary>点击查看新增的字形</summary>
+### 🔧 系统优化
+- **模块操作功能**：调整构建顺序以尝试修复“顺序颠倒”问题。
 
-- **阿拉伯扩充乙 (Arabic Extended-B)**：新增 1 个字形
-  ```
-ࢗ (U+0897)
-  ```
+### 🔤 Unicode 码点显示情况
+- **Unicode 17.0 标准码点全覆盖**：从Unicode草案更新至正式发行版，本模块实现了对 Unicode 17.0 标准码点的完整字形显示支持。
 
-- **西夏 (Tangut)**：新增 4 个字形
-  ```
-𗄡 (U+17121)  𗱑 (U+17C51)  𗴋 (U+17D0B)  𘃟 (U+180DF)
-  ```
+```bash
+PS .\UnicodeFontSet-magisk-module\system\fonts> $type = Get-ChildItem *.*tf | ForEach-Object { $_.Name }
+PS .\UnicodeFontSet-magisk-modulesystem\fonts> py check_fonts_unicode.py UnicodeData.txt $type
+1) 解析 UnicodeData.txt …
+   → 总计需覆盖 159866 个码点（已剔除代理/私用区）
 
-- 新增了 8 个彩色emoji
-  ```
-🛘 (U+1F6D8)	LANDSLIDE
-🪊 (U+1FA8A)	TROMBONE
-🪎 (U+1FA8E)	TREASURE CHEST
-🫈 (U+1FAC8)	HAIRY CREATURE
-🫍 (U+1FACD)	ORCA
-🫝 (U+1FADD)	APPLE CORE
-🫪 (U+1FAEA)	DISTORTED FACE
-🫯 (U+1FAEF)	FIGHT CLOUD
-  ```
-另外还增加了一个连字: `🧑‍🩰 (\u1f9d1\u200d\u1fa70)`
+   已从 CtrlCtrl.otf 读取 644 个 codepoint
+   已从 KreativeSquare.ttf 读取 6244 个 codepoint
+   已从 MonuTemp.ttf 读取 2717 个 codepoint
+   已从 NewGardiner.ttf 读取 5205 个 codepoint
+   已从 NotoColorEmoji.ttf 读取 1492 个 codepoint
+   已从 NotoSansSuper.otf 读取 17696 个 codepoint
+   已从 NotoUnicode.otf 读取 21755 个 codepoint
+   已从 PlangothicP1-Regular.ttf 读取 65446 个 codepoint
+   已从 PlangothicP2-Regular.ttf 读取 42546 个 codepoint
+   已从 SourceHanSansSC-Regular.otf 读取 44853 个 codepoint
+   已从 UFSEmoji-Ext.ttf 读取 12 个 codepoint
+   已从 UFSZeroExt.otf 读取 360 个 codepoint
+   已从 UnicodiaSesh.ttf 读取 3190 个 codepoint
 
-</details>
+   字体联合后共支持 164849 个码点
 
-### 🔤 Unicode 字符支持增强
-- **Unicode 17.0 Beta 全字形覆盖**：至此，本模块**真的**实现了对 Unicode 17.0 Beta 标准的**全**字形显示支持。
+✅ 联合覆盖了全部目标 Unicode 码点！
+```
 
 ---
-*本版本主要聚焦于字体集的更新与 Unicode 17.0 Beta 的前瞻性支持，显著提升了字符显示的完整性。*
+***覆盖情况说明**：*
+- *Unicode 17.0 标准码点（排除代理区和私用区）：159,866 个 - ✅ 完全覆盖*
+- *字体总支持码点：164,849 个（包含部分非标准码点和字体厂商扩展字符）*
