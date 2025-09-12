@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 set -euo pipefail
 
 cd "$(dirname "$0")"
@@ -14,7 +14,7 @@ trap 'rm -rf "$workdir"' EXIT
 echo "🔄 转换字体文件 → .otd..."
 for font in fonts/*.{ttf,otf}; do
   [[ -e "$font" ]] || continue
-  base=$(basename "$font" | sed 's/\.$ttf\|otf$$//')
+  base=$(basename "$font" | sed 's/\.\(ttf\|otf\)$//')
   out="$workdir/${base}.otd"
   echo "  ➡️ $font → $out"
   if ! ./otfccdump --ignore-hints "$font" -o "$out"; then
@@ -40,7 +40,7 @@ echo "🔗 合并 .otd 文件到 notosanssuper.otd..."
 echo "🔨 构建最终的 OpenType 字体 NotoSansSuper.otf..."
 ./otfccbuild notosanssuper.otd -O1 -o NotoSansSuper.otf
 
-echo "🧹 正在清理中间的 .otd 文件..."
-rm -f notosanssuper.otd
+# 保留 notosanssuper.otd 文件，不删除
+echo "💾 保留中间文件 notosanssuper.otd"
 
-echo "🎉 完成。输出: NotoSansSuper.otf"
+echo "🎉 完成。输出: NotoSansSuper.otf, notosanssuper.otd"

@@ -54,6 +54,11 @@ jobs:
           cd tools
           ./merge_fonts.sh
           mv NotoSansSuper.otf ../${{ env.BUILD_DIR }}/
+          mv notosanssuper.otd ../${{ env.BUILD_DIR }}/
+
+      - name: 📁 Copy fonts directory to build
+        run: |
+          cp -r ${{ env.FONT_DIR }} ${{ env.BUILD_DIR }}/
 
       - name: ⬆️ Upload build artifact
         uses: actions/upload-artifact@v4
