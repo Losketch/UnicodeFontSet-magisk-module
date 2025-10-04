@@ -114,7 +114,7 @@
           <tr>
             <td>1FA70..1FAFF</td>
             <td>Symbols and Pictographs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 6.6%, var(--md-sys-color-tertiary-container) 6.6%);color: var(--md-sys-color-on-tertiary-container);">8/121</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 6.7%, var(--md-sys-color-tertiary-container) 6.7%);color: var(--md-sys-color-on-tertiary-container);">7(+1!)/120</td>
           </tr>
         </tbody>
       </table>

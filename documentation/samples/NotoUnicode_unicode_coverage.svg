@@ -194,7 +194,7 @@
           <tr>
             <td>0980..09FF</td>
             <td>Bengali</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.0%, var(--md-sys-color-primary-container) 99.0%);color: var(--md-sys-color-on-primary);">96/97</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">96/96</td>
           </tr>
           <tr>
             <td>0A00..0A7F</td>
@@ -209,7 +209,7 @@
           <tr>
             <td>0B00..0B7F</td>
             <td>Oriya</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 97.8%, var(--md-sys-color-primary-container) 97.8%);color: var(--md-sys-color-on-primary);">91/93</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">91/91</td>
           </tr>
           <tr>
             <td>0C00..0C7F</td>
@@ -1079,7 +1079,7 @@
           <tr>
             <td>1FA70..1FAFF</td>
             <td>Symbols and Pictographs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 88.4%, var(--md-sys-color-secondary-container) 88.4%);color: var(--md-sys-color-on-secondary);">107/121</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 89.2%, var(--md-sys-color-secondary-container) 89.2%);color: var(--md-sys-color-on-secondary);">107/120</td>
           </tr>
           <tr>
             <td>1FB00..1FBFF</td>

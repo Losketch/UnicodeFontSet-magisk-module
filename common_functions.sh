@@ -121,10 +121,10 @@ insert_fonts() {
 <font weight="400" style="normal" postScriptName="Ctrl-Ctrl">CtrlCtrl.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal" postScriptName="PlangothicP1">PlangothicP1-Regular.ttf</font>\
+<font weight="400" style="normal" postScriptName="PlangothicP1">PlangothicP1-Regular.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal" postScriptName="PlangothicP2">PlangothicP2-Regular.ttf</font>\
+<font weight="400" style="normal" postScriptName="PlangothicP2">PlangothicP2-Regular.otf</font>\
 </family>\
 <family>\
 <font weight="400" style="normal" postScriptName="SourceHanSansSC-Regular">SourceHanSansSC-Regular.otf</font>\

@@ -48,8 +48,8 @@ jobs:
             [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
             [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
             
-            [PlangothicP1-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP1-Regular.ttf
-            [PlangothicP2-Regular.ttf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/static/PlangothicP2-Regular.ttf
+            [PlangothicP1-Regular.otf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP1-Regular.otf
+            [PlangothicP2-Regular.otf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP2-Regular.otf
             
             [KreativeSquare.ttf]=https://github.com/kreativekorp/open-relay/raw/master/KreativeSquare/KreativeSquare.ttf
             

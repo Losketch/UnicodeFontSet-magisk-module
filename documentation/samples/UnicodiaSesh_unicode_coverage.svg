@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="186" viewBox="0 0 650 186" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="211" viewBox="0 0 650 211" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="186" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="211" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UnicodiaSesh.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 3185</p>
+        <p class="subtitle">Total supported glyphs: 3377</p>
       </div>
       <table>
         <thead>
@@ -92,9 +92,14 @@
         </thead>
         <tbody>
           <tr>
+            <td>13000..1342F</td>
+            <td>Egyptian Hieroglyphs</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 16.0%, var(--md-sys-color-tertiary-container) 16.0%);color: var(--md-sys-color-on-tertiary-container);">171/1072</td>
+          </tr>
+          <tr>
             <td>13460..143FF</td>
             <td>Egyptian Hieroglyphs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 79.7%, var(--md-sys-color-secondary-container) 79.7%);color: var(--md-sys-color-on-secondary);">3185/3995</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 80.3%, var(--md-sys-color-secondary-container) 80.3%);color: var(--md-sys-color-on-secondary);">3206/3995</td>
           </tr>
         </tbody>
       </table>

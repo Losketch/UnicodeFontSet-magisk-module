@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="4786" viewBox="0 0 650 4786" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="4761" viewBox="0 0 650 4761" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="4786" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="4761" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
-        <h2>Unicode Block Coverage: NotoSansSuper.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 17694</p>
+        <h2>Unicode Block Coverage: NotoSansSuper.otf</h2>
+        <p class="subtitle">Total supported glyphs: 17654</p>
       </div>
       <table>
         <thead>
@@ -857,11 +857,6 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">58/58</td>
           </tr>
           <tr>
-            <td>16D80..16DAF</td>
-            <td>Chisoi</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">40/40</td>
-          </tr>
-          <tr>
             <td>18B00..18CFF</td>
             <td>Khitan Small Script</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.2%, var(--md-sys-color-tertiary-container) 0.2%);color: var(--md-sys-color-on-tertiary-container);">1/471</td>
@@ -1009,7 +1004,7 @@
           <tr>
             <td>1FA70..1FAFF</td>
             <td>Symbols and Pictographs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 47.1%, var(--md-sys-color-tertiary-container) 47.1%);color: var(--md-sys-color-on-tertiary-container);">57/121</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 47.5%, var(--md-sys-color-tertiary-container) 47.5%);color: var(--md-sys-color-on-tertiary-container);">57/120</td>
           </tr>
           <tr>
             <td>1FB00..1FBFF</td>
