@@ -13,7 +13,7 @@
 
 ```bash
 PS .\UnicodeFontSet-magisk-module\system\fonts> $type = Get-ChildItem *.*tf | ForEach-Object { $_.Name }
-PS .\UnicodeFontSet-magisk-modulesystem\fonts> py check_fonts_unicode.py UnicodeData.txt $type
+PS .\UnicodeFontSet-magisk-module\system\fonts> py check_fonts_unicode.py UnicodeData.txt $type
 1) 解析 UnicodeData.txt …
    → 总计需覆盖 159866 个码点（已剔除代理/私用区）
 

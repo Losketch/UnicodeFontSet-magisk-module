@@ -115,43 +115,43 @@ insert_fonts() {
     sed -i '\|</familyset>|i \
 <!-- UnicodeFontSetModule Start -->\
 <family lang="und-Zsye">\
-<font weight="400" style="normal">UFSEmoji-Ext.ttf</font>\
+<font weight="400" style="normal" postScriptName="UFSEmoji-Ext-Regular">UFSEmoji-Ext.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">CtrlCtrl.otf</font>\
+<font weight="400" style="normal" postScriptName="Ctrl-Ctrl">CtrlCtrl.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">PlangothicP1-Regular.ttf</font>\
+<font weight="400" style="normal" postScriptName="PlangothicP1">PlangothicP1-Regular.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">PlangothicP2-Regular.ttf</font>\
+<font weight="400" style="normal" postScriptName="PlangothicP2">PlangothicP2-Regular.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">SourceHanSansSC-Regular.otf</font>\
+<font weight="400" style="normal" postScriptName="SourceHanSansSC-Regular">SourceHanSansSC-Regular.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">NotoSansSuper.otf</font>\
+<font weight="400" style="normal" postScriptName="NotoSansSuper-Regular">NotoSansSuper.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">NotoUnicode.otf</font>\
+<font weight="400" style="normal" postScriptName="Noto-Unicode">NotoUnicode.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">KreativeSquare.ttf</font>\
+<font weight="400" style="normal" postScriptName="KreativeSquare">KreativeSquare.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">UFSZeroExt.otf</font>\
+<font weight="400" style="normal" postScriptName="UFSZeroExt-Regular">UFSZeroExt.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">UnicodiaSesh.ttf</font>\
+<font weight="400" style="normal" postScriptName="UnicodiaSesh">UnicodiaSesh.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">NewGardiner.ttf</font>\
+<font weight="400" style="normal" postScriptName="NewGardiner">NewGardiner.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">MonuTemp.ttf</font>\
+<font weight="400" style="normal" postScriptName="Monu-Temp">MonuTemp.ttf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal">LastResort-Regular.ttf</font>\
+<font weight="400" style="normal" postScriptName="LastResort-Regular">LastResort-Regular.ttf</font>\
 </family>\
 <!-- UnicodeFontSetModule End -->' "$file"
 
