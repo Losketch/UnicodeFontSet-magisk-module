@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="411" viewBox="0 0 650 411" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="486" viewBox="0 0 650 486" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="411" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="486" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
-        <h2>Unicode Block Coverage: UFSZeroExt.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 240</p>
+        <h2>Unicode Block Coverage: UFSZeroExt.otf</h2>
+        <p class="subtitle">Total supported glyphs: 360</p>
       </div>
       <table>
         <thead>
@@ -102,6 +102,11 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 4.7%, var(--md-sys-color-tertiary-container) 4.7%);color: var(--md-sys-color-on-tertiary-container);">2/43</td>
           </tr>
           <tr>
+            <td>0980..09FF</td>
+            <td>Bengali</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">0(+1!)/96</td>
+          </tr>
+          <tr>
             <td>2800..28FF</td>
             <td>Braille Patterns</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.4%, var(--md-sys-color-tertiary-container) 0.4%);color: var(--md-sys-color-on-tertiary-container);">1/256</td>
@@ -114,7 +119,12 @@
           <tr>
             <td>10EC0..10EFF</td>
             <td>Arabic Extended-C</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 61.9%, var(--md-sys-color-secondary-container) 61.9%);color: var(--md-sys-color-on-secondary);">13/21</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 85.7%, var(--md-sys-color-secondary-container) 85.7%);color: var(--md-sys-color-on-secondary);">18/21</td>
+          </tr>
+          <tr>
+            <td>16EA0..16EDF</td>
+            <td>Beria Erfe</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">50/50</td>
           </tr>
           <tr>
             <td>17000..187FF</td>
@@ -140,6 +150,11 @@
             <td>1DF00..1DFFF</td>
             <td>Latin Extended-G</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 59.5%, var(--md-sys-color-secondary-container) 59.5%);color: var(--md-sys-color-on-secondary);">0(+22!)/37</td>
+          </tr>
+          <tr>
+            <td>1E6C0..1E6FF</td>
+            <td>Tai Yo</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 116.4%, var(--md-sys-color-primary-container) 116.4%);color: var(--md-sys-color-on-primary);">55(+9!)/55</td>
           </tr>
         </tbody>
       </table>
