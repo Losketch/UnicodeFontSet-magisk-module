@@ -64,10 +64,12 @@ Please visit the [Releases page](https://github.com/Losketch/UnicodeFontSet-magi
   - [lxgw’s CJK font Magisk module compatibility notes](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
   - [simonsmh’s notocjk module](https://github.com/simonsmh/notocjk)
 - If you already have other font Magisk modules installed, this module will insert its fonts and XML entries incrementally rather than overwriting existing font configurations, preserving the behavior of previously installed modules.
-- **Installation order**: It is recommended to install other font modules first and reboot, then install this module last and reboot to help ensure maximum compatibility.
+- **Installation order**:  
+  - Recommended to install other font modules first and reboot once, then install this font module and reboot to ensure compatibility.  
+  - If later updates to other font modules cause this module’s fonts not to take effect immediately, reboot 1–2 times (or re-activate the Magisk module) to restore proper font display.
 - **Font features**: This collection aims to maximize character coverage and stable rendering. It does not require or depend on advanced shaping features or ligatures. For color emoji, ensure your system and apps support the COLRv1 format (Android 12L+ and modern browsers include such support).
 - **Kernel managers (KernelSU, APatch)**: If you use kernel managers, consider disabling their "auto uninstall modules" or similar features so fonts remain available. If you use hiding solutions like Shamiko, put them into a blacklist/denylist so this module is not removed or hidden.
-**Disclaimer**: This module is provided "as-is" for personal learning and educational purposes only. Users assume all risks. The author accepts no responsibility for any device issues that may arise from installing this module.
+- **Disclaimer**: This module is provided "as-is" for personal learning and educational purposes only. Users assume all risks. The author accepts no responsibility for any device issues that may arise from installing this module.
 
 ## Font Information
 
