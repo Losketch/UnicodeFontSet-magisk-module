@@ -19,6 +19,7 @@ SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
 run_once() {
+log_print "=== 开始执行字体模块监控任务 ==="
 
 THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
 if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then

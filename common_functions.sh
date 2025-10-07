@@ -34,7 +34,7 @@ ui_print() {
 
 log_print() {
     mkdir -p "$(dirname /cache/ufs.log)" 2>/dev/null
-    echo "[UnicodeFontSet] $1" >> /cache/ufs.log
+    echo "[UnicodeFontSet]($(date '+%Y-%m-%d %H:%M')) $1" >> /cache/ufs.log
 }
 
 # 根据原始子目录路径获取本模块内部的目标路径
@@ -130,10 +130,10 @@ insert_fonts() {
 <font weight="400" style="normal" postScriptName="SourceHanSansSC-Regular">SourceHanSansSC-Regular.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal" postScriptName="NotoSansSuper-Regular">NotoSansSuper.otf</font>\
+<font weight="400" style="normal" postScriptName="Noto-Unicode">NotoUnicode.otf</font>\
 </family>\
 <family>\
-<font weight="400" style="normal" postScriptName="Noto-Unicode">NotoUnicode.otf</font>\
+<font weight="400" style="normal" postScriptName="NotoSansSuper-Regular">NotoSansSuper.otf</font>\
 </family>\
 <family>\
 <font weight="400" style="normal" postScriptName="KreativeSquare">KreativeSquare.ttf</font>\
