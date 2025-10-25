@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UnicodiaSesh.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 3377</p>
+        <p class="subtitle">Total supported glyphs: 3856</p>
       </div>
       <table>
         <thead>
@@ -94,12 +94,12 @@
           <tr>
             <td>13000..1342F</td>
             <td>Egyptian Hieroglyphs</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 16.0%, var(--md-sys-color-tertiary-container) 16.0%);color: var(--md-sys-color-on-tertiary-container);">171/1072</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 55.2%, var(--md-sys-color-secondary-container) 55.2%);color: var(--md-sys-color-on-secondary);">592/1072</td>
           </tr>
           <tr>
             <td>13460..143FF</td>
             <td>Egyptian Hieroglyphs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 80.3%, var(--md-sys-color-secondary-container) 80.3%);color: var(--md-sys-color-on-secondary);">3206/3995</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 81.7%, var(--md-sys-color-secondary-container) 81.7%);color: var(--md-sys-color-on-secondary);">3264/3995</td>
           </tr>
         </tbody>
       </table>
