@@ -41,7 +41,6 @@ jobs:
             [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf
             [SourceHanSansSC-Regular.otf]=https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf
             
-            [CtrlCtrl.otf]=https://github.com/MY1L/Ctrl/releases/download/Ctr1/CtrlCtrl-1.1.otf
             [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
             [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
             

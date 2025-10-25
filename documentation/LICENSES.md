@@ -40,7 +40,6 @@ Unless stated otherwise, fonts are distributed under the OFL-1.1 license.
 <summary><b>点击查看字体 Unicode 区块覆盖范围 / Click to view Unicode block coverage per font</b></summary>
 
 <div align="center">
-<img alt="CtrlCtrl" src="./samples/CtrlCtrl_unicode_coverage.svg">
 <img alt="KreativeSquare" src="./samples/KreativeSquare_unicode_coverage.svg">
 <img alt="MonuTemp" src="./samples/MonuTemp_unicode_coverage.svg">
 <img alt="NotoColorEmoji" src="./samples/NotoColorEmoji_unicode_coverage.svg">
@@ -50,7 +49,6 @@ Unless stated otherwise, fonts are distributed under the OFL-1.1 license.
 <img alt="PlangothicP1-Regular" src="./samples/PlangothicP1-Regular_unicode_coverage.svg">
 <img alt="PlangothicP2-Regular" src="./samples/PlangothicP2-Regular_unicode_coverage.svg">
 <img alt="SourceHanSansSC-Regular" src="./samples/SourceHanSansSC-Regular_unicode_coverage.svg">
-<img alt="UFSEmoji-Ext" src="./samples/UFSEmoji-Ext_unicode_coverage.svg">
 <img alt="UFSZeroExt" src="./samples/UFSZeroExt_unicode_coverage.svg">
 <img alt="UnicodiaSesh" src="./samples/UnicodiaSesh_unicode_coverage.svg">
 </div>
