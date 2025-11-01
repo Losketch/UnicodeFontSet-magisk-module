@@ -114,12 +114,6 @@ insert_fonts() {
     # XML块作为sed的'i' (insert) 命令的字面字符串提供
     sed -i '\|</familyset>|i \
 <!-- UnicodeFontSetModule Start -->\
-<family lang="und-Zsye">\
-<font weight="400" style="normal" postScriptName="UFSEmoji-Ext-Regular">UFSEmoji-Ext.ttf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="Ctrl-Ctrl">CtrlCtrl.otf</font>\
-</family>\
 <family>\
 <font weight="400" style="normal" postScriptName="PlangothicP1">PlangothicP1-Regular.otf</font>\
 </family>\
