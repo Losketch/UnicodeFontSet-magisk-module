@@ -1,4 +1,4 @@
-name: Build & Release UnicodeFontSet Magisk Module
+name: Build & Release UnicodeFontSet Module
 
 on:
   push:
@@ -21,12 +21,24 @@ env:
   FONT_DIR: system/fonts
   UPDATE_BIN: META-INF/com/google/android/update-binary
   BUILD_DIR: build
-  ZIP_NAME: UnicodeFontSet-magisk-module.zip
 
 jobs:
   build:
-    name: Build ZIP Artifact
+    name: Build ZIP Artifact — ${{ matrix.variant.suffix }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        variant:
+          - name: "colrv1"
+            emoji_url: "https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf"
+            zip_name: "UnicodeFontSet-COLRv1-module.zip"
+            suffix: "COLRv1 (Android 12L+)"
+            description: "COLRv1 vector emoji"
+          - name: "cbdt"
+            emoji_url: "https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf"
+            zip_name: "UnicodeFontSet-CBDT-module.zip"
+            suffix: "CBDT (Android 5.0+)"
+            description: "CBDT bitmap emoji"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +50,7 @@ jobs:
       - name: Download fonts & scripts
         run: |
           declare -A files=(
-            [NotoColorEmoji.ttf]=https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf
+            [NotoColorEmoji.ttf]=${{ matrix.variant.emoji_url }}
             [SourceHanSansSC-Regular.otf]=https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf
             
             [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
@@ -66,7 +78,12 @@ jobs:
           VERSION_DATE=$(date +%Y%m%d)
           VERSION_CODE="${VERSION_DATE}1"
           sed -i "s/^versionCode=.*/versionCode=${VERSION_CODE}/" module.prop
-          sed -i "/^version=/ s/$/ (${GITHUB_SHA:0:7}-Nightly)/" module.prop
+          sed -i "/^version=/ s/$/ (${GITHUB_SHA:0:7}-Nightly-${{ matrix.variant.suffix }})/" module.prop
+
+      - name: Update version for Release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          sed -i "/^version=/ s/$/ (${{ matrix.variant.suffix }})/" module.prop
 
       - name: Package ZIP & compute checksum
         run: |
@@ -76,16 +93,16 @@ jobs:
            -x "${{ env.BUILD_DIR }}/*" \
            -x "documentation/*" \
            -x "sources/*" \
-           -r ../${{ env.ZIP_NAME }} ./
+           -r ../${{ matrix.variant.zip_name }} ./
 
       - name: Collect artifacts
         run: |
-          mv ../${{ env.ZIP_NAME }} ${{ env.BUILD_DIR }}/
+          mv ../${{ matrix.variant.zip_name }} ${{ env.BUILD_DIR }}/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: module-artifacts
+          name: module-artifacts-${{ matrix.variant.name }}
           path: ${{ env.BUILD_DIR }}
 
   release:
@@ -94,10 +111,17 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
+      - name: Download COLRv1 artifacts
         uses: actions/download-artifact@v4
         with:
-          name: module-artifacts
+          name: module-artifacts-colrv1
+          path: ./artifacts
+
+      - name: Download CBDT artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: module-artifacts-cbdt
+          path: ./artifacts
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -105,7 +129,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           files: |
-            ${{ env.ZIP_NAME }}
+            ./artifacts/*.zip
           draft: false
           prerelease: false
 
@@ -120,10 +144,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download artifacts
+      - name: Download COLRv1 artifacts
         uses: actions/download-artifact@v4
         with:
-          name: module-artifacts
+          name: module-artifacts-colrv1
+          path: ./artifacts
+
+      - name: Download CBDT artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: module-artifacts-cbdt
+          path: ./artifacts
 
       - name: Get commits since last nightly
         id: commits
@@ -151,15 +182,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_OUTPUT
+
       - name: Create Nightly Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: nightly
-          name: Nightly build ${{ github.run_number }}
+          name: Nightly Build ${{ steps.timestamp.outputs.timestamp }}
           body: |
+            ## Variants
+            - **COLRv1**: Uses the new COLRv1 format emoji font (Android 12L+)
+            - **CBDT**: Uses the traditional NotoColorEmoji.ttf (Android 5.0+)
+            
             ## Commits
             ${{ steps.commits.outputs.COMMITS }}
           files: |
-            ${{ env.ZIP_NAME }}
+            ./artifacts/*.zip
           prerelease: true
           make_latest: false
