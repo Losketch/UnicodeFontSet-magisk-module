@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="README.md">
+<a href="#">
   <img src="https://img.shields.io/badge/语言-中文-blue?style=for-the-badge&logo=googletranslate&logoColor=white" alt="中文版本">
 </a>
 <a href="README.en.md">
