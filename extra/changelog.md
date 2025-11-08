@@ -1,4 +1,30 @@
 
+## V1.7.2
+
+### 🗂️ 文件结构优化
+- **移除冗余字体**：删除CtrlCtrl.otf和UFSEmoji-Ext.ttf
+- **XML配置精简**：简化fonts.xml中的字体家族定义
+
+### 📊 性能与兼容性
+- **UnicodiaSesh字体**：埃及象形文字区块显示字体更新
+- **字体许可证更新**：完善LICENSES.md，明确包含历史使用字体
+
+### 🔄 自动更新系统
+- **多版本支持**：为COLRv1和CBDT变体分别配置独立的更新JSON文件
+- **夜间构建优化**：生成专门的夜间构建更新配置文件和变更日志
+- **版本号改进**：夜间构建版本号使用纯日期格式，移除冗余数字
+
+### 📦 构建流程增强
+- **矩阵构建策略**：同时构建COLRv1（Android 12L+）和CBDT（Android 5.0+）两个变体
+- **模块属性动态更新**：根据构建类型自动设置正确的updateJson链接
+- **多工件管理**：分别为不同变体生成独立的ZIP包和更新文件
+
+### 🌐 国际化改进
+- **文档链接优化**：调整README语言切换按钮的链接行为
+- **许可证文档调整**：更新字体许可证描述，从CeCILL-C/OFL改为作者声明/OFL
+
+---
+
 ## V1.7.1
 
 ### 📝 字体更新
@@ -6,6 +32,74 @@
 
 ### 🔧 系统优化
 - **模块操作功能**：为每个 font 标签添加 `postScriptName`；调整 `NotoSansSuper` 与 `NotoUnicode` 字体的加载顺序；新增时间输出功能。
+
+---
+
+## V1.7.0
+
+### 📝 字体更新与优化
+- **字体轮廓更新**：修复 `UFSZeroExt` 字体中「𘴞」(U+18D1E) 的错误部件，且添加了字体源文件。
+- **字体更新**：`UFSZeroExt`新增了120个字形，跟进`遍黑体（Plangothic）`、`Last Resort`和`UnicodiaSesh`字体更新
+
+### 🔧 系统优化
+- **模块操作功能**：调整构建顺序以尝试修复“顺序颠倒”问题。
+
+---
+
+## V1.6.1
+
+### 📝 字体更新与优化
+- **字体轮廓问题修复**：修复 `UFSZeroExt` 字体由于FontCreator导出优化后字形轮廓出现问题，取消锚点优化。
+- **字体更新与删除**：将 `NotoSans*-Regular.otf` 字体统一替换为非地区子集的 `SourceHanSansSC-Regular.otf`。
+- **字体更新**：将 `UFS*Ext` 和 `NotoSansSuper.otf` 字体换为三次贝塞尔曲线版本。 
+`UFSZeroExt` 和 `UFSEmoji-Ext` 字体更新和制作了新的字形。
+
+---
+
+## V1.6.0
+
+### 📝 字体更新与优化
+- **字体重命名并更新**：将 `UFSAramusic.ttf` 字体重命名为 `UFSZeroExt.ttf` 字体，并更新和制作了新的字形。
+
+---
+
+## V1.5.0
+
+### 📝 字体更新与优化
+- **字体精简**：移除 `UnicodiaDaarage.otf` 字体，以优化模块体积和资源占用。
+- **UFSAramusic.ttf 新增**：引入 `UFSAramusic.ttf` 字体，此字体内的字形均为开源字体制作而成（拼这些阿拉伯连字累死我了）。
+
+---
+
+## V1.4.0
+
+### 🔤 Unicode 字符支持扩展
+- **埃及象形文字扩展 A**：新增 UnicodiaSesh.ttf 和 NewGardiner.ttf 字体，实现对埃及象形文字扩展 A 区块的显示
+- **Tulu-Tigalari 文字**：集成 UnicodiaDaarage.otf 字体，实现对 Tulu-Tigalari 区块的显示
+
+### 📝 字体更新
+- **NotoColorEmoji**：替换为 COLRv1 矢量表情字体标准，提供更清晰的缩放效果
+- **NotoSansSuper**：更新至最新版本，扩充字符显示
+- **KreativeSquare**：新增全宽等宽字体，支持伪图形、半图形字符和私用区字符
+
+### 🔧 系统优化
+- **日志管理改进**：开机自动清理历史日志
+- **模块操作功能**：模块管理下点击"操作"按钮可立即执行模块监控
+
+---
+
+## V1.3.0
+1. 全面升级字体注入机制，替换 `MonuLast` 字体为 `LastResort`，并新增对 `LastResort` 字体的支持
+2. 更新了 `NotoSansSuper` 和 `Plangothic` 字体
+3. 优化字体XML配置插入逻辑：动态检测和删除旧配置，确保字体配置唯一性与正确性
+4. 增强字体二进制文件的备份与还原策略，支持对重名字体文件的精准管理，提升模块间兼容性
+5. 改进系统字体XML文件迁移，自动检测来自系统路径的字体配置，确保系统字体同步无误
+6. 增加字体文件和字体二进制文件变化监控，自动检测更新、删除操作，实时同步字体配置
+7. 提升脚本稳定性：增强路径映射逻辑，支持多路径环境下的兼容，避免路径冲突问题
+8. 细化日志记录，记录每次字体配置注入、备份、还原过程，方便排查与维护
+9. 修复若干已知问题，字体管理流程更加可靠
+
+---
 
 ### 🔤 Unicode 码点显示情况
 - **Unicode 17.0 标准码点全覆盖**：本模块实现了对 Unicode 17.0 标准码点的完整字形显示。
@@ -16,7 +110,6 @@ PS .\UnicodeFontSet-magisk-module\system\fonts> py check_fonts_unicode.py Unicod
 1) 解析 UnicodeData.txt …
    → 总计需覆盖 159866 个码点（已剔除代理/私用区）
 
-   已从 CtrlCtrl.otf 读取 644 个 codepoint
    已从 KreativeSquare.ttf 读取 6244 个 codepoint
    已从 MonuTemp.ttf 读取 2717 个 codepoint
    已从 NewGardiner.ttf 读取 5205 个 codepoint
@@ -26,11 +119,10 @@ PS .\UnicodeFontSet-magisk-module\system\fonts> py check_fonts_unicode.py Unicod
    已从 PlangothicP1-Regular.otf 读取 65443 个 codepoint
    已从 PlangothicP2-Regular.otf 读取 42543 个 codepoint
    已从 SourceHanSansSC-Regular.otf 读取 44853 个 codepoint
-   已从 UFSEmoji-Ext.ttf 读取 12 个 codepoint
    已从 UFSZeroExt.otf 读取 360 个 codepoint
-   已从 UnicodiaSesh.ttf 读取 3382 个 codepoint
+   已从 UnicodiaSesh.ttf 读取 3863 个 codepoint
 
-   字体联合后共支持 164849 个码点
+   字体联合后共支持 164848 个码点
 
 ✅ 联合覆盖了全部目标 Unicode 码点！
 ```
@@ -38,4 +130,4 @@ PS .\UnicodeFontSet-magisk-module\system\fonts> py check_fonts_unicode.py Unicod
 ---
 ***覆盖情况说明：***
 - *Unicode 17.0 标准码点（排除代理区和私用区）：159,866 个 — ✅ 完全覆盖*
-- *字体总支持码点：164,849 个（包含部分非标准码点与字体厂商扩展字符）*
+- *字体总支持码点：164,848 个（包含部分非标准码点与字体厂商扩展字符）*
