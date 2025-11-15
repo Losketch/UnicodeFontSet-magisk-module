@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/Language-English-red?style=for-the-badge&logo=googletranslate&logoColor=white" alt="English Version">
 </a>
 
-# Magisk 模块：扩展 Unicode 字体合集
+# Magisk 模块：扩展 Unicode 字体合集（UFS-Magisk）
 
 <img src="https://api.visitorbadge.io/api/visitors?path=Losketch.UnicodeFontSet-magisk-module&countColor=%234ecdc4" alt="Github Visitors">
 <a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/stargazers">
@@ -44,7 +44,7 @@
 </div>
 <br/>
 
-> **本模块无需依赖系统自带字体，通过联合多个字体，实现了对 Unicode 17.0β 标准中所有已定义字符的完整字形覆盖（不包括代理区和私用区）。**  
+> **本模块无需依赖系统自带字体，通过联合多个字体，实现了对 Unicode 17.0 标准中所有已定义字符的完整字形覆盖（不包括代理区和私用区）。**  
 > **本模块以增量方式安装字体和配置，其他字体模块显示得以保留。**
 
 本模块专为已 Root 的 Android 设备设计，通过 Magisk 框架安装一套完整的 Unicode 字体及其配置文件。

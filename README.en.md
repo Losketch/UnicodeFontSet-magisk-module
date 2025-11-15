@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/Language-English-red?style=for-the-badge&logo=googletranslate&logoColor=white" alt="English Version">
 </a>
 
-# Magisk Module: Extended Unicode Font Set
+# Magisk Module: Extended Unicode Font Set (UFS-Magisk)
 
 <img src="https://api.visitorbadge.io/api/visitors?path=Losketch.UnicodeFontSet-magisk-module&countColor=%234ecdc4" alt="Github Visitors">
 <a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/stargazers">
@@ -44,7 +44,7 @@
 </div>
 <br/>
 
-> **This module does not depend on system fonts. By combining multiple fonts, it provides complete glyph coverage for all characters currently defined in the Unicode 17.0β standard (excluding surrogate areas and the Private Use Areas).**  
+> **This module does not depend on system fonts. By combining multiple fonts, it provides complete glyph coverage for all characters currently defined in the Unicode 17.0 standard (excluding surrogate areas and the Private Use Areas).**  
 > **The module installs fonts and configuration incrementally so existing font modules remain intact.**
 
 This module is designed for rooted Android devices and installs a comprehensive Unicode font set and configuration files via the Magisk framework.
