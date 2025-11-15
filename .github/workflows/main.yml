@@ -135,7 +135,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
+          name: UFS-Magisk ${{ github.ref_name }}
           files: |
             ./artifacts/*.zip
           draft: false
@@ -234,8 +234,25 @@ jobs:
           name: Nightly Build ${{ steps.timestamp.outputs.timestamp }}
           body: |
             ## Variants
-            - **COLRv1**: Uses the new COLRv1 format emoji font (Android 12L+)
-            - **CBDT**: Uses the traditional NotoColorEmoji.ttf (Android 5.0+)
+            - **COLRv1**
+              - Format: Vector
+              - Features: Lossless scaling, supports any resolution, fast rendering
+              - Compatibility: Android 12L + (requires built-in COLRv1 renderer)
+              - Size: Typically smaller than bitmap, faster to transfer and load
+            
+            - **CBDT**
+              - Format: Bitmap
+              - Features: Traditional NotoColorEmoji.ttf, ensures compatibility on older devices
+              - Compatibility: Android 5.0 +
+              - Drawback: May appear pixelated when scaled, slower to load
+            
+            ### Key Differences
+            | Feature | COLRv1 | CBDT |
+            |---|---|---|
+            | Data Type | Vector | Bitmap |
+            | Scaling | Lossless, any resolution | May pixelate when enlarged |
+            | Load & Render | Faster (usually smaller file size) | Slower (larger file size) |
+            | Device Support | Android 12L + | Android 5.0 + |
             
             ## Commits
             ${{ steps.commits.outputs.COMMITS }}
