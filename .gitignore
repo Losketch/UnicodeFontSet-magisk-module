@@ -1,4 +1,6 @@
 
+target/
+
 /documentation/*.*tf
 /sources/build
 
