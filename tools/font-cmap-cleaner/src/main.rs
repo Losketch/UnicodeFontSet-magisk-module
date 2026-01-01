@@ -1,7 +1,7 @@
 use anyhow::{Result, bail, Context};
 use clap::{Parser, Subcommand};
 use env_logger::Env;
-use log::info;
+use log::{info, warn};
 use std::{
     collections::HashSet,
     fs,
@@ -42,12 +42,22 @@ struct Args {
     #[arg(short = 'v', long)]
     verbose: bool,
 
+    /// 跳过处理的字体文件名（可多次指定）
+    #[arg(long = "skip-font")]
+    skip_fonts: Vec<String>,
+
+    /// 跳过处理的字体白名单文件（每行一个文件名）
+    #[arg(long = "skip-font-file")]
+    skip_font_file: Option<PathBuf>,
+
+    /// 子命令
     #[command(subcommand)]
     command: Option<Command>,
 }
 
 #[derive(Subcommand, Debug)]
 enum Command {
+    /// 在系统字体中查找包含某个 Unicode 码位的字体
     Find {
         /// Unicode 码位，例如：U+4E00 / 4E00 / 1F600
         codepoint: String,
@@ -76,7 +86,8 @@ fn main() -> Result<()> {
         }
         return Ok(());
     }
-    // --------------------------------
+
+    let skip_fonts = build_skip_font_set(&args)?;
 
     info!("系统字体目录: {:?}", args.system_fonts);
     info!("模块字体目录: {:?}", args.module_fonts);
@@ -95,14 +106,32 @@ fn main() -> Result<()> {
     info!("系统字体共包含 {} 个字符", system_unicode.len());
 
     info!("处理模块字体...");
-    let mut total_kept = 0;
-    let mut total_removed = 0;
-    let mut processed_count = 0;
+    let mut total_kept = 0usize;
+    let mut total_removed = 0usize;
+    let mut processed_count = 0usize;
 
     for entry in fs::read_dir(&args.module_fonts)? {
         let entry = entry?;
         let path = entry.path();
         if !path.is_file() {
+            continue;
+        }
+
+        let file_name = match path.file_name().and_then(|n| n.to_str()) {
+            Some(n) => n,
+            None => continue,
+        };
+
+        if skip_fonts.contains(file_name) {
+            info!("🛑 跳过白名单字体: {}", file_name);
+
+            if let Some(ref out_dir) = args.output {
+                let dst = out_dir.join(file_name);
+                if dst != path {
+                    fs::create_dir_all(dst.parent().unwrap())?;
+                    fs::copy(&path, &dst)?;
+                }
+            }
             continue;
         }
 
@@ -115,13 +144,13 @@ fn main() -> Result<()> {
         let face = match Face::parse(&data, 0) {
             Ok(f) => f,
             Err(e) => {
-                log::warn!("跳过 {:?}: 解析失败 ({:?})", path.file_name().unwrap(), e);
+                warn!("跳过 {}: 解析失败 ({:?})", file_name, e);
                 continue;
             }
         };
 
-        let mut all_chars: HashSet<u32> = HashSet::new();
-        let mut keep: HashSet<u32> = HashSet::new();
+        let mut all_chars = HashSet::new();
+        let mut keep = HashSet::new();
 
         if let Some(cmap) = face.tables().cmap {
             for sub in cmap.subtables {
@@ -136,14 +165,14 @@ fn main() -> Result<()> {
 
         let total_chars = all_chars.len();
         let keep_count = keep.len();
-        let removed = total_chars - keep_count;
+        let removed = total_chars.saturating_sub(keep_count);
 
         total_kept += keep_count;
         total_removed += removed;
 
         info!(
-            "📝 {:?}: 总字符 {}, 保留 {}, 删除 {} ({:.1}%)",
-            path.file_name().unwrap(),
+            "📝 {}: 总字符 {}, 保留 {}, 删除 {} ({:.1}%)",
+            file_name,
             total_chars,
             keep_count,
             removed,
@@ -159,37 +188,30 @@ fn main() -> Result<()> {
         }
 
         let dst_path = if let Some(ref out_dir) = args.output {
-            out_dir.join(path.file_name().unwrap())
+            out_dir.join(file_name)
         } else {
             path.clone()
         };
 
-        let mut keep_vec: Vec<u32> = keep.into_iter().collect();
-        keep_vec.sort_unstable();
-
         if keep_count == 0 {
-            log::warn!(
-                "🗑️ {:?}: 无可保留字符，已跳过（不输出空字体）",
-                path.file_name().unwrap()
+            warn!(
+                "🗑️ {}: 无可保留字符，已跳过（不输出空字体）",
+                file_name
             );
             continue;
         }
 
         if keep_count == total_chars {
-            if let Some(parent) = dst_path.parent() {
-                fs::create_dir_all(parent)?;
-            }
-
             if dst_path != path {
+                fs::create_dir_all(dst_path.parent().unwrap())?;
                 fs::copy(&path, &dst_path)?;
             }
-
             processed_count += 1;
-            log::debug!("📦 {:?}: 无需修改，已直接复制", path.file_name().unwrap());
             continue;
         }
 
-        let font_name = path.file_name().unwrap().to_owned();
+        let mut keep_vec: Vec<u32> = keep.into_iter().collect();
+        keep_vec.sort_unstable();
 
         let result = catch_unwind(AssertUnwindSafe(|| {
             rewrite_font(
@@ -201,8 +223,8 @@ fn main() -> Result<()> {
 
         match result {
             Ok(Ok(())) => processed_count += 1,
-            Ok(Err(e)) => log::warn!("⚠️ 跳过 {:?}: {}", font_name, e),
-            Err(_) => log::warn!("💥 跳过 {:?}: write-fonts panic", font_name),
+            Ok(Err(e)) => warn!("⚠️ 跳过 {}: {}", file_name, e),
+            Err(_) => warn!("💥 跳过 {}: write-fonts panic", file_name),
         }
     }
 
@@ -210,12 +232,49 @@ fn main() -> Result<()> {
     info!("📊 统计汇总:");
     info!("  保留字符总数: {}", total_kept);
     info!("  删除字符总数: {}", total_removed);
-    if !args.dry_run {
-        info!("  已处理字体数: {}", processed_count);
-    }
+    info!("  已处理字体数: {}", processed_count);
     info!("✅ 完成");
 
     Ok(())
+}
+
+fn build_skip_font_set(args: &Args) -> Result<HashSet<String>> {
+    let mut set = HashSet::new();
+
+    for name in &args.skip_fonts {
+        warn_if_non_emoji(name);
+        set.insert(name.to_string());
+    }
+
+    if let Some(ref file) = args.skip_font_file {
+        let content = fs::read_to_string(file)
+            .with_context(|| format!("读取白名单文件失败: {:?}", file))?;
+
+        for line in content.lines() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with('#') {
+                continue;
+            }
+
+            warn_if_non_emoji(line);
+            set.insert(line.to_string());
+        }
+    }
+
+    Ok(set)
+}
+
+fn warn_if_non_emoji(name: &str) {
+    let lower = name.to_lowercase();
+    let looks_like_emoji = lower.contains("emoji");
+    let ext_ok = name.ends_with(".ttf") || name.ends_with(".otf");
+
+    if !looks_like_emoji || !ext_ok {
+        warn!(
+            "⚠️ 白名单条目可能不规范（非 emoji 字体？）: {}",
+            name
+        );
+    }
 }
 
 fn parse_codepoint(s: &str) -> Result<u32> {
