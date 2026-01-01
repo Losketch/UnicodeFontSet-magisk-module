@@ -5,17 +5,19 @@ use log::{info, warn};
 use std::{
     collections::HashSet,
     fs,
-    path::PathBuf,
+    path::{Path, PathBuf},
     panic::{catch_unwind, AssertUnwindSafe},
 };
 
 use ttf_parser::Face;
 use walkdir::WalkDir;
 
+mod fonts_xml;
 mod scan;
 mod rewrite;
 
-use scan::scan_fonts_unicode;
+use fonts_xml::collect_effective_fonts;
+use scan::scan_effective_system_unicode;
 use rewrite::rewrite_font;
 
 #[derive(Parser, Debug)]
@@ -47,8 +49,12 @@ struct Args {
     skip_fonts: Vec<String>,
 
     /// 跳过处理的字体白名单文件（每行一个文件名）
-    #[arg(long = "skip-font-file")]
-    skip_font_file: Option<PathBuf>,
+    #[arg(long = "skip-font-file", default_value = "./whitelist.txt")]
+    skip_font_file: PathBuf,
+
+    /// 显式指定 fonts.xml（可多次指定，优先级最高）
+    #[arg(long = "fonts-xml")]
+    fonts_xml: Vec<PathBuf>,
 
     /// 子命令
     #[command(subcommand)]
@@ -64,22 +70,92 @@ enum Command {
     },
 }
 
+const FONT_XML_FILES: &[&str] = &[
+    "fonts.xml",
+    "fonts_base.xml",
+    "fonts_fallback.xml",
+    "font_fallback.xml",
+    "fonts_inter.xml",
+    "fonts_slate.xml",
+    "fonts_ule.xml",
+    "fonts_flyme.xml",
+    "flyme_fallback.xml",
+    "flyme_font_fallback.xml",
+];
+
+const FONT_XML_SUBDIRS: &[&str] = &[
+    "/system/etc",
+    "/system/product/etc",
+    "/system_ext/etc",
+    "/vendor/etc",
+    "/product/etc",
+];
+
+fn collect_font_xml_paths() -> Vec<PathBuf> {
+    use std::collections::BTreeSet;
+
+    let mut set = BTreeSet::new();
+
+    for dir in FONT_XML_SUBDIRS {
+        let base = Path::new(dir);
+        if !base.exists() {
+            continue;
+        }
+
+        for file in FONT_XML_FILES {
+            let p = base.join(file);
+            if p.exists() {
+                set.insert(p);
+            }
+        }
+    }
+
+    set.into_iter().collect()
+}
+
 fn main() -> Result<()> {
     let args = Args::parse();
 
     let log_level = if args.verbose { "debug" } else { "info" };
     env_logger::Builder::from_env(Env::default().default_filter_or(log_level)).init();
 
+    let font_xml_paths = if !args.fonts_xml.is_empty() {
+        args.fonts_xml.clone()
+    } else {
+        collect_font_xml_paths()
+    };
+    if font_xml_paths.is_empty() {
+        bail!("❌ 未提供 fonts.xml，无法保证 fallback 安全性");
+    }
+
+    info!("📄 发现 {} 个 fonts.xml:", font_xml_paths.len());
+    for p in &font_xml_paths {
+        info!("  - {:?}", p);
+    }
+
+    let xml_refs: Vec<&Path> = font_xml_paths.iter().map(PathBuf::as_path).collect();
+    let effective_fonts = collect_effective_fonts(&xml_refs)?;
+
+    if effective_fonts.is_empty() {
+        bail!("❌ fonts.xml 解析成功但未得到任何有效字体");
+    }
+
+    info!("✅ fonts.xml 引用 {} 个有效系统字体", effective_fonts.len());
+
     if let Some(Command::Find { codepoint }) = &args.command {
         let cp = parse_codepoint(codepoint)?;
         info!("🔍 查找 Unicode U+{:X}", cp);
 
-        let fonts = find_fonts_containing(&args.system_fonts, cp)?;
+        let fonts = find_fonts_containing(
+            &args.system_fonts,
+            cp,
+            &effective_fonts,
+        )?;
 
         if fonts.is_empty() {
             println!("❌ 没有任何系统字体包含 U+{:X}", cp);
         } else {
-            println!("✅ 以下字体包含 U+{:X}:", cp);
+            println!("✅ 以下系统字体包含 U+{:X}:", cp);
             for f in fonts {
                 println!("  - {}", f);
             }
@@ -101,9 +177,11 @@ fn main() -> Result<()> {
         fs::create_dir_all(out)?;
     }
 
-    info!("扫描系统字体...");
-    let system_unicode = scan_fonts_unicode(&args.system_fonts)?;
-    info!("系统字体共包含 {} 个字符", system_unicode.len());
+    info!("扫描有效系统字体 Unicode...");
+    let system_unicode =
+        scan_effective_system_unicode(&args.system_fonts, &effective_fonts)?;
+
+    info!("系统有效字符数: {}", system_unicode.len());
 
     info!("处理模块字体...");
     let mut total_kept = 0usize;
@@ -246,7 +324,9 @@ fn build_skip_font_set(args: &Args) -> Result<HashSet<String>> {
         set.insert(name.to_string());
     }
 
-    if let Some(ref file) = args.skip_font_file {
+    let file = &args.skip_font_file;
+
+    if file.exists() {
         let content = fs::read_to_string(file)
             .with_context(|| format!("读取白名单文件失败: {:?}", file))?;
 
@@ -259,6 +339,8 @@ fn build_skip_font_set(args: &Args) -> Result<HashSet<String>> {
             warn_if_non_emoji(line);
             set.insert(line.to_string());
         }
+    } else {
+        info!("ℹ️ 白名单文件不存在，已忽略: {:?}", file);
     }
 
     Ok(set)
@@ -293,7 +375,11 @@ fn parse_codepoint(s: &str) -> Result<u32> {
     Ok(cp)
 }
 
-fn find_fonts_containing(dir: &PathBuf, cp: u32) -> Result<Vec<String>> {
+fn find_fonts_containing(
+    dir: &PathBuf,
+    cp: u32,
+    effective_fonts: &HashSet<String>,
+) -> Result<Vec<String>> {
     let mut result = Vec::new();
 
     for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
@@ -303,6 +389,15 @@ fn find_fonts_containing(dir: &PathBuf, cp: u32) -> Result<Vec<String>> {
             path.extension().and_then(|e| e.to_str()),
             Some("ttf") | Some("otf")
         ) {
+            continue;
+        }
+
+        let file_name = match path.file_name().and_then(|n| n.to_str()) {
+            Some(n) => n,
+            None => continue,
+        };
+
+        if !effective_fonts.contains(file_name) {
             continue;
         }
 
@@ -332,9 +427,7 @@ fn find_fonts_containing(dir: &PathBuf, cp: u32) -> Result<Vec<String>> {
             }
 
             if found {
-                if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
-                    result.push(name.to_string());
-                }
+                result.push(file_name.to_string());
             }
         }
     }
