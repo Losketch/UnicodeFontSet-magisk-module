@@ -3,12 +3,25 @@ use std::{collections::HashSet, fs, path::Path};
 use ttf_parser::Face;
 use walkdir::WalkDir;
 
-pub fn scan_fonts_unicode(dir: &Path) -> Result<HashSet<u32>> {
+pub fn scan_effective_system_unicode(
+    dir: &Path,
+    effective_fonts: &HashSet<String>,
+) -> Result<HashSet<u32>> {
     let mut set = HashSet::new();
 
     for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
         let path = entry.path();
+
         if !is_font(path) {
+            continue;
+        }
+
+        let file_name = match path.file_name().and_then(|n| n.to_str()) {
+            Some(n) => n,
+            None => continue,
+        };
+
+        if !effective_fonts.contains(file_name) {
             continue;
         }
 
@@ -37,6 +50,6 @@ pub fn scan_fonts_unicode(dir: &Path) -> Result<HashSet<u32>> {
 fn is_font(p: &Path) -> bool {
     matches!(
         p.extension().and_then(|e| e.to_str()),
-        Some("ttf") | Some("otf")
+        Some("ttf") | Some("otf") | Some("ttc")
     )
 }
