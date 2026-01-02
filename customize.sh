@@ -1,4 +1,5 @@
 #!/system/bin/sh
+API=$(getprop ro.build.version.sdk)
 source "$MODPATH/common_functions.sh"
 
 if command -v magisk > /dev/null; then
@@ -50,21 +51,29 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
 
             BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
             BACKUP_FILE="$BACKUP_DIR/$F"
-            SHA1_FILE="$SHA1_DIR/sha1_${MOD_NAME}_${SUB//\//_}_$F"
+            SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
 
             mkdir -p "$BACKUP_DIR"
-            cp -af "$TARGET_FILE" "$BACKUP_FILE"
+            if ! cp -af "$TARGET_FILE" "$BACKUP_FILE"; then
+                ui_print "  ✗ 备份失败：$TARGET_FILE，跳过处理"
+                continue
+            fi
             sha1sum "$TARGET_FILE" | cut -d' ' -f1 > "$SHA1_FILE"
 
             rm -f "$TARGET_FILE"
             ui_print "  已删除并备份：$MOD_NAME/$SUB/$F"
 
-            [ -d "$TARGET_DIR" ] && rmdir "$TARGET_DIR" 2>/dev/null
+            if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
+                rmdir "$TARGET_DIR" 2>/dev/null
+            fi
 
             DSTDIR=$(get_module_target_path "$SUB")
             DST="$DSTDIR/$F"
             mkdir -p "$(dirname "$DST")"
-            cp -af "$BACKUP_FILE" "$DST"
+            if ! cp -af "$BACKUP_FILE" "$DST"; then
+                ui_print "  ✗ 复制失败：$DST"
+                continue
+            fi
             insert_fonts "$DST"
             ui_print "  已替换 $MOD_NAME/$SUB/$F"
         done
@@ -75,64 +84,7 @@ if [ "$FOUND_XML_MODULES" -eq 0 ]; then
     ui_print "  未发现其他字体XML模块"
 fi
 
-THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
-if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
-    ui_print "警告: 本模块的 system/fonts 目录下未发现字体文件，将无法处理其他模块的重名字体。"
-fi
-
-ui_print "正在处理其他模块的字体二进制文件..."
-FOUND_BINARY_MODULES=0
-
-for MODULE_DIR in "$MODULE_PARENT"/*; do
-    [ ! -d "$MODULE_DIR" ] && continue
-
-    MOD_NAME=$(basename "$MODULE_DIR")
-
-    if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
-        continue
-    fi
-
-    MODULE_HAS_FONTS_BINARY=0
-
-    for SUB in $FONT_BINARY_SUBDIRS; do
-        TARGET_DIR="$MODULE_DIR/$SUB"
-        [ ! -d "$TARGET_DIR" ] && continue
-
-        find "$TARGET_DIR" -maxdepth 1 -type f -print | while read -r FONT_FILE; do
-            FONT_FILENAME=$(basename "$FONT_FILE")
-
-            if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
-                continue
-            fi
-
-            # 匹配逻辑: 检查 " $FONT_FILENAME " 是否存在于 " $THIS_MODULE_BINARY_FONTS " 中
-            if echo "$THIS_MODULE_BINARY_FONTS" | grep -q " $FONT_FILENAME "; then
-                if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
-                    ui_print "  发现模块: $MOD_NAME"
-                    MODULE_HAS_FONTS_BINARY=1
-                    FOUND_BINARY_MODULES=$((FOUND_BINARY_MODULES + 1))
-                fi
-
-                BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
-                BACKUP_FILE="$BACKUP_DIR/$FONT_FILENAME"
-                SHA1_FILE="$SHA1_DIR/sha1_${MOD_NAME}_${SUB//\//_}_${FONT_FILENAME}"
-
-                mkdir -p "$BACKUP_DIR"
-                cp -af "$FONT_FILE" "$BACKUP_FILE"
-                sha1sum "$FONT_FILE" | cut -d' ' -f1 > "$SHA1_FILE"
-
-                rm -f "$FONT_FILE"
-                ui_print "  已删除并备份：$MOD_NAME/$SUB/$FONT_FILENAME"
-
-                [ -d "$TARGET_DIR" ] && rmdir "$TARGET_DIR" 2>/dev/null
-            fi
-        done
-    done
-done
-
-if [ "$FOUND_BINARY_MODULES" -eq 0 ]; then
-    ui_print "  未发现其他重名字体二进制模块"
-fi
+process_binary_fonts_install
 
 # --- 迁移并修改系统字体XML文件 (如果存在于镜像路径) ---
 for F in $FONT_XML_FILES; do
@@ -145,7 +97,10 @@ for F in $FONT_XML_FILES; do
         if [ -f "$SRC" ]; then
             ui_print "迁移并修改 $F (来自系统)："
             mkdir -p "$DSTDIR"
-            cp -af "$SRC" "$DST"
+            if ! cp -af "$SRC" "$DST"; then
+                ui_print "  ✗ 复制失败：$DST"
+                continue
+            fi
             insert_fonts "$DST"
 
             SHA1_FILE="$SHA1_DIR/sha1_system_${P//\//_}$F"
