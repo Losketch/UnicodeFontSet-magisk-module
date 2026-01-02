@@ -2,11 +2,19 @@ use anyhow::Result;
 use std::{collections::HashSet, fs, path::Path};
 use ttf_parser::Face;
 use walkdir::WalkDir;
+use tracing::{debug, trace};
 
 pub fn scan_effective_system_unicode(
     dir: &Path,
     effective_fonts: &HashSet<String>,
+    cmap_threshold: usize,
 ) -> Result<HashSet<u32>> {
+    debug!(
+        dir = %dir.display(),
+        effective_fonts = effective_fonts.len(),
+        "scan effective system unicode"
+    );
+
     let mut set = HashSet::new();
 
     for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
@@ -22,6 +30,7 @@ pub fn scan_effective_system_unicode(
         };
 
         if !effective_fonts.contains(file_name) {
+            trace!(font = %file_name, "skip non-effective system font");
             continue;
         }
 
@@ -36,14 +45,31 @@ pub fn scan_effective_system_unicode(
         };
 
         if let Some(cmap) = face.tables().cmap {
+            let mut local = HashSet::new();
+
             for sub in cmap.subtables {
                 sub.codepoints(|cp| {
-                    set.insert(cp);
+                    local.insert(cp);
                 });
             }
+
+            let count = local.len();
+
+            if count > cmap_threshold {
+                tracing::warn!(
+                    font = %file_name,
+                    count,
+                    threshold = cmap_threshold,
+                    "system font cmap exceeds threshold, excluded from system_unicode"
+                );
+                continue;
+            }
+
+            set.extend(local);
         }
     }
 
+    debug!(total = set.len(), "system unicode collected");
     Ok(set)
 }
 

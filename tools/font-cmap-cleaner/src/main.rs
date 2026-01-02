@@ -1,7 +1,7 @@
 use anyhow::{Result, bail, Context};
 use clap::{Parser, Subcommand};
-use env_logger::Env;
-use log::{info, warn};
+use tracing::{info, warn, debug, error, span, Level};
+use tracing_subscriber::{fmt, EnvFilter};
 use std::{
     collections::HashSet,
     fs,
@@ -55,6 +55,10 @@ struct Args {
     /// 显式指定 fonts.xml（可多次指定，优先级最高）
     #[arg(long = "fonts-xml")]
     fonts_xml: Vec<PathBuf>,
+
+    /// system 字体 cmap 安全阈值（超过则不并入 system_unicode）
+    #[arg(long = "system-cmap-threshold", default_value = "1114112")]
+    system_cmap_threshold: usize,
 
     /// 子命令
     #[command(subcommand)]
@@ -116,8 +120,25 @@ fn collect_font_xml_paths() -> Vec<PathBuf> {
 fn main() -> Result<()> {
     let args = Args::parse();
 
-    let log_level = if args.verbose { "debug" } else { "info" };
-    env_logger::Builder::from_env(Env::default().default_filter_or(log_level)).init();
+    let filter = if args.verbose {
+        EnvFilter::new("trace")
+    } else {
+        EnvFilter::from_default_env()
+            .add_directive("font_cmap_tool=info".parse().unwrap())
+    };
+
+    fmt()
+        .with_env_filter(filter)
+        .with_target(false)
+        .with_line_number(false)
+        .compact()
+        .init();
+
+    info!(
+        os = std::env::consts::OS,
+        arch = std::env::consts::ARCH,
+         "🖥️ 运行环境"
+    );
 
     let font_xml_paths = if !args.fonts_xml.is_empty() {
         args.fonts_xml.clone()
@@ -130,7 +151,7 @@ fn main() -> Result<()> {
 
     info!("📄 发现 {} 个 fonts.xml:", font_xml_paths.len());
     for p in &font_xml_paths {
-        info!("  - {:?}", p);
+        debug!(path = %p.display(), "📄 发现 fonts.xml");
     }
 
     let xml_refs: Vec<&Path> = font_xml_paths.iter().map(PathBuf::as_path).collect();
@@ -140,7 +161,7 @@ fn main() -> Result<()> {
         bail!("❌ fonts.xml 解析成功但未得到任何有效字体");
     }
 
-    info!("✅ fonts.xml 引用 {} 个有效系统字体", effective_fonts.len());
+    debug!(fonts = effective_fonts.len(), ?effective_fonts, "🧩 有效字体集合");
 
     if let Some(Command::Find { codepoint }) = &args.command {
         let cp = parse_codepoint(codepoint)?;
@@ -179,9 +200,13 @@ fn main() -> Result<()> {
 
     info!("扫描有效系统字体 Unicode...");
     let system_unicode =
-        scan_effective_system_unicode(&args.system_fonts, &effective_fonts)?;
+        scan_effective_system_unicode(
+        &args.system_fonts,
+        &effective_fonts,
+        args.system_cmap_threshold,
+    )?;
 
-    info!("系统有效字符数: {}", system_unicode.len());
+    info!(count = system_unicode.len(), "🔍 系统 Unicode 扫描完成");
 
     info!("处理模块字体...");
     let mut total_kept = 0usize;
@@ -200,8 +225,16 @@ fn main() -> Result<()> {
             None => continue,
         };
 
+        let font_span = span!(
+            Level::INFO,
+            "🔤 处理字体",
+            file = %file_name,
+            path = %path.display(),
+        ).entered();
+        let _enter = font_span.enter();
+
         if skip_fonts.contains(file_name) {
-            info!("🛑 跳过白名单字体: {}", file_name);
+            info!("🛑 跳过白名单字体");
 
             if let Some(ref out_dir) = args.output {
                 let dst = out_dir.join(file_name);
@@ -222,7 +255,7 @@ fn main() -> Result<()> {
         let face = match Face::parse(&data, 0) {
             Ok(f) => f,
             Err(e) => {
-                warn!("跳过 {}: 解析失败 ({:?})", file_name, e);
+                warn!(error = ?e, "⚠️ 字体解析失败");
                 continue;
             }
         };
@@ -245,20 +278,16 @@ fn main() -> Result<()> {
         let keep_count = keep.len();
         let removed = total_chars.saturating_sub(keep_count);
 
-        total_kept += keep_count;
-        total_removed += removed;
-
         info!(
-            "📝 {}: 总字符 {}, 保留 {}, 删除 {} ({:.1}%)",
-            file_name,
             total_chars,
             keep_count,
             removed,
-            if total_chars > 0 {
-                (removed as f64 / total_chars as f64) * 100.0
+            removed_ratio = if total_chars > 0 {
+                removed as f64 / total_chars as f64
             } else {
                 0.0
-            }
+            },
+            "📝 cmap 统计"
         );
 
         if args.dry_run {
@@ -300,9 +329,14 @@ fn main() -> Result<()> {
         }));
 
         match result {
-            Ok(Ok(())) => processed_count += 1,
-            Ok(Err(e)) => warn!("⚠️ 跳过 {}: {}", file_name, e),
-            Err(_) => warn!("💥 跳过 {}: write-fonts panic", file_name),
+            Ok(Ok(())) => {
+                processed_count += 1;
+                total_kept += keep_count;
+                total_removed += removed;
+                debug!("✅ 重写成功");
+            }
+            Ok(Err(e)) => warn!(error = %e, "⚠️ 重写失败，已跳过"),
+            Err(_) => error!("💥 rewrite_font panic"),
         }
     }
 
