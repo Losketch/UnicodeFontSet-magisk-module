@@ -111,7 +111,10 @@ done
 
 chmod 755 "$MODPATH/action.sh"
 chmod 755 "$MODPATH/service.sh"
+chmod 755 "$MODPATH/bin/"*
 ui_print "- 安装完成,已清理冲突的字体文件"
+
+ask_run_cmap_cleaner
 
 if [ -x "$MODPATH/service.sh" ]; then
     sh "$MODPATH/service.sh" &

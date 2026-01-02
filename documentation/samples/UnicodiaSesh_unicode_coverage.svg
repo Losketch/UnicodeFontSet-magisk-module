@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="211" viewBox="0 0 650 211" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="286" viewBox="0 0 650 286" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="211" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="286" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UnicodiaSesh.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 3856</p>
+        <p class="subtitle">Total supported glyphs: 4586</p>
       </div>
       <table>
         <thead>
@@ -92,14 +92,29 @@
         </thead>
         <tbody>
           <tr>
+            <td>0000..007F</td>
+            <td>Basic Latin</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">1/95</td>
+          </tr>
+          <tr>
+            <td>25A0..25FF</td>
+            <td>Geometric Shapes</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">1/96</td>
+          </tr>
+          <tr>
             <td>13000..1342F</td>
             <td>Egyptian Hieroglyphs</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 55.2%, var(--md-sys-color-secondary-container) 55.2%);color: var(--md-sys-color-on-secondary);">592/1072</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">1072/1072</td>
+          </tr>
+          <tr>
+            <td>13430..1345F</td>
+            <td>Egyptian Hieroglyph Format Controls</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">38/38</td>
           </tr>
           <tr>
             <td>13460..143FF</td>
             <td>Egyptian Hieroglyphs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 81.7%, var(--md-sys-color-secondary-container) 81.7%);color: var(--md-sys-color-on-secondary);">3264/3995</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 87.0%, var(--md-sys-color-secondary-container) 87.0%);color: var(--md-sys-color-on-secondary);">3474/3995</td>
           </tr>
         </tbody>
       </table>

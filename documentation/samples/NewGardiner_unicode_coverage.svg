@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: NewGardiner.ttf</h2>
-        <p class="subtitle">Total supported glyphs: 5200</p>
+        <p class="subtitle">Total supported glyphs: 5202</p>
       </div>
       <table>
         <thead>
@@ -109,7 +109,7 @@
           <tr>
             <td>E000..F8FF</td>
             <td>Private Use Area</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.2%, var(--md-sys-color-tertiary-container) 1.2%);color: var(--md-sys-color-on-tertiary-container);">77/6400</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.2%, var(--md-sys-color-tertiary-container) 1.2%);color: var(--md-sys-color-on-tertiary-container);">79/6400</td>
           </tr>
           <tr>
             <td>FE00..FE0F</td>

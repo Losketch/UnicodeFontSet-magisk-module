@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: PlangothicP2-Regular.otf</h2>
-        <p class="subtitle">Total supported glyphs: 42416</p>
+        <p class="subtitle">Total supported glyphs: 42415</p>
       </div>
       <table>
         <thead>
@@ -459,7 +459,7 @@
           <tr>
             <td>E000..F8FF</td>
             <td>Private Use Area</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.6%, var(--md-sys-color-tertiary-container) 0.6%);color: var(--md-sys-color-on-tertiary-container);">36/6400</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.5%, var(--md-sys-color-tertiary-container) 0.5%);color: var(--md-sys-color-on-tertiary-container);">35/6400</td>
           </tr>
           <tr>
             <td>F900..FAFF</td>

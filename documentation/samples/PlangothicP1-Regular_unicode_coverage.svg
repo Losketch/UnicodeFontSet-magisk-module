@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: PlangothicP1-Regular.otf</h2>
-        <p class="subtitle">Total supported glyphs: 65349</p>
+        <p class="subtitle">Total supported glyphs: 65341</p>
       </div>
       <table>
         <thead>
@@ -189,17 +189,17 @@
           <tr>
             <td>3400..4DBF</td>
             <td>CJK Unified Ideographs Extension A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">67/6592</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">69/6592</td>
           </tr>
           <tr>
             <td>4E00..9FFF</td>
             <td>CJK Unified Ideographs</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.2%, var(--md-sys-color-tertiary-container) 5.2%);color: var(--md-sys-color-on-tertiary-container);">1090/20992</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.1%, var(--md-sys-color-tertiary-container) 5.1%);color: var(--md-sys-color-on-tertiary-container);">1081/20992</td>
           </tr>
           <tr>
             <td>E000..F8FF</td>
             <td>Private Use Area</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 23.5%, var(--md-sys-color-tertiary-container) 23.5%);color: var(--md-sys-color-on-tertiary-container);">1505/6400</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 23.5%, var(--md-sys-color-tertiary-container) 23.5%);color: var(--md-sys-color-on-tertiary-container);">1504/6400</td>
           </tr>
           <tr>
             <td>F900..FAFF</td>
@@ -239,7 +239,7 @@
           <tr>
             <td>2B740..2B81F</td>
             <td>CJK Unified Ideographs Extension D</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">222/222</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.5%, var(--md-sys-color-primary-container) 100.5%);color: var(--md-sys-color-on-primary);">222(+1!)/222</td>
           </tr>
           <tr>
             <td>2B820..2CEAF</td>
@@ -259,7 +259,7 @@
           <tr>
             <td>2F800..2FA1F</td>
             <td>CJK Compatibility Ideographs Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">542/542</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 99.8%, var(--md-sys-color-primary-container) 99.8%);color: var(--md-sys-color-on-primary);">541/542</td>
           </tr>
           <tr>
             <td>31350..323AF</td>

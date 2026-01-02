@@ -394,3 +394,162 @@ acquire_lock() {
 release_lock() {
     rmdir "$LOCK_DIR" 2>/dev/null || true
 }
+
+select_font_cmap_tool() {
+    local ABI ABI_LIST
+
+    ABI="$(getprop ro.product.cpu.abi)"
+    ABI_LIST="$(getprop ro.product.cpu.abilist)"
+
+    ui_print "- Primary ABI: $ABI"
+    ui_print "- ABI list: $ABI_LIST"
+
+    case "$ABI" in
+        arm64-v8a)
+            FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-arm64-v8a"
+            ;;
+        armeabi-v7a|armeabi)
+            FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-armeabi-v7a"
+            ;;
+        x86_64)
+            FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-x86_64"
+            ;;
+        x86)
+            FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-x86"
+            ;;
+        *)
+            ui_print "! Unsupported ABI: $ABI"
+            return 1
+            ;;
+    esac
+
+    if [ ! -x "$FONT_CMAP_TOOL" ]; then
+        ui_print "! font-cmap-cleaner binary not found or not executable:"
+        ui_print "  $FONT_CMAP_TOOL"
+        return 1
+    fi
+
+    ui_print "- Using font-cmap-cleaner: $(basename "$FONT_CMAP_TOOL")"
+    return 0
+}
+
+run_font_cmap_cleaner() {
+    select_font_cmap_tool || return 1
+
+    ui_print "🔧 执行 font-cmap-cleaner..."
+
+    TMP_BIN="/data/local/tmp/font-cmap-tool.$$"
+
+    cp -f "$FONT_CMAP_TOOL" "$TMP_BIN" || {
+        ui_print "✗ 复制 font-cmap-tool 失败"
+        return 1
+    }
+
+    chmod 755 "$TMP_BIN"
+
+    "$TMP_BIN" --help >/dev/null 2>&1 || {
+        ui_print "⚠ font-cmap-cleaner 无法在当前系统执行"
+        rm -f "$TMP_BIN"
+        return 127
+    }
+
+    "$TMP_BIN" \
+        --system-fonts /system/fonts \
+        --module-fonts "$MODPATH/system/fonts" \
+        --skip-font-file "$MODPATH/whitelist.txt"
+
+    local RET=$?
+
+    rm -f "$TMP_BIN"
+
+    if [ "$RET" -ne 0 ]; then
+        ui_print "⚠ font-cmap-cleaner 执行失败 (exit=$RET)"
+        return "$RET"
+    fi
+
+    ui_print "✓ font-cmap-cleaner 处理完成"
+}
+
+wait_volume_key() {
+    local TIMEOUT="${1:-15}"
+    local START_TS NOW KEYCHECK
+
+    if [ -x "/keycheck" ]; then
+        KEYCHECK="/keycheck"
+    elif [ -n "$MAGISKBIN" ] && [ -x "$MAGISKBIN/keycheck" ]; then
+        KEYCHECK="$MAGISKBIN/keycheck"
+    else
+        KEYCHECK=""
+    fi
+
+    if [ -n "$KEYCHECK" ]; then
+        ui_print "- 使用 keycheck 检测音量键（$TIMEOUT 秒）"
+
+        START_TS=$(date +%s)
+        while :; do
+            "$KEYCHECK"
+            case "$?" in
+                42) return 0 ;;
+                41) return 1 ;;
+            esac
+
+            NOW=$(date +%s)
+            [ $((NOW - START_TS)) -ge "$TIMEOUT" ] && return 2
+            sleep 1
+        done
+    fi
+
+    if command -v getevent >/dev/null 2>&1; then
+        ui_print "- 使用 getevent 检测音量键（$TIMEOUT 秒）"
+
+        local EVENT
+        EVENT=$(timeout "$TIMEOUT" getevent -ql 2>/dev/null \
+            | grep -m 1 -E "KEY_VOLUMEUP|KEY_VOLUMEDOWN")
+
+        if echo "$EVENT" | grep -q "KEY_VOLUMEDOWN"; then
+            return 0
+        elif echo "$EVENT" | grep -q "KEY_VOLUMEUP"; then
+            return 1
+        else
+            return 2
+        fi
+    fi
+
+    ui_print "- 未检测到可用的输入方式"
+    return 3
+}
+
+ask_run_cmap_cleaner() {
+    ui_print ""
+    ui_print "========================================"
+    ui_print "📌 可选操作：cmap 字符表清理"
+    ui_print ""
+    ui_print "如遇到以下问题："
+    ui_print " - 颜文字（如 ʕ•ᴥ•ʔ、(╯°□°）、 ๑⃙⃘´༥`๑⃙⃘ 、(ͼ̤͂ ͜ ͽ̤͂)✧）显示异常"
+    ui_print " - Emoji 显示为空白 / 方块 / 错位（如😀.png 、🤓:书呆子脸）"
+    ui_print ""
+    ui_print "👉 这通常是字体 cmap 冲突导致的"
+    ui_print "⚠ 此操作会修改模块内字体文件（安全，可恢复）"
+    ui_print ""
+    ui_print "15 秒内："
+    ui_print "  音量【下】 → 执行清理"
+    ui_print "  音量【上】 → 跳过"
+    ui_print "========================================"
+
+    wait_volume_key 15
+    case "$?" in
+        0)
+            ui_print "🚀 选择执行 cmap 清理"
+            run_font_cmap_cleaner
+            ;;
+        1)
+            ui_print "↩ 用户选择跳过"
+            ;;
+        2)
+            ui_print "⏱ 超时未操作，已跳过"
+            ;;
+        *)
+            ui_print "ℹ 当前环境不支持按键检测，已跳过"
+            ;;
+    esac
+}

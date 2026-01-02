@@ -183,6 +183,15 @@ jobs:
           
           cd ../..
 
+      - name: Copy font-cmap-cleaner whitelist
+        run: |
+          if [ -f tools/font-cmap-cleaner/whitelist.txt ]; then
+            cp tools/font-cmap-cleaner/whitelist.txt ./whitelist.txt
+          else
+            echo "whitelist.txt not found!" >&2
+            exit 1
+          fi
+
       - name: Package ZIP & compute checksum
         run: |
           zip -9 \
