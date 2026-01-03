@@ -456,7 +456,8 @@ run_font_cmap_cleaner() {
     "$TMP_BIN" \
         --system-fonts /system/fonts \
         --module-fonts "$MODPATH/system/fonts" \
-        --skip-font-file "$MODPATH/whitelist.txt"
+        --skip-font-file "$MODPATH/whitelist.txt" \
+        --no-color
 
     local RET=$?
 
@@ -525,7 +526,7 @@ ask_run_cmap_cleaner() {
     ui_print "📌 可选操作：cmap 字符表清理"
     ui_print ""
     ui_print "如遇到以下问题："
-    ui_print " - 颜文字（如 ʕ•ᴥ•ʔ、(╯°□°）、 ๑⃙⃘´༥`๑⃙⃘ 、(ͼ̤͂ ͜ ͽ̤͂)✧）显示异常"
+    ui_print " - 颜文字（如 ʕ•ᴥ•ʔ、(╯°□°）、 ๑⃙⃘´༥`๑⃙⃘ 、(ͼ̤͂ ͜ ͽ̤͂)✧）显示异常"
     ui_print " - Emoji 显示为空白 / 方块 / 错位（如😀.png 、🤓:书呆子脸）"
     ui_print ""
     ui_print "👉 这通常是字体 cmap 冲突导致的"

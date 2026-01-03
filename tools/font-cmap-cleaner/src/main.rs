@@ -4,6 +4,7 @@ use tracing::{info, warn, debug, error, span, Level};
 use tracing_subscriber::{fmt, EnvFilter};
 use std::{
     collections::HashSet,
+    env,
     fs,
     path::{Path, PathBuf},
     panic::{catch_unwind, AssertUnwindSafe},
@@ -59,6 +60,10 @@ struct Args {
     /// system 字体 cmap 安全阈值（超过则不并入 system_unicode）
     #[arg(long = "system-cmap-threshold", default_value = "1114112")]
     system_cmap_threshold: usize,
+
+    /// 禁用彩色输出
+    #[arg(long = "no-color")]
+    no_color: bool,
 
     /// 子命令
     #[command(subcommand)]
@@ -127,10 +132,16 @@ fn main() -> Result<()> {
             .add_directive("font_cmap_tool=info".parse().unwrap())
     };
 
+    let disable_color =
+        args.no_color
+        || env::var_os("NO_COLOR").is_some()
+        || env::var("TERM").map(|v| v == "dumb").unwrap_or(false);
+
     fmt()
         .with_env_filter(filter)
         .with_target(false)
         .with_line_number(false)
+        .with_ansi(!disable_color)
         .compact()
         .init();
 
