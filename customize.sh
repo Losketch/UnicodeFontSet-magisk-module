@@ -3,8 +3,15 @@ API=$(getprop ro.build.version.sdk)
 source "$MODPATH/common_functions.sh"
 
 if command -v magisk > /dev/null; then
-    MIRRORPATH="$(magisk --path)/.magisk/mirror"
+    MAGISK_PATH="$(magisk --path)"
+    MIRRORPATH="$MAGISK_PATH/.magisk/mirror"
+
+    if [ ! -d "$MIRRORPATH/system" ]; then
+        ui_print "⚠ Magisk 镜像路径不可用，将直接使用系统路径"
+        MIRRORPATH=""
+    fi
 else
+    ui_print "⚠ Magisk 命令不可用，将直接使用系统路径"
     unset MIRRORPATH
 fi
 
@@ -87,15 +94,28 @@ fi
 process_binary_fonts_install
 
 # --- 迁移并修改系统字体XML文件 (如果存在于镜像路径) ---
+ui_print "正在扫描系统字体XML文件..."
+FOUND_SYSTEM_XML=0
+
 for F in $FONT_XML_FILES; do
-    for P in /system/etc/ /system_ext/etc/; do
-        SRC="$MIRRORPATH$P$F"
+    for SUB in $FONT_XML_SUBDIRS; do
+        P="/${SUB}/"
+
+        if [ -n "$MIRRORPATH" ]; then
+            SRC="$MIRRORPATH$P$F"
+        else
+            SRC="$P$F"
+        fi
 
         DSTDIR=$(get_module_target_path "${P#/}")
         DST="$DSTDIR/$F"
 
         if [ -f "$SRC" ]; then
-            ui_print "迁移并修改 $F (来自系统)："
+            if [ "$FOUND_SYSTEM_XML" -eq 0 ]; then
+                FOUND_SYSTEM_XML=1
+            fi
+
+            ui_print "  处理: $SUB/$F"
             mkdir -p "$DSTDIR"
             if ! cp -af "$SRC" "$DST"; then
                 ui_print "  ✗ 复制失败：$DST"
@@ -108,6 +128,10 @@ for F in $FONT_XML_FILES; do
         fi
     done
 done
+
+if [ "$FOUND_SYSTEM_XML" -eq 0 ]; then
+    ui_print "  未发现系统字体XML文件"
+fi
 
 chmod 755 "$MODPATH/action.sh"
 chmod 755 "$MODPATH/service.sh"

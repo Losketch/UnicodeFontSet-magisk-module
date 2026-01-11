@@ -8,6 +8,8 @@ use tracing::{debug, trace};
 /// 规则：
 /// - 只解析 <font>...</font>
 /// - 忽略带 fallbackFor 属性的 font
+/// - 忽略 <!-- UnicodeFontSetModule Start --> 到 <!-- UnicodeFontSetModule End --> 之间的字体
+///   （防止把模块自己注入的字体统计为系统字体）
 pub fn parse_fonts_xml(path: &Path) -> Result<HashSet<String>> {
     let mut result = HashSet::new();
 
@@ -26,13 +28,30 @@ pub fn parse_fonts_xml(path: &Path) -> Result<HashSet<String>> {
 
     let mut buf = Vec::new();
 
+    let mut in_module_section = false;
     let mut in_font = false;
     let mut ignore_font = false;
     let mut font_text = String::new();
 
     loop {
         match reader.read_event_into(&mut buf) {
+            Ok(Event::Comment(e)) => {
+                let comment = e.decode()?.trim().to_string();
+
+                if comment.contains("UnicodeFontSetModule Start") {
+                    in_module_section = true;
+                    trace!("entering UnicodeFontSetModule section, will skip fonts");
+                } else if comment.contains("UnicodeFontSetModule End") {
+                    in_module_section = false;
+                    trace!("exiting UnicodeFontSetModule section");
+                }
+            }
+
             Ok(Event::Start(e)) if e.name().as_ref() == b"font" => {
+                if in_module_section {
+                    continue;
+                }
+
                 in_font = true;
                 ignore_font = false;
                 font_text.clear();
@@ -54,7 +73,7 @@ pub fn parse_fonts_xml(path: &Path) -> Result<HashSet<String>> {
             }
 
             Ok(Event::End(e)) if e.name().as_ref() == b"font" => {
-                if in_font && !ignore_font {
+                if in_font && !ignore_font && !in_module_section {
                     if let Some(name) = normalize_font_filename(&font_text) {
                         trace!(font = %name, "effective font discovered");
                         result.insert(name);

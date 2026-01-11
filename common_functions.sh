@@ -173,6 +173,9 @@ get_safe_sha1_filename() {
 monitor_font_modules() {
     local print_func="$1"
 
+    local FOUND_XML_ACTIONS=0
+    local FOUND_BINARY_ACTIONS=0
+
     $print_func "开始监控其他字体模块的变化..."
 
     THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
@@ -203,13 +206,16 @@ monitor_font_modules() {
                         if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
                             $print_func "检测到模块 $MOD_NAME 更新了字体XML文件 $SUB/$F，重新处理。"
                             ACTION_TAKEN=1
+                            FOUND_XML_ACTIONS=1
                         else
                             $print_func "检测到模块 $MOD_NAME 重新创建了字体XML文件 $SUB/$F。"
                             ACTION_TAKEN=1
+                            FOUND_XML_ACTIONS=1
                         fi
                     else
                         $print_func "检测到模块 $MOD_NAME 新增了字体XML文件 $SUB/$F。"
                         ACTION_TAKEN=1
+                        FOUND_XML_ACTIONS=1
                     fi
 
                     if [ "$ACTION_TAKEN" -eq 1 ]; then
@@ -273,13 +279,16 @@ monitor_font_modules() {
                             if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
                                 $print_func "检测到模块 $MOD_NAME 更新了重名字体二进制文件 $SUB/$FONT_FILENAME，重新处理。"
                                 ACTION_TAKEN=1
+                                FOUND_BINARY_ACTIONS=1
                             else
                                 $print_func "检测到模块 $MOD_NAME 重新创建了重名字体二进制文件 $SUB/$FONT_FILENAME。"
                                 ACTION_TAKEN=1
+                                FOUND_BINARY_ACTIONS=1
                             fi
                         else
                             $print_func "检测到模块 $MOD_NAME 新增了重名字体二进制文件 $SUB/$FONT_FILENAME。"
                             ACTION_TAKEN=1
+                            FOUND_BINARY_ACTIONS=1
                         fi
 
                         if [ "$ACTION_TAKEN" -eq 1 ]; then
@@ -311,6 +320,10 @@ monitor_font_modules() {
             done
         fi
     done
+
+    if [ "$FOUND_XML_ACTIONS" -eq 0 ] && [ "$FOUND_BINARY_ACTIONS" -eq 0 ]; then
+        $print_func "  未发现其他字体模块的冲突"
+    fi
 
     $print_func "字体模块监控完成"
 }
@@ -533,8 +546,8 @@ ask_run_cmap_cleaner() {
     ui_print "⚠ 此操作会修改模块内字体文件（安全，可恢复）"
     ui_print ""
     ui_print "15 秒内："
-    ui_print "  音量【下】 → 执行清理"
     ui_print "  音量【上】 → 跳过"
+    ui_print "  音量【下】 → 执行清理"
     ui_print "========================================"
 
     wait_volume_key 15
