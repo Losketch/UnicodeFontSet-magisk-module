@@ -1,6 +1,7 @@
 #!/system/bin/sh
 
-MODPATH=${0%/*}
+SCRIPT_REAL_PATH="$(readlink -f "$0")"
+MODPATH="${SCRIPT_REAL_PATH%/*}"
 API=$(getprop ro.build.version.sdk)
 
 [ "$API" -lt 26 ] && exit 0

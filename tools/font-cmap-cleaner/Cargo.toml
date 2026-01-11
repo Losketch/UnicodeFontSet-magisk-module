@@ -9,8 +9,6 @@ ttf-parser = "0.25.1"
 read-fonts = { git = "https://github.com/googlefonts/fontations", branch = "cff-sfnt" }
 write-fonts = { git = "https://github.com/googlefonts/fontations", branch = "cff-sfnt" }
 walkdir = "2.4"
-log = "0.4"
-env_logger = "0.11"
 clap = { version = "4.5", features = ["derive"] }
 quick-xml = "0.38.4"
 tracing = "0.1"
