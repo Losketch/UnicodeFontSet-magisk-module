@@ -8,7 +8,7 @@ API=$(getprop ro.build.version.sdk)
 if [ -f "$MODPATH/common_functions.sh" ]; then
     source "$MODPATH/common_functions.sh"
 else
-    echo "Error: common_functions.sh not found!" >> /cache/ufs.log
+    echo "$TXT_ERROR_COMMON_MISSING" >> /cache/ufs.log
     exit 1
 fi
 
@@ -19,12 +19,12 @@ SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
 run_once() {
-    log_print "=== 开始执行字体模块监控任务 ==="
+    log_print "$TXT_SERVICE_START"
     monitor_font_modules "log_print"
 }
 
 if ! acquire_lock; then
-    log_print "⚠ 另一实例正在运行，退出本次 service 启动"
+    log_print "$TXT_SERVICE_BUSY"
     exit 0
 fi
 

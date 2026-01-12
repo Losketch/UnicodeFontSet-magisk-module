@@ -9,7 +9,7 @@ API=$(getprop ro.build.version.sdk)
 if [ -f "$MODPATH/common_functions.sh" ]; then
     source "$MODPATH/common_functions.sh"
 else
-    echo "Error: common_functions.sh not found!" >> /cache/ufs.log
+    echo "$TXT_ERROR_COMMON_MISSING" >> /cache/ufs.log
     exit 1
 fi
 
@@ -20,7 +20,7 @@ SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
 if ! acquire_lock; then
-    log_print "⚠ 另一实例正在运行，跳过本次监控"
+    log_print "$TXT_LOCK_BUSY"
     exit 0
 fi
 
