@@ -21,6 +21,8 @@ system/product/etc
 system/system_ext/etc
 EOF
 
+[ -f "$MODPATH/lang/lang.sh" ] && . "$MODPATH/lang/lang.sh"
+
 FONT_BINARY_SUBDIRS="system/fonts"
 LOCK_DIR="/data/adb/ufs_lock"
 LOG_FILE="${MODPATH:-/cache}/ufs.log"
@@ -40,6 +42,10 @@ ui_print() {
 log_print() {
     mkdir -p "$(dirname "$LOG_FILE")" 2>/dev/null
     echo "[UnicodeFontSet][$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
+}
+
+safe_ui_print() {
+    ui_print "$(safe_text "$1")"
 }
 
 get_module_target_path() {
@@ -89,7 +95,7 @@ remove_module_fonts() {
 check_xml_format() {
     local file="$1"
     if ! grep -q '<familyset' "$file" || ! grep -q '^[[:space:]]*</familyset>' "$file"; then
-        ui_print "  ⚠ 警告：$file 格式可能不正确，跳过处理。"
+        ui_print "$(safe_printf TXT_XML_FORMAT_WARN "$file")"
         return 1
     fi
     return 0
@@ -99,8 +105,8 @@ insert_fonts() {
     local file="$1"
     local FRAGMENT="$MODPATH/config/fonts_fragment.xml"
 
-    [ ! -f "$file" ] && { ui_print "  ✗ 文件不存在：$file"; return 1; }
-    [ ! -f "$FRAGMENT" ] && { ui_print "  ✗ 缺少字体注入配置"; return 1; }
+    [ ! -f "$file" ] && { ui_print "$(safe_printf TXT_XML_NOT_FOUND "$file")"; return 1; }
+    [ ! -f "$FRAGMENT" ] && { safe_ui_print TXT_XML_FRAGMENT_MISSING; return 1; }
 
     check_xml_format "$file" || return 1
 
@@ -128,7 +134,7 @@ insert_fonts() {
     rm -f "$block_file"
     mv -f "$tmp_file" "$file"
 
-    ui_print "  ✓ 已向 $(basename "$file") 注入字体配置"
+    ui_print "$(safe_printf TXT_XML_INJECT_OK "$(basename "$file")")"
     return 0
 }
 
@@ -149,11 +155,11 @@ monitor_font_modules() {
     local FOUND_XML_ACTIONS=0
     local FOUND_BINARY_ACTIONS=0
 
-    $print_func "开始监控其他字体模块的变化..."
+    $print_func "$(safe_text TXT_START_MONITOR)"
 
     THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
     if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
-        $print_func "警告: 本模块的 system/fonts 目录下未发现字体文件，将无法处理其他模块的重名字体。"
+        $print_func "$(safe_text TXT_WARN_NO_SELF_FONTS)"
     fi
 
     for MODULE_DIR in "$MODULE_PARENT"/*; do
@@ -177,16 +183,16 @@ monitor_font_modules() {
                     if [ -f "$SHA1_FILE" ]; then
                         OLD_SHA1=$(cat "$SHA1_FILE")
                         if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
-                            $print_func "检测到模块 $MOD_NAME 更新了字体XML文件 $SUB/$F，重新处理。"
+                            $print_func "$(safe_printf TXT_XML_UPDATE "$MOD_NAME" "$SUB" "$F")"
                             ACTION_TAKEN=1
                             FOUND_XML_ACTIONS=1
                         else
-                            $print_func "检测到模块 $MOD_NAME 重新创建了字体XML文件 $SUB/$F。"
+                            $print_func "$(safe_printf TXT_XML_RECREATE "$MOD_NAME" "$SUB" "$F")"
                             ACTION_TAKEN=1
                             FOUND_XML_ACTIONS=1
                         fi
                     else
-                        $print_func "检测到模块 $MOD_NAME 新增了字体XML文件 $SUB/$F。"
+                        $print_func "$(safe_printf TXT_XML_NEW "$MOD_NAME" "$SUB" "$F")"
                         ACTION_TAKEN=1
                         FOUND_XML_ACTIONS=1
                     fi
@@ -194,7 +200,7 @@ monitor_font_modules() {
                     if [ "$ACTION_TAKEN" -eq 1 ]; then
                         mkdir -p "$(dirname "$BACKUP_FILE")"
                         if ! cp -af "$TARGET_FILE" "$BACKUP_FILE"; then
-                            $print_func "  ✗ 备份失败：$TARGET_FILE，跳过处理"
+                            $print_func "$(safe_printf TXT_XML_BACKUP_FAIL "$TARGET_FILE")"
                             continue
                         fi
                         write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
@@ -208,11 +214,11 @@ monitor_font_modules() {
                         if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
                             rmdir "$TARGET_DIR" 2>/dev/null
                         fi
-                        $print_func "已替换 $MOD_NAME 的 $SUB/$F 并重新注入字体。"
+                        $print_func "$(safe_printf TXT_XML_REPLACED "$MOD_NAME" "$SUB" "$F")"
                     fi
                 elif [ -f "$BACKUP_FILE" ]; then
                     if [ ! -d "$MODULE_DIR" ]; then
-                        $print_func "模块 $MOD_NAME 已被删除，清理相关字体XML备份 ($SUB)。"
+                        $print_func "$(safe_printf TXT_MODULE_REMOVED_XML "$MOD_NAME" "$SUB")"
                         rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
                         rm -f "$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
                     fi
@@ -250,16 +256,16 @@ monitor_font_modules() {
                         if [ -f "$SHA1_FILE" ]; then
                             OLD_SHA1=$(cat "$SHA1_FILE")
                             if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
-                                $print_func "检测到模块 $MOD_NAME 更新了重名字体二进制文件 $SUB/$FONT_FILENAME，重新处理。"
+                                $print_func "$(safe_printf TXT_BIN_UPDATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
                                 ACTION_TAKEN=1
                                 FOUND_BINARY_ACTIONS=1
                             else
-                                $print_func "检测到模块 $MOD_NAME 重新创建了重名字体二进制文件 $SUB/$FONT_FILENAME。"
+                                $print_func "$(safe_printf TXT_BIN_RECREATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
                                 ACTION_TAKEN=1
                                 FOUND_BINARY_ACTIONS=1
                             fi
                         else
-                            $print_func "检测到模块 $MOD_NAME 新增了重名字体二进制文件 $SUB/$FONT_FILENAME。"
+                            $print_func "$(safe_printf TXT_BIN_NEW "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
                             ACTION_TAKEN=1
                             FOUND_BINARY_ACTIONS=1
                         fi
@@ -267,12 +273,12 @@ monitor_font_modules() {
                         if [ "$ACTION_TAKEN" -eq 1 ]; then
                             mkdir -p "$(dirname "$BACKUP_FILE")"
                             if ! cp -af "$FONT_FILE" "$BACKUP_FILE"; then
-                                $print_func "  ✗ 备份失败：$FONT_FILE，跳过处理"
+                                $print_func "$(safe_printf TXT_BIN_BACKUP_FAIL "$FONT_FILE")"
                                 continue
                             fi
                             write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
                             rm -f "$FONT_FILE"
-                            $print_func "已删除并备份：$MOD_NAME/$SUB/$FONT_FILENAME"
+                            $print_func "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
                             if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
                                 rmdir "$TARGET_DIR" 2>/dev/null
                             fi
@@ -285,7 +291,7 @@ monitor_font_modules() {
         if [ ! -d "$MODULE_DIR" ]; then
             for SUB in $FONT_BINARY_SUBDIRS; do
                 if [ -d "$MODPATH/backup/$MOD_NAME/$SUB" ]; then
-                    $print_func "模块 $MOD_NAME 已被删除，清理相关字体二进制备份 ($SUB)。"
+                    $print_func "$(safe_printf TXT_MODULE_REMOVED_BIN "$MOD_NAME" "$SUB")"
                     rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
                     SAFE_PREFIX=$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_")
                     find "$SHA1_DIR" -maxdepth 1 -type f -name "sha1_${SAFE_PREFIX}*" -delete 2>/dev/null
@@ -295,10 +301,10 @@ monitor_font_modules() {
     done
 
     if [ "$FOUND_XML_ACTIONS" -eq 0 ] && [ "$FOUND_BINARY_ACTIONS" -eq 0 ]; then
-        $print_func "  未发现其他字体模块的冲突"
+        $print_func "$(safe_text TXT_NO_CONFLICT)"
     fi
 
-    $print_func "字体模块监控完成"
+    $print_func "$(safe_text TXT_MONITOR_DONE)"
 }
 
 process_binary_fonts_install() {
@@ -306,10 +312,10 @@ process_binary_fonts_install() {
 
     THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
     if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
-        ui_print "警告: 本模块的 system/fonts 目录下未发现字体文件，将无法处理其他模块的重名字体。"
+        ui_print "$TXT_WARN_NO_SELF_FONTS"
     fi
 
-    ui_print "正在处理其他模块的字体二进制文件..."
+    ui_print "$TXT_INSTALL_BIN_SCAN"
 
     for MODULE_DIR in "$MODULE_PARENT"/*; do
         [ ! -d "$MODULE_DIR" ] && continue
@@ -333,7 +339,7 @@ process_binary_fonts_install() {
                 case " $THIS_MODULE_BINARY_FONTS " in
                     *" $FONT_FILENAME "*)
                         if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
-                            ui_print "  发现模块: $MOD_NAME"
+                            ui_print "$(safe_printf TXT_MODULE_FOUND "$MOD_NAME")"
                             MODULE_HAS_FONTS_BINARY=1
                             FOUND_BINARY_MODULES=$((FOUND_BINARY_MODULES + 1))
                         fi
@@ -344,14 +350,14 @@ process_binary_fonts_install() {
 
                         mkdir -p "$BACKUP_DIR"
                         if ! cp -af "$FONT_FILE" "$BACKUP_FILE"; then
-                            ui_print "  ✗ 备份失败：$FONT_FILE，跳过处理"
+                            ui_print "$(safe_printf TXT_BIN_BACKUP_FAIL "$FONT_FILE")"
                             continue
                         fi
                         SHA1_VALUE=$(sha1sum "$FONT_FILE" | cut -d' ' -f1)
                         write_sha1_atomic "$SHA1_VALUE" "$SHA1_FILE"
 
                         rm -f "$FONT_FILE"
-                        ui_print "  已删除并备份：$MOD_NAME/$SUB/$FONT_FILENAME"
+                        ui_print "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
                         if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
                             rmdir "$TARGET_DIR" 2>/dev/null
                         fi
@@ -361,7 +367,7 @@ process_binary_fonts_install() {
         done
     done
 
-    [ "$FOUND_BINARY_MODULES" -eq 0 ] && ui_print "  未发现其他重名字体二进制模块"
+    [ "$FOUND_BINARY_MODULES" -eq 0 ] && ui_print "$TXT_BIN_NONE"
 }
 
 acquire_lock() {
@@ -370,7 +376,7 @@ acquire_lock() {
         i=$((i+1))
         sleep 0.1
         if [ "$i" -gt 300 ]; then
-            log_print "⚠ 锁获取超时（30秒），可能存在死锁或长时间运行的实例"
+            log_print "$TXT_LOCK_TIMEOUT"
             return 1
         fi
     done
@@ -387,8 +393,8 @@ select_font_cmap_tool() {
     ABI="$(getprop ro.product.cpu.abi)"
     ABI_LIST="$(getprop ro.product.cpu.abilist)"
 
-    ui_print "- Primary ABI: $ABI"
-    ui_print "- ABI list: $ABI_LIST"
+    ui_print "$(safe_printf TXT_ABI_PRIMARY "$ABI")"
+    ui_print "$(safe_printf TXT_ABI_LIST "$ABI_LIST")"
 
     case "$ABI" in
         arm64-v8a)
@@ -404,37 +410,37 @@ select_font_cmap_tool() {
             FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-x86"
             ;;
         *)
-            ui_print "! Unsupported ABI: $ABI"
+            ui_print "$(safe_printf TXT_ABI_UNSUPPORTED "$ABI")"
             return 1
             ;;
     esac
 
     if [ ! -x "$FONT_CMAP_TOOL" ]; then
-        ui_print "! font-cmap-cleaner binary not found or not executable:"
-        ui_print "  $FONT_CMAP_TOOL"
+        ui_print "$TXT_CMAP_TOOL_MISSING"
+        ui_print "$(safe_printf TXT_CMAP_TOOL_PATH "$FONT_CMAP_TOOL")"
         return 1
     fi
 
-    ui_print "- Using font-cmap-cleaner: $(basename "$FONT_CMAP_TOOL")"
+    ui_print "$(safe_printf TXT_CMAP_TOOL_USING "$(basename "$FONT_CMAP_TOOL")")"
     return 0
 }
 
 run_font_cmap_cleaner() {
     select_font_cmap_tool || return 1
 
-    ui_print "🔧 执行 font-cmap-cleaner..."
+    ui_print "$TXT_CMAP_START"
 
     TMP_BIN="/data/local/tmp/font-cmap-tool.$$"
 
     cp -f "$FONT_CMAP_TOOL" "$TMP_BIN" || {
-        ui_print "✗ 复制 font-cmap-tool 失败"
+        ui_print "$TXT_CMAP_COPY_FAIL"
         return 1
     }
 
     chmod 755 "$TMP_BIN"
 
     "$TMP_BIN" --help >/dev/null 2>&1 || {
-        ui_print "⚠ font-cmap-cleaner 无法在当前系统执行"
+        ui_print "$TXT_CMAP_CANNOT_RUN"
         rm -f "$TMP_BIN"
         return 127
     }
@@ -450,11 +456,11 @@ run_font_cmap_cleaner() {
     rm -f "$TMP_BIN"
 
     if [ "$RET" -ne 0 ]; then
-        ui_print "⚠ font-cmap-cleaner 执行失败 (exit=$RET)"
+        ui_print "$(safe_printf "$TXT_CMAP_FAIL" "$RET")"
         return "$RET"
     fi
 
-    ui_print "✓ font-cmap-cleaner 处理完成"
+    ui_print "$TXT_CMAP_DONE"
 }
 
 wait_volume_key() {
@@ -470,7 +476,7 @@ wait_volume_key() {
     fi
 
     if [ -n "$KEYCHECK" ]; then
-        ui_print "- 使用 keycheck 检测音量键（$TIMEOUT 秒）"
+        ui_print "$(safe_printf TXT_KEYCHECK_DETECT "$TIMEOUT")"
 
         START_TS=$(date +%s)
         while :; do
@@ -487,7 +493,7 @@ wait_volume_key() {
     fi
 
     if command -v getevent >/dev/null 2>&1; then
-        ui_print "- 使用 getevent 检测音量键（$TIMEOUT 秒）"
+        ui_print "$(safe_printf TXT_GETEVENT_DETECT "$TIMEOUT")"
 
         local EVENT
         EVENT=$(timeout "$TIMEOUT" getevent -ql 2>/dev/null \
@@ -502,41 +508,41 @@ wait_volume_key() {
         fi
     fi
 
-    ui_print "- 未检测到可用的输入方式"
+    ui_print "$TXT_NO_INPUT_METHOD"
     return 3
 }
 
 ask_run_cmap_cleaner() {
     ui_print ""
     ui_print "========================================"
-    ui_print "📌 可选操作：cmap 字符表清理"
+    ui_print "$TXT_CMAP_TITLE"
     ui_print ""
-    ui_print "如遇到以下问题："
-    ui_print " - 颜文字（如 ʕ•ᴥ•ʔ、(╯°□°）、 ๑⃙⃘´༥`๑⃙⃘ 、(ͼ̤͂ ͜ ͽ̤͂)✧）显示异常"
-    ui_print " - Emoji 显示为空白 / 方块 / 错位（如😀.png 、🤓:书呆子脸）"
+    ui_print "$TXT_CMAP_DESC_1"
+    ui_print "$TXT_CMAP_DESC_2"
+    ui_print "$TXT_CMAP_DESC_3"
     ui_print ""
-    ui_print "👉 这通常是字体 cmap 冲突导致的"
-    ui_print "⚠ 此操作会修改模块内字体文件（安全，可恢复）"
+    ui_print "$TXT_CMAP_DESC_4"
+    ui_print "$TXT_CMAP_DESC_5"
     ui_print ""
-    ui_print "15 秒内："
-    ui_print "  [+]音量【上】 → 跳过"
-    ui_print "  [-]音量【下】 → 执行清理"
+    ui_print "$TXT_CMAP_CHOICE"
+    ui_print "$TXT_CMAP_SKIP_HINT"
+    ui_print "$TXT_CMAP_RUN_HINT"
     ui_print "========================================"
 
     wait_volume_key 15
     case "$?" in
         0)
-            ui_print "🚀 选择执行 cmap 清理"
+            ui_print "$TXT_CMAP_RUN"
             run_font_cmap_cleaner
             ;;
         1)
-            ui_print "↩ 用户选择跳过"
+            ui_print "$TXT_CMAP_SKIP"
             ;;
         2)
-            ui_print "⏱ 超时未操作，已跳过"
+            ui_print "$TXT_CMAP_TIMEOUT"
             ;;
         *)
-            ui_print "ℹ 当前环境不支持按键检测，已跳过"
+            ui_print "$TXT_CMAP_UNSUPPORTED"
             ;;
     esac
 }

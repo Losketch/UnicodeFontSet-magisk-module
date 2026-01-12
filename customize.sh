@@ -7,11 +7,11 @@ if command -v magisk > /dev/null; then
     MIRRORPATH="$MAGISK_PATH/.magisk/mirror"
 
     if [ ! -d "$MIRRORPATH/system" ]; then
-        ui_print "⚠ Magisk 镜像路径不可用，将直接使用系统路径"
+        ui_print "$TXT_MAGISK_MIRROR_UNAVAIL"
         MIRRORPATH=""
     fi
 else
-    ui_print "⚠ Magisk 命令不可用，将直接使用系统路径"
+    ui_print "$TXT_MAGISK_CMD_UNAVAIL"
     unset MIRRORPATH
 fi
 
@@ -23,12 +23,12 @@ if [ -z "$API" ]; then
     exit 1
 fi
 
-[ "$API" -lt 26 ] && { ui_print "Android版本过低,跳过字体注入"; exit 0; }
+[ "$API" -lt 26 ] && { ui_print "$TXT_API_TOO_LOW"; exit 0; }
 
 SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
-ui_print "正在处理其他模块的字体XML文件..."
+ui_print "$TXT_INSTALL_XML_SCAN"
 FOUND_XML_MODULES=0
 
 for MODULE_DIR in "$MODULE_PARENT"/*; do
@@ -51,7 +51,7 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
             [ ! -f "$TARGET_FILE" ] && continue
 
             if [ "$MODULE_HAS_FONTS_XML" -eq 0 ]; then
-                ui_print "  发现模块: $MOD_NAME"
+                ui_print "$(safe_printf "$TXT_MODULE_FOUND" "$MOD_NAME")"
                 MODULE_HAS_FONTS_XML=1
                 FOUND_XML_MODULES=$((FOUND_XML_MODULES + 1))
             fi
@@ -62,13 +62,13 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
 
             mkdir -p "$BACKUP_DIR"
             if ! cp -af "$TARGET_FILE" "$BACKUP_FILE"; then
-                ui_print "  ✗ 备份失败：$TARGET_FILE，跳过处理"
+                ui_print "$(safe_printf "$TXT_XML_BACKUP_FAIL" "$TARGET_FILE")"
                 continue
             fi
             sha1sum "$TARGET_FILE" | cut -d' ' -f1 > "$SHA1_FILE"
 
             rm -f "$TARGET_FILE"
-            ui_print "  已删除并备份：$MOD_NAME/$SUB/$F"
+            ui_print "$(safe_printf "$TXT_BIN_BACKUP_OK" "$MOD_NAME" "$SUB" "$F")"
 
             if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
                 rmdir "$TARGET_DIR" 2>/dev/null
@@ -78,23 +78,23 @@ for MODULE_DIR in "$MODULE_PARENT"/*; do
             DST="$DSTDIR/$F"
             mkdir -p "$(dirname "$DST")"
             if ! cp -af "$BACKUP_FILE" "$DST"; then
-                ui_print "  ✗ 复制失败：$DST"
+                ui_print "$(safe_printf "$TXT_INSTALL_COPY_FAIL" "$DST")"
                 continue
             fi
             insert_fonts "$DST"
-            ui_print "  已替换 $MOD_NAME/$SUB/$F"
+            ui_print "$(safe_printf "$TXT_XML_REPLACED" "$MOD_NAME" "$SUB" "$F")"
         done
     done
 done
 
 if [ "$FOUND_XML_MODULES" -eq 0 ]; then
-    ui_print "  未发现其他字体XML模块"
+    ui_print "$TXT_XML_NONE"
 fi
 
 process_binary_fonts_install
 
 # --- 迁移并修改系统字体XML文件 (如果存在于镜像路径) ---
-ui_print "正在扫描系统字体XML文件..."
+ui_print "$TXT_INSTALL_SYSTEM_XML"
 FOUND_SYSTEM_XML=0
 
 for F in $FONT_XML_FILES; do
@@ -115,10 +115,10 @@ for F in $FONT_XML_FILES; do
                 FOUND_SYSTEM_XML=1
             fi
 
-            ui_print "  处理: $SUB/$F"
+            ui_print "$(safe_printf "$TXT_INSTALL_PROCESS" "$SUB" "$F")"
             mkdir -p "$DSTDIR"
             if ! cp -af "$SRC" "$DST"; then
-                ui_print "  ✗ 复制失败：$DST"
+                ui_print "$(safe_printf "$TXT_INSTALL_COPY_FAIL" "$DST")"
                 continue
             fi
             insert_fonts "$DST"
@@ -130,13 +130,13 @@ for F in $FONT_XML_FILES; do
 done
 
 if [ "$FOUND_SYSTEM_XML" -eq 0 ]; then
-    ui_print "  未发现系统字体XML文件"
+    ui_print "$TXT_SYSTEM_XML_NONE"
 fi
 
 chmod 755 "$MODPATH/action.sh"
 chmod 755 "$MODPATH/service.sh"
 chmod 755 "$MODPATH/bin/"*
-ui_print "- 安装完成,已清理冲突的字体文件"
+ui_print "$TXT_INSTALL_DONE"
 
 ask_run_cmap_cleaner
 
