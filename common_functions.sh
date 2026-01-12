@@ -23,6 +23,7 @@ EOF
 
 FONT_BINARY_SUBDIRS="system/fonts"
 LOCK_DIR="/data/adb/ufs_lock"
+LOG_FILE="${MODPATH:-/cache}/ufs.log"
 
 # --- 辅助函数 ---
 
@@ -37,8 +38,8 @@ ui_print() {
 }
 
 log_print() {
-    mkdir -p "$(dirname /cache/ufs.log)" 2>/dev/null
-    echo "[UnicodeFontSet]($(date '+%Y-%m-%d %H:%M')) $1" >> /cache/ufs.log
+    mkdir -p "$(dirname "$LOG_FILE")" 2>/dev/null
+    echo "[UnicodeFontSet][$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
 }
 
 get_module_target_path() {
@@ -96,65 +97,37 @@ check_xml_format() {
 
 insert_fonts() {
     local file="$1"
-    [ ! -f "$file" ] && { ui_print "  ✗ 文件不存在：$file"; return 1; }
+    local FRAGMENT="$MODPATH/config/fonts_fragment.xml"
 
-    if ! check_xml_format "$file"; then
-        return 1
-    fi
+    [ ! -f "$file" ] && { ui_print "  ✗ 文件不存在：$file"; return 1; }
+    [ ! -f "$FRAGMENT" ] && { ui_print "  ✗ 缺少字体注入配置"; return 1; }
+
+    check_xml_format "$file" || return 1
 
     local tmp_file="${file}.tmp.$$"
+    local block_file="${file}.block.$$"
 
-    cp -f "$file" "$tmp_file" || { ui_print "  ✗ 复制失败：$(basename "$file")"; return 1; }
-    remove_old_fonts "$tmp_file" || { ui_print "  ✗ 清理旧配置失败"; return 1; }
- 
-    if ! sed -i '\|</familyset>|i \
-<!-- UnicodeFontSetModule Start -->\
-<family>\
-<font weight="400" style="normal" postScriptName="PlangothicP1">PlangothicP1-Regular.otf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="PlangothicP2">PlangothicP2-Regular.otf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="SourceHanSansSC-Regular">SourceHanSansSC-Regular.otf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="Noto-Unicode">NotoUnicode.otf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="NotoSansSuper-Regular">NotoSansSuper.otf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="KreativeSquare">KreativeSquare.ttf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="UFSZeroExt-Regular">UFSZeroExt.otf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="UnicodiaSesh">UnicodiaSesh.ttf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="NewGardiner">NewGardiner.ttf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="Monu-Temp">MonuTemp.ttf</font>\
-</family>\
-<family>\
-<font weight="400" style="normal" postScriptName="LastResort-Regular">LastResort-Regular.ttf</font>\
-</family>\
-<!-- UnicodeFontSetModule End -->' "$tmp_file"
-    then
-        ui_print "  ✗ 注入失败：$(basename "$file")"
-        rm -f "$tmp_file"
-        return 1
-    fi
+    cp -f "$file" "$tmp_file" || return 1
+    remove_old_fonts "$tmp_file" || true
 
-    if ! mv -f "$tmp_file" "$file"; then
-        rm -f "$tmp_file"
-        ui_print "  ✗ 替换失败：$(basename "$file")"
+    {
+        echo "<!-- UnicodeFontSetModule Start -->"
+        cat "$FRAGMENT"
+        echo "<!-- UnicodeFontSetModule End -->"
+    } > "$block_file"
+
+    awk -v block="$(cat "$block_file")" '
+        /<\/familyset>/ { print block }
+        { print }
+    ' "$tmp_file" > "${tmp_file}.new" || {
+        rm -f "$tmp_file" "$block_file"
         return 1
-    fi
-    
+    }
+
+    mv -f "${tmp_file}.new" "$tmp_file"
+    rm -f "$block_file"
+    mv -f "$tmp_file" "$file"
+
     ui_print "  ✓ 已向 $(basename "$file") 注入字体配置"
     return 0
 }
@@ -546,8 +519,8 @@ ask_run_cmap_cleaner() {
     ui_print "⚠ 此操作会修改模块内字体文件（安全，可恢复）"
     ui_print ""
     ui_print "15 秒内："
-    ui_print "  音量【上】 → 跳过"
-    ui_print "  音量【下】 → 执行清理"
+    ui_print "  [+]音量【上】 → 跳过"
+    ui_print "  [-]音量【下】 → 执行清理"
     ui_print "========================================"
 
     wait_volume_key 15
