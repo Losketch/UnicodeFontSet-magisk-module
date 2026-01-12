@@ -2,6 +2,7 @@
 
 import os
 import re
+import glob
 import argparse
 from fontTools.ttLib import TTFont
 import xml.etree.ElementTree as ET
@@ -264,11 +265,23 @@ def main():
     parser.add_argument('--output-dir', default='.', help='输出目录')
     args = parser.parse_args()
 
+    font_files = []
+    for pat in args.font_paths:
+        matches = glob.glob(pat)
+        if matches:
+            font_files.extend(matches)
+        else:
+            font_files.append(pat)
+
+    if not font_files:
+        print("⚠️ 未找到任何字体文件")
+        return
+
     blocks = parse_blocks_file(args.blocks)
     defined_chars, control_chars = parse_unicode_data_file(args.unicode_data)
 
     os.makedirs(args.output_dir, exist_ok=True)
-    for fp in args.font_paths:
+    for fp in font_files:
         try:
             font_name = os.path.basename(fp)
             supported = get_font_supported_chars(fp)

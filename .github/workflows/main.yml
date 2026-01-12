@@ -57,10 +57,10 @@ jobs:
             [NotoColorEmoji.ttf]=${{ matrix.variant.emoji_url }}
             [SourceHanSansSC-Regular.otf]=https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf
             
-            [MonuTemp.ttf]=https://github.com/MY1L/Unicode/releases/download/Temp/MonuTemp-0.920.ttf
             [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
             
             [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
+            [UnicodiaDaarage.otf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaDaarage.otf
             [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
             
             [PlangothicP1-Regular.otf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP1-Regular.otf
@@ -85,7 +85,7 @@ jobs:
         run: |
           VERSION_DATE=$(date +%Y%m%d)
           sed -i "s/^versionCode=.*/versionCode=${VERSION_DATE}/" module.prop
-          sed -i "/^version=/ s/$/ (${GITHUB_SHA:0:7}-Nightly-${{ matrix.variant.suffix }})/" module.prop
+          sed -i "/^version=/ s/$/ [${GITHUB_SHA:0:7}-Nightly-${{ matrix.variant.suffix }}]/" module.prop
           sed -i "s|updateJson=.*|updateJson=${{ matrix.variant.update_json_nightly }}|" module.prop
 
       - name: Update version for Release
