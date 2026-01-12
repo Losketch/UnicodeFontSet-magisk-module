@@ -63,13 +63,19 @@ Please visit the [Releases page](https://github.com/Losketch/UnicodeFontSet-magi
 - **Compatibility**: This module may not be compatible with every device or highly customized ROM. For more compatibility information, refer to:
   - [lxgw’s CJK font Magisk module compatibility notes](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
   - [simonsmh’s notocjk module](https://github.com/simonsmh/notocjk)
-- If you already have other font Magisk modules installed, this module will insert its fonts and XML entries incrementally rather than overwriting existing font configurations, preserving the behavior of previously installed modules.
+  - **App crashes**: Android 12 and later introduced significant changes to font loading. Fonts are no longer preloaded during zygote initialization and are instead loaded on demand, which may cause compatibility issues with traditional Magisk font modules. If you encounter app crashes, please install the [FontLoader](https://github.com/RikkaW/FontLoader) module.
+- If you already have other font Magisk modules installed, this module inserts its fonts and XML entries incrementally rather than overwriting existing font configurations, ensuring that the behavior of previously installed modules is preserved.
 - **Installation order**:  
-  - Recommended to install other font modules first and reboot once, then install this font module and reboot to ensure compatibility.  
-  - If later updates to other font modules cause this module’s fonts not to take effect immediately, reboot 1–2 times (or re-activate the Magisk module) to restore proper font display.
-- **Font features**: This collection aims to maximize character coverage and stable rendering. It does not require or depend on advanced shaping features or ligatures. For color emoji, ensure your system and apps support the COLRv1 format (Android 12L+ and modern browsers include such support).
-- **Kernel managers (KernelSU, APatch)**: If you use kernel managers, consider disabling their "auto uninstall modules" or similar features so fonts remain available. If you use hiding solutions like Shamiko, put them into a blacklist/denylist so this module is not removed or hidden.
-- **Disclaimer**: This module is provided "as-is" for personal learning and educational purposes only. Users assume all risks. The author accepts no responsibility for any device issues that may arise from installing this module.
+  - It is recommended to install other font modules first and reboot once, then install this font module and reboot again to ensure compatibility.  
+  - If updates to other font modules later cause this module’s fonts not to take effect immediately, rebooting 1–2 times (or re‑enabling the Magisk module) should restore proper font rendering.
+- **Font features**: This collection aims to maximize character coverage and rendering stability. It does **not** include or rely on ligatures or advanced shaping features. For color emoji fonts, please ensure that your system and applications support the COLRv1 format (Android 12L+ and modern browsers provide support).
+- **Kernel managers (KernelSU, APatch)**:
+  - **KernelSU users**:
+    - ⚠️ A **meta module (e.g. `meta-overlayfs`) must be installed first**; otherwise, font files under `system/fonts/` will not be mounted correctly
+    - For more information, see the [KernelSU Metamodule documentation](https://kernelsu.org/guide/metamodule.html)
+    - It is recommended to disable KernelSU’s “auto uninstall modules” (or similar) feature to ensure fonts work properly
+  - **Hiding solutions**: If you use tools such as Shamiko, configure them in blacklist / denylist mode
+- **Disclaimer**: This module is provided “as-is” for personal learning and educational purposes only. Users assume all risks. The author accepts no responsibility for any device issues that may arise from installing this module.
 
 ## Font Information
 

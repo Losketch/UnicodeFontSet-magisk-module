@@ -1,0 +1,205 @@
+name: 错误报告 / Bug Report
+description: 报告 Unicode Font Set 模块的字体显示或安装问题 / Report font display or installation issues
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请在报告前检查现有的 Issues 和 常见兼容性问题。
+        Please check existing issues and compatibility notes before reporting.
+
+  - type: input
+    id: device
+    attributes:
+      label: 机型与 Android 版本 / Device & Android Version
+      description: e.g., OnePlus 15, Android 16
+      placeholder: OnePlus 15, Android 16 (ColorOS 16.0.2)
+    validations:
+      required: true
+
+  - type: input
+    id: module_version
+    attributes:
+      label: 模块版本 / Module Version
+      description: 在 Magisk 管理器中查看模块版本
+      placeholder: V17.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: root_type
+    attributes:
+      label: Root 方案 / Root Solution
+      options:
+        - "Magisk"
+        - "KernelSU"
+        - "APatch"
+        - "其他 / Other"
+    validations:
+      required: true
+
+  - type: input
+    id: root_version
+    attributes:
+      label: Root 管理器版本 / Root Manager Version
+      description: 例如 Magisk v30.6, KernelSU v0.9.5
+      placeholder: Magisk v30.6
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: 问题类型 / Issue Type
+      options:
+        - "字体显示异常 / Font display issue"
+        - "安装失败 / Installation failed"
+        - "模块冲突 / Module conflict"
+        - "系统启动问题 / Boot issue"
+        - "其他 / Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected_chars
+    attributes:
+      label: 受影响的字符或字符区块 / Affected Characters/Blocks (if applicable)
+      description: |
+        如果是字体显示问题，请说明哪些字符无法正常显示（可以直接粘贴字符或说明 Unicode 区块）
+        For display issues, specify which characters don't render correctly (paste characters or mention Unicode blocks)
+      placeholder: |
+        例如 / Examples:
+        - 埃及象形文字（U+13000–U+1342F）
+        - Emoji: 🫸 (U+1FAF8)
+        - 中日韩兼容汉字区块
+    validations:
+      required: false
+
+  - type: textarea
+    id: other_font_modules
+    attributes:
+      label: 其他字体模块 / Other Font Modules
+      description: 列出所有已启用的字体相关模块（非常重要！）/ List ALL enabled font modules (CRITICAL!)
+      placeholder: |
+        - notocjk v2.004
+        - 遍黑体模块 v1.2
+        - 自定义字体模块 xxx
+    validations:
+      required: false
+
+  - type: dropdown
+    id: can_reproduce
+    attributes:
+      label: 是否可复现 / Reproducible?
+      options:
+        - "总是 / Always"
+        - "偶尔 / Sometimes"
+        - "仅一次 / Once"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: 实际行为 / Actual Behavior
+      description: 详细描述问题现象
+      placeholder: |
+        某些字符显示为方框（豆腐块）...
+        安装后无限重启...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: 期望行为 / Expected Behavior
+      description: 你期望发生什么
+      placeholder: |
+        字符应该正常显示...
+        模块应该正常安装并重启...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce_steps
+    attributes:
+      label: 复现步骤 / Steps to Reproduce
+      placeholder: |
+        1. 安装模块
+        2. 重启设备
+        3. 打开某个应用查看特定字符
+        4. 观察到字符显示为方框
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / Logs
+      description: |
+        请提供以下日志（越详细越好）：
+        1. Magisk/KernelSU 安装日志（在管理器中查看模块安装日志）
+        2. 如果启动失败：`adb logcat` 或 recovery 日志
+        3. 字体 XML 状态：运行以下命令并粘贴输出
+           ```
+           ls -lh /system/fonts/*.otf /system/fonts/*.ttf 2>/dev/null
+           cat /system/etc/fonts.xml | grep -A 5 "NotoSansSuper\|UFSZeroExt"
+           ps aux | grep service.sh
+           cat /data/adb/modules/unicode_font_set/ufs.log 2>/dev/null
+           ```
+        
+        Please provide:
+        1. Module installation log from Magisk/KernelSU
+        2. If boot failed: adb logcat or recovery log
+        3. Font XML state (commands above)
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图 / Screenshots (如果是显示问题请务必提供)
+      description: |
+        如果是字体显示问题，**必须**提供截图显示问题字符
+        拖拽图片到此处上传
+        
+        For display issues, screenshots are REQUIRED
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra_info
+    attributes:
+      label: 额外信息 / Additional Info
+      description: 系统语言、特殊 ROM 定制、SELinux 状态等
+      placeholder: |
+        - 系统语言：简体中文
+        - ROM: MIUI 14.0.5
+        - SELinux: Enforcing
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 附件 / Attachments
+        
+        请上传（拖拽到下方文本框）：
+        1. **截图**（如果是显示问题）
+        2. Magisk/KernelSU 模块安装日志
+        3. `/data/adb/modules/unicode_font_set/` 目录下的 `ufs.log`（如果有）
+        
+        Please attach:
+        1. Screenshots (for display issues)
+        2. Module installation log
+        3. `ufs.log` from module directory (if exists)
+
+  - type: textarea
+    id: attachments
+    attributes:
+      label: 上传区域 / Upload Area
+      description: 拖拽文件到此处
+    validations:
+      required: false

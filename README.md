@@ -63,12 +63,18 @@
 - **兼容性**: 本模块可能无法兼容所有机型和高定制化系统。更多兼容性信息可参考：
   - [lxgw 的 CJK 字体 Magisk 模块兼容性调整指南](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
   - [simonsmh 的 notocjk 模块说明](https://github.com/simonsmh/notocjk)
+  - **应用闪退**: - Android 12+ 引入了重大变化：字体加载从 zygote 进程预加载转变为按需加载，这可能导致传统 Magisk 字体模块出现兼容性问题，如遇应用闪退，请安装 [FontLoader](https://github.com/RikkaW/FontLoader) 模块
 - 如果系统中已安装其它字体类 Magisk 模块，本模块将以增量方式插入新字体和 XML 配置，不会覆盖原有字体配置，确保已装模块的功能得以保留。
 - **安装顺序**:  
   - 推荐先安装其他模块并重启一次，再安装本字体模块并重启，以确保兼容性。  
   - 若后续其他字体模块更新后导致本模块字体未即时生效，可重启 1–2 次（或再次重新激活 Magisk 模块）即可恢复显示。
 - **字体特性说明**: 本合集旨在最大化字符覆盖率与显示稳定性，**不包含也无需依赖**任何连字或复杂排版特性。对于彩色字体，请确保您的系统和应用支持 COLRv1 格式（Android 12L+ 及现代浏览器已提供支持）。
-- **内核管理器 (KernelSU, APatch)**: 如使用此类管理器，建议关闭其“默认卸载模块”功能以确保字体正常工作。若使用 Shamiko 等隐藏工具，请配置为黑名单模式。
+- **内核管理器 (KernelSU, APatch)**:
+  - **KernelSU 用户**: 
+    - ⚠️ **必须先安装元模块**（如 `meta-overlayfs`），否则 `system/fonts/` 中的字体文件将无法挂载生效
+    - 更多信息详见 [KernelSU 元模块文档](https://kernelsu.org/zh_CN/guide/metamodule.html)
+    - 建议关闭 KernelSU 的"默认卸载模块"功能以确保字体正常工作
+  - **隐藏工具**: 如使用 Shamiko 等，请配置为黑名单模式
 - **免责声明**: 本模块按"原样"提供，仅供个人学习与交流使用。使用者需自行承担风险，作者对因安装此模块而可能导致的任何设备问题不承担责任。
 
 ## 字体信息

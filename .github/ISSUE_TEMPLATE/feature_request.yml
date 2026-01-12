@@ -1,0 +1,168 @@
+name: 功能建议 / Feature Request
+description: 建议字体支持、工具改进或模块功能增强 / Suggest font support, tooling improvements, or module enhancements
+title: "[Feat]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你抽出时间建议新功能！
+        Thanks for taking the time to suggest a new feature!
+        
+        请先检查 Unicode 覆盖范围分析和现有字体列表。
+        Please check Unicode coverage analysis and existing font list first.
+
+  - type: dropdown
+    id: feature_category
+    attributes:
+      label: 功能类别 / Feature Category
+      description: 这个建议属于哪个类别？/ Which category does this suggestion belong to?
+      options:
+        - "新增字体支持 / New font support"
+        - "Unicode 区块扩展 / Unicode block extension"
+        - "Emoji 更新 / Emoji update"
+        - "工具改进 / Tooling improvement"
+        - "性能优化 / Performance optimization"
+        - "兼容性增强 / Compatibility enhancement"
+        - "配置选项 / Configuration option"
+        - "其他 / Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: unicode_blocks
+    attributes:
+      label: Unicode 区块或字符范围 / Unicode Blocks or Character Ranges
+      description: |
+        如果建议涉及特定字符集，请说明 Unicode 区块或字符范围
+        If suggestion involves specific character sets, specify Unicode blocks or ranges
+      placeholder: |
+        例如 / Examples:
+        - Tangut (U+17000–U+187FF)
+        - Cuneiform (U+12000–U+123FF)
+        - Emoji 16.0 新增字符
+        - 中日韩统一表意文字扩展 I
+    validations:
+      required: false
+
+  - type: textarea
+    id: font_suggestion
+    attributes:
+      label: 建议的字体 / Suggested Font (if applicable)
+      description: |
+        如果有具体推荐的字体，请提供：
+        If you have a specific font in mind, provide:
+        - 字体名称 / Font name
+        - 许可证类型 / License type (必须是 OFL/Apache/MIT 等开源协议)
+        - 下载链接 / Download link
+        - 覆盖的 Unicode 范围 / Unicode coverage
+      placeholder: |
+        例如 / Example:
+        字体: Noto Sans Tangut
+        许可证: SIL OFL 1.1
+        链接: https://github.com/notofonts/tangut
+        覆盖: 西夏文全区块 (U+17000–U+187FF)
+    validations:
+      required: false
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 相关问题或使用场景 / Related Problem or Use Case
+      description: |
+        这个功能解决什么问题？在什么场景下需要？
+        What problem does this solve? In what scenario is it needed?
+      placeholder: |
+        例如 / Example:
+        - 在研究古埃及文献时，象形文字显示为方块
+        - 使用某些语言输入法时，字符无法正确显示
+        - 模块安装后重启时间过长（超过 30 秒）
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 期望的实现方式 / Proposed Implementation
+      description: |
+        请描述你期望如何实现这个功能
+        Describe how you expect this feature to be implemented
+      placeholder: |
+        例如 / Example:
+        - 将 Noto Sans Tangut 集成到 NotoSansSuper.otf
+        - 添加一个配置选项来禁用 Emoji 字体
+        - 优化 service.sh 中的 XML 解析逻辑
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 替代方案 / Alternatives Considered
+      description: |
+        你考虑过的其他解决方案（包括手动方法或其他模块）
+        Other solutions you've considered (including manual methods or other modules)
+      placeholder: |
+        例如 / Example:
+        - 尝试过单独安装字体文件但与系统冲突
+        - 使用过 XXX 模块但缺少某些字符
+        - 考虑过修改 fonts.xml 但需要手动维护
+    validations:
+      required: false
+
+  - type: dropdown
+    id: willing_to_contribute
+    attributes:
+      label: 是否愿意贡献 / Willing to Contribute?
+      description: 你是否愿意协助实现这个功能（如提供字体文件、测试等）？
+      options:
+        - "是，我可以提供字体文件或资源 / Yes, I can provide fonts or resources"
+        - "是，我可以测试 / Yes, I can test"
+        - "是，我可以编写代码 / Yes, I can code"
+        - "否，仅提出建议 / No, just suggesting"
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: 影响范围 / Impact Scope
+      description: |
+        这个功能会影响哪些用户群体？预估有多少人受益？
+        Which user groups would benefit? Estimated number of beneficiaries?
+      placeholder: |
+        例如 / Example:
+        - 所有需要显示历史文字的研究者
+        - 使用藏文、蒙古文等少数民族语言的用户
+        - 关注最新 Emoji 标准的所有用户
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical_considerations
+    attributes:
+      label: 技术考虑 / Technical Considerations
+      description: |
+        是否有任何技术限制、性能影响或兼容性问题需要考虑？
+        Any technical limitations, performance impacts, or compatibility concerns?
+      placeholder: |
+        例如 / Example:
+        - 新字体可能增加 10MB 模块体积
+        - 需要 Android 12+ 才能支持 COLRv1 格式
+        - 可能与某些 MIUI 版本冲突
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 额外上下文 / Additional Context
+      description: |
+        其他任何相关信息、截图、参考链接等
+        Any other relevant information, screenshots, reference links, etc.
+      placeholder: |
+        - 截图显示当前问题
+        - Unicode 标准参考链接
+        - 相关讨论或类似项目
+    validations:
+      required: false

@@ -7,6 +7,7 @@ python check_fonts_unicode.py UnicodeData.txt font1.ttf font2.otf
 """
 
 import sys
+import glob
 import argparse
 from fontTools.ttLib import TTFont
 
@@ -88,13 +89,25 @@ def main():
     p.add_argument('fonts', nargs='+', help='要联合检查的 TTF/OTF 字体文件')
     args = p.parse_args()
 
+    font_files = []
+    for pat in args.fonts:
+        matches = glob.glob(pat)
+        if matches:
+            font_files.extend(matches)
+        else:
+            font_files.append(pat)
+
+    if not font_files:
+        print("⚠️ 未找到任何字体文件")
+        sys.exit(1)
+
     print("1) 解析 UnicodeData.txt …")
     full_set, cp_to_name = parse_unicode_data(args.unicodedata)
     print(f"   → 总计需覆盖 {len(full_set)} 个码点（已剔除代理/私用区）\n")
 
     # 2) 联合读取所有字体的 codepoints
     union_cps = set()
-    for fp in args.fonts:
+    for fp in font_files:
         try:
             cps = get_font_codepoints(fp)
             union_cps |= cps
