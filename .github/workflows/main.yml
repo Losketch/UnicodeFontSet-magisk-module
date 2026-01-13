@@ -252,6 +252,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Download COLRv1 artifacts
         uses: actions/download-artifact@v4
@@ -265,35 +266,50 @@ jobs:
           name: module-artifacts-cbdt
           path: ./artifacts
 
-      - name: Get commits since last nightly
+      - name: Get commits since last release
         id: commits
         run: |
-          LAST_NIGHTLY=$(git tag -l "nightly" | head -n1)
-          if [ -n "$LAST_NIGHTLY" ]; then
-            LAST_COMMIT=$(git rev-list -n 1 $LAST_NIGHTLY 2>/dev/null || echo "")
-          fi
-
-          if [ -z "$LAST_COMMIT" ]; then
-            COMMITS=$(git log --oneline -5 --pretty=format:"- %h: %s (%an)")
+          LAST_TAG=$(git describe --tags --abbrev=0 --exclude='*nightly*' --match='[vV]*' 2>/dev/null || echo "")
+          
+          if [ -n "$LAST_TAG" ]; then
+            echo "Comparing against tag: $LAST_TAG"
+            RANGE="${LAST_TAG}..HEAD"
           else
-            COMMITS=$(git log --oneline ${LAST_COMMIT}..HEAD --pretty=format:"- %h: %s (%an)")
+            echo "No previous release tag found, showing recent commits."
+            RANGE="-10"
           fi
-
-          echo "COMMITS<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          
+          COMMITS=$(git log $RANGE --pretty=format:"- %h: %s (%an)%n%b" | \
+            awk '
+              match($0, /^- [0-9a-f]+:/) {
+                if (NR != 1) print "";
+                print $0;
+                next
+              }
+              {
+                if (length($0) > 0)
+                  printf "  > %s\n", $0;
+                else
+                  print "  >";
+            }'
+          )
+          
+          {
+            echo 'COMMITS<<EOF'
+            echo "$COMMITS"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
 
       - name: Generate nightly update.json files
         run: |
           VERSION_DATE=$(date +%Y%m%d)
           NIGHTLY_VERSION="V17.0.0 (${GITHUB_SHA:0:7}-Nightly)"
           
-          RECENT_COMMITS=$(git log --oneline -5 --pretty=format:"- %h: %s (%an)")
           cat > changelog.md << EOF
           # Nightly Build Changelog
           
-          ## Recent Changes (Last 5 commits)
-          ${RECENT_COMMITS}
+          ## Changes
+          ${{ steps.commits.outputs.COMMITS }}
           
           Built from commit: ${{ github.sha }}
           EOF
