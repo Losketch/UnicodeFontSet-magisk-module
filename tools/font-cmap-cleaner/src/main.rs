@@ -13,13 +13,9 @@ use std::{
 use ttf_parser::Face;
 use walkdir::WalkDir;
 
-mod fonts_xml;
-mod scan;
-mod rewrite;
-
-use fonts_xml::collect_effective_fonts;
-use scan::scan_effective_system_unicode;
-use rewrite::rewrite_font;
+use font_cmap_tool::fonts_xml::collect_effective_fonts;
+use font_cmap_tool::scan::scan_effective_system_unicode;
+use font_cmap_tool::rewrite::rewrite_font;
 
 #[derive(Parser, Debug)]
 #[command(name = "font-cmap-tool")]
@@ -95,7 +91,7 @@ const FONT_XML_FILES: &[&str] = &[
 const FONT_XML_SUBDIRS: &[&str] = &[
     "/system/etc",
     "/system/product/etc",
-    "/system_ext/etc",
+    "/system/system_ext/etc",
     "/vendor/etc",
     "/product/etc",
 ];

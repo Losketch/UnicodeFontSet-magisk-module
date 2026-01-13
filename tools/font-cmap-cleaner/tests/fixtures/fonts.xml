@@ -1,0 +1,15 @@
+<familyset>
+    <family>
+        <font>TestSystem.ttf</font>
+        <font fallbackFor="emoji">Fallback.ttf</font>
+    </family>
+    <family>
+        <font>Non-existent.ttf</font>
+    </family>
+
+<!-- UnicodeFontSetModule Start -->
+    <family>
+        <font>Injected.ttf</font>
+    </family>
+    <!-- UnicodeFontSetModule End -->
+</familyset>
