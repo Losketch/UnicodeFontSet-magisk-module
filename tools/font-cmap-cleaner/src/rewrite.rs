@@ -1,7 +1,6 @@
 use anyhow::Result;
-use read_fonts::FontRef;
+use read_fonts::{FontRef, TableProvider};
 use std::fs;
-use ttf_parser::Face;
 use write_fonts::{
     FontBuilder,
     tables::cmap::Cmap,
@@ -17,7 +16,6 @@ pub fn rewrite_font(
     debug!(src = src_path, dst = dst_path, keep = keep_runes.len(), "rewrite font");
 
     let font_data = fs::read(src_path)?;
-    let face = Face::parse(&font_data, 0)?;
     let font_ref = FontRef::new(&font_data)?;
 
     let char_to_gid: Vec<(char, GlyphId)> = keep_runes
@@ -25,8 +23,8 @@ pub fn rewrite_font(
         .filter_map(|&cp| {
             trace!(cp = format_args!("U+{:X}", cp), "map rune");
             let ch = std::char::from_u32(cp)?;
-            let gid = face.glyph_index(ch)?;
-            Some((ch, GlyphId::new(gid.0 as u32)))
+            let gid = font_ref.cmap().ok()?.map_codepoint(ch)?;
+            Some((ch, gid))
         })
         .collect();
 
