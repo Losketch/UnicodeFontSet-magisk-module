@@ -14,13 +14,15 @@ concurrency:
 
 permissions:
   contents: write
-  packages: write
   id-token: write
 
 env:
-  FONT_DIR: system/fonts
-  UPDATE_BIN: META-INF/com/google/android/update-binary
+  MODULE_DIR: module
+  MODULE_PROP: module/module.prop
+  FONT_DIR: module/system/fonts
+  UPDATE_BIN: module/META-INF/com/google/android/update-binary
   BUILD_DIR: build
+  NDK_VERSION: 29.0.14206865
 
 jobs:
   build:
@@ -47,9 +49,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Reset module.prop (avoid matrix pollution)
+        run: |
+          git checkout -- ${{ env.MODULE_PROP }}
+
       - name: Create directories
         run: |
-          mkdir -p ${{ env.FONT_DIR }} ${{ env.BUILD_DIR }} $(dirname ${{ env.UPDATE_BIN }})
+          mkdir -p "${{ env.FONT_DIR }}" "${{ env.BUILD_DIR }}" "$(dirname "${{ env.UPDATE_BIN }}")"
 
       - name: Download fonts & scripts
         run: |
@@ -78,20 +84,22 @@ jobs:
 
       - name: Update module.prop for variant
         run: |
-          sed -i "s|updateJson=.*|updateJson=${{ matrix.variant.update_json }}|" module.prop
+          sed -i "s|^updateJson=.*|updateJson=${{ matrix.variant.update_json }}|" ${{ env.MODULE_PROP }}
 
       - name: Update versionCode for Nightly Builds
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           VERSION_DATE=$(date +%Y%m%d)
-          sed -i "s/^versionCode=.*/versionCode=${VERSION_DATE}/" module.prop
-          sed -i "/^version=/ s/$/ [${GITHUB_SHA:0:7}-Nightly-${{ matrix.variant.suffix }}]/" module.prop
-          sed -i "s|updateJson=.*|updateJson=${{ matrix.variant.update_json_nightly }}|" module.prop
+          BASE_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2)
+          sed -i "s/^versionCode=.*/versionCode=${VERSION_DATE}/" ${{ env.MODULE_PROP }}
+          sed -i "s|^version=.*|version=${BASE_VERSION} [${GITHUB_SHA:0:7}-Nightly-${{ matrix.variant.suffix }}]|" ${{ env.MODULE_PROP }}
+          sed -i "s|^updateJson=.*|updateJson=${{ matrix.variant.update_json_nightly }}|" ${{ env.MODULE_PROP }}
 
       - name: Update version for Release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          sed -i "/^version=/ s/$/ (${{ matrix.variant.suffix }})/" module.prop
+          BASE_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2)
+          sed -i "s|^version=.*|version=${BASE_VERSION} [${{ matrix.variant.suffix }}]|" ${{ env.MODULE_PROP }}
 
       - name: Setup Rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -121,13 +129,13 @@ jobs:
       - name: Cache Android NDK
         uses: actions/cache@v4
         with:
-          path: ${{ env.ANDROID_SDK_ROOT }}/ndk/29.0.14206865
-          key: android-ndk-29.0.14206865
+          path: ${{ env.ANDROID_SDK_ROOT }}/ndk/${{ env.NDK_VERSION }}
+          key: android-ndk-${{ env.NDK_VERSION }}
 
       - name: Install Android NDK
         run: |
-          sdkmanager "ndk;29.0.14206865" "build-tools;34.0.0" "platforms;android-34"
-          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/29.0.14206865" >> $GITHUB_ENV
+          sdkmanager "ndk;${{ env.NDK_VERSION }}" "build-tools;34.0.0" "platforms;android-34"
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/${{ env.NDK_VERSION }}" >> $GITHUB_ENV
 
       - name: Add Rust Android targets
         run: |
@@ -165,7 +173,7 @@ jobs:
             -t x86_64 \
             build --release
           
-          mkdir -p ../../bin
+          mkdir -p ../../module/bin
           
           declare -A TARGETS=(
             [aarch64-linux-android]=arm64-v8a
@@ -176,7 +184,7 @@ jobs:
           
           for target in "${!TARGETS[@]}"; do
             bin="target/$target/release/font-cmap-tool"
-            out="../../bin/font-cmap-tool-${TARGETS[$target]}"
+            out="../../module/bin/font-cmap-tool-${TARGETS[$target]}"
             upx --best --lzma "$bin" || true
             cp "$bin" "$out"
           done
@@ -186,27 +194,23 @@ jobs:
       - name: Copy font-cmap-cleaner whitelist
         run: |
           if [ -f tools/font-cmap-cleaner/whitelist.txt ]; then
-            cp tools/font-cmap-cleaner/whitelist.txt ./whitelist.txt
+            cp tools/font-cmap-cleaner/whitelist.txt ${{ env.MODULE_DIR }}/whitelist.txt
           else
             echo "whitelist.txt not found!" >&2
             exit 1
           fi
+          cp LICENSE module/LICENSE
+          cp README.md module/README.md
+          cp README.en.md module/README.en.md
 
       - name: Package ZIP & compute checksum
         run: |
-          zip -9 \
-           -x "*.git*" \
-           -x "extra/*" \
-           -x "${{ env.BUILD_DIR }}/*" \
-           -x "documentation/*" \
-           -x "sources/*" \
-           -x "tools/*" \
-           -x "update-*.json" \
-           -r ../${{ matrix.variant.zip_name }} ./
+          cd "${{ env.MODULE_DIR }}"
+          zip -9 -r "../${{ matrix.variant.zip_name }}" .
 
       - name: Collect artifacts
         run: |
-          mv ../${{ matrix.variant.zip_name }} ${{ env.BUILD_DIR }}/
+          mv "${{ env.MODULE_DIR }}/../${{ matrix.variant.zip_name }}" "${{ env.BUILD_DIR }}/"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
