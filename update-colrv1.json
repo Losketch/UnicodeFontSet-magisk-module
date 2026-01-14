@@ -1,6 +1,6 @@
 {
     "version": "V17.0.0 COLRv1",
-    "versionCode": 202511081,
-    "zipUrl": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/V1.7.2/UnicodeFontSet-COLRv1-module.zip", 
+    "versionCode": 202601141,
+    "zipUrl": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/V1.7.3/UnicodeFontSet-COLRv1-module.zip", 
     "changelog": "https://cdn.jsdelivr.net/gh/Losketch/UnicodeFontSet-magisk-module/extra/changelog.md"
 }
