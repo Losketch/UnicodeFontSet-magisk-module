@@ -79,5 +79,5 @@ Please visit the [Releases page](https://github.com/Losketch/UnicodeFontSet-magi
 
 ## Font Information
 
-- 📄 [Font Sources and Licenses](documentation/LICENSES.md)
-- 🙏 [Acknowledgements](documentation/CREDITS.md)
+- 📄 [Font Sources and Licenses](docs/LICENSES.md)
+- 🙏 [Acknowledgements](docs/CREDITS.md)

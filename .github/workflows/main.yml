@@ -59,6 +59,29 @@ jobs:
 
       - name: Download fonts & scripts
         run: |
+          set -e
+          TMP_DIR=$(mktemp -d)
+          echo "Using temp dir: $TMP_DIR"
+          
+          CSS_FILE="$TMP_DIR/fonts.css"
+          FONT_FILE="$TMP_DIR/NotoEmoji-Regular.ttf"
+          
+          curl -fsSL \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+            "https://fonts.googleapis.com/css2?family=Noto+Emoji" \
+            -o "$CSS_FILE"
+          
+          FONT_URL=$(grep -o 'https://[^)]*\.ttf' "$CSS_FILE" | head -n 1)
+          
+          if [ -z "$FONT_URL" ]; then
+            echo "Failed to extract TTF URL from Google Fonts CSS" >&2
+            exit 1
+          fi
+          
+          curl -fsSL "$FONT_URL" -o "$FONT_FILE"
+          cp "$FONT_FILE" "${{ env.FONT_DIR }}/NotoEmoji-Regular.ttf"
+          rm -rf "$TMP_DIR"
+          
           declare -A files=(
             [NotoColorEmoji.ttf]=${{ matrix.variant.emoji_url }}
             [SourceHanSansSC-Regular.otf]=https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf
@@ -194,7 +217,7 @@ jobs:
       - name: Copy font-cmap-cleaner whitelist
         run: |
           if [ -f tools/font-cmap-cleaner/whitelist.txt ]; then
-            cp tools/font-cmap-cleaner/whitelist.txt ${{ env.MODULE_DIR }}/whitelist.txt
+            cp tools/font-cmap-cleaner/whitelist.txt ${{ env.MODULE_DIR }}/config/whitelist.txt
           else
             echo "whitelist.txt not found!" >&2
             exit 1

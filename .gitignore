@@ -3,6 +3,6 @@ target/
 
 /documentation/*.*tf
 /sources/build
-/tools/*.*tf
+/tools/python/*.*tf
 
 *-module.zip

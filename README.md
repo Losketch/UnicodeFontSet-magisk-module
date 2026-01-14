@@ -79,5 +79,5 @@
 
 ## 字体信息
 
-- 📄 [字体来源与许可](documentation/LICENSES.md)
-- 🙏 [鸣谢名单](documentation/CREDITS.md)
+- 📄 [字体来源与许可](docs/LICENSES.md)
+- 🙏 [鸣谢名单](docs/CREDITS.md)

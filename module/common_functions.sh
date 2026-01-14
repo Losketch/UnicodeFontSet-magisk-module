@@ -448,7 +448,7 @@ run_font_cmap_cleaner() {
     "$TMP_BIN" \
         --system-fonts /system/fonts \
         --module-fonts "$MODPATH/system/fonts" \
-        --skip-font-file "$MODPATH/whitelist.txt" \
+        --skip-font-file "$MODPATH/config/whitelist.txt" \
         --no-color
 
     local RET=$?
