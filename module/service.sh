@@ -8,7 +8,7 @@ API=$(getprop ro.build.version.sdk)
 if [ -f "$MODPATH/common_functions.sh" ]; then
     source "$MODPATH/common_functions.sh"
 else
-    echo "$TXT_ERROR_COMMON_MISSING" >> /cache/ufs.log
+    echo "[UnicodeFontSet] Error: common_functions.sh not found!" >> /cache/ufs.log
     exit 1
 fi
 

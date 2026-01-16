@@ -26,6 +26,12 @@ TXT_XML_COPY_FAIL="  ✗ Copy failed: %s"
 TXT_XML_INJECT_OK="  ✓ Injected font configuration into %s"
 TXT_XML_REPLACED="Replaced %s %s/%s and re-injected fonts."
 
+# --- Error messages ---
+TXT_ERROR_COPY="  ✗ Copy failed: from %s to %s"
+TXT_ERROR_WRITE="  ✗ Write failed: %s"
+TXT_ERROR_PROCESS="  ✗ Process failed: %s"
+TXT_ERROR_MOVE="  ✗ Move failed: from %s to %s"
+
 TXT_XML_FORMAT_WARN="  ⚠ Warning: %s format may be invalid, skipping."
 TXT_XML_NOT_FOUND="  ✗ File not found: %s"
 TXT_XML_FRAGMENT_MISSING="  ✗ Font fragment configuration missing"
@@ -95,5 +101,33 @@ TXT_ABI_UNSUPPORTED="! Unsupported ABI: %s"
 TXT_CMAP_TOOL_MISSING="! font-cmap-cleaner binary not found or not executable"
 TXT_CMAP_TOOL_USING="- Using font-cmap-cleaner: %s"
 
+# --- Install UI ---
+TXT_INSTALL_TITLE="Unicode Font Set Installer"
+TXT_INSTALL_HEADER="========================================"
+TXT_VERSION="Version: %s"
+TXT_INSTALL_COMPLETE="Installation completed!"
+TXT_REBOOT_REQUIRED="Please reboot your device to apply font configurations."
+TXT_GENERATE_CONFIG="Generating custom configuration file..."
+TXT_CONFIG_GENERATED="Custom configuration file generated: %s"
+TXT_CONFIG_INFO="You can edit this file to customize font priorities and coverage"
+TXT_CHECK_UPDATE="Checking for updates..."
+TXT_START_SERVICE="Starting font module service..."
+
 # --- Lock ---
 TXT_LOCK_TIMEOUT="⚠ Lock acquisition timeout (30s), possible deadlock"
+
+# --- Installation steps ---
+TXT_STEP_1="1/4: Scanning font XML files from other modules..."
+TXT_STEP_2="2/4: Processing font binary files from other modules..."
+TXT_STEP_3="3/4: Processing system font XML files..."
+TXT_STEP_4="4/4: Completing installation preparations..."
+TXT_INSTALL_SEPARATOR="========================================"
+
+# --- Common log messages ---
+TXT_LOG_WARNING="Warning: %s"
+TXT_LOG_ERROR="Error: %s"
+TXT_LOG_SUCCESS="Success: %s"
+
+# --- Language loader ---
+TXT_LANG_DEFAULT_MISSING="Default language file lang_en_US.sh not found"
+TXT_LANG_UNSUPPORTED="Unsupported language %s, using English"

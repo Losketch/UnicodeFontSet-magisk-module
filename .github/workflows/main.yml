@@ -19,9 +19,12 @@ permissions:
 env:
   MODULE_DIR: module
   MODULE_PROP: module/module.prop
+  MODULE_BIN_DIR: module/bin
   FONT_DIR: module/system/fonts
   UPDATE_BIN: module/META-INF/com/google/android/update-binary
   BUILD_DIR: build
+  CLEANER_DIR: tools/font-cmap-cleaner
+  UPX_VERSION: 5.0.2
   NDK_VERSION: 29.0.14206865
 
 jobs:
@@ -135,7 +138,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            tools/font-cmap-cleaner/target
+            ${{ env.CLEANER_DIR }}/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('tools/font-cmap-cleaner/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
@@ -171,23 +174,23 @@ jobs:
       - name: Cache UPX
         uses: actions/cache@v4
         with:
-          path: /tmp/upx-5.0.2-amd64_linux
-          key: upx-5.0.2
+          path: /tmp/upx-${{ env.UPX_VERSION }}-amd64_linux
+          key: upx-${{ env.UPX_VERSION }}
 
       - name: Install UPX
         run: |
           if ! command -v upx >/dev/null; then
             cd /tmp
-            wget -q https://github.com/upx/upx/releases/download/v5.0.2/upx-5.0.2-amd64_linux.tar.xz
-            tar -xf upx-5.0.2-amd64_linux.tar.xz
-            sudo mv upx-5.0.2-amd64_linux/upx /usr/local/bin/
+            wget -q https://github.com/upx/upx/releases/download/v${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz
+            tar -xf upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz
+            sudo mv upx-${{ env.UPX_VERSION }}-amd64_linux/upx /usr/local/bin/
             cd -
           fi
           upx --version
 
       - name: Build font-cmap-tool for Android
         run: |
-          cd tools/font-cmap-cleaner
+          cd ${{ env.CLEANER_DIR }}
           
           cargo ndk \
             -t arm64-v8a \
@@ -196,7 +199,7 @@ jobs:
             -t x86_64 \
             build --release
           
-          mkdir -p ../../module/bin
+          mkdir -p ../../${{ env.MODULE_BIN_DIR }}
           
           declare -A TARGETS=(
             [aarch64-linux-android]=arm64-v8a
@@ -207,7 +210,7 @@ jobs:
           
           for target in "${!TARGETS[@]}"; do
             bin="target/$target/release/font-cmap-tool"
-            out="../../module/bin/font-cmap-tool-${TARGETS[$target]}"
+            out="../../${{ env.MODULE_BIN_DIR }}/font-cmap-tool-${TARGETS[$target]}"
             upx --best --lzma "$bin" || true
             cp "$bin" "$out"
           done
@@ -216,15 +219,15 @@ jobs:
 
       - name: Copy font-cmap-cleaner whitelist
         run: |
-          if [ -f tools/font-cmap-cleaner/whitelist.txt ]; then
-            cp tools/font-cmap-cleaner/whitelist.txt ${{ env.MODULE_DIR }}/config/whitelist.txt
+          if [ -f ${{ env.CLEANER_DIR }}/whitelist.txt ]; then
+            cp ${{ env.CLEANER_DIR }}/whitelist.txt ${{ env.MODULE_DIR }}/config/whitelist.txt
           else
             echo "whitelist.txt not found!" >&2
             exit 1
           fi
-          cp LICENSE module/LICENSE
-          cp README.md module/README.md
-          cp README.en.md module/README.en.md
+          cp LICENSE ${{ env.MODULE_DIR }}/LICENSE
+          cp README.md ${{ env.MODULE_DIR }}/README.md
+          cp README.en.md ${{ env.MODULE_DIR }}/README.en.md
 
       - name: Package ZIP & compute checksum
         run: |
@@ -330,7 +333,8 @@ jobs:
       - name: Generate nightly update.json files
         run: |
           VERSION_DATE=$(date +%Y%m%d)
-          NIGHTLY_VERSION="V17.0.0 (${GITHUB_SHA:0:7}-Nightly)"
+          BASE_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2 | awk '{print $1}')
+          NIGHTLY_VERSION="${BASE_VERSION} (${GITHUB_SHA:0:7}-Nightly)"
           
           cat > changelog.md << EOF
           # Nightly Build Changelog
