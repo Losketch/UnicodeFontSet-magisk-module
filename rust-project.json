@@ -1,0 +1,22 @@
+{
+  "sysroot_src": "",
+  "crates": [
+    {
+      "root_module": "tools/font-cmap-cleaner/src/main.rs",
+      "edition": "2021",
+      "deps": [
+        {
+          "name": "font_cmap_tool",
+          "crate": 1
+        }
+      ],
+      "cfg": []
+    },
+    {
+      "root_module": "tools/font-cmap-cleaner/src/lib.rs",
+      "edition": "2021",
+      "deps": [],
+      "cfg": []
+    }
+  ]
+}

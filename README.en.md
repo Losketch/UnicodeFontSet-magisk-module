@@ -81,3 +81,62 @@ Please visit the [Releases page](https://github.com/Losketch/UnicodeFontSet-magi
 
 - 📄 [Font Sources and Licenses](docs/LICENSES.md)
 - 🙏 [Acknowledgements](docs/CREDITS.md)
+
+## Font Cache Cleaning Tool
+
+### Function Description
+
+The module includes a built-in `font-cmap-cleaner` tool for cleaning font cmap tables, which resolves the following issues:
+- Abnormal display of kaomoji (such as ʕ•ᴥ•ʔ, (╯°□°）, ๑⃙⃘´༥`๑⃙⃘, (ͼ̤͂ ͜ ͽ̤͂)✧)
+- Emoji showing as blank / squares / misaligned (like 😀.png, 🤓:nerd face)
+
+### Usage
+
+During installation, the module will prompt you whether to execute cmap cleaning:
+- Press "Volume Up" to skip cleaning
+- Press "Volume Down" to execute cleaning
+- No operation for 15 seconds will automatically skip
+
+### Notes
+
+- This operation modifies font files in the module, but it is safe and reversible
+- The cleaning process may take several minutes, please be patient
+- You need to restart your device after cleaning to see the effect
+
+## Frequently Asked Questions (FAQ)
+
+### Q: What should I do if some apps crash after installation?
+A: Android 12+ introduced changes to font loading mechanisms, which may cause compatibility issues with traditional Magisk font modules. Please install the [FontLoader](https://github.com/RikkaW/FontLoader) module to solve this issue.
+
+### Q: What should I do if fonts don't change after installation?
+A: Please try the following solutions:
+1. Reboot your device 1-2 times
+2. Re-enable the module
+3. Check for conflicts with other font modules
+4. View the module log at `/cache/ufs.log` for detailed information
+
+### Q: How to check if the module is working properly?
+A: You can verify through the following methods:
+1. Check if the module's font files exist in `/system/fonts` directory
+2. Check if `/system/etc/fonts.xml` or `/system/product/etc/fonts.xml` contains UnicodeFontSetModule related configurations
+3. Use a Unicode testing app to check if special characters display correctly
+
+### Q: Which Android versions does the module support?
+A: The module supports Android 8.0+ (API 26+).
+
+## Troubleshooting
+
+### View Module Logs
+
+The module generates log files during operation, which you can view through the following methods:
+- Log path: `/cache/ufs.log`
+- Use ADB command to view: `adb pull /cache/ufs.log`
+
+### Clean Module Residues
+
+If there are still issues after uninstalling the module, you can clean module residue files:
+
+```bash
+su -c rm -rf /data/adb/ufs_lock
+su -c rm -rf /cache/ufs.log
+```

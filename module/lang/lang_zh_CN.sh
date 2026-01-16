@@ -26,6 +26,12 @@ TXT_XML_COPY_FAIL="  ✗ 复制失败：%s"
 TXT_XML_INJECT_OK="  ✓ 已向 %s 注入字体配置"
 TXT_XML_REPLACED="已替换 %s 的 %s/%s 并重新注入字体。"
 
+# --- 错误信息 ---
+TXT_ERROR_COPY="  ✗ 复制失败：从 %s 到 %s"
+TXT_ERROR_WRITE="  ✗ 写入失败：%s"
+TXT_ERROR_PROCESS="  ✗ 处理失败：%s"
+TXT_ERROR_MOVE="  ✗ 移动失败：从 %s 到 %s"
+
 TXT_XML_FORMAT_WARN="  ⚠ 警告：%s 格式可能不正确，跳过处理。"
 TXT_XML_NOT_FOUND="  ✗ 文件不存在：%s"
 TXT_XML_FRAGMENT_MISSING="  ✗ 缺少字体注入配置"
@@ -95,5 +101,33 @@ TXT_ABI_UNSUPPORTED="! 不支持的 ABI: %s"
 TXT_CMAP_TOOL_MISSING="! font-cmap-cleaner 二进制文件不存在或不可执行"
 TXT_CMAP_TOOL_USING="- 使用 font-cmap-cleaner: %s"
 
+# --- 安装界面 ---
+TXT_INSTALL_TITLE="Unicode Font Set 安装程序"
+TXT_INSTALL_HEADER="========================================"
+TXT_VERSION="版本: %s"
+TXT_INSTALL_COMPLETE="安装完成！"
+TXT_REBOOT_REQUIRED="请重启设备以应用字体配置。"
+TXT_GENERATE_CONFIG="生成自定义配置文件..."
+TXT_CONFIG_GENERATED="自定义配置文件已生成: %s"
+TXT_CONFIG_INFO="您可以编辑该文件来自定义字体优先级和覆盖范围"
+TXT_CHECK_UPDATE="检查更新..."
+TXT_START_SERVICE="启动字体模块服务..."
+
 # --- 锁 ---
 TXT_LOCK_TIMEOUT="⚠ 锁获取超时（30秒），可能存在死锁或长时间运行的实例"
+
+# --- 安装步骤 ---
+TXT_STEP_1="1/4: 扫描其他字体模块的XML文件..."
+TXT_STEP_2="2/4: 处理其他字体模块的二进制字体文件..."
+TXT_STEP_3="3/4: 处理系统字体XML文件..."
+TXT_STEP_4="4/4: 完成安装准备..."
+TXT_INSTALL_SEPARATOR="========================================"
+
+# --- 通用日志消息 ---
+TXT_LOG_WARNING="警告：%s"
+TXT_LOG_ERROR="错误：%s"
+TXT_LOG_SUCCESS="成功：%s"
+
+# --- 语言加载器 ---
+TXT_LANG_DEFAULT_MISSING="默认语言文件 lang_en_US.sh 未找到"
+TXT_LANG_UNSUPPORTED="不支持的语言 %s，使用英文"

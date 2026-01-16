@@ -75,7 +75,7 @@ enum Command {
     },
 }
 
-const FONT_XML_FILES: &[&str] = &[
+const FONT_XML_FILES: &[&str; 10] = &[
     "fonts.xml",
     "fonts_base.xml",
     "fonts_fallback.xml",
@@ -88,7 +88,7 @@ const FONT_XML_FILES: &[&str] = &[
     "flyme_font_fallback.xml",
 ];
 
-const FONT_XML_SUBDIRS: &[&str] = &[
+const FONT_XML_SUBDIRS: &[&str; 5] = &[
     "/system/etc",
     "/system/product/etc",
     "/system/system_ext/etc",

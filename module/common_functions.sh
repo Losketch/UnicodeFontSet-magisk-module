@@ -3,6 +3,13 @@ FONT_XML_FILES="fonts.xml fonts_base.xml fonts_fallback.xml fonts_inter.xml font
 FONT_XML_SUBDIRS="system/etc system/product/etc system/system_ext/etc"
 FONT_BINARY_SUBDIRS="system/fonts"
 LOCK_DIR="/data/adb/ufs_lock"
+LOG_FILE="${MODPATH:-/cache}/ufs.log"
+
+MODULE_START_COMMENT="<!-- UnicodeFontSetModule Start -->"
+MODULE_END_COMMENT="<!-- UnicodeFontSetModule End -->"
+TEMP_DIR="/data/local/tmp"
+CMAP_TOOL_PREFIX="font-cmap-tool"
+
 
 # 缓存变量，避免重复计算
 THIS_MODULE_BINARY_FONTS_CACHE=""
@@ -22,10 +29,6 @@ system/system_ext/etc
 EOF
 
 [ -f "$MODPATH/lang/lang.sh" ] && . "$MODPATH/lang/lang.sh"
-
-FONT_BINARY_SUBDIRS="system/fonts"
-LOCK_DIR="/data/adb/ufs_lock"
-LOG_FILE="${MODPATH:-/cache}/ufs.log"
 
 # --- 辅助函数 ---
 
@@ -58,30 +61,32 @@ get_module_target_path() {
 }
 
 get_this_module_font_binaries() {
-    [ -n "$THIS_MODULE_BINARY_FONTS_CACHE" ] && { echo "$THIS_MODULE_BINARY_FONTS_CACHE"; return 0; }
+    [ -n "$THIS_MODULE_BINARY_FONTS_CACHE" ] && {
+        echo "$THIS_MODULE_BINARY_FONTS_CACHE"
+        return 0
+    }
 
     local module_fonts_dir="$MODPATH/system/fonts"
     local font_list_raw=""
+    local font_files
 
     if [ -d "$module_fonts_dir" ]; then
-        font_list_raw=$(find "$module_fonts_dir" -maxdepth 1 -type f -printf " %f" 2>/dev/null)
-
-        if [ -z "$font_list_raw" ]; then
-            for f in "$module_fonts_dir"/*; do
-                [ -f "$f" ] && font_list_raw="$font_list_raw $(basename "$f")"
-            done
-        fi
+        for font_file in "$module_fonts_dir"/*; do
+            [ -f "$font_file" ] && {
+                font_list_raw="$font_list_raw $(basename "$font_file")"
+            }
+        done
     fi
 
     THIS_MODULE_BINARY_FONTS_CACHE="$font_list_raw"
-    echo "$font_list_raw"
+    echo "$THIS_MODULE_BINARY_FONTS_CACHE"
 }
 
 remove_old_fonts() {
     local file="$1"
     [ ! -f "$file" ] && return 1
-    grep -q 'UnicodeFontSetModule Start' "$file" || return 0
-    sed -i '/<!-- UnicodeFontSetModule Start -->/,/<!-- UnicodeFontSetModule End -->/d' "$file"
+    grep -q "$MODULE_START_COMMENT" "$file" || return 0
+    sed -i "/$MODULE_START_COMMENT/,/$MODULE_END_COMMENT/d" "$file"
     return $?
 }
 
@@ -101,52 +106,354 @@ check_xml_format() {
     return 0
 }
 
+validate_insert_fonts_input() {
+    local file="$1"
+    local FRAGMENT="$2"
+
+    if [ ! -f "$file" ]; then
+        ui_print "$(safe_printf TXT_XML_NOT_FOUND "$file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "File not found: $file")"
+        return 1
+    fi
+
+    if [ ! -f "$FRAGMENT" ]; then
+        safe_ui_print TXT_XML_FRAGMENT_MISSING
+        log_print "$(safe_printf TXT_LOG_ERROR "Font fragment file not found: $FRAGMENT")"
+        return 1
+    fi
+
+    check_xml_format "$file" || {
+        log_print "$(safe_printf TXT_LOG_ERROR "Invalid XML format: $file")"
+        return 1
+    }
+
+    return 0
+}
+
+prepare_temp_files() {
+    local file="$1"
+    local tmp_file="$2"
+    local block_file="$3"
+
+    if ! cp -f "$file" "$tmp_file"; then
+        ui_print "$(safe_printf TXT_ERROR_COPY "$file" "$tmp_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to copy $file to $tmp_file")"
+        return 1
+    fi
+
+    return 0
+}
+
+create_font_module_block() {
+    local FRAGMENT="$1"
+    local block_file="$2"
+
+    if ! {
+        echo "$MODULE_START_COMMENT"
+        cat "$FRAGMENT"
+        echo "$MODULE_END_COMMENT"
+    } > "$block_file"; then
+        ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to write to $block_file")"
+        return 1
+    fi
+
+    return 0
+}
+
+insert_module_block() {
+    local tmp_file="$1"
+    local block_file="$2"
+
+    if ! awk '
+        BEGIN {
+            while ((getline line < block_file) > 0) {
+                block = block line "\n"
+            }
+            close(block_file)
+        }
+        /<\/familyset>/ { print block }
+        { print }
+    ' block_file="$block_file" "$tmp_file" > "${tmp_file}.new"; then
+        ui_print "$(safe_printf TXT_ERROR_PROCESS "$tmp_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to process $tmp_file with awk")"
+        return 1
+    fi
+
+    if ! mv -f "${tmp_file}.new" "$tmp_file"; then
+        ui_print "$(safe_printf TXT_ERROR_MOVE "${tmp_file}.new" "$tmp_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to move ${tmp_file}.new to $tmp_file")"
+        rm -f "${tmp_file}.new"
+        return 1
+    fi
+
+    return 0
+}
+
+finalize_insert_fonts() {
+    local file="$1"
+    local tmp_file="$2"
+    local block_file="$3"
+
+    if ! rm -f "$block_file"; then
+        log_print "$(safe_printf TXT_LOG_WARNING "Failed to remove temporary file $block_file")"
+    fi
+
+    if ! mv -f "$tmp_file" "$file"; then
+        ui_print "$(safe_printf TXT_ERROR_MOVE "$tmp_file" "$file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to move $tmp_file to $file")"
+        rm -f "$tmp_file"
+        return 1
+    fi
+
+    ui_print "$(safe_printf TXT_XML_INJECT_OK "$(basename "$file")")"
+    log_print "$(safe_printf TXT_LOG_SUCCESS "Successfully processed font XML: $file")"
+    return 0
+}
+
 insert_fonts() {
     local file="$1"
     local FRAGMENT="$MODPATH/config/fonts_fragment.xml"
 
-    [ ! -f "$file" ] && { ui_print "$(safe_printf TXT_XML_NOT_FOUND "$file")"; return 1; }
-    [ ! -f "$FRAGMENT" ] && { safe_ui_print TXT_XML_FRAGMENT_MISSING; return 1; }
-
-    check_xml_format "$file" || return 1
+    validate_insert_fonts_input "$file" "$FRAGMENT" || return 1
 
     local tmp_file="${file}.tmp.$$"
     local block_file="${file}.block.$$"
 
-    cp -f "$file" "$tmp_file" || return 1
-    remove_old_fonts "$tmp_file" || true
+    prepare_temp_files "$file" "$tmp_file" "$block_file" || {
+        return 1
+    }
 
-    {
-        echo "<!-- UnicodeFontSetModule Start -->"
-        cat "$FRAGMENT"
-        echo "<!-- UnicodeFontSetModule End -->"
-    } > "$block_file"
+    remove_old_fonts "$tmp_file" || {
+        log_print "Warning: Failed to remove old fonts from $tmp_file"
+    }
 
-    awk -v block="$(cat "$block_file")" '
-        /<\/familyset>/ { print block }
-        { print }
-    ' "$tmp_file" > "${tmp_file}.new" || {
+    create_font_module_block "$FRAGMENT" "$block_file" || {
+        rm -f "$tmp_file"
+        return 1
+    }
+
+    insert_module_block "$tmp_file" "$block_file" || {
         rm -f "$tmp_file" "$block_file"
         return 1
     }
 
-    mv -f "${tmp_file}.new" "$tmp_file"
-    rm -f "$block_file"
-    mv -f "$tmp_file" "$file"
+    finalize_insert_fonts "$file" "$tmp_file" "$block_file" || {
+        return 1
+    }
 
-    ui_print "$(safe_printf TXT_XML_INJECT_OK "$(basename "$file")")"
     return 0
 }
 
 write_sha1_atomic() {
     local sha1_value="$1"
     local sha1_file="$2"
-    printf '%s' "$sha1_value" > "${sha1_file}.tmp" && mv -f "${sha1_file}.tmp" "$sha1_file"
+
+    if ! printf '%s' "$sha1_value" > "${sha1_file}.tmp"; then
+        log_print "Error: Failed to write SHA1 value to ${sha1_file}.tmp"
+        return 1
+    fi
+
+    if ! mv -f "${sha1_file}.tmp" "$sha1_file"; then
+        log_print "Error: Failed to move ${sha1_file}.tmp to $sha1_file"
+        rm -f "${sha1_file}.tmp"
+        return 1
+    fi
+
+    return 0
 }
 
 get_safe_sha1_filename() {
     local prefix="$1"
     printf '%s' "$prefix" | tr '/' '_' | tr ' ' '_'
+}
+
+process_xml_font_action() {
+    local print_func="$1"
+    local MOD_NAME="$2"
+    local SUB="$3"
+    local F="$4"
+    local TARGET_FILE="$5"
+    local BACKUP_FILE="$6"
+    local SHA1_FILE="$7"
+    local -n ACTION_FLAG="$8"
+
+    local NEW_SHA1=$(sha1sum "$TARGET_FILE" | cut -d' ' -f1)
+    local ACTION_TAKEN=0
+
+    if [ -f "$SHA1_FILE" ]; then
+        local OLD_SHA1=$(cat "$SHA1_FILE")
+        if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
+            $print_func "$(safe_printf TXT_XML_UPDATE "$MOD_NAME" "$SUB" "$F")"
+            ACTION_TAKEN=1
+            ACTION_FLAG=1
+        else
+            $print_func "$(safe_printf TXT_XML_RECREATE "$MOD_NAME" "$SUB" "$F")"
+            ACTION_TAKEN=1
+            ACTION_FLAG=1
+        fi
+    else
+        $print_func "$(safe_printf TXT_XML_NEW "$MOD_NAME" "$SUB" "$F")"
+        ACTION_TAKEN=1
+        ACTION_FLAG=1
+    fi
+
+    if [ "$ACTION_TAKEN" -eq 1 ]; then
+        mkdir -p "$(dirname "$BACKUP_FILE")"
+        if ! cp -af "$TARGET_FILE" "$BACKUP_FILE"; then
+            $print_func "$(safe_printf TXT_XML_BACKUP_FAIL "$TARGET_FILE")"
+            return
+        fi
+        write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
+
+        local MY_FILE=$(get_module_target_path "$SUB")/$F
+        mkdir -p "$(dirname "$MY_FILE")"
+        cp -af "$TARGET_FILE" "$MY_FILE"
+        insert_fonts "$MY_FILE"
+
+        rm -f "$TARGET_FILE"
+        local TARGET_DIR=$(dirname "$TARGET_FILE")
+        if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
+            rmdir "$TARGET_DIR" 2>/dev/null
+        fi
+        $print_func "$(safe_printf TXT_XML_REPLACED "$MOD_NAME" "$SUB" "$F")"
+    fi
+}
+
+process_binary_font_action() {
+    local print_func="$1"
+    local MOD_NAME="$2"
+    local SUB="$3"
+    local FONT_FILE="$4"
+    local FONT_FILENAME="$5"
+    local BACKUP_DIR="$6"
+    local BACKUP_FILE="$7"
+    local SHA1_FILE="$8"
+    local -n ACTION_FLAG="$9"
+
+    local NEW_SHA1=$(sha1sum "$FONT_FILE" | cut -d' ' -f1)
+    local ACTION_TAKEN=0
+
+    if [ -f "$SHA1_FILE" ]; then
+        local OLD_SHA1=$(cat "$SHA1_FILE")
+        if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
+            $print_func "$(safe_printf TXT_BIN_UPDATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
+            ACTION_TAKEN=1
+            ACTION_FLAG=1
+        else
+            $print_func "$(safe_printf TXT_BIN_RECREATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
+            ACTION_TAKEN=1
+            ACTION_FLAG=1
+        fi
+    else
+        $print_func "$(safe_printf TXT_BIN_NEW "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
+        ACTION_TAKEN=1
+        ACTION_FLAG=1
+    fi
+
+    if [ "$ACTION_TAKEN" -eq 1 ]; then
+        mkdir -p "$(dirname "$BACKUP_FILE")"
+        if ! cp -af "$FONT_FILE" "$BACKUP_FILE"; then
+            $print_func "$(safe_printf TXT_BIN_BACKUP_FAIL "$FONT_FILE")"
+            return
+        fi
+        write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
+        rm -f "$FONT_FILE"
+        $print_func "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
+        local TARGET_DIR=$(dirname "$FONT_FILE")
+        if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
+            rmdir "$TARGET_DIR" 2>/dev/null
+        fi
+    fi
+}
+
+monitor_xml_font_modules() {
+    local print_func="$1"
+    local -n ACTION_FLAG="$2"
+
+    for MODULE_DIR in "$MODULE_PARENT"/*; do
+        [ ! -d "$MODULE_DIR" ] && continue
+        local MOD_NAME=$(basename "$MODULE_DIR")
+        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
+            continue
+        fi
+
+        for SUB in $FONT_XML_SUBDIRS; do
+            local TARGET_DIR="$MODULE_DIR/$SUB"
+            for F in $FONT_XML_FILES; do
+                local TARGET_FILE="$TARGET_DIR/$F"
+                local BACKUP_FILE="$MODPATH/backup/$MOD_NAME/$SUB/$F"
+                local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
+
+                if [ -f "$TARGET_FILE" ]; then
+                    process_xml_font_action "$print_func" "$MOD_NAME" "$SUB" "$F" "$TARGET_FILE" "$BACKUP_FILE" "$SHA1_FILE" ACTION_FLAG
+                elif [ -f "$BACKUP_FILE" ]; then
+                    if [ ! -d "$MODULE_DIR" ]; then
+                        $print_func "$(safe_printf TXT_MODULE_REMOVED_XML "$MOD_NAME" "$SUB")"
+                        rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
+                        rm -f "$SHA1_FILE"
+                    fi
+                fi
+            done
+        done
+    done
+}
+
+monitor_binary_font_modules() {
+    local print_func="$1"
+    local -n ACTION_FLAG="$2"
+    local THIS_MODULE_BINARY_FONTS="$3"
+
+    for MODULE_DIR in "$MODULE_PARENT"/*; do
+        [ ! -d "$MODULE_DIR" ] && continue
+        local MOD_NAME=$(basename "$MODULE_DIR")
+        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
+            continue
+        fi
+
+        for SUB in $FONT_BINARY_SUBDIRS; do
+            local TARGET_DIR="$MODULE_DIR/$SUB"
+            [ ! -d "$TARGET_DIR" ] && continue
+
+            for FONT_FILE in "$TARGET_DIR"/*; do
+                [ ! -f "$FONT_FILE" ] && continue
+                local FONT_FILENAME=$(basename "$FONT_FILE")
+                [ -z "$THIS_MODULE_BINARY_FONTS" ] && continue
+
+                case " $THIS_MODULE_BINARY_FONTS " in
+                    *" $FONT_FILENAME "*)
+                        local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
+                        local BACKUP_FILE="$BACKUP_DIR/$FONT_FILENAME"
+                        local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_${FONT_FILENAME}")"
+                        process_binary_font_action "$print_func" "$MOD_NAME" "$SUB" "$FONT_FILE" "$FONT_FILENAME" "$BACKUP_DIR" "$BACKUP_FILE" "$SHA1_FILE" ACTION_FLAG
+                        ;;
+                esac
+            done
+        done
+    done
+}
+
+handle_removed_binary_modules() {
+    local print_func="$1"
+
+    for MODULE_DIR in "$MODULE_PARENT"/*; do
+        [ ! -d "$MODULE_DIR" ] && continue
+        local MOD_NAME=$(basename "$MODULE_DIR")
+        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
+            continue
+        fi
+
+        if [ ! -d "$MODULE_DIR" ]; then
+            for SUB in $FONT_BINARY_SUBDIRS; do
+                if [ -d "$MODPATH/backup/$MOD_NAME/$SUB" ]; then
+                    $print_func "$(safe_printf TXT_MODULE_REMOVED_BIN "$MOD_NAME" "$SUB")"
+                    rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
+                    local SAFE_PREFIX=$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_")
+                    rm -f "$SHA1_DIR/sha1_${SAFE_PREFIX}"* 2>/dev/null
+                fi
+            done
+        fi
+    done
 }
 
 monitor_font_modules() {
@@ -157,148 +464,16 @@ monitor_font_modules() {
 
     $print_func "$(safe_text TXT_START_MONITOR)"
 
-    THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
+    local THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
     if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
         $print_func "$(safe_text TXT_WARN_NO_SELF_FONTS)"
     fi
 
-    for MODULE_DIR in "$MODULE_PARENT"/*; do
-        [ ! -d "$MODULE_DIR" ] && continue
-        MOD_NAME=$(basename "$MODULE_DIR")
-        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
-            continue
-        fi
+    monitor_xml_font_modules "$print_func" FOUND_XML_ACTIONS
 
-        for SUB in $FONT_XML_SUBDIRS; do
-            TARGET_DIR="$MODULE_DIR/$SUB"
-            for F in $FONT_XML_FILES; do
-                TARGET_FILE="$TARGET_DIR/$F"
-                BACKUP_FILE="$MODPATH/backup/$MOD_NAME/$SUB/$F"
-                SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
+    monitor_binary_font_modules "$print_func" FOUND_BINARY_ACTIONS "$THIS_MODULE_BINARY_FONTS"
 
-                if [ -f "$TARGET_FILE" ]; then
-                    NEW_SHA1=$(sha1sum "$TARGET_FILE" | cut -d' ' -f1)
-                    ACTION_TAKEN=0
-
-                    if [ -f "$SHA1_FILE" ]; then
-                        OLD_SHA1=$(cat "$SHA1_FILE")
-                        if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
-                            $print_func "$(safe_printf TXT_XML_UPDATE "$MOD_NAME" "$SUB" "$F")"
-                            ACTION_TAKEN=1
-                            FOUND_XML_ACTIONS=1
-                        else
-                            $print_func "$(safe_printf TXT_XML_RECREATE "$MOD_NAME" "$SUB" "$F")"
-                            ACTION_TAKEN=1
-                            FOUND_XML_ACTIONS=1
-                        fi
-                    else
-                        $print_func "$(safe_printf TXT_XML_NEW "$MOD_NAME" "$SUB" "$F")"
-                        ACTION_TAKEN=1
-                        FOUND_XML_ACTIONS=1
-                    fi
-
-                    if [ "$ACTION_TAKEN" -eq 1 ]; then
-                        mkdir -p "$(dirname "$BACKUP_FILE")"
-                        if ! cp -af "$TARGET_FILE" "$BACKUP_FILE"; then
-                            $print_func "$(safe_printf TXT_XML_BACKUP_FAIL "$TARGET_FILE")"
-                            continue
-                        fi
-                        write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
-
-                        MY_FILE=$(get_module_target_path "$SUB")/$F
-                        mkdir -p "$(dirname "$MY_FILE")"
-                        cp -af "$TARGET_FILE" "$MY_FILE"
-                        insert_fonts "$MY_FILE"
-
-                        rm -f "$TARGET_FILE"
-                        if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
-                            rmdir "$TARGET_DIR" 2>/dev/null
-                        fi
-                        $print_func "$(safe_printf TXT_XML_REPLACED "$MOD_NAME" "$SUB" "$F")"
-                    fi
-                elif [ -f "$BACKUP_FILE" ]; then
-                    if [ ! -d "$MODULE_DIR" ]; then
-                        $print_func "$(safe_printf TXT_MODULE_REMOVED_XML "$MOD_NAME" "$SUB")"
-                        rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
-                        rm -f "$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
-                    fi
-                fi
-            done
-        done
-    done
-
-    for MODULE_DIR in "$MODULE_PARENT"/*; do
-        [ ! -d "$MODULE_DIR" ] && continue
-        MOD_NAME=$(basename "$MODULE_DIR")
-        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
-            continue
-        fi
-
-        for SUB in $FONT_BINARY_SUBDIRS; do
-            TARGET_DIR="$MODULE_DIR/$SUB"
-            [ ! -d "$TARGET_DIR" ] && continue
-
-            find "$TARGET_DIR" -maxdepth 1 -type f -print0 2>/dev/null |
-            while IFS= read -r -d '' FONT_FILE; do
-                [ -z "$FONT_FILE" ] && continue
-                FONT_FILENAME=$(basename "$FONT_FILE")
-                [ -z "$THIS_MODULE_BINARY_FONTS" ] && continue
-
-                case " $THIS_MODULE_BINARY_FONTS " in
-                    *" $FONT_FILENAME "*)
-                        BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
-                        BACKUP_FILE="$BACKUP_DIR/$FONT_FILENAME"
-                        SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_${FONT_FILENAME}")"
-
-                        NEW_SHA1=$(sha1sum "$FONT_FILE" | cut -d' ' -f1)
-                        ACTION_TAKEN=0
-
-                        if [ -f "$SHA1_FILE" ]; then
-                            OLD_SHA1=$(cat "$SHA1_FILE")
-                            if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
-                                $print_func "$(safe_printf TXT_BIN_UPDATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-                                ACTION_TAKEN=1
-                                FOUND_BINARY_ACTIONS=1
-                            else
-                                $print_func "$(safe_printf TXT_BIN_RECREATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-                                ACTION_TAKEN=1
-                                FOUND_BINARY_ACTIONS=1
-                            fi
-                        else
-                            $print_func "$(safe_printf TXT_BIN_NEW "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-                            ACTION_TAKEN=1
-                            FOUND_BINARY_ACTIONS=1
-                        fi
-
-                        if [ "$ACTION_TAKEN" -eq 1 ]; then
-                            mkdir -p "$(dirname "$BACKUP_FILE")"
-                            if ! cp -af "$FONT_FILE" "$BACKUP_FILE"; then
-                                $print_func "$(safe_printf TXT_BIN_BACKUP_FAIL "$FONT_FILE")"
-                                continue
-                            fi
-                            write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
-                            rm -f "$FONT_FILE"
-                            $print_func "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-                            if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
-                                rmdir "$TARGET_DIR" 2>/dev/null
-                            fi
-                        fi
-                        ;;
-                esac
-            done
-        done
-
-        if [ ! -d "$MODULE_DIR" ]; then
-            for SUB in $FONT_BINARY_SUBDIRS; do
-                if [ -d "$MODPATH/backup/$MOD_NAME/$SUB" ]; then
-                    $print_func "$(safe_printf TXT_MODULE_REMOVED_BIN "$MOD_NAME" "$SUB")"
-                    rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
-                    SAFE_PREFIX=$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_")
-                    find "$SHA1_DIR" -maxdepth 1 -type f -name "sha1_${SAFE_PREFIX}*" -delete 2>/dev/null
-                fi
-            done
-        fi
-    done
+    handle_removed_binary_modules "$print_func"
 
     if [ "$FOUND_XML_ACTIONS" -eq 0 ] && [ "$FOUND_BINARY_ACTIONS" -eq 0 ]; then
         $print_func "$(safe_text TXT_NO_CONFLICT)"
@@ -307,62 +482,86 @@ monitor_font_modules() {
     $print_func "$(safe_text TXT_MONITOR_DONE)"
 }
 
-process_binary_fonts_install() {
-    local FOUND_BINARY_MODULES=0
+check_module_has_fonts() {
+    local THIS_MODULE_BINARY_FONTS="$1"
 
-    THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
     if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
         ui_print "$TXT_WARN_NO_SELF_FONTS"
+        return 1
     fi
+    return 0
+}
+
+process_single_binary_font() {
+    local MOD_NAME="$1"
+    local sub_dir="$2"
+    local font_file="$3"
+    local font_filename="$4"
+    local THIS_MODULE_BINARY_FONTS="$5"
+    local -n MODULE_HAS_FONTS_BINARY="$6"
+    local -n FOUND_BINARY_MODULES="$7"
+
+    case " $THIS_MODULE_BINARY_FONTS " in
+        *" $font_filename "*)
+            if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
+                ui_print "$(safe_printf TXT_MODULE_FOUND "$MOD_NAME")"
+                MODULE_HAS_FONTS_BINARY=1
+                FOUND_BINARY_MODULES=$((FOUND_BINARY_MODULES + 1))
+            fi
+
+            local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$sub_dir"
+            local BACKUP_FILE="$BACKUP_DIR/$font_filename"
+            local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${sub_dir}_${font_filename}")"
+
+            mkdir -p "$BACKUP_DIR"
+            if ! cp -af "$font_file" "$BACKUP_FILE"; then
+                ui_print "$(safe_printf TXT_BIN_BACKUP_FAIL "$font_file")"
+                return
+            fi
+
+            local SHA1_VALUE=$(sha1sum "$font_file" | cut -d' ' -f1)
+            write_sha1_atomic "$SHA1_VALUE" "$SHA1_FILE"
+
+            rm -f "$font_file"
+            ui_print "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$sub_dir" "$font_filename")"
+
+            local target_dir=$(dirname "$font_file")
+            if [ -z "$(ls -A "$target_dir" 2>/dev/null)" ]; then
+                rmdir "$target_dir" 2>/dev/null
+            fi
+            ;;
+    esac
+}
+
+process_binary_fonts_install() {
+    local FOUND_BINARY_MODULES=0
+    local THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
+
+    check_module_has_fonts "$THIS_MODULE_BINARY_FONTS" || return 0
 
     ui_print "$TXT_INSTALL_BIN_SCAN"
 
     for MODULE_DIR in "$MODULE_PARENT"/*; do
         [ ! -d "$MODULE_DIR" ] && continue
-        MOD_NAME=$(basename "$MODULE_DIR")
+
+        local MOD_NAME=$(basename "$MODULE_DIR")
+
         if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
             continue
         fi
 
-        MODULE_HAS_FONTS_BINARY=0
+        local MODULE_HAS_FONTS_BINARY=0
 
-        for SUB in $FONT_BINARY_SUBDIRS; do
-            TARGET_DIR="$MODULE_DIR/$SUB"
-            [ ! -d "$TARGET_DIR" ] && continue
+        for sub_dir in $FONT_BINARY_SUBDIRS; do
+            local target_dir="$MODULE_DIR/$sub_dir"
 
-            find "$TARGET_DIR" -maxdepth 1 -type f -print0 2>/dev/null |
-            while IFS= read -r -d '' FONT_FILE; do
-                [ -z "$FONT_FILE" ] && continue
-                FONT_FILENAME=$(basename "$FONT_FILE")
-                [ -z "$THIS_MODULE_BINARY_FONTS" ] && continue
+            [ ! -d "$target_dir" ] && continue
 
-                case " $THIS_MODULE_BINARY_FONTS " in
-                    *" $FONT_FILENAME "*)
-                        if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
-                            ui_print "$(safe_printf TXT_MODULE_FOUND "$MOD_NAME")"
-                            MODULE_HAS_FONTS_BINARY=1
-                            FOUND_BINARY_MODULES=$((FOUND_BINARY_MODULES + 1))
-                        fi
+            for font_file in "$target_dir"/*; do
+                [ ! -f "$font_file" ] && continue
 
-                        BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
-                        BACKUP_FILE="$BACKUP_DIR/$FONT_FILENAME"
-                        SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_${FONT_FILENAME}")"
-
-                        mkdir -p "$BACKUP_DIR"
-                        if ! cp -af "$FONT_FILE" "$BACKUP_FILE"; then
-                            ui_print "$(safe_printf TXT_BIN_BACKUP_FAIL "$FONT_FILE")"
-                            continue
-                        fi
-                        SHA1_VALUE=$(sha1sum "$FONT_FILE" | cut -d' ' -f1)
-                        write_sha1_atomic "$SHA1_VALUE" "$SHA1_FILE"
-
-                        rm -f "$FONT_FILE"
-                        ui_print "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-                        if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
-                            rmdir "$TARGET_DIR" 2>/dev/null
-                        fi
-                        ;;
-                esac
+                local font_filename=$(basename "$font_file")
+                process_single_binary_font "$MOD_NAME" "$sub_dir" "$font_file" "$font_filename" "$THIS_MODULE_BINARY_FONTS" MODULE_HAS_FONTS_BINARY FOUND_BINARY_MODULES
             done
         done
     done
@@ -430,7 +629,10 @@ run_font_cmap_cleaner() {
 
     ui_print "$TXT_CMAP_START"
 
-    TMP_BIN="/data/local/tmp/font-cmap-tool.$$"
+    TMP_BIN="$TEMP_DIR/$CMAP_TOOL_PREFIX.$$"
+    local SYSTEM_FONTS_DIR="/system/fonts"
+    local MODULE_FONTS_DIR="$MODPATH/system/fonts"
+    local WHITELIST_FILE="$MODPATH/config/whitelist.txt"
 
     cp -f "$FONT_CMAP_TOOL" "$TMP_BIN" || {
         ui_print "$TXT_CMAP_COPY_FAIL"
@@ -446,9 +648,9 @@ run_font_cmap_cleaner() {
     }
 
     "$TMP_BIN" \
-        --system-fonts /system/fonts \
-        --module-fonts "$MODPATH/system/fonts" \
-        --skip-font-file "$MODPATH/config/whitelist.txt" \
+        --system-fonts "$SYSTEM_FONTS_DIR" \
+        --module-fonts "$MODULE_FONTS_DIR" \
+        --skip-font-file "$WHITELIST_FILE" \
         --no-color
 
     local RET=$?
@@ -463,49 +665,70 @@ run_font_cmap_cleaner() {
     ui_print "$TXT_CMAP_DONE"
 }
 
-wait_volume_key() {
-    local TIMEOUT="${1:-15}"
-    local START_TS NOW KEYCHECK
+detect_keycheck_tool() {
+    local KEYCHECK=""
 
     if [ -x "/keycheck" ]; then
         KEYCHECK="/keycheck"
     elif [ -n "$MAGISKBIN" ] && [ -x "$MAGISKBIN/keycheck" ]; then
         KEYCHECK="$MAGISKBIN/keycheck"
-    else
-        KEYCHECK=""
     fi
 
+    echo "$KEYCHECK"
+}
+
+wait_with_keycheck() {
+    local KEYCHECK="$1"
+    local TIMEOUT="$2"
+
+    ui_print "$(safe_printf TXT_KEYCHECK_DETECT "$TIMEOUT")"
+
+    local START_TS=$(date +%s)
+    local NOW
+    while :; do
+        "$KEYCHECK"
+        case "$?" in
+            42) return 0 ;;
+            41) return 1 ;;
+        esac
+
+        NOW=$(date +%s)
+        [ $((NOW - START_TS)) -ge "$TIMEOUT" ] && return 2
+        sleep 1
+    done
+}
+
+wait_with_getevent() {
+    local TIMEOUT="$1"
+
+    ui_print "$(safe_printf TXT_GETEVENT_DETECT "$TIMEOUT")"
+
+    local EVENT
+    EVENT=$(timeout "$TIMEOUT" getevent -ql 2>/dev/null \
+        | grep -m 1 -E "KEY_VOLUMEUP|KEY_VOLUMEDOWN")
+
+    if echo "$EVENT" | grep -q "KEY_VOLUMEDOWN"; then
+        return 0
+    elif echo "$EVENT" | grep -q "KEY_VOLUMEUP"; then
+        return 1
+    else
+        return 2
+    fi
+}
+
+wait_volume_key() {
+    local TIMEOUT="${1:-15}"
+
+    local KEYCHECK=$(detect_keycheck_tool)
+
     if [ -n "$KEYCHECK" ]; then
-        ui_print "$(safe_printf TXT_KEYCHECK_DETECT "$TIMEOUT")"
-
-        START_TS=$(date +%s)
-        while :; do
-            "$KEYCHECK"
-            case "$?" in
-                42) return 0 ;;
-                41) return 1 ;;
-            esac
-
-            NOW=$(date +%s)
-            [ $((NOW - START_TS)) -ge "$TIMEOUT" ] && return 2
-            sleep 1
-        done
+        wait_with_keycheck "$KEYCHECK" "$TIMEOUT"
+        return $?
     fi
 
     if command -v getevent >/dev/null 2>&1; then
-        ui_print "$(safe_printf TXT_GETEVENT_DETECT "$TIMEOUT")"
-
-        local EVENT
-        EVENT=$(timeout "$TIMEOUT" getevent -ql 2>/dev/null \
-            | grep -m 1 -E "KEY_VOLUMEUP|KEY_VOLUMEDOWN")
-
-        if echo "$EVENT" | grep -q "KEY_VOLUMEDOWN"; then
-            return 0
-        elif echo "$EVENT" | grep -q "KEY_VOLUMEUP"; then
-            return 1
-        else
-            return 2
-        fi
+        wait_with_getevent "$TIMEOUT"
+        return $?
     fi
 
     ui_print "$TXT_NO_INPUT_METHOD"
