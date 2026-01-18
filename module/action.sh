@@ -1,17 +1,9 @@
 #!/system/bin/sh
 
-SCRIPT_REAL_PATH="$(readlink -f "$0")"
-MODPATH="${SCRIPT_REAL_PATH%/*}"
+. "${0%/*}/lib/lib.sh"
+
 API=$(getprop ro.build.version.sdk)
-
 [ "$API" -lt 26 ] && exit 0
-
-if [ -f "$MODPATH/common_functions.sh" ]; then
-    source "$MODPATH/common_functions.sh"
-else
-    echo "[UnicodeFontSet] Error: common_functions.sh not found!"
-    exit 1
-fi
 
 MODULE_PARENT="/data/adb/modules"
 SELF_MOD_NAME=$(basename "$MODPATH")

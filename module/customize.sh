@@ -1,6 +1,8 @@
 #!/system/bin/sh
+
+. "$MODPATH/lib/lib.sh"
+
 API=$(getprop ro.build.version.sdk)
-source "$MODPATH/common_functions.sh"
 
 ui_print "$TXT_INSTALL_HEADER"
 ui_print "$TXT_INSTALL_TITLE"
