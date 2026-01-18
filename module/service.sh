@@ -1,16 +1,9 @@
 #!/system/bin/sh
 
-MODPATH=${0%/*}
+. "${0%/*}/lib/lib.sh"
+
 API=$(getprop ro.build.version.sdk)
-
 [ "$API" -lt 26 ] && exit 0
-
-if [ -f "$MODPATH/common_functions.sh" ]; then
-    source "$MODPATH/common_functions.sh"
-else
-    echo "[UnicodeFontSet] Error: common_functions.sh not found!" >> /cache/ufs.log
-    exit 1
-fi
 
 MODULE_PARENT="/data/adb/modules"
 SELF_MOD_NAME=$(basename "$MODPATH")
