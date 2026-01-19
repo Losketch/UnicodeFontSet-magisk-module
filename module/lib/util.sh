@@ -1,5 +1,6 @@
 
 get_module_target_path() {
+    [ -z "$1" ] && return 1
     local original_subdir="${1#/}"
     case "$original_subdir" in
         system_ext/*) echo "$MODPATH/system/$original_subdir" ;;
