@@ -2,8 +2,8 @@
 remove_old_fonts() {
     local file="$1"
     [ ! -f "$file" ] && return 1
-    grep -q "$MODULE_START_COMMENT" "$file" || return 0
-    sed -i "/$MODULE_START_COMMENT/,/$MODULE_END_COMMENT/d" "$file"
+    grep -q "^[[:space:]]*$MODULE_START_COMMENT" "$file" || return 0
+    sed -i "/^[[:space:]]*$MODULE_START_COMMENT/,/^[[:space:]]*$MODULE_END_COMMENT/d" "$file"
     return $?
 }
 
@@ -64,14 +64,33 @@ prepare_temp_files() {
 create_font_module_block() {
     local FRAGMENT="$1"
     local block_file="$2"
+    local tmp_file
+
+    tmp_file="${block_file}.tmp"
 
     if ! {
         echo "$MODULE_START_COMMENT"
         cat "$FRAGMENT"
         echo "$MODULE_END_COMMENT"
-    } > "$block_file"; then
+    } > "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to write to $block_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to write temporary file $tmp_file")"
+        rm -f "$tmp_file"
+        return 1
+    fi
+
+    if ! grep -q "^[[:space:]]*$MODULE_START_COMMENT" "$tmp_file" \
+       || ! grep -q "^[[:space:]]*$MODULE_END_COMMENT" "$tmp_file"; then
+        ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Temporary file missing module comments: $tmp_file")"
+        rm -f "$tmp_file"
+        return 1
+    fi
+
+    if ! mv -f "$tmp_file" "$block_file"; then
+        ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
+        log_print "$(safe_printf TXT_LOG_ERROR "Failed to replace $block_file with $tmp_file")"
+        rm -f "$tmp_file"
         return 1
     fi
 
@@ -82,16 +101,16 @@ insert_module_block() {
     local tmp_file="$1"
     local block_file="$2"
 
-    if ! awk '
+    if ! awk -v block_file="$block_file" '
         BEGIN {
             while ((getline line < block_file) > 0) {
                 block = block line "\n"
             }
             close(block_file)
         }
-        /<\/familyset>/ { print block }
+        /^[[:space:]]*<\/familyset>/ { print block }
         { print }
-    ' block_file="$block_file" "$tmp_file" > "${tmp_file}.new"; then
+    ' "$tmp_file" > "${tmp_file}.new"; then
         ui_print "$(safe_printf TXT_ERROR_PROCESS "$tmp_file")"
         log_print "$(safe_printf TXT_LOG_ERROR "Failed to process $tmp_file with awk")"
         return 1
@@ -170,7 +189,7 @@ process_xml_font_action() {
     local TARGET_FILE="$5"
     local BACKUP_FILE="$6"
     local SHA1_FILE="$7"
-    local -n ACTION_FLAG="$8"
+    local ACTION_FLAG_NAME="$8"
 
     local NEW_SHA1=$(sha1sum "$TARGET_FILE" | cut -d' ' -f1)
     local ACTION_TAKEN=0
@@ -180,11 +199,11 @@ process_xml_font_action() {
         if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
             $print_func "$(safe_printf TXT_XML_UPDATE "$MOD_NAME" "$SUB" "$F")"
             ACTION_TAKEN=1
-            ACTION_FLAG=1
+            eval "$ACTION_FLAG_NAME=1"
         else
             $print_func "$(safe_printf TXT_XML_RECREATE "$MOD_NAME" "$SUB" "$F")"
             ACTION_TAKEN=1
-            ACTION_FLAG=1
+            eval "$ACTION_FLAG_NAME=1"
         fi
     else
         $print_func "$(safe_printf TXT_XML_NEW "$MOD_NAME" "$SUB" "$F")"

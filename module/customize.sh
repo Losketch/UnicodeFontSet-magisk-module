@@ -94,10 +94,10 @@ for F in $FONT_XML_FILES; do
                 FOUND_SYSTEM_XML=1
             fi
 
-            ui_print "$(safe_printf "$TXT_INSTALL_PROCESS" "$SUB" "$F")"
+            ui_print "$(safe_printf TXT_INSTALL_PROCESS "$SUB" "$F")"
             mkdir -p "$DSTDIR"
             if ! cp -af "$SRC" "$DST"; then
-                ui_print "$(safe_printf "$TXT_INSTALL_COPY_FAIL" "$DST")"
+                ui_print "$(safe_printf TXT_INSTALL_COPY_FAIL "$DST")"
                 continue
             fi
             insert_fonts "$DST"

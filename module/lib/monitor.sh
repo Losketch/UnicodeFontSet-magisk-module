@@ -1,7 +1,7 @@
 
 monitor_xml_font_modules() {
     local print_func="$1"
-    local -n ACTION_FLAG="$2"
+    local ACTION_FLAG_NAME="$2"
 
     for MODULE_DIR in "$MODULE_PARENT"/*; do
         [ ! -d "$MODULE_DIR" ] && continue
@@ -18,7 +18,7 @@ monitor_xml_font_modules() {
                 local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
 
                 if [ -f "$TARGET_FILE" ]; then
-                    process_xml_font_action "$print_func" "$MOD_NAME" "$SUB" "$F" "$TARGET_FILE" "$BACKUP_FILE" "$SHA1_FILE" ACTION_FLAG
+                    process_xml_font_action "$print_func" "$MOD_NAME" "$SUB" "$F" "$TARGET_FILE" "$BACKUP_FILE" "$SHA1_FILE" "$ACTION_FLAG_NAME"
                 elif [ -f "$BACKUP_FILE" ]; then
                     if [ ! -d "$MODULE_DIR" ]; then
                         $print_func "$(safe_printf TXT_MODULE_REMOVED_XML "$MOD_NAME" "$SUB")"
@@ -33,7 +33,7 @@ monitor_xml_font_modules() {
 
 monitor_binary_font_modules() {
     local print_func="$1"
-    local -n ACTION_FLAG="$2"
+    local ACTION_FLAG_NAME="$2"
     local THIS_MODULE_BINARY_FONTS="$3"
 
     for MODULE_DIR in "$MODULE_PARENT"/*; do
@@ -57,7 +57,7 @@ monitor_binary_font_modules() {
                         local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
                         local BACKUP_FILE="$BACKUP_DIR/$FONT_FILENAME"
                         local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_${FONT_FILENAME}")"
-                        process_binary_font_action "$print_func" "$MOD_NAME" "$SUB" "$FONT_FILE" "$FONT_FILENAME" "$BACKUP_DIR" "$BACKUP_FILE" "$SHA1_FILE" ACTION_FLAG
+                        process_binary_font_action "$print_func" "$MOD_NAME" "$SUB" "$FONT_FILE" "$FONT_FILENAME" "$BACKUP_DIR" "$BACKUP_FILE" "$SHA1_FILE" "$ACTION_FLAG_NAME"
                         ;;
                 esac
             done

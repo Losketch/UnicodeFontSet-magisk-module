@@ -1,10 +1,9 @@
 
 ui_print() {
     if [ -n "$OUTFD" ]; then
-        echo "ui_print $1" >&$OUTFD
-        echo "ui_print" >&$OUTFD
+        printf 'ui_print %s\n' "$1" >&"$OUTFD"
     else
-        echo "$1"
+        printf '%s\n' "$1"
     fi
 }
 

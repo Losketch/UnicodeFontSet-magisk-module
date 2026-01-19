@@ -30,7 +30,7 @@ process_binary_font_action() {
     local BACKUP_DIR="$6"
     local BACKUP_FILE="$7"
     local SHA1_FILE="$8"
-    local -n ACTION_FLAG="$9"
+    local ACTION_FLAG_NAME="$9"
 
     local NEW_SHA1=$(sha1sum "$FONT_FILE" | cut -d' ' -f1)
     local ACTION_TAKEN=0
@@ -40,11 +40,11 @@ process_binary_font_action() {
         if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
             $print_func "$(safe_printf TXT_BIN_UPDATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
             ACTION_TAKEN=1
-            ACTION_FLAG=1
+            eval "$ACTION_FLAG_NAME=1"
         else
             $print_func "$(safe_printf TXT_BIN_RECREATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
             ACTION_TAKEN=1
-            ACTION_FLAG=1
+            eval "$ACTION_FLAG_NAME=1"
         fi
     else
         $print_func "$(safe_printf TXT_BIN_NEW "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
@@ -84,15 +84,17 @@ process_single_binary_font() {
     local font_file="$3"
     local font_filename="$4"
     local THIS_MODULE_BINARY_FONTS="$5"
-    local -n MODULE_HAS_FONTS_BINARY="$6"
-    local -n FOUND_BINARY_MODULES="$7"
+    local MODULE_HAS_FONTS_BINARY_NAME="$6"
+    local FOUND_BINARY_MODULES_NAME="$7"
 
     case " $THIS_MODULE_BINARY_FONTS " in
         *" $font_filename "*)
+            local MODULE_HAS_FONTS_BINARY
+            eval "MODULE_HAS_FONTS_BINARY=\$${MODULE_HAS_FONTS_BINARY_NAME}"
             if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
                 ui_print "$(safe_printf TXT_MODULE_FOUND "$MOD_NAME")"
-                MODULE_HAS_FONTS_BINARY=1
-                FOUND_BINARY_MODULES=$((FOUND_BINARY_MODULES + 1))
+                eval "$MODULE_HAS_FONTS_BINARY_NAME=1"
+                eval "$FOUND_BINARY_MODULES_NAME=$((\$${FOUND_BINARY_MODULES_NAME} + 1))"
             fi
 
             local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$sub_dir"
