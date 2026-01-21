@@ -49,7 +49,7 @@ process_binary_font_action() {
     else
         $print_func "$(safe_printf TXT_BIN_NEW "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
         ACTION_TAKEN=1
-        ACTION_FLAG=1
+        eval "$ACTION_FLAG_NAME=1"
     fi
 
     if [ "$ACTION_TAKEN" -eq 1 ]; then
@@ -90,11 +90,13 @@ process_single_binary_font() {
     case " $THIS_MODULE_BINARY_FONTS " in
         *" $font_filename "*)
             local MODULE_HAS_FONTS_BINARY
-            eval "MODULE_HAS_FONTS_BINARY=\$${MODULE_HAS_FONTS_BINARY_NAME}"
+            eval "MODULE_HAS_FONTS_BINARY=\${${MODULE_HAS_FONTS_BINARY_NAME}:-0}"
             if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
                 ui_print "$(safe_printf TXT_MODULE_FOUND "$MOD_NAME")"
                 eval "$MODULE_HAS_FONTS_BINARY_NAME=1"
-                eval "$FOUND_BINARY_MODULES_NAME=$((\$${FOUND_BINARY_MODULES_NAME} + 1))"
+                local CURRENT_COUNT
+                eval "CURRENT_COUNT=\${${FOUND_BINARY_MODULES_NAME}:-0}"
+                eval "$FOUND_BINARY_MODULES_NAME=$((CURRENT_COUNT + 1))"
             fi
 
             local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$sub_dir"

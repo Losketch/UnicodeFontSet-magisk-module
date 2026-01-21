@@ -71,7 +71,7 @@ run_font_cmap_cleaner() {
     rm -f "$TMP_BIN"
 
     if [ "$RET" -ne 0 ]; then
-        ui_print "$(safe_printf "$TXT_CMAP_FAIL" "$RET")"
+        ui_print "$(safe_printf TXT_CMAP_FAIL "$RET")"
         return "$RET"
     fi
 

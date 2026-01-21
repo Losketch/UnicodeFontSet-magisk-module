@@ -29,18 +29,18 @@ validate_insert_fonts_input() {
 
     if [ ! -f "$file" ]; then
         ui_print "$(safe_printf TXT_XML_NOT_FOUND "$file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "File not found: $file")"
+        log_print "$(safe_printf TXT_LOG_FILE_NOT_FOUND "$file")"
         return 1
     fi
 
     if [ ! -f "$FRAGMENT" ]; then
         safe_ui_print TXT_XML_FRAGMENT_MISSING
-        log_print "$(safe_printf TXT_LOG_ERROR "Font fragment file not found: $FRAGMENT")"
+        log_print "$(safe_printf TXT_LOG_FRAGMENT_NOT_FOUND "$FRAGMENT")"
         return 1
     fi
 
     check_xml_format "$file" || {
-        log_print "$(safe_printf TXT_LOG_ERROR "Invalid XML format: $file")"
+        log_print "$(safe_printf TXT_LOG_INVALID_XML_FORMAT "$file")"
         return 1
     }
 
@@ -54,7 +54,7 @@ prepare_temp_files() {
 
     if ! cp -f "$file" "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_COPY "$file" "$tmp_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to copy $file to $tmp_file")"
+        log_print "$(safe_printf TXT_LOG_COPY_FAILED "$file" "$tmp_file")"
         return 1
     fi
 
@@ -74,7 +74,7 @@ create_font_module_block() {
         echo "$MODULE_END_COMMENT"
     } > "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to write temporary file $tmp_file")"
+        log_print "$(safe_printf TXT_LOG_WRITE_FAILED "$tmp_file")"
         rm -f "$tmp_file"
         return 1
     fi
@@ -82,14 +82,14 @@ create_font_module_block() {
     if ! grep -q "^[[:space:]]*$MODULE_START_COMMENT" "$tmp_file" \
        || ! grep -q "^[[:space:]]*$MODULE_END_COMMENT" "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Temporary file missing module comments: $tmp_file")"
+        log_print "$(safe_printf TXT_LOG_MISSING_COMMENTS "$tmp_file")"
         rm -f "$tmp_file"
         return 1
     fi
 
     if ! mv -f "$tmp_file" "$block_file"; then
         ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to replace $block_file with $tmp_file")"
+        log_print "$(safe_printf TXT_LOG_REPLACE_FAILED "$block_file" "$tmp_file")"
         rm -f "$tmp_file"
         return 1
     fi
@@ -112,13 +112,13 @@ insert_module_block() {
         { print }
     ' "$tmp_file" > "${tmp_file}.new"; then
         ui_print "$(safe_printf TXT_ERROR_PROCESS "$tmp_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to process $tmp_file with awk")"
+        log_print "$(safe_printf TXT_LOG_PROCESS_FAILED "$tmp_file")"
         return 1
     fi
 
     if ! mv -f "${tmp_file}.new" "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_MOVE "${tmp_file}.new" "$tmp_file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to move ${tmp_file}.new to $tmp_file")"
+        log_print "$(safe_printf TXT_LOG_MOVE_FAILED "${tmp_file}.new" "$tmp_file")"
         rm -f "${tmp_file}.new"
         return 1
     fi
@@ -132,18 +132,18 @@ finalize_insert_fonts() {
     local block_file="$3"
 
     if ! rm -f "$block_file"; then
-        log_print "$(safe_printf TXT_LOG_WARNING "Failed to remove temporary file $block_file")"
+        log_print "$(safe_printf TXT_LOG_REMOVE_FAILED "$block_file")"
     fi
 
     if ! mv -f "$tmp_file" "$file"; then
         ui_print "$(safe_printf TXT_ERROR_MOVE "$tmp_file" "$file")"
-        log_print "$(safe_printf TXT_LOG_ERROR "Failed to move $tmp_file to $file")"
+        log_print "$(safe_printf TXT_LOG_MOVE_FAILED "$tmp_file" "$file")"
         rm -f "$tmp_file"
         return 1
     fi
 
     ui_print "$(safe_printf TXT_XML_INJECT_OK "$(basename "$file")")"
-    log_print "$(safe_printf TXT_LOG_SUCCESS "Successfully processed font XML: $file")"
+    log_print "$(safe_printf TXT_LOG_XML_PROCESSED "$file")"
     return 0
 }
 
@@ -161,7 +161,7 @@ insert_fonts() {
     }
 
     remove_old_fonts "$tmp_file" || {
-        log_print "Warning: Failed to remove old fonts from $tmp_file"
+        log_print "$(safe_printf TXT_LOG_OLD_FONTS_REMOVE_FAILED "$tmp_file")"
     }
 
     create_font_module_block "$FRAGMENT" "$block_file" || {
@@ -208,7 +208,7 @@ process_xml_font_action() {
     else
         $print_func "$(safe_printf TXT_XML_NEW "$MOD_NAME" "$SUB" "$F")"
         ACTION_TAKEN=1
-        ACTION_FLAG=1
+        eval "$ACTION_FLAG_NAME=1"
     fi
 
     if [ "$ACTION_TAKEN" -eq 1 ]; then
