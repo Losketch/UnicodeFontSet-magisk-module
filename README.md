@@ -113,7 +113,7 @@ A: 请尝试以下解决方案：
 1. 重启设备 1-2 次
 2. 重新激活模块
 3. 检查是否与其他字体模块冲突
-4. 查看模块日志 `/cache/ufs.log` 了解详细信息
+4. 查看模块日志 `${MODPATH:-/cache}/ufs.log` 了解详细信息
 
 ### Q: 如何检查模块是否正常工作？
 A: 您可以通过以下方式验证：
@@ -129,8 +129,8 @@ A: 模块支持 Android 8.0+（API 26+）。
 ### 查看模块日志
 
 模块运行时会生成日志文件，您可以通过以下方式查看：
-- 日志路径：`/cache/ufs.log`
-- 使用 ADB 命令查看：`adb pull /cache/ufs.log`
+- 日志路径：`${MODPATH:-/cache}/ufs.log`
+- 使用 ADB 命令查看：`adb pull ${MODPATH:-/cache}/ufs.log`
 
 ### 清理模块残留
 

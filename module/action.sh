@@ -12,7 +12,7 @@ SHA1_DIR="$MODPATH/sha1"
 mkdir -p "$SHA1_DIR"
 
 if ! acquire_lock; then
-    log_print "$TXT_LOCK_BUSY"
+    ui_print "$TXT_LOCK_BUSY"
     exit 0
 fi
 

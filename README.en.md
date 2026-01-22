@@ -113,7 +113,7 @@ A: Please try the following solutions:
 1. Reboot your device 1-2 times
 2. Re-enable the module
 3. Check for conflicts with other font modules
-4. View the module log at `/cache/ufs.log` for detailed information
+4. View the module log at `${MODPATH:-/cache}/ufs.log` for detailed information
 
 ### Q: How to check if the module is working properly?
 A: You can verify through the following methods:
@@ -129,8 +129,8 @@ A: The module supports Android 8.0+ (API 26+).
 ### View Module Logs
 
 The module generates log files during operation, which you can view through the following methods:
-- Log path: `/cache/ufs.log`
-- Use ADB command to view: `adb pull /cache/ufs.log`
+- Log path: `${MODPATH:-/cache}/ufs.log`
+- Use ADB command to view: `adb pull ${MODPATH:-/cache}/ufs.log`
 
 ### Clean Module Residues
 
