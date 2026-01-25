@@ -1,6 +1,5 @@
 
-/documentation/*.*tf
+/tools/font-cmap-cleaner/target
 /tools/fonts/*.*tf
+/tools/*.*tf
 /fcp
-
-*-module.zip
