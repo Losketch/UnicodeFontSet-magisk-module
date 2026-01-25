@@ -53,6 +53,10 @@ struct Args {
     #[arg(long = "fonts-xml")]
     fonts_xml: Vec<PathBuf>,
 
+    /// 忽略 fonts.xml 限制，处理所有字体
+    #[arg(long = "ignore-xml")]
+    ignore_xml: bool,
+
     /// system 字体 cmap 安全阈值（超过则不并入 system_unicode）
     #[arg(long = "system-cmap-threshold", default_value = "1114112")]
     system_cmap_threshold: usize,
@@ -147,28 +151,35 @@ fn main() -> Result<()> {
          "🖥️ 运行环境"
     );
 
-    let font_xml_paths = if !args.fonts_xml.is_empty() {
+    let font_xml_paths = if args.ignore_xml {
+        vec![]
+    } else if !args.fonts_xml.is_empty() {
         args.fonts_xml.clone()
     } else {
         collect_font_xml_paths()
     };
-    if font_xml_paths.is_empty() {
-        bail!("❌ 未提供 fonts.xml，无法保证 fallback 安全性");
-    }
 
-    info!("📄 发现 {} 个 fonts.xml:", font_xml_paths.len());
-    for p in &font_xml_paths {
-        debug!(path = %p.display(), "📄 发现 fonts.xml");
-    }
+    let effective_fonts: std::collections::HashSet<String> = if args.ignore_xml {
+        info!("🔓 忽略 fonts.xml 限制，将处理所有系统字体");
+        std::collections::HashSet::new()
+    } else if font_xml_paths.is_empty() {
+        bail!("❌ 未提供 fonts.xml，无法保证 fallback 安全性");
+    } else {
+        info!("📄 发现 {} 个 fonts.xml:", font_xml_paths.len());
+        for p in &font_xml_paths {
+            debug!(path = %p.display(), "📄 发现 fonts.xml");
+        }
 
     let xml_refs: Vec<&Path> = font_xml_paths.iter().map(PathBuf::as_path).collect();
-    let effective_fonts = collect_effective_fonts(&xml_refs)?;
+    let fonts = collect_effective_fonts(&xml_refs)?;
 
-    if effective_fonts.is_empty() {
+    if fonts.is_empty() {
         bail!("❌ fonts.xml 解析成功但未得到任何有效字体");
     }
 
-    debug!(fonts = effective_fonts.len(), ?effective_fonts, "🧩 有效字体集合");
+    debug!(fonts = fonts.len(), ?fonts, "🧩 有效字体集合");
+        fonts
+    };
 
     if let Some(Command::Find { codepoint }) = &args.command {
         let cp = parse_codepoint(codepoint)?;
@@ -438,7 +449,7 @@ fn find_fonts_containing(
             None => continue,
         };
 
-        if !effective_fonts.contains(file_name) {
+        if !effective_fonts.is_empty() && !effective_fonts.contains(file_name) {
             continue;
         }
 

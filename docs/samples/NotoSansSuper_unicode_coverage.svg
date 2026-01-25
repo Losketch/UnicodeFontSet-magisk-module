@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: NotoSansSuper.otf</h2>
-        <p class="subtitle">Total supported glyphs: 17654</p>
+        <p class="subtitle">Total supported glyphs: 17651</p>
       </div>
       <table>
         <thead>
@@ -174,7 +174,7 @@
           <tr>
             <td>0870..089F</td>
             <td>Arabic Extended-B</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 97.7%, var(--md-sys-color-primary-container) 97.7%);color: var(--md-sys-color-on-primary);">42/43</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 95.3%, var(--md-sys-color-primary-container) 95.3%);color: var(--md-sys-color-on-primary);">41/43</td>
           </tr>
           <tr>
             <td>08A0..08FF</td>
@@ -494,7 +494,7 @@
           <tr>
             <td>3000..303F</td>
             <td>CJK Symbols and Punctuation</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 40.6%, var(--md-sys-color-tertiary-container) 40.6%);color: var(--md-sys-color-on-tertiary-container);">26/64</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 37.5%, var(--md-sys-color-tertiary-container) 37.5%);color: var(--md-sys-color-on-tertiary-container);">24/64</td>
           </tr>
           <tr>
             <td>3040..309F</td>
