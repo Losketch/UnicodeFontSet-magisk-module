@@ -29,7 +29,7 @@ pub fn scan_effective_system_unicode(
             None => continue,
         };
 
-        if !effective_fonts.contains(file_name) {
+        if !effective_fonts.is_empty() && !effective_fonts.contains(file_name) {
             trace!(font = %file_name, "skip non-effective system font");
             continue;
         }
