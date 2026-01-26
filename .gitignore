@@ -5,5 +5,3 @@ target/
 /sources/build
 /tools/python/*.*tf
 /tools/*.*tf
-
-*-module.zip
