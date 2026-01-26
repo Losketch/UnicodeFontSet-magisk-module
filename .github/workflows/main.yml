@@ -24,7 +24,7 @@ env:
   UPDATE_BIN: module/META-INF/com/google/android/update-binary
   BUILD_DIR: build
   CLEANER_DIR: tools/font-cmap-cleaner
-  UPX_VERSION: 5.0.2
+  UPX_VERSION: 5.1.0
   NDK_VERSION: 29.0.14206865
 
 jobs:
