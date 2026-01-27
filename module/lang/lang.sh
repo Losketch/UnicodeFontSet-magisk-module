@@ -2,6 +2,258 @@
 # UnicodeFontSet - Language Loader
 # ================================
 
+# _getprop()
+# 安全获取系统属性的值
+# 参数:
+#   $1 - 属性名
+# 返回:
+#   属性值或空
+_getprop() {
+    local value
+    value="$(getprop "$1" 2>/dev/null)"
+    value="$(echo "$value" | tr -d '\r')"
+    echo "$value"
+}
+
+# _settings_get()
+# 安全获取settings命令的值
+# 参数:
+#   $1 - namespace
+#   $2 - key
+# 返回:
+#   设置值或空
+_settings_get() {
+    local value
+    value="$(settings get "$1" "$2" 2>/dev/null)"
+    value="$(echo "$value" | tr -d '\r')"
+    [ -n "$value" ] && [ "$value" != "null" ] && ! echo "$value" | grep -q "Failed transaction" && echo "$value"
+}
+
+# get_system_locale()
+# 从多个来源获取系统语言设置，按优先级尝试
+# 优先级:
+#   1. persist.sys.locale (直接)
+#   2. persist.sys.language + persist.sys.country
+#   3. settings get system system_locales
+#   4. settings get global device_locale
+#   5. 默认为 zh_CN
+# 返回:
+#   标准 locale 字符串 (如 zh_CN, en_US, zh_TW)
+get_system_locale() {
+    local locale=""
+    local lang=""
+    local country=""
+    local region=""
+
+    locale="$(_getprop persist.sys.locale)"
+
+    if [ -z "$locale" ] || [ "$locale" = "null" ]; then
+        lang="$(_getprop persist.sys.language)"
+        country="$(_getprop persist.sys.country)"
+        if [ -n "$lang" ]; then
+            if [ -n "$country" ]; then
+                locale="${lang}_${country}"
+            else
+                locale="$lang"
+            fi
+        fi
+    fi
+
+    if [ -z "$locale" ] || [ "$locale" = "null" ]; then
+        locale="$(_settings_get system system_locales)"
+    fi
+
+    if [ -z "$locale" ] || [ "$locale" = "null" ]; then
+        locale="$(_settings_get global device_locale)"
+    fi
+
+    if [ -z "$locale" ] || [ "$locale" = "null" ]; then
+        locale="zh_CN"
+    fi
+
+    locale="${locale%,*}"
+    locale="${locale//-/_}"
+    echo "$locale"
+}
+
+# parse_locale()
+# 解析 locale 字符串，提取语言、脚本、地区等组成部分
+# 参数:
+#   $1 - locale 字符串 (如 zh_CN, zh_Hans_CN, en_US_POSIX)
+# 设置全局变量:
+#   _LOCALE_LANG - 语言代码 (如 zh, en)
+#   _LOCALE_SCRIPT - 脚本代码 (如 Hans, Hant)
+#   _LOCALE_REGION - 地区代码 (如 CN, TW, US)
+#   _LOCALE_VARIANT - 变体 (如 POSIX)
+parse_locale() {
+    local input="$1"
+    local rest
+
+    _LOCALE_LANG=""
+    _LOCALE_SCRIPT=""
+    _LOCALE_REGION=""
+    _LOCALE_VARIANT=""
+
+    if [ -z "$input" ]; then
+        return 1
+    fi
+
+    input="$(echo "$input" | tr '[:upper:]' '[:lower:]')"
+
+    _LOCALE_LANG="${input%%[-_]*}"
+    rest="${input#${_LOCALE_LANG}}"
+    rest="${rest#[-_]}"
+
+    if [ -n "$rest" ] && [ ${#rest} -eq 4 ]; then
+        _LOCALE_SCRIPT="$(echo "${rest:0:1}" | tr '[:lower:]' '[:upper:]')${rest:1:3}"
+        rest="${rest#????}"
+        rest="${rest#[-_]}"
+    fi
+
+    if [ -n "$rest" ]; then
+        local lower_reg="${rest%%[-_]*}"
+        _LOCALE_REGION="$(echo "$lower_reg" | tr '[:lower:]' '[:upper:]')"
+        rest="${rest#${lower_reg}}"
+        rest="${rest#[-_]}"
+    fi
+
+    if [ -n "$rest" ]; then
+        _LOCALE_VARIANT="$rest"
+    fi
+
+    [ -n "$_LOCALE_LANG" ]
+}
+
+# get_fallback_language()
+# 根据当前系统语言获取合适的回退语言
+# 参数:
+#   $1 - 语言代码
+# 返回:
+#   最佳匹配的语言代码
+get_fallback_language() {
+    local lang="$1"
+    case "$lang" in
+        zh)
+            echo "zh_CN"
+            ;;
+        zh_hans|zh_hant)
+            echo "zh_CN"
+            ;;
+        *)
+            echo "en_US"
+            ;;
+    esac
+}
+
+# load_language_file()
+# 尝试加载语言文件，支持多级回退
+# 参数:
+#   $1 - 语言目录
+#   $2 - 语言代码 (如 zh_CN, en_US, zh_TW)
+# 返回:
+#   0 - 成功加载, 1 - 未找到文件
+load_language_file() {
+    local lang_dir="$1"
+    local lang_code="$2"
+    local lang_base=""
+    local script=""
+    local region=""
+    local variant=""
+    local try_path=""
+
+    parse_locale "$lang_code"
+
+    lang_base="$_LOCALE_LANG"
+    script="$_LOCALE_SCRIPT"
+    region="$_LOCALE_REGION"
+    variant="$_LOCALE_VARIANT"
+
+    try_source() {
+        [ -f "$1" ] && . "$1" && return 0
+        return 1
+    }
+
+    if [ -n "$region" ]; then
+        if [ -n "$script" ]; then
+            try_source "$lang_dir/lang_${lang_base}_${script}_${region}.sh" && return 0
+        fi
+        try_source "$lang_dir/lang_${lang_base}_${region}.sh" && return 0
+    fi
+
+    if [ -n "$script" ]; then
+        try_source "$lang_dir/lang_${lang_base}_${script}.sh" && return 0
+    fi
+
+    try_source "$lang_dir/lang_${lang_base}.sh" && return 0
+
+    for f in "$lang_dir"/lang_${lang_base}_*.sh; do
+        [ -f "$f" ] && try_source "$f" && return 0
+    done
+
+    return 1
+}
+
+# log_locale_info()
+# 记录语言检测的详细信息到日志
+log_locale_info() {
+    local log_file="${UFS_LOG_FILE:-${LOG_FILE:-/cache/ufs.log}}"
+    local locale="$1"
+    local lang="$2"
+    local script="$3"
+    local region="$4"
+
+    echo "[Language] Detected locale: $locale" >> "$log_file" 2>/dev/null
+    [ -n "$lang" ] && echo "[Language] Parsed - Lang: $lang, Script: $script, Region: $region" >> "$log_file" 2>/dev/null
+}
+
+# init_language()
+# 初始化语言环境，根据系统设置加载对应语言包
+# 优先级:
+#   1. UFS_LANG 环境变量 (手动指定，最高优先级)
+#   2. 系统语言设置 (自动检测)
+#   3. 默认英文 (fallback)
+init_language() {
+    local system_locale=""
+    local detected_lang=""
+    local fallback_lang=""
+
+    system_locale="$(get_system_locale)"
+
+    if [ -n "$UFS_LANG" ]; then
+        detected_lang="$UFS_LANG"
+    else
+        detected_lang="$system_locale"
+    fi
+
+    if [ -z "$detected_lang" ]; then
+        detected_lang="zh_CN"
+    fi
+
+    if [ -f "$LANG_DIR/lang_en_US.sh" ]; then
+        . "$LANG_DIR/lang_en_US.sh"
+    fi
+
+    load_language_file "$LANG_DIR" "$detected_lang"
+    local load_result=$?
+
+    if [ $load_result -ne 0 ]; then
+        parse_locale "$detected_lang"
+        fallback_lang="$(get_fallback_language "$_LOCALE_LANG")"
+        if [ "$fallback_lang" != "$detected_lang" ]; then
+            load_language_file "$LANG_DIR" "$fallback_lang"
+            load_result=$?
+        fi
+    fi
+
+    if [ $load_result -ne 0 ]; then
+        if [ -f "$LANG_DIR/lang_zh_CN.sh" ]; then
+            . "$LANG_DIR/lang_zh_CN.sh"
+        fi
+    fi
+
+    log_locale_info "$system_locale" "$_LOCALE_LANG" "$_LOCALE_SCRIPT" "$_LOCALE_REGION"
+}
+
 # safe_text()
 # 获取本地化文本，如果未定义则返回变量名
 # 参数:
@@ -203,37 +455,15 @@ _printf_with_positional() {
     printf '%s' "$result"
 }
 
-# 手动指定（最高优先级）
-# 在 customize.sh / module.prop 中 export UFS_LANG=en_US
-UFS_LANG="${UFS_LANG:-}"
-
-if [ -z "$UFS_LANG" ]; then
-    SYS_LANG="$(getprop persist.sys.locale 2>/dev/null)"
-
-    case "$SYS_LANG" in
-        zh*|zh-*) UFS_LANG="zh_CN" ;;
-        *)        UFS_LANG="en_US" ;;
-    esac
-fi
-
-LANG_DIR="$MODPATH/lang"
-
-if [ -f "$LANG_DIR/lang_en_US.sh" ]; then
-    . "$LANG_DIR/lang_en_US.sh"
+if [ -n "$MODPATH" ]; then
+    LANG_DIR="$MODPATH/lang"
 else
-    echo "Warning: Default language file lang_en_US.sh not found" >> "${LOG_FILE:-/cache/ufs.log}"
+    LANG_DIR="${0%/*}/lang"
 fi
 
-case "$UFS_LANG" in
-    en_US) 
-        # 英文已经加载，无需重复加载
-        ;;
-    zh_CN) 
-        if [ -f "$LANG_DIR/lang_zh_CN.sh" ]; then
-            . "$LANG_DIR/lang_zh_CN.sh"
-        fi
-        ;;
-    *) 
-        echo "Warning: Unsupported language $UFS_LANG, using English" >> "${LOG_FILE:-/cache/ufs.log}"
-        ;;
-esac
+if [ ! -d "$LANG_DIR" ]; then
+    LANG_DIR="${MODPATH:-}/lang"
+    [ ! -d "$LANG_DIR" ] && LANG_DIR="${0%/*}/lang"
+fi
+
+init_language
