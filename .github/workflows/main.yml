@@ -116,16 +116,26 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           VERSION_DATE=$(date +%Y%m%d)
-          BASE_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2)
-          sed -i "s/^versionCode=.*/versionCode=${VERSION_DATE}/" ${{ env.MODULE_PROP }}
-          sed -i "s|^version=.*|version=${BASE_VERSION} [${GITHUB_SHA:0:7}-Nightly-${{ matrix.variant.suffix }}]|" ${{ env.MODULE_PROP }}
+          BUILD_NUM=${{ github.run_number }}
+          VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
+          awk -v date="$VERSION_DATE" -v num="$BUILD_NUM" -v sha="${GITHUB_SHA:0:7}" '
+            /^version=/ {print "version=" $0 "." date "." num " [" sha "-Nightly-COLRv1]"; next}
+            /^versionCode=/ {print "versionCode=" date num; next}
+            {print}
+          ' ${{ env.MODULE_PROP }} > ${{ env.MODULE_PROP }}.tmp && mv ${{ env.MODULE_PROP }}.tmp ${{ env.MODULE_PROP }}
           sed -i "s|^updateJson=.*|updateJson=${{ matrix.variant.update_json_nightly }}|" ${{ env.MODULE_PROP }}
 
       - name: Update version for Release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          BASE_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2)
-          sed -i "s|^version=.*|version=${BASE_VERSION} [${{ matrix.variant.suffix }}]|" ${{ env.MODULE_PROP }}
+          VERSION_DATE=$(date +%Y%m%d)
+          BUILD_NUM=${{ github.run_number }}
+          VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
+          awk -v date="$VERSION_DATE" -v num="$BUILD_NUM" '
+            /^version=/ {print "version=" $0 "." date "." num " [COLRv1]"; next}
+            /^versionCode=/ {print "versionCode=" date num; next}
+            {print}
+          ' ${{ env.MODULE_PROP }} > ${{ env.MODULE_PROP }}.tmp && mv ${{ env.MODULE_PROP }}.tmp ${{ env.MODULE_PROP }}
 
       - name: Setup Rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -333,8 +343,8 @@ jobs:
       - name: Generate nightly update.json files
         run: |
           VERSION_DATE=$(date +%Y%m%d)
-          BASE_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2 | awk '{print $1}')
-          NIGHTLY_VERSION="${BASE_VERSION} (${GITHUB_SHA:0:7}-Nightly)"
+          BUILD_NUM=${{ github.run_number }}
+          VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
           
           cat > changelog.md << EOF
           # Nightly Build Changelog
@@ -345,10 +355,13 @@ jobs:
           Built from commit: ${{ github.sha }}
           EOF
           
+          COLR_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2- | sed 's/ \[.*\]//')
+          CBDT_VERSION="$COLR_VERSION"
+          
           cat > update-nightly-colrv1.json << EOF
           {
-              "version": "${NIGHTLY_VERSION} (COLRv1)",
-              "versionCode": ${VERSION_DATE},
+              "version": "${COLR_VERSION}.${VERSION_DATE}.${BUILD_NUM} [${GITHUB_SHA:0:7}-Nightly-COLRv1]",
+              "versionCode": ${VERSION_CODE},
               "zipUrl": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/UnicodeFontSet-COLRv1-module.zip",
               "changelog": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/changelog.md"
           }
@@ -356,8 +369,8 @@ jobs:
           
           cat > update-nightly-cbdt.json << EOF
           {
-              "version": "${NIGHTLY_VERSION} (CBDT)",
-              "versionCode": ${VERSION_DATE},
+              "version": "${CBDT_VERSION}.${VERSION_DATE}.${BUILD_NUM} [${GITHUB_SHA:0:7}-Nightly-CBDT]",
+              "versionCode": ${VERSION_CODE},
               "zipUrl": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/UnicodeFontSet-CBDT-module.zip",
               "changelog": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/changelog.md"
           }
