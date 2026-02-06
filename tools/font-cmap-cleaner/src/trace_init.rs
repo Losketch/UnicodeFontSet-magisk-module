@@ -1,6 +1,6 @@
 use tracing_subscriber::{fmt, EnvFilter};
 
-pub fn init_tracing(verbose: bool, json: bool) {
+pub fn init_tracing(verbose: bool) {
     let filter = if verbose {
         EnvFilter::new("trace")
     } else {
@@ -14,9 +14,5 @@ pub fn init_tracing(verbose: bool, json: bool) {
         .with_thread_ids(true)
         .with_line_number(true);
 
-    if json {
-        builder.json().init();
-    } else {
-        builder.init();
-    }
+    builder.init();
 }
