@@ -11,17 +11,12 @@ import glob
 import argparse
 from fontTools.ttLib import TTFont
 
-EXCLUDED_RANGES = [
-    (0xD800, 0xDFFF),     # 代理区
-    (0xE000, 0xF8FF),     # BMP 私用区
-    (0xF0000, 0xFFFFD),   # Plane 15 私用区
-    (0x100000, 0x10FFFD)  # Plane 16 私用区
-]
+EXCLUDED_CATEGORIES = {'Cs', 'Co', 'Cn'}
 
 def parse_unicode_data(ud_path):
     """
     解析 UnicodeData.txt，返回：
-     - full_cp_set: 展开并剔除代理/私用区后的 Unicode 码点 set(int)
+     - full_cp_set: 展开并剔除 Cs/Co/Cn 分类后的 Unicode 码点 set(int)
      - cp_to_name: 所有非区间单点码位的名称 dict(int->str)
     """
     full = set()
@@ -36,21 +31,21 @@ def parse_unicode_data(ud_path):
             parts = line.split(';')
             cp = int(parts[0], 16)
             name = parts[1]
+            category = parts[2]
+
+            if category in EXCLUDED_CATEGORIES:
+                continue
 
             if name.endswith('First>'):
                 range_start = cp
             elif name.endswith('Last>') and range_start is not None:
                 for c in range(range_start, cp + 1):
-                    full.add(c)
+                    if c not in EXCLUDED_CATEGORIES:
+                        full.add(c)
                 range_start = None
             else:
                 full.add(cp)
                 names[cp] = name
-
-    for lo, hi in EXCLUDED_RANGES:
-        for c in range(lo, hi + 1):
-            full.discard(c)
-            names.pop(c, None)
 
     return full, names
 
@@ -103,7 +98,7 @@ def main():
 
     print("1) 解析 UnicodeData.txt …")
     full_set, cp_to_name = parse_unicode_data(args.unicodedata)
-    print(f"   → 总计需覆盖 {len(full_set)} 个码点（已剔除代理/私用区）\n")
+    print(f"   → 总计需覆盖 {len(full_set)} 个码点（已剔除 Cs/Co/Cn 分类）\n")
 
     # 2) 联合读取所有字体的 codepoints
     union_cps = set()

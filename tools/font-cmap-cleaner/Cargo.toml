@@ -13,7 +13,7 @@ walkdir = "2.4"
 clap = { version = "4.5", features = ["derive"] }
 quick-xml = "0.39.0"
 tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 
 [dev-dependencies]
 assert_cmd = "2.0"
