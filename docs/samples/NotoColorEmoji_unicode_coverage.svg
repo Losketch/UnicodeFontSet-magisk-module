@@ -179,7 +179,7 @@
           <tr>
             <td>1F100..1F1FF</td>
             <td>Enclosed Alphanumeric Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 20.5%, var(--md-sys-color-tertiary-container) 20.5%);color: var(--md-sys-color-on-tertiary-container);">41/200</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 20.4%, var(--md-sys-color-tertiary-container) 20.4%);color: var(--md-sys-color-on-tertiary-container);">41/201</td>
           </tr>
           <tr>
             <td>1F200..1F2FF</td>
@@ -199,12 +199,12 @@
           <tr>
             <td>1F680..1F6FF</td>
             <td>Transport and Map Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 89.1%, var(--md-sys-color-secondary-container) 89.1%);color: var(--md-sys-color-on-secondary);">106/119</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 88.3%, var(--md-sys-color-secondary-container) 88.3%);color: var(--md-sys-color-on-secondary);">106/120</td>
           </tr>
           <tr>
             <td>1F780..1F7FF</td>
             <td>Geometric Shapes Extended</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 12.6%, var(--md-sys-color-tertiary-container) 12.6%);color: var(--md-sys-color-on-tertiary-container);">13/103</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 10.8%, var(--md-sys-color-tertiary-container) 10.8%);color: var(--md-sys-color-on-tertiary-container);">13/120</td>
           </tr>
           <tr>
             <td>1F900..1F9FF</td>
@@ -214,7 +214,7 @@
           <tr>
             <td>1FA70..1FAFF</td>
             <td>Symbols and Pictographs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">120/120</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 93.8%, var(--md-sys-color-primary-container) 93.8%);color: var(--md-sys-color-on-primary);">120/128</td>
           </tr>
           <tr>
             <td>E0000..E007F</td>

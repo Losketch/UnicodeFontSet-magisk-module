@@ -35,6 +35,11 @@
         </font>
     </family>
     <family>
+        <font weight="400" style="normal" postScriptName="UFSTempAlpha-Regular">
+            UFSTempAlpha.otf
+        </font>
+    </family>
+    <family>
         <font weight="400" style="normal" postScriptName="UFSZeroExt-Regular">
             UFSZeroExt.otf
         </font>
