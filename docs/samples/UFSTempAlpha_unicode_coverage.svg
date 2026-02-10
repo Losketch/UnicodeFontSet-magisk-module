@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="961" viewBox="0 0 650 961" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="986" viewBox="0 0 650 986" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="961" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="986" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UFSTempAlpha.otf</h2>
-        <p class="subtitle">Total supported glyphs: 495</p>
+        <p class="subtitle">Total supported glyphs: 496</p>
       </div>
       <table>
         <thead>
@@ -250,6 +250,11 @@
             <td>2B740..2B81F</td>
             <td>CJK Unified Ideographs Extension D</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.4%, var(--md-sys-color-tertiary-container) 0.4%);color: var(--md-sys-color-on-tertiary-container);">1/223</td>
+          </tr>
+          <tr>
+            <td>2F800..2FA1F</td>
+            <td>CJK Compatibility Ideographs Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.2%, var(--md-sys-color-tertiary-container) 0.2%);color: var(--md-sys-color-on-tertiary-container);">1/542</td>
           </tr>
         </tbody>
       </table>
