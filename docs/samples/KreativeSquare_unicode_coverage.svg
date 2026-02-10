@@ -144,12 +144,12 @@
           <tr>
             <td>2070..209F</td>
             <td>Superscripts and Subscripts</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 107.1%, var(--md-sys-color-primary-container) 107.1%);color: var(--md-sys-color-on-primary);">42(+3!)/42</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 97.8%, var(--md-sys-color-primary-container) 97.8%);color: var(--md-sys-color-on-primary);">43(+2!)/46</td>
           </tr>
           <tr>
             <td>20A0..20CF</td>
             <td>Currency Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 32.4%, var(--md-sys-color-tertiary-container) 32.4%);color: var(--md-sys-color-on-tertiary-container);">11/34</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 29.7%, var(--md-sys-color-tertiary-container) 29.7%);color: var(--md-sys-color-on-tertiary-container);">11/37</td>
           </tr>
           <tr>
             <td>2100..214F</td>
@@ -229,7 +229,7 @@
           <tr>
             <td>2E00..2E7F</td>
             <td>Supplemental Punctuation</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">1/94</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">1/98</td>
           </tr>
           <tr>
             <td>E000..F8FF</td>
@@ -269,7 +269,7 @@
           <tr>
             <td>1F100..1F1FF</td>
             <td>Enclosed Alphanumeric Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 58.5%, var(--md-sys-color-secondary-container) 58.5%);color: var(--md-sys-color-on-secondary);">116(+1!)/200</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 58.2%, var(--md-sys-color-secondary-container) 58.2%);color: var(--md-sys-color-on-secondary);">117/201</td>
           </tr>
           <tr>
             <td>1F300..1F5FF</td>
@@ -289,12 +289,12 @@
           <tr>
             <td>1F680..1F6FF</td>
             <td>Transport and Map Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.7%, var(--md-sys-color-tertiary-container) 1.7%);color: var(--md-sys-color-on-tertiary-container);">2/119</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.7%, var(--md-sys-color-tertiary-container) 1.7%);color: var(--md-sys-color-on-tertiary-container);">2/120</td>
           </tr>
           <tr>
             <td>1F780..1F7FF</td>
             <td>Geometric Shapes Extended</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 18.4%, var(--md-sys-color-tertiary-container) 18.4%);color: var(--md-sys-color-on-tertiary-container);">18(+1!)/103</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 15.8%, var(--md-sys-color-tertiary-container) 15.8%);color: var(--md-sys-color-on-tertiary-container);">19/120</td>
           </tr>
           <tr>
             <td>1F800..1F8FF</td>
@@ -309,7 +309,7 @@
           <tr>
             <td>1FA70..1FAFF</td>
             <td>Symbols and Pictographs Extended-A</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.8%, var(--md-sys-color-tertiary-container) 0.8%);color: var(--md-sys-color-on-tertiary-container);">1/120</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.8%, var(--md-sys-color-tertiary-container) 0.8%);color: var(--md-sys-color-on-tertiary-container);">1/128</td>
           </tr>
           <tr>
             <td>1FB00..1FBFF</td>

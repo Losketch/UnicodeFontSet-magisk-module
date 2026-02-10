@@ -94,7 +94,7 @@
           <tr>
             <td>0530..058F</td>
             <td>Armenian</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.3%, var(--md-sys-color-tertiary-container) 3.3%);color: var(--md-sys-color-on-tertiary-container);">0(+3!)/91</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 3.2%, var(--md-sys-color-tertiary-container) 3.2%);color: var(--md-sys-color-on-tertiary-container);">3/94</td>
           </tr>
           <tr>
             <td>0870..089F</td>
@@ -104,7 +104,7 @@
           <tr>
             <td>0980..09FF</td>
             <td>Bengali</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">0(+1!)/96</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.0%, var(--md-sys-color-tertiary-container) 1.0%);color: var(--md-sys-color-on-tertiary-container);">1/98</td>
           </tr>
           <tr>
             <td>2800..28FF</td>
@@ -119,7 +119,7 @@
           <tr>
             <td>10EC0..10EFF</td>
             <td>Arabic Extended-C</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 85.7%, var(--md-sys-color-secondary-container) 85.7%);color: var(--md-sys-color-on-secondary);">18/21</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 30.0%, var(--md-sys-color-tertiary-container) 30.0%);color: var(--md-sys-color-on-tertiary-container);">18/60</td>
           </tr>
           <tr>
             <td>16EA0..16EDF</td>
@@ -134,7 +134,7 @@
           <tr>
             <td>18D00..18D7F</td>
             <td>Tangut Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 77.4%, var(--md-sys-color-secondary-container) 77.4%);color: var(--md-sys-color-on-secondary);">22(+2!)/31</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 72.7%, var(--md-sys-color-secondary-container) 72.7%);color: var(--md-sys-color-on-secondary);">24/33</td>
           </tr>
           <tr>
             <td>18D80..18DFF</td>
@@ -144,12 +144,12 @@
           <tr>
             <td>1D100..1D1FF</td>
             <td>Musical Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 9.9%, var(--md-sys-color-tertiary-container) 9.9%);color: var(--md-sys-color-on-tertiary-container);">0(+23!)/233</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 9.0%, var(--md-sys-color-tertiary-container) 9.0%);color: var(--md-sys-color-on-tertiary-container);">23/256</td>
           </tr>
           <tr>
             <td>1DF00..1DFFF</td>
             <td>Latin Extended-G</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 59.5%, var(--md-sys-color-secondary-container) 59.5%);color: var(--md-sys-color-on-secondary);">0(+22!)/37</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 11.7%, var(--md-sys-color-tertiary-container) 11.7%);color: var(--md-sys-color-on-tertiary-container);">22/188</td>
           </tr>
           <tr>
             <td>1E6C0..1E6FF</td>

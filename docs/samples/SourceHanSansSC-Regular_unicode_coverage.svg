@@ -154,12 +154,12 @@
           <tr>
             <td>2070..209F</td>
             <td>Superscripts and Subscripts</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.4%, var(--md-sys-color-tertiary-container) 2.4%);color: var(--md-sys-color-on-tertiary-container);">1/42</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.2%, var(--md-sys-color-tertiary-container) 2.2%);color: var(--md-sys-color-on-tertiary-container);">1/46</td>
           </tr>
           <tr>
             <td>20A0..20CF</td>
             <td>Currency Symbols</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 8.8%, var(--md-sys-color-tertiary-container) 8.8%);color: var(--md-sys-color-on-tertiary-container);">3/34</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 8.1%, var(--md-sys-color-tertiary-container) 8.1%);color: var(--md-sys-color-on-tertiary-container);">3/37</td>
           </tr>
           <tr>
             <td>20D0..20FF</td>
@@ -244,7 +244,7 @@
           <tr>
             <td>2E00..2E7F</td>
             <td>Supplemental Punctuation</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.1%, var(--md-sys-color-tertiary-container) 2.1%);color: var(--md-sys-color-on-tertiary-container);">2/94</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 2.0%, var(--md-sys-color-tertiary-container) 2.0%);color: var(--md-sys-color-on-tertiary-container);">2/98</td>
           </tr>
           <tr>
             <td>2E80..2EFF</td>
@@ -374,7 +374,7 @@
           <tr>
             <td>1F100..1F1FF</td>
             <td>Enclosed Alphanumeric Supplement</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 83.5%, var(--md-sys-color-secondary-container) 83.5%);color: var(--md-sys-color-on-secondary);">167/200</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 83.1%, var(--md-sys-color-secondary-container) 83.1%);color: var(--md-sys-color-on-secondary);">167/201</td>
           </tr>
           <tr>
             <td>1F200..1F2FF</td>
@@ -394,7 +394,7 @@
           <tr>
             <td>2B740..2B81F</td>
             <td>CJK Unified Ideographs Extension D</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 15.3%, var(--md-sys-color-tertiary-container) 15.3%);color: var(--md-sys-color-on-tertiary-container);">34/222</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 15.2%, var(--md-sys-color-tertiary-container) 15.2%);color: var(--md-sys-color-on-tertiary-container);">34/223</td>
           </tr>
           <tr>
             <td>2B820..2CEAF</td>

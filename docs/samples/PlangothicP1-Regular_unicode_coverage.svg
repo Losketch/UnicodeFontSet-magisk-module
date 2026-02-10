@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1036" viewBox="0 0 650 1036" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1086" viewBox="0 0 650 1086" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="1036" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="1086" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: PlangothicP1-Regular.otf</h2>
-        <p class="subtitle">Total supported glyphs: 65341</p>
+        <p class="subtitle">Total supported glyphs: 65373</p>
       </div>
       <table>
         <thead>
@@ -124,7 +124,7 @@
           <tr>
             <td>0530..058F</td>
             <td>Armenian</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">1/91</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 1.1%, var(--md-sys-color-tertiary-container) 1.1%);color: var(--md-sys-color-on-tertiary-container);">1/94</td>
           </tr>
           <tr>
             <td>1D00..1D7F</td>
@@ -214,7 +214,17 @@
           <tr>
             <td>18B00..18CFF</td>
             <td>Khitan Small Script</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.7%, var(--md-sys-color-tertiary-container) 5.7%);color: var(--md-sys-color-on-tertiary-container);">27/471</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 5.7%, var(--md-sys-color-tertiary-container) 5.7%);color: var(--md-sys-color-on-tertiary-container);">27/476</td>
+          </tr>
+          <tr>
+            <td>18E00..1919F</td>
+            <td>Jurchen</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.8%, var(--md-sys-color-tertiary-container) 0.8%);color: var(--md-sys-color-on-tertiary-container);">7/914</td>
+          </tr>
+          <tr>
+            <td>191A0..191DF</td>
+            <td>Jurchen Radicals</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 49.0%, var(--md-sys-color-tertiary-container) 49.0%);color: var(--md-sys-color-on-tertiary-container);">25/51</td>
           </tr>
           <tr>
             <td>1F000..1F02F</td>
@@ -239,7 +249,7 @@
           <tr>
             <td>2B740..2B81F</td>
             <td>CJK Unified Ideographs Extension D</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.5%, var(--md-sys-color-primary-container) 100.5%);color: var(--md-sys-color-on-primary);">222(+1!)/222</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">223/223</td>
           </tr>
           <tr>
             <td>2B820..2CEAF</td>

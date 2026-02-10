@@ -77,7 +77,7 @@ jobs:
           FONT_URL=$(grep -o 'https://[^)]*\.ttf' "$CSS_FILE" | head -n 1)
           
           if [ -z "$FONT_URL" ]; then
-            echo "Failed to extract TTF URL from Google Fonts CSS" >&2
+            echo "⚠ Warning: Failed to extract TTF URL from Google Fonts CSS" >&2
             exit 1
           fi
           
@@ -103,7 +103,10 @@ jobs:
             [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
           )
           for name in "${!files[@]}"; do
-            wget --tries=5 -q "${files[$name]}" -O "${{ env.FONT_DIR }}/$name"
+            echo "⬇ Downloading $name..."
+            if ! wget --tries=3 -q "${files[$name]}" -O "module/system/fonts/$name"; then
+              echo "⚠ Warning: Failed to download $name, skipping..."
+            fi
           done
           wget --tries=5 -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
                -O "${{ env.UPDATE_BIN }}"
@@ -119,7 +122,7 @@ jobs:
           BUILD_NUM=${{ github.run_number }}
           VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
           awk -v date="$VERSION_DATE" -v num="$BUILD_NUM" -v sha="${GITHUB_SHA:0:7}" '
-            /^version=/ {print "version=" $0 "." date "." num " [" sha "-Nightly-COLRv1]"; next}
+            /^version=/ {sub(/^version=/, ""); print "version=" $0 "." date "." num " [" sha "-Nightly-COLRv1]"; next}
             /^versionCode=/ {print "versionCode=" date num; next}
             {print}
           ' ${{ env.MODULE_PROP }} > ${{ env.MODULE_PROP }}.tmp && mv ${{ env.MODULE_PROP }}.tmp ${{ env.MODULE_PROP }}
@@ -132,7 +135,7 @@ jobs:
           BUILD_NUM=${{ github.run_number }}
           VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
           awk -v date="$VERSION_DATE" -v num="$BUILD_NUM" '
-            /^version=/ {print "version=" $0 "." date "." num " [COLRv1]"; next}
+            /^version=/ {sub(/^version=/, ""); print "version=" $0 "." date "." num " [COLRv1]"; next}
             /^versionCode=/ {print "versionCode=" date num; next}
             {print}
           ' ${{ env.MODULE_PROP }} > ${{ env.MODULE_PROP }}.tmp && mv ${{ env.MODULE_PROP }}.tmp ${{ env.MODULE_PROP }}
@@ -232,7 +235,7 @@ jobs:
           if [ -f ${{ env.CLEANER_DIR }}/whitelist.txt ]; then
             cp ${{ env.CLEANER_DIR }}/whitelist.txt ${{ env.MODULE_DIR }}/config/whitelist.txt
           else
-            echo "whitelist.txt not found!" >&2
+            echo "⚠ Warning: whitelist.txt not found!" >&2
             exit 1
           fi
           cp LICENSE ${{ env.MODULE_DIR }}/LICENSE
