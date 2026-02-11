@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="986" viewBox="0 0 650 986" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1011" viewBox="0 0 650 1011" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="986" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="1011" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UFSTempAlpha.otf</h2>
-        <p class="subtitle">Total supported glyphs: 496</p>
+        <p class="subtitle">Total supported glyphs: 807</p>
       </div>
       <table>
         <thead>
@@ -165,6 +165,11 @@
             <td>12400..1247F</td>
             <td>Cuneiform Numbers and Punctuation</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 9.4%, var(--md-sys-color-tertiary-container) 9.4%);color: var(--md-sys-color-on-tertiary-container);">12/128</td>
+          </tr>
+          <tr>
+            <td>12550..1268F</td>
+            <td>Archaic Cuneiform Numerals</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">311/311</td>
           </tr>
           <tr>
             <td>16D80..16DAF</td>
