@@ -167,7 +167,7 @@ h2 {{ margin-top: 32px; border-bottom: 2px solid #eee; padding-bottom: 8px; clea
   gap: 10px;
 }}
 
-.section.modified {{ border-color: #ffcc80; background: #fff8f0; }} /* 橙色 */
+.section.modified {{ border-color: #ffcc80; background: #fff8f0; }}
 .section.renamed {{ border-color: #e6ccff; background: #fdfaff; }}
 .section.changed {{ border-color: #f2bcbc; background: #fff0f0; }}
 .section.added   {{ border-color: #bde5bd; }}

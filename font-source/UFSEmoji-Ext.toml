@@ -4,7 +4,7 @@
 
 family = "UFSEmoji-Ext"
 output_file = "UFSEmoji-Ext.ttf"
-color_format = "glyf_colr_1"
+color_format = "cff2_colr_1"
 upem = 1024
 width = 1275
 ascender = 950
@@ -18,15 +18,15 @@ default = 400
 [master.regular]
 style_name = "Regular"
 srcs = [
-    "./emoji-svg/emoji_u1f6d8.svg",
-    "./emoji-svg/emoji_u1f9d1_200d_1fa70.svg",
-    "./emoji-svg/emoji_u1fa8a.svg",
-    "./emoji-svg/emoji_u1fa8e.svg",
-    "./emoji-svg/emoji_u1fac8.svg",
-    "./emoji-svg/emoji_u1facd.svg",
+    "./emoji-svg/emoji_u1f6d9.svg",
+    "./emoji-svg/emoji_u1fa8b.svg",
+    "./emoji-svg/emoji_u1fa8c.svg",
+    "./emoji-svg/emoji_u1fa8d.svg",
+    "./emoji-svg/emoji_u1facc.svg",
     "./emoji-svg/emoji_u1fadd.svg",
-    "./emoji-svg/emoji_u1faea.svg",
-    "./emoji-svg/emoji_u1faef.svg",
+    "./emoji-svg/emoji_u1faeb.svg",
+    "./emoji-svg/emoji_u1faf9.svg",
+    "./emoji-svg/emoji_u1fafa.svg",
 ]
 
 [master.regular.position]
