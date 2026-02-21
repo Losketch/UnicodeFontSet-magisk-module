@@ -55,60 +55,11 @@
     <string>doubleverticalbarbelowcomb-arab</string>
     <string>smalllownooncomb-arab</string>
     <string>alefoverlaycomb-arab</string>
-    <string>Arkab-beriaerfe</string>
-    <string>Basigna-beriaerfe</string>
-    <string>Darbai-beriaerfe</string>
-    <string>Eh-beriaerfe</string>
-    <string>Fitko-beriaerfe</string>
-    <string>Goway-beriaerfe</string>
-    <string>Hirdeabo-beriaerfe</string>
-    <string>I-beriaerfe</string>
-    <string>Djai-beriaerfe</string>
-    <string>Kobo-beriaerfe</string>
-    <string>Lakko-beriaerfe</string>
-    <string>Meri-beriaerfe</string>
-    <string>Nini-beriaerfe</string>
-    <string>Gna-beriaerfe</string>
-    <string>Ngay-beriaerfe</string>
-    <string>Oi-beriaerfe</string>
-    <string>Pi-beriaerfe</string>
-    <string>Erigo-beriaerfe</string>
-    <string>Erigotamura-beriaerfe</string>
-    <string>Seri-beriaerfe</string>
-    <string>Shep-beriaerfe</string>
-    <string>Tatasoue-beriaerfe</string>
-    <string>Ui-beriaerfe</string>
-    <string>Wasse-beriaerfe</string>
-    <string>Ay-beriaerfe</string>
-    <string>arkab-beriaerfe</string>
-    <string>basigna-beriaerfe</string>
-    <string>darbai-beriaerfe</string>
-    <string>eh-beriaerfe</string>
-    <string>fitko-beriaerfe</string>
-    <string>goway-beriaerfe</string>
-    <string>hirdeabo-beriaerfe</string>
-    <string>i-beriaerfe</string>
-    <string>djai-beriaerfe</string>
-    <string>kobo-beriaerfe</string>
-    <string>lakko-beriaerfe</string>
-    <string>meri-beriaerfe</string>
-    <string>nini-beriaerfe</string>
-    <string>gna-beriaerfe</string>
-    <string>ngay-beriaerfe</string>
-    <string>oi-beriaerfe</string>
-    <string>pi-beriaerfe</string>
-    <string>erigo-beriaerfe</string>
-    <string>erigotamura-beriaerfe</string>
-    <string>seri-beriaerfe</string>
-    <string>shep-beriaerfe</string>
-    <string>tatasoue-beriaerfe</string>
-    <string>ui-beriaerfe</string>
-    <string>wasse-beriaerfe</string>
-    <string>ay-beriaerfe</string>
     <string>u17121</string>
     <string>u17C51</string>
     <string>u17D0B</string>
     <string>u180DF</string>
+    <string>u18761</string>
     <string>u187F8</string>
     <string>u187F9</string>
     <string>u187FA</string>
@@ -117,6 +68,7 @@
     <string>u187FD</string>
     <string>u187FE</string>
     <string>u187FF</string>
+    <string>u18AAF</string>
     <string>u18D09</string>
     <string>u18D0A</string>
     <string>u18D0B</string>
@@ -139,7 +91,6 @@
     <string>u18D1C</string>
     <string>u18D1D</string>
     <string>u18D1E</string>
-    <string>u18D1E.001</string>
     <string>u18D1F</string>
     <string>u18D20</string>
     <string>component769-tang</string>
@@ -302,70 +253,137 @@
     <string>u1DF38</string>
     <string>u1DF39</string>
     <string>u1DF3A</string>
-    <string>lowko-taiyo</string>
-    <string>highko-taiyo</string>
-    <string>lowkho-taiyo</string>
-    <string>highkho-taiyo</string>
-    <string>go-taiyo</string>
-    <string>ngo-taiyo</string>
-    <string>co-taiyo</string>
-    <string>lowxo-taiyo</string>
-    <string>highxo-taiyo</string>
-    <string>lownyo-taiyo</string>
-    <string>highnyo-taiyo</string>
-    <string>do-taiyo</string>
-    <string>lowto-taiyo</string>
-    <string>highto-taiyo</string>
-    <string>tho-taiyo</string>
-    <string>no-taiyo</string>
-    <string>bo-taiyo</string>
-    <string>lowpo-taiyo</string>
-    <string>highpo-taiyo</string>
-    <string>pho-taiyo</string>
-    <string>lowfo-taiyo</string>
-    <string>highfo-taiyo</string>
-    <string>mo-taiyo</string>
-    <string>yo-taiyo</string>
-    <string>lo-taiyo</string>
-    <string>vo-taiyo</string>
-    <string>lowho-taiyo</string>
-    <string>highho-taiyo</string>
-    <string>qo-taiyo</string>
-    <string>lowkvo-taiyo</string>
-    <string>highkvo-taiyo</string>
-    <string>u1E6DF</string>
-    <string>aa-taiyo</string>
-    <string>i-taiyo</string>
-    <string>ue-taiyo</string>
-    <string>signuecomb-taiyo</string>
-    <string>u-taiyo</string>
-    <string>ae-taiyo</string>
-    <string>signaucomb-taiyo</string>
-    <string>o-taiyo</string>
-    <string>e-taiyo</string>
-    <string>ia-taiyo</string>
-    <string>uea-taiyo</string>
-    <string>ua-taiyo</string>
-    <string>oo-taiyo</string>
-    <string>aue-taiyo</string>
-    <string>signaycomb-taiyo</string>
-    <string>signangcomb-taiyo</string>
-    <string>an-taiyo</string>
-    <string>am-taiyo</string>
-    <string>ak-taiyo</string>
-    <string>at-taiyo</string>
-    <string>ap-taiyo</string>
-    <string>signomcomb-taiyo</string>
-    <string>u1E6F6</string>
-    <string>u1E6F7</string>
-    <string>u1E6F8</string>
-    <string>u1E6F9</string>
-    <string>u1E6FA</string>
-    <string>u1E6FB</string>
-    <string>u1E6FC</string>
-    <string>u1E6FD</string>
-    <string>symbolmueang-taiyo</string>
-    <string>xamlaimod-taiyo</string>
+    <string>u1DF3B</string>
+    <string>u1DF3C</string>
+    <string>u1DF3D</string>
+    <string>u1DF3E</string>
+    <string>u1DF3F</string>
+    <string>u1DF40</string>
+    <string>u1DF41</string>
+    <string>u1DF42</string>
+    <string>u1DF43</string>
+    <string>u1DF44</string>
+    <string>u1DF45</string>
+    <string>u1DF46</string>
+    <string>u1DF47</string>
+    <string>u1DF48</string>
+    <string>u1DF49</string>
+    <string>u1DF4A</string>
+    <string>u1DF4B</string>
+    <string>u1DF4C</string>
+    <string>u1DF4D</string>
+    <string>u1DF4E</string>
+    <string>u1DF4F</string>
+    <string>u1DF50</string>
+    <string>u1DF51</string>
+    <string>u1DF52</string>
+    <string>u1DF53</string>
+    <string>u1DF54</string>
+    <string>u1DF55</string>
+    <string>u1DF56</string>
+    <string>u1DF57</string>
+    <string>u1DF58</string>
+    <string>u1DF59</string>
+    <string>u1DF5A</string>
+    <string>u1DF5B</string>
+    <string>u1DF5C</string>
+    <string>u1DF5D</string>
+    <string>u1DF5E</string>
+    <string>u1DF5F</string>
+    <string>u1DF60</string>
+    <string>u1DF61</string>
+    <string>u1DF62</string>
+    <string>u1DF63</string>
+    <string>u1DF64</string>
+    <string>u1DF65</string>
+    <string>u1DF66</string>
+    <string>u1DF67</string>
+    <string>u1DF68</string>
+    <string>u1DF69</string>
+    <string>u1DF6A</string>
+    <string>u1DF6B</string>
+    <string>u1DF6C</string>
+    <string>u1DF6D</string>
+    <string>u1DF6E</string>
+    <string>u1DF6F</string>
+    <string>u1DF70</string>
+    <string>u1DF71</string>
+    <string>u1DF72</string>
+    <string>u1DF73</string>
+    <string>u1DF74</string>
+    <string>u1DF75</string>
+    <string>u1DF76</string>
+    <string>u1DF77</string>
+    <string>u1DF78</string>
+    <string>u1DF79</string>
+    <string>u1DF7A</string>
+    <string>u1DF7B</string>
+    <string>u1DF7C</string>
+    <string>u1DF7D</string>
+    <string>u1DF7E</string>
+    <string>u1DF7F</string>
+    <string>u1DF80</string>
+    <string>u1DF81</string>
+    <string>u1DF90</string>
+    <string>u1DF91</string>
+    <string>u1DF92</string>
+    <string>u1DF93</string>
+    <string>u1DF94</string>
+    <string>u1DF95</string>
+    <string>u1DF96</string>
+    <string>u1DFCD</string>
+    <string>u1DFCE</string>
+    <string>u1DFCF</string>
+    <string>u1DFD0</string>
+    <string>u1DFD1</string>
+    <string>u1DFD2</string>
+    <string>u1DFD3</string>
+    <string>u1DFD4</string>
+    <string>u1DFD5</string>
+    <string>u1DFD6</string>
+    <string>u1DFD7</string>
+    <string>u1DFD8</string>
+    <string>u1DFD9</string>
+    <string>u1DFDA</string>
+    <string>u1DFDB</string>
+    <string>u1DFDC</string>
+    <string>u1DFDD</string>
+    <string>u1DFDE</string>
+    <string>u1DFDF</string>
+    <string>u1DFE0</string>
+    <string>u1DFE1</string>
+    <string>u1DFE2</string>
+    <string>u1DFE3</string>
+    <string>u1DFE4</string>
+    <string>u1DFE5</string>
+    <string>u1DFE6</string>
+    <string>u1DFE7</string>
+    <string>u1DFE8</string>
+    <string>u1DFE9</string>
+    <string>u1DFEA</string>
+    <string>u1DFEB</string>
+    <string>u1DFEC</string>
+    <string>u1DFED</string>
+    <string>u1DFEE</string>
+    <string>u1DFEF</string>
+    <string>u1DFF0</string>
+    <string>u1DFF1</string>
+    <string>u1DFF2</string>
+    <string>u1DFF3</string>
+    <string>u1DFF4</string>
+    <string>u1DFF5</string>
+    <string>u1DFF6</string>
+    <string>u1DFF7</string>
+    <string>u1DFF8</string>
+    <string>u1DFF9</string>
+    <string>u1DFFA</string>
+    <string>u1DFFB</string>
+    <string>u1DFFC</string>
+    <string>u1DFFD</string>
+    <string>u1DFFE</string>
+    <string>u1DFFF</string>
+    <string>cjkcompatibilityideograph2f9d6-han</string>
+    <string>u18D1E.001</string>
   </array>
 </dict>
 </plist>

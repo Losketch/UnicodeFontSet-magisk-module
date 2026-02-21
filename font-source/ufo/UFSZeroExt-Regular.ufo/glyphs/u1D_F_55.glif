@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u1DF55" format="2">
+  <advance width="510"/>
+  <unicode hex="1DF55"/>
+  <anchor x="94" y="-240" name="bottom"/>
+  <anchor x="255" y="148" name="stroke"/>
+  <anchor x="255" y="766" name="top"/>
+  <anchor x="490" y="536" name="caronslovak"/>
+  <outline>
+    <contour>
+      <point x="1" y="536" type="line"/>
+      <point x="217" y="-2" type="line"/>
+      <point x="189" y="-73" type="line"/>
+      <point x="167" y="-131"/>
+      <point x="131" y="-168"/>
+      <point x="70" y="-168" type="curve"/>
+      <point x="47" y="-168"/>
+      <point x="25" y="-165"/>
+      <point x="11" y="-162" type="curve"/>
+      <point x="11" y="-232" type="line"/>
+      <point x="28" y="-236"/>
+      <point x="52" y="-240"/>
+      <point x="84" y="-240" type="curve"/>
+      <point x="188" y="-240"/>
+      <point x="241" y="-175"/>
+      <point x="279" y="-74" type="curve"/>
+      <point x="510" y="536" type="line"/>
+      <point x="415" y="536" type="line"/>
+      <point x="306" y="232" type="line"/>
+      <point x="287" y="177"/>
+      <point x="268" y="118"/>
+      <point x="260" y="85" type="curve"/>
+      <point x="256" y="85" type="line"/>
+      <point x="248" y="129"/>
+      <point x="231" y="177"/>
+      <point x="211" y="231" type="curve"/>
+      <point x="95" y="536" type="line"/>
+    </contour>
+    <contour>
+      <point x="10" y="22" type="line"/>
+      <point x="10" y="-49" type="line"/>
+      <point x="500" y="-49" type="line"/>
+      <point x="500" y="22" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0,0,1</string>
+    </dict>
+  </lib>
+</glyph>

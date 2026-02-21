@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u1DF6A" format="2">
+  <advance width="731"/>
+  <unicode hex="1DF6A"/>
+  <anchor x="364" y="0" name="bottom"/>
+  <anchor x="366" y="714" name="top"/>
+  <anchor x="711" y="714" name="caronslovak"/>
+  <outline>
+    <contour>
+      <point x="641" y="-10" type="line"/>
+      <point x="551" y="-10" type="line"/>
+      <point x="551" y="272" type="line"/>
+      <point x="180" y="272" type="line"/>
+      <point x="180" y="-10" type="line"/>
+      <point x="91" y="-10" type="line"/>
+      <point x="91" y="452" type="line"/>
+      <point x="91" y="526"/>
+      <point x="151" y="645"/>
+      <point x="274" y="714"/>
+      <point x="369" y="714" type="qcurve"/>
+      <point x="502" y="714"/>
+      <point x="641" y="569"/>
+      <point x="641" y="450" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="551" y="453" type="line"/>
+      <point x="551" y="540"/>
+      <point x="458" y="636"/>
+      <point x="364" y="636" type="qcurve"/>
+      <point x="267" y="636"/>
+      <point x="180" y="533"/>
+      <point x="180" y="452" type="qcurve"/>
+      <point x="180" y="350" type="line"/>
+      <point x="551" y="350" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0,0,1</string>
+    </dict>
+  </lib>
+</glyph>

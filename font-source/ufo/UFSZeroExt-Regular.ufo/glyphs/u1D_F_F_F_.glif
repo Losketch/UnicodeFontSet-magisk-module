@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u1DFFF" format="2">
+  <advance width="226"/>
+  <unicode hex="1DFFF"/>
+  <anchor x="178" y="-90" name="bottom"/>
+  <anchor x="174" y="527" name="stroke"/>
+  <anchor x="178" y="915" name="top"/>
+  <outline>
+    <contour>
+      <point x="158" y="802" type="curve"/>
+      <point x="93" y="802"/>
+      <point x="62" y="766"/>
+      <point x="62" y="701" type="curve"/>
+      <point x="62" y="657" type="line"/>
+      <point x="11" y="634" type="line"/>
+      <point x="11" y="607" type="line"/>
+      <point x="61" y="607" type="line"/>
+      <point x="61" y="251" type="line"/>
+      <point x="61" y="165"/>
+      <point x="109" y="142"/>
+      <point x="164" y="142" type="curve"/>
+      <point x="185" y="142"/>
+      <point x="211" y="146"/>
+      <point x="223" y="152" type="curve"/>
+      <point x="223" y="196" type="line"/>
+      <point x="212" y="192"/>
+      <point x="191" y="189"/>
+      <point x="174" y="189" type="curve"/>
+      <point x="142" y="189"/>
+      <point x="119" y="209"/>
+      <point x="119" y="252" type="curve"/>
+      <point x="119" y="607" type="line"/>
+      <point x="221" y="607" type="line"/>
+      <point x="221" y="652" type="line"/>
+      <point x="119" y="652" type="line"/>
+      <point x="119" y="707" type="line"/>
+      <point x="119" y="737"/>
+      <point x="131" y="752"/>
+      <point x="158" y="752" type="curve"/>
+      <point x="178" y="752"/>
+      <point x="201" y="748"/>
+      <point x="209" y="745" type="curve"/>
+      <point x="209" y="793" type="line"/>
+      <point x="198" y="797"/>
+      <point x="178" y="802"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0,0,1</string>
+    </dict>
+  </lib>
+</glyph>

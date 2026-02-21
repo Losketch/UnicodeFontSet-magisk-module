@@ -12,12 +12,17 @@ def normalize_pen_value(pen_value, precision=2):
         if points:
             new_points = []
             for pt in points:
-                new_points.append(
-                    tuple(
-                        round(v, precision) if isinstance(v, float) else v
-                        for v in pt
+                if isinstance(pt, (tuple, list)):
+                    new_points.append(
+                        tuple(
+                            round(v, precision) if isinstance(v, (float, int)) else v
+                            for v in pt
+                        )
                     )
-                )
+                else:
+                    new_points.append(
+                        round(pt, precision) if isinstance(pt, (float, int)) else pt
+                    )
             normalized.append((cmd, tuple(new_points)))
         else:
             normalized.append((cmd, points))
