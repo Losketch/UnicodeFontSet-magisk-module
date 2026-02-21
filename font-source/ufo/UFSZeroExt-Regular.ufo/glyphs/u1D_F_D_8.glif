@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u1DFD8" format="2">
+  <advance width="407"/>
+  <unicode hex="1DFD8"/>
+  <anchor x="306" y="-74" name="bottom"/>
+  <anchor x="306" y="686" name="top"/>
+  <anchor x="530" y="686" name="caronslovak"/>
+  <anchor x="306" y="418" name="overlay"/>
+  <outline>
+    <contour>
+      <point x="7" y="466" type="line"/>
+      <point x="7" y="512" type="line"/>
+      <point x="400" y="512" type="line"/>
+      <point x="400" y="466" type="line"/>
+    </contour>
+    <contour>
+      <point x="293" y="299" type="line"/>
+      <point x="293" y="325"/>
+      <point x="296" y="348" type="qcurve"/>
+      <point x="292" y="348" type="line"/>
+      <point x="276" y="321"/>
+      <point x="217" y="293"/>
+      <point x="182" y="293" type="qcurve"/>
+      <point x="119" y="293"/>
+      <point x="54" y="355"/>
+      <point x="54" y="422" type="qcurve"/>
+      <point x="54" y="652" type="line"/>
+      <point x="111" y="652" type="line"/>
+      <point x="111" y="426" type="line"/>
+      <point x="111" y="341"/>
+      <point x="190" y="341" type="qcurve"/>
+      <point x="249" y="341"/>
+      <point x="293" y="408"/>
+      <point x="293" y="470" type="qcurve"/>
+      <point x="293" y="652" type="line"/>
+      <point x="351" y="652" type="line"/>
+      <point x="351" y="152" type="line"/>
+      <point x="293" y="152" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0,0,1</string>
+    </dict>
+  </lib>
+</glyph>

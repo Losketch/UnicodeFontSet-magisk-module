@@ -80,7 +80,7 @@
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UFSZeroExt.otf</h2>
-        <p class="subtitle">Total supported glyphs: 360</p>
+        <p class="subtitle">Total supported glyphs: 378</p>
       </div>
       <table>
         <thead>
@@ -122,14 +122,14 @@
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 30.0%, var(--md-sys-color-tertiary-container) 30.0%);color: var(--md-sys-color-on-tertiary-container);">18/60</td>
           </tr>
           <tr>
-            <td>16EA0..16EDF</td>
-            <td>Beria Erfe</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">50/50</td>
-          </tr>
-          <tr>
             <td>17000..187FF</td>
             <td>Tangut</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.2%, var(--md-sys-color-tertiary-container) 0.2%);color: var(--md-sys-color-on-tertiary-container);">12/6144</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.2%, var(--md-sys-color-tertiary-container) 0.2%);color: var(--md-sys-color-on-tertiary-container);">13/6144</td>
+          </tr>
+          <tr>
+            <td>18800..18AFF</td>
+            <td>Tangut Components</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.1%, var(--md-sys-color-tertiary-container) 0.1%);color: var(--md-sys-color-on-tertiary-container);">1/768</td>
           </tr>
           <tr>
             <td>18D00..18D7F</td>
@@ -149,12 +149,12 @@
           <tr>
             <td>1DF00..1DFFF</td>
             <td>Latin Extended-G</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 11.7%, var(--md-sys-color-tertiary-container) 11.7%);color: var(--md-sys-color-on-tertiary-container);">22/188</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-secondary) 80.3%, var(--md-sys-color-secondary-container) 80.3%);color: var(--md-sys-color-on-secondary);">151/188</td>
           </tr>
           <tr>
-            <td>1E6C0..1E6FF</td>
-            <td>Tai Yo</td>
-            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 116.4%, var(--md-sys-color-primary-container) 116.4%);color: var(--md-sys-color-on-primary);">55(+9!)/55</td>
+            <td>2F800..2FA1F</td>
+            <td>CJK Compatibility Ideographs Supplement</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 0.2%, var(--md-sys-color-tertiary-container) 0.2%);color: var(--md-sys-color-on-tertiary-container);">1/542</td>
           </tr>
         </tbody>
       </table>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u1DF5D" format="2">
+  <advance width="769"/>
+  <unicode hex="1DF5D"/>
+  <outline>
+    <contour>
+      <point x="91" y="0" type="line"/>
+      <point x="91" y="543" type="line"/>
+      <point x="182" y="543" type="line"/>
+      <point x="182" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="137" y="655" type="qcurve"/>
+      <point x="110" y="655"/>
+      <point x="74" y="689"/>
+      <point x="74" y="714" type="qcurve"/>
+      <point x="74" y="770"/>
+      <point x="137" y="773" type="qcurve"/>
+      <point x="164" y="773"/>
+      <point x="200" y="742"/>
+      <point x="200" y="714" type="qcurve"/>
+      <point x="200" y="689"/>
+      <point x="164" y="655"/>
+    </contour>
+    <contour>
+      <point x="440" y="250" type="line"/>
+      <point x="354" y="250" type="line"/>
+      <point x="360" y="162"/>
+      <point x="457" y="60"/>
+      <point x="534" y="60" type="qcurve"/>
+      <point x="574" y="60"/>
+      <point x="640" y="83"/>
+      <point x="670" y="103" type="qcurve"/>
+      <point x="703" y="43" type="line"/>
+      <point x="667" y="19"/>
+      <point x="579" y="-13"/>
+      <point x="523" y="-13" type="qcurve"/>
+      <point x="451" y="-13"/>
+      <point x="333" y="54"/>
+      <point x="263" y="182"/>
+      <point x="263" y="271" type="qcurve"/>
+      <point x="263" y="359"/>
+      <point x="333" y="487"/>
+      <point x="445" y="557"/>
+      <point x="508" y="557" type="qcurve"/>
+      <point x="612" y="557"/>
+      <point x="724" y="418"/>
+      <point x="724" y="302" type="qcurve"/>
+      <point x="724" y="272"/>
+      <point x="720" y="250" type="qcurve"/>
+      <point x="121" y="250" type="line"/>
+      <point x="124" y="315" type="line"/>
+      <point x="644" y="315" type="line"/>
+      <point x="644" y="480"/>
+      <point x="509" y="484" type="qcurve"/>
+      <point x="451" y="484"/>
+      <point x="363" y="396"/>
+      <point x="353" y="315" type="qcurve"/>
+      <point x="445" y="315" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0,0,1</string>
+    </dict>
+  </lib>
+</glyph>
