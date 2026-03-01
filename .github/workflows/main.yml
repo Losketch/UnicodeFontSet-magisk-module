@@ -100,6 +100,7 @@ jobs:
             
             [KreativeSquare.ttf]=https://github.com/kreativekorp/open-relay/raw/master/KreativeSquare/KreativeSquare.ttf
             
+            [TempSeal.ttf]=https://github.com/Losketch/Fonts/releases/download/TempSeal/TempSeal.ttf
             [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
           )
           for name in "${!files[@]}"; do

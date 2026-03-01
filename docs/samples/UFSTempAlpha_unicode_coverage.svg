@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="986" viewBox="0 0 650 986" overflow="visible">
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="1011" viewBox="0 0 650 1011" overflow="visible">
   <style>
     :root {
         --md-sys-color-primary: #D0BCFF;
@@ -76,11 +76,11 @@
         text-align: center;
     }
     </style>
-  <foreignObject width="650" height="986" x="0" y="0" style="overflow: visible;">
+  <foreignObject width="650" height="1011" x="0" y="0" style="overflow: visible;">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <div class="header">
         <h2>Unicode Block Coverage: UFSTempAlpha.otf</h2>
-        <p class="subtitle">Total supported glyphs: 806</p>
+        <p class="subtitle">Total supported glyphs: 1720</p>
       </div>
       <table>
         <thead>
@@ -185,6 +185,11 @@
             <td>18D00..18D7F</td>
             <td>Tangut Supplement</td>
             <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-tertiary) 6.1%, var(--md-sys-color-tertiary-container) 6.1%);color: var(--md-sys-color-on-tertiary-container);">2/33</td>
+          </tr>
+          <tr>
+            <td>18E00..1919F</td>
+            <td>Jurchen</td>
+            <td class="coverage-cell" style="background: linear-gradient(to right, var(--md-sys-color-primary) 100.0%, var(--md-sys-color-primary-container) 100.0%);color: var(--md-sys-color-on-primary);">914/914</td>
           </tr>
           <tr>
             <td>191A0..191DF</td>
