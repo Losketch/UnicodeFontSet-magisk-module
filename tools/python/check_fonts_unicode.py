@@ -1,24 +1,60 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-检查多个字体是否覆盖了 UnicodeData.txt 中的所有 Unicode 码位，
-如有缺失则打印缺失码位（单个或区间）及其名称（如有）。
-python check_fonts_unicode.py UnicodeData.txt font1.ttf font2.otf
-"""
 
 import sys
+import os
 import glob
 import argparse
 from fontTools.ttLib import TTFont
 
 EXCLUDED_CATEGORIES = {'Cs', 'Co', 'Cn'}
 
+LANG = 'en'
+
+MESSAGES = {
+    'en': {
+        'parsing_unicodedata': '1) Parsing UnicodeData.txt ...',
+        'total_codepoints': '   → Total codepoints to cover: {} (excluded Cs/Co/Cn categories)',
+        'reading_font': '   Read {} codepoints from {}',
+        'font_read_failed': '   ⚠️ Failed to read font {}: {}',
+        'union_codepoints': '   Union of fonts supports {} codepoints',
+        'full_coverage': '✅ All target Unicode codepoints are covered!',
+        'missing_codepoints': '❌ Missing {} codepoints:',
+        'no_fonts': '⚠️ No font files found',
+        'arg_unicodedata': 'Path to UnicodeData.txt',
+        'arg_fonts': 'TTF/OTF font files to check',
+        'arg_lang': 'Language for output (en/zh), default follows LANG env',
+        'desc': 'Check Unicode coverage of multiple fonts (skip surrogate/private-use)',
+    },
+    'zh': {
+        'parsing_unicodedata': '1) 解析 UnicodeData.txt ...',
+        'total_codepoints': '   → 需覆盖码点总计：{} 个（已剔除 Cs/Co/Cn 分类）',
+        'reading_font': '   已从 {} 读取 {} 个码点',
+        'font_read_failed': '   ⚠️ 读取字体 {} 失败：{}',
+        'union_codepoints': '   字体联合后共支持 {} 个码点',
+        'full_coverage': '✅ 联合覆盖了全部目标 Unicode 码点！',
+        'missing_codepoints': '❌ 缺少 {} 个码点：',
+        'no_fonts': '⚠️ 未找到任何字体文件',
+        'arg_unicodedata': 'UnicodeData.txt 的路径',
+        'arg_fonts': '要联合检查的 TTF/OTF 字体文件',
+        'arg_lang': '输出语言 (en/zh)，默认跟随 LANG 环境变量',
+        'desc': '检查多个字体联合后的 Unicode 覆盖率（跳过代理/私用区）',
+    }
+}
+
+def t(key, *args):
+    msg = MESSAGES.get(LANG, MESSAGES['en']).get(key, MESSAGES['en'].get(key, key))
+    if args:
+        return msg.format(*args)
+    return msg
+
+def detect_language():
+    lang_env = os.environ.get('LANG', '').lower()
+    if lang_env.startswith('zh') or lang_env.startswith('chinese'):
+        return 'zh'
+    return 'en'
+
 def parse_unicode_data(ud_path):
-    """
-    解析 UnicodeData.txt，返回：
-     - full_cp_set: 展开并剔除 Cs/Co/Cn 分类后的 Unicode 码点 set(int)
-     - cp_to_name: 所有非区间单点码位的名称 dict(int->str)
-    """
     full = set()
     names = {}
     range_start = None
@@ -50,9 +86,6 @@ def parse_unicode_data(ud_path):
     return full, names
 
 def get_font_codepoints(font_path):
-    """
-    读取一个字体的 cmap，返回该字体支持的 Unicode 码点 set(int)。
-    """
     tt = TTFont(font_path, recalcBBoxes=False, recalcTimestamp=False)
     cps = set()
     for table in tt['cmap'].tables:
@@ -60,9 +93,6 @@ def get_font_codepoints(font_path):
     return cps
 
 def summarize_ranges(sorted_cps):
-    """
-    将已排序的码点列表压缩为区间列表 [(start,end),...]
-    """
     if not sorted_cps:
         return []
     ranges = []
@@ -76,13 +106,36 @@ def summarize_ranges(sorted_cps):
     ranges.append((start, prev))
     return ranges
 
+def preparse_lang():
+    lang = detect_language()
+    i = 1
+    while i < len(sys.argv):
+        if sys.argv[i] == '--lang' and i + 1 < len(sys.argv):
+            lang = sys.argv[i + 1]
+            break
+        elif sys.argv[i].startswith('--lang='):
+            lang = sys.argv[i].split('=', 1)[1]
+            break
+        i += 1
+    return lang
+
+def create_parser():
+    p = argparse.ArgumentParser(description=t('desc'))
+    p.add_argument('unicodedata', help=t('arg_unicodedata'))
+    p.add_argument('fonts', nargs='+', help=t('arg_fonts'))
+    p.add_argument('--lang', choices=['en', 'zh'], default=LANG,
+                   help=t('arg_lang'))
+    return p
+
 def main():
-    p = argparse.ArgumentParser(
-        description="检查多个字体联合后的 Unicode 覆盖率（跳过代理/私用区）"
-    )
-    p.add_argument('unicodedata', help='UnicodeData.txt 的路径')
-    p.add_argument('fonts', nargs='+', help='要联合检查的 TTF/OTF 字体文件')
+    global LANG
+
+    LANG = preparse_lang()
+
+    p = create_parser()
     args = p.parse_args()
+
+    LANG = args.lang
 
     font_files = []
     for pat in args.fonts:
@@ -93,31 +146,35 @@ def main():
             font_files.append(pat)
 
     if not font_files:
-        print("⚠️ 未找到任何字体文件")
+        print(t('no_fonts'))
         sys.exit(1)
 
-    print("1) 解析 UnicodeData.txt …")
+    print(t('parsing_unicodedata'))
     full_set, cp_to_name = parse_unicode_data(args.unicodedata)
-    print(f"   → 总计需覆盖 {len(full_set)} 个码点（已剔除 Cs/Co/Cn 分类）\n")
+    print(t('total_codepoints', len(full_set)))
+    print()
 
-    # 2) 联合读取所有字体的 codepoints
     union_cps = set()
     for fp in font_files:
         try:
             cps = get_font_codepoints(fp)
             union_cps |= cps
-            print(f"   已从 {fp} 读取 {len(cps)} 个 codepoint")
+            if LANG == 'zh':
+                print(t('reading_font', len(cps), fp))
+            else:
+                print(t('reading_font', fp, len(cps)))
         except Exception as e:
-            print(f"   ⚠️ 读取字体 {fp} 失败：{e}")
-    print(f"\n   字体联合后共支持 {len(union_cps)} 个码点\n")
+            print(t('font_read_failed', fp, e))
+    print()
+    print(t('union_codepoints', len(union_cps)))
+    print()
 
-    # 3) 计算缺失
     missing = sorted(full_set - union_cps)
     if not missing:
-        print("✅ 联合覆盖了全部目标 Unicode 码点！")
+        print(t('full_coverage'))
         sys.exit(0)
 
-    print(f"❌ 缺少 {len(missing)} 个码点：")
+    print(t('missing_codepoints', len(missing)))
     for start, end in summarize_ranges(missing):
         if start == end:
             name = cp_to_name.get(start, '')
