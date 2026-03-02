@@ -1,6 +1,35 @@
 
+detect_arch() {
+    local ABI ARCH
+
+    ABI="$(getprop ro.product.cpu.abi 2>/dev/null)"
+    ARCH="$(uname -m 2>/dev/null)"
+
+    if [ -n "$ABI" ]; then
+        case "$ABI" in
+            arm64-v8a)    echo "arm64-v8a"; return 0 ;;
+            armeabi-v7a)  echo "armeabi-v7a"; return 0 ;;
+            armeabi)      echo "armeabi"; return 0 ;;
+            x86_64)       echo "x86_64"; return 0 ;;
+            x86)          echo "x86"; return 0 ;;
+        esac
+    fi
+
+    if [ -n "$ARCH" ]; then
+        case "$ARCH" in
+            aarch64)      echo "arm64-v8a"; return 0 ;;
+            armv8*|armv7*) echo "armeabi-v7a"; return 0 ;;
+            arm*)         echo "armeabi"; return 0 ;;
+            x86_64)       echo "x86_64"; return 0 ;;
+            i*86)         echo "x86"; return 0 ;;
+        esac
+    fi
+
+    return 1
+}
+
 select_font_cmap_tool() {
-    local ABI ABI_LIST
+    local ABI ABI_LIST DETECTED_ABI
 
     ABI="$(getprop ro.product.cpu.abi)"
     ABI_LIST="$(getprop ro.product.cpu.abilist)"
@@ -8,7 +37,13 @@ select_font_cmap_tool() {
     ui_print "$(safe_printf TXT_ABI_PRIMARY "$ABI")"
     ui_print "$(safe_printf TXT_ABI_LIST "$ABI_LIST")"
 
-    case "$ABI" in
+    DETECTED_ABI=$(detect_arch)
+    if [ -z "$DETECTED_ABI" ]; then
+        ui_print "$(safe_printf TXT_ABI_UNSUPPORTED "${ABI:-unknown}")"
+        return 1
+    fi
+
+    case "$DETECTED_ABI" in
         arm64-v8a)
             FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-arm64-v8a"
             ;;
@@ -22,7 +57,7 @@ select_font_cmap_tool() {
             FONT_CMAP_TOOL="$MODPATH/bin/font-cmap-tool-x86"
             ;;
         *)
-            ui_print "$(safe_printf TXT_ABI_UNSUPPORTED "$ABI")"
+            ui_print "$(safe_printf TXT_ABI_UNSUPPORTED "$DETECTED_ABI")"
             return 1
             ;;
     esac

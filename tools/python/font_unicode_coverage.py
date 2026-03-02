@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -9,7 +10,6 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
 def parse_blocks_file(blocks_file_path):
-    """解析Unicode Blocks.txt文件"""
     blocks = []
     with open(blocks_file_path, 'r', encoding='utf-8') as f:
         for line in f:
@@ -24,7 +24,6 @@ def parse_blocks_file(blocks_file_path):
     return blocks
 
 def parse_unicode_data_file(unicode_data_path):
-    """解析UnicodeData.txt文件，处理 First/Last 范围，并忽略<control>字符"""
     defined_chars = set()
     control_chars = set()
     lines = []
@@ -35,21 +34,17 @@ def parse_unicode_data_file(unicode_data_path):
         parts = lines[i].split(';')
         code_point = int(parts[0], 16)
         name = parts[1]
-        # 处理扩展区块的 First/Last 范围
         if name.endswith(', First>'):
             prefix = name[1:-1].rsplit(', First', 1)[0]
-            # 查找下一个 Last
             if i + 1 < len(lines):
                 next_parts = lines[i+1].split(';')
                 next_name = next_parts[1]
                 if next_name.endswith(', Last>') and prefix in next_name:
                     end_cp = int(next_parts[0], 16)
-                    # 将整个范围加入
                     for cp in range(code_point, end_cp + 1):
                         defined_chars.add(cp)
                     i += 2
                     continue
-        # 常规单字符处理
         if name.startswith('<control>'):
             control_chars.add(code_point)
         defined_chars.add(code_point)
@@ -57,13 +52,11 @@ def parse_unicode_data_file(unicode_data_path):
     return defined_chars, control_chars
 
 def get_font_supported_chars(font_path):
-    """获取字体支持的字符码位"""
     font = TTFont(font_path)
     cmap = font.getBestCmap()
     return set(cmap.keys())
 
 def create_block_stats(blocks, supported_chars, defined_chars, control_chars):
-    """为每个Unicode区块创建统计信息"""
     block_stats = []
     for start, end, name in blocks:
         defined_non_control = sum(1 for cp in range(start, end + 1)
@@ -84,7 +77,6 @@ def create_block_stats(blocks, supported_chars, defined_chars, control_chars):
     return block_stats
 
 def get_gradient_colors(coverage):
-    """根据覆盖率获取渐变色和对应文字色"""
     if coverage >= 0.9:
         return ('var(--md-sys-color-primary)',
                 'var(--md-sys-color-primary-container)',
@@ -99,7 +91,6 @@ def get_gradient_colors(coverage):
                 'var(--md-sys-color-on-tertiary-container)')
 
 def create_svg(block_stats, font_name, output_path):
-    """创建Material Dark模式风格的SVG表格，使用foreignObject和HTML表格"""
     svg_width = 650
     row_height = 25
     header_height = 110
@@ -244,25 +235,23 @@ def create_svg(block_stats, font_name, output_path):
         })
 
         if undef_cnt > 0:
-            # 例如 "135(+9!)/135"
             coverage_td.text = f'{actual_defined_supported}(+{undef_cnt}!)/{defined_cnt}'
         else:
             coverage_td.text = f'{supported_cnt}/{defined_cnt}'
 
-    # 输出
     rough = ET.tostring(svg, 'utf-8')
     pretty = minidom.parseString(rough).toprettyxml(indent="  ")
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(pretty)
 
-    print(f"SVG生成成功：{output_path}，共 {total_rows} 行，高度 {svg_height}")
+    print(f"SVG generated: {output_path}，共 {total_rows} rows, height {svg_height}")
 
 def main():
-    parser = argparse.ArgumentParser(description='生成字体Unicode支持情况的SVG图表')
-    parser.add_argument('font_paths', nargs='+', help='字体文件路径（支持多个）')
-    parser.add_argument('--blocks', required=True, help='Unicode Blocks.txt 文件')
-    parser.add_argument('--unicode-data', required=True, help='UnicodeData.txt 文件')
-    parser.add_argument('--output-dir', default='.', help='输出目录')
+    parser = argparse.ArgumentParser(description='Generate SVG chart of font Unicode coverage')
+    parser.add_argument('font_paths', nargs='+', help='Font file paths (supports multiple)')
+    parser.add_argument('--blocks', required=True, help='Unicode Blocks.txt file')
+    parser.add_argument('--unicode-data', required=True, help='UnicodeData.txt file')
+    parser.add_argument('--output-dir', default='.', help='Output directory')
     args = parser.parse_args()
 
     font_files = []
@@ -274,7 +263,7 @@ def main():
             font_files.append(pat)
 
     if not font_files:
-        print("⚠️ 未找到任何字体文件")
+        print("⚠️ No font files found")
         return
 
     blocks = parse_blocks_file(args.blocks)
@@ -290,7 +279,7 @@ def main():
                                    f"{os.path.splitext(font_name)[0]}_unicode_coverage.svg")
             create_svg(stats, font_name, out_svg)
         except Exception as e:
-            print(f"处理字体 {fp} 时出错: {e}")
+            print(f"Error processing font {fp}: {e}")
 
 if __name__ == '__main__':
     main()

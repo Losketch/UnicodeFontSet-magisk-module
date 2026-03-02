@@ -71,7 +71,6 @@ fi
 ui_print "$TXT_STEP_2"
 process_binary_fonts_install
 
-# --- 迁移并修改系统字体XML文件 (如果存在于镜像路径) ---
 ui_print "$TXT_STEP_3"
 ui_print "$TXT_INSTALL_SYSTEM_XML"
 FOUND_SYSTEM_XML=0
