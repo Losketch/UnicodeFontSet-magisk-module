@@ -44,7 +44,7 @@
 </div>
 <br/>
 
-> **This module does not depend on system fonts. By combining multiple fonts, it provides complete glyph coverage for all characters currently defined in the Unicode 17.0 standard (excluding surrogate areas and the Private Use Areas).**  
+> **This module does not depend on system fonts. By combining multiple fonts, it provides complete glyph coverage for all characters currently defined in the Unicode 18.0 Alpha standard (excluding surrogate areas and the Private Use Areas).**  
 > **The module installs fonts and configuration incrementally so existing font modules remain intact.**
 
 This module is designed for rooted Android devices and installs a comprehensive Unicode font set and configuration files via the Magisk framework.

@@ -1,4 +1,36 @@
 
+## V1.7.5
+
+### 🔤 Unicode 18.0 Alpha Full Support / Unicode 18.0 Alpha 全面支持
+- **Jurchen & Seal Complete**: All characters in Unicode 18.0 Alpha are now supported
+- **Archaic Cuneiform Numerals**: Added U+12550-U+1268F block support (311/311 coverage)
+
+- **女真文与篆书完整覆盖**：完成 Unicode 18.0 Alpha 标准中定义的所有字符
+- **古楔形文字数字区块**：新增 Archaic Cuneiform Numerals (U+12550-U+1268F) 支持，311/311 覆盖
+
+### 📝 Font Updates & Engineering / 字体更新与工程改进
+- **UFSZeroExt**: Regenerated sources, updated UFO, added new Unicode glyphs
+- **UFSZeroExt**：重新生成 UFO，添加新 Unicode 字形
+
+### 🔧 Platform Detection & ABI / 平台检测与 ABI
+- **Arch Detection**: Added `detect_arch()` for robust ABI/architecture detection
+- **架构检测**：新增 `detect_arch()` 函数
+
+### 🧹 Uninstall Improvements / 卸载优化
+- **Logging**: Refactored log_msg in uninstall.sh
+- **Backup Handling**: Enhanced missing backup checks, skip disabled/pending-remove modules
+
+- **日志**：重构 uninstall.sh 的 log_msg
+- **备份处理**：增强缺失备份检查
+
+### 🛠️ Code Cleanup / 代码清理
+- **fontdiff.py**
+
+---
+
+<details>
+<summary><h4>Historical update content</h4></summary>
+
 ## V1.7.4
 
 ### 🧩 代码架构重构
@@ -192,59 +224,48 @@
 8. 细化日志记录，记录每次字体配置注入、备份、还原过程，方便排查与维护
 9. 修复若干已知问题，字体管理流程更加可靠
 
+</details>
+
 ---
 
-### 🔤 Unicode 码点显示情况
+### 🔤 Unicode Codepoint Coverage / Unicode 码点显示情况
+
+- **Unicode 17.0 Full Support**: Complete glyph coverage for all defined characters in Unicode 17.0
 - **Unicode 17.0 标准码点全覆盖**：本模块实现了对 Unicode 17.0 标准码点的完整字形显示。
-- **关于Unicode V18.0.0 Alpha 标准码点**：初步支持，缺少部分码点的字形。
+
+- **Unicode 18.0 Alpha Complete**: All target codepoints are now covered!
+- **Unicode 18.0 Alpha 全面支持**：所有目标码点现已完全覆盖！
 
 ```bash
 PS .\UnicodeFontSet-magisk-module\module\system\fonts> py check_fonts_unicode.py UnicodeData.txt *.*tf
-1) 解析 UnicodeData.txt …
-   → 总计需覆盖 172914 个码点（已剔除 Cs/Co/Cn 分类）
+1) Parsing UnicodeData.txt ...
+   → Total codepoints to cover: 172914 (excluded Cs/Co/Cn categories)
 
-   已从 KreativeSquare.ttf 读取 6244 个 codepoint
-   已从 NewGardiner.ttf 读取 5207 个 codepoint
-   已从 NotoColorEmoji.ttf 读取 1499 个 codepoint
-   已从 NotoSansSuper.otf 读取 17693 个 codepoint
-   已从 NotoUnicode.otf 读取 21755 个 codepoint
-   已从 PlangothicP1-Regular.otf 读取 65435 个 codepoint
-   已从 PlangothicP2-Regular.otf 读取 42542 个 codepoint
-   已从 SourceHanSansSC-Regular.otf 读取 44853 个 codepoint
-   已从 UFSTempAlpha.otf 读取 496 个 codepoint
-   已从 UFSZeroExt.otf 读取 360 个 codepoint
-   已从 UnicodiaDaarage.otf 读取 101 个 codepoint
-   已从 UnicodiaSesh.ttf 读取 4684 个 codepoint
+   Read KreativeSquare.ttf codepoints from 6244
+   Read NewGardiner.ttf codepoints from 4639
+   Read NotoColorEmoji.ttf codepoints from 1499
+   Read NotoEmoji-Regular.ttf codepoints from 1503
+   Read NotoSansSuper.otf codepoints from 17693
+   Read NotoUnicode.otf codepoints from 21755
+   Read PlangothicP1-Regular.otf codepoints from 65435
+   Read PlangothicP2-Regular.otf codepoints from 42542
+   Read SourceHanSansSC-Regular.otf codepoints from 44853
+   Read TempSeal.ttf codepoints from 22554
+   Read UFSTempAlpha.otf codepoints from 1720
+   Read UFSZeroExt.otf codepoints from 378
+   Read UnicodiaDaarage.otf codepoints from 101
+   Read UnicodiaSesh.ttf codepoints from 4719
 
-   字体联合后共支持 164919 个码点
+   Union of fonts supports 177436 codepoints
 
-❌ 缺少 12526 个码点：
-  U+12550--U+12686
-  U+18E01--U+18E0B
-  U+18E0D--U+18E4E
-  U+18E50--U+18E6B
-  U+18E6D--U+18E77
-  U+18E79--U+18EC8
-  U+18ECB--U+18ED9
-  U+18EDD--U+18EDE
-  U+18EE0--U+18EE5
-  U+18EE7--U+18EEA
-  U+18EEC--U+18F14
-  U+18F16--U+18FB7
-  U+18FB9--U+19040
-  U+19043--U+1904A
-  U+1904C--U+1906D
-  U+1906F
-  U+19074--U+19080
-  U+19083--U+190FE
-  U+19100--U+19103
-  U+19105--U+19191
-  U+3D000--U+3FC3F
+✅ All target Unicode codepoints are covered!
 ```
 
 ---
-***覆盖情况说明：***
-- *目前没有可用的 古楔形文字数字(Archaic Cuneiform Numerals 12550-12686)、女真文(Jurchen 18E00-19191)和篆书(Seal 3D000–3FC3F)区块的字体*
+***Coverage Notes / 覆盖情况说明：***
+- *V1.7.5: Full Unicode 18.0 Alpha support — Jurchen (18E00-19191), Seal (3D000-3FC3F), Archaic Cuneiform Numerals (12550-12686)*
+- *V1.7.5 已完成 Unicode 18.0 Alpha 全部字符支持，包括女真文(Jurchen 18E00-19191)、篆书(Seal 3D000–3FC3F)和古楔形文字数字(Archaic Cuneiform Numerals 12550-12686)区块*
 
-### 🎨 关于 Emoji 字体格式变体
+### 🎨 Emoji Font Variants / Emoji 字体格式变体
+- Please refer to [`Variants`](https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/tag/nightly)
 - 请参考[`Variants`](https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/tag/nightly).
