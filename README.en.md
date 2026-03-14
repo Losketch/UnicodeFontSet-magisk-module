@@ -63,7 +63,7 @@ Please visit the [Releases page](https://github.com/Losketch/UnicodeFontSet-magi
 - **Compatibility**: This module may not be compatible with every device or highly customized ROM. For more compatibility information, refer to:
   - [lxgw’s CJK font Magisk module compatibility notes](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
   - [simonsmh’s notocjk module](https://github.com/simonsmh/notocjk)
-  - **App crashes**: Android 12 and later introduced significant changes to font loading. Fonts are no longer preloaded during zygote initialization and are instead loaded on demand, which may cause compatibility issues with traditional Magisk font modules. If you encounter app crashes, please install the [FontLoader](https://github.com/RikkaW/FontLoader) module.
+  - **App crashes**: Android 12 and later introduced significant changes to font loading. Fonts are no longer preloaded during zygote initialization and are instead loaded on demand, which may cause compatibility issues with traditional Magisk font modules. If you encounter app crashes, please install the [FontLoader](https://github.com/JingMatrix/FontLoader) module.
 - If you already have other font Magisk modules installed, this module inserts its fonts and XML entries incrementally rather than overwriting existing font configurations, ensuring that the behavior of previously installed modules is preserved.
 - **Installation order**:  
   - It is recommended to install other font modules first and reboot once, then install this font module and reboot again to ensure compatibility.  
@@ -106,7 +106,7 @@ During installation, the module will prompt you whether to execute cmap cleaning
 ## Frequently Asked Questions (FAQ)
 
 ### Q: What should I do if some apps crash after installation?
-A: Android 12+ introduced changes to font loading mechanisms, which may cause compatibility issues with traditional Magisk font modules. Please install the [FontLoader](https://github.com/RikkaW/FontLoader) module to solve this issue.
+A: Android 12+ introduced changes to font loading mechanisms, which may cause compatibility issues with traditional Magisk font modules. Please install the [FontLoader](https://github.com/JingMatrix/FontLoader) module to solve this issue.
 
 ### Q: What should I do if fonts don't change after installation?
 A: Please try the following solutions:

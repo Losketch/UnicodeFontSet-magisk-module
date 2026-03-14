@@ -63,7 +63,7 @@
 - **兼容性**: 本模块可能无法兼容所有机型和高定制化系统。更多兼容性信息可参考：
   - [lxgw 的 CJK 字体 Magisk 模块兼容性调整指南](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
   - [simonsmh 的 notocjk 模块说明](https://github.com/simonsmh/notocjk)
-  - **应用闪退**: - Android 12+ 引入了重大变化：字体加载从 zygote 进程预加载转变为按需加载，这可能导致传统 Magisk 字体模块出现兼容性问题，如遇应用闪退，请安装 [FontLoader](https://github.com/RikkaW/FontLoader) 模块
+  - **应用闪退**: - Android 12+ 引入了重大变化：字体加载从 zygote 进程预加载转变为按需加载，这可能导致传统 Magisk 字体模块出现兼容性问题，如遇应用闪退，请安装 [FontLoader](https://github.com/JingMatrix/FontLoader) 模块
 - 如果系统中已安装其它字体类 Magisk 模块，本模块将以增量方式插入新字体和 XML 配置，不会覆盖原有字体配置，确保已装模块的功能得以保留。
 - **安装顺序**:  
   - 推荐先安装其他模块并重启一次，再安装本字体模块并重启，以确保兼容性。  
@@ -106,7 +106,7 @@
 ## 常见问题解答（FAQ）
 
 ### Q: 安装后某些应用闪退怎么办？
-A: Android 12+ 引入了字体加载机制的变化，可能导致传统 Magisk 字体模块出现兼容性问题。请安装 [FontLoader](https://github.com/RikkaW/FontLoader) 模块来解决此问题。
+A: Android 12+ 引入了字体加载机制的变化，可能导致传统 Magisk 字体模块出现兼容性问题。请安装 [FontLoader](https://github.com/JingMatrix/FontLoader) 模块来解决此问题。
 
 ### Q: 安装后字体没有变化怎么办？
 A: 请尝试以下解决方案：
