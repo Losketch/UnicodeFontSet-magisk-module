@@ -26,8 +26,7 @@ MODULE_PARENT="/data/adb/modules"
 SELF_MOD_NAME=$(basename "$MODPATH")
 
 if [ -z "$API" ]; then
-    ui_print "$TXT_ERROR_API_LEVEL"
-    exit 1
+    abort "$TXT_ERROR_API_LEVEL"
 fi
 
 [ "$API" -lt 26 ] && { ui_print "$TXT_API_TOO_LOW"; exit 0; }

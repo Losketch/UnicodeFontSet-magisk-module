@@ -15,3 +15,10 @@ log_print() {
 safe_ui_print() {
     ui_print "$(safe_text "$1")"
 }
+
+abort() {
+    ui_print "$1"
+    rm -rf "$TEMP_DIR/$CMAP_TOOL_PREFIX".* 2>/dev/null
+    release_lock 2>/dev/null
+    exit 1
+}
