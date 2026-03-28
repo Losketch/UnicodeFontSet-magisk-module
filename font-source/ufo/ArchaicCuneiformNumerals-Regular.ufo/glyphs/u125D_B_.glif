@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u125DB" format="2">
+  <advance width="933"/>
+  <unicode hex="125DB"/>
+  <outline>
+  <component base="u125DA" yOffset="-231"/>
+  <component base="u125DA" yOffset="230"/>
+  </outline>
+</glyph>

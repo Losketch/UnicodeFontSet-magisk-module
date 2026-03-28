@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u12632" format="2">
+  <advance width="1448"/>
+  <unicode hex="12632"/>
+  <outline>
+  <component base="cuneiformnumericsignonen05"/>
+  <component base="cuneiformnumericsignonen05" xOffset="579"/>
+  </outline>
+</glyph>

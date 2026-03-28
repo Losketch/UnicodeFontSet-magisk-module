@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u12631" format="2">
+  <advance width="1342"/>
+  <unicode hex="12631"/>
+  <outline>
+    <contour>
+      <point x="100" y="495" type="line"/>
+      <point x="156" y="491"/>
+      <point x="181" y="483"/>
+      <point x="213" y="468" type="curve"/>
+      <point x="222" y="486" type="line"/>
+      <point x="189" y="501"/>
+      <point x="167" y="515"/>
+      <point x="128" y="555" type="curve"/>
+      <point x="100" y="495" type="line"/>
+    </contour>
+    <contour>
+      <point x="1120" y="481" type="line"/>
+      <point x="1176" y="477"/>
+      <point x="1201" y="469"/>
+      <point x="1233" y="454" type="curve"/>
+      <point x="1242" y="472" type="line"/>
+      <point x="1209" y="487"/>
+      <point x="1187" y="501"/>
+      <point x="1148" y="541" type="curve"/>
+      <point x="1120" y="481" type="line"/>
+    </contour>
+    <contour>
+      <point x="693" y="285" type="line"/>
+      <point x="749" y="281"/>
+      <point x="774" y="273"/>
+      <point x="806" y="258" type="curve"/>
+      <point x="815" y="276" type="line"/>
+      <point x="782" y="291"/>
+      <point x="760" y="305"/>
+      <point x="721" y="345" type="curve"/>
+      <point x="693" y="285" type="line"/>
+    </contour>
+    <contour>
+      <point x="219" y="242" type="line"/>
+      <point x="275" y="238"/>
+      <point x="300" y="230"/>
+      <point x="332" y="215" type="curve"/>
+      <point x="341" y="233" type="line"/>
+      <point x="308" y="248"/>
+      <point x="286" y="262"/>
+      <point x="247" y="302" type="curve"/>
+      <point x="219" y="242" type="line"/>
+    </contour>
+    <contour>
+      <point x="1056" y="72" type="line"/>
+      <point x="1112" y="68"/>
+      <point x="1137" y="60"/>
+      <point x="1169" y="45" type="curve"/>
+      <point x="1178" y="63" type="line"/>
+      <point x="1145" y="78"/>
+      <point x="1123" y="92"/>
+      <point x="1084" y="132" type="curve"/>
+      <point x="1056" y="72" type="line"/>
+    </contour>
+  <component base="u12550" xOffset="228"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.803921568627451,0.6,1,1</string>
+    </dict>
+  </lib>
+</glyph>

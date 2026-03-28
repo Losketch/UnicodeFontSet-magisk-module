@@ -37,20 +37,20 @@ jobs:
           - name: "colrv1"
             emoji_url: "https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf"
             zip_name: "UnicodeFontSet-COLRv1-module.zip"
-            suffix: "COLRv1 (Android 12L+)"
+            suffix: "COLRv1 (API >= 33)"
             description: "COLRv1 vector emoji"
             update_json: "https://github.com/Losketch/UnicodeFontSet-magisk-module/raw/main/update-colrv1.json"
             update_json_nightly: "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/update-nightly-colrv1.json"
           - name: "cbdt"
             emoji_url: "https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf"
             zip_name: "UnicodeFontSet-CBDT-module.zip"
-            suffix: "CBDT (Android 5.0+)"
+            suffix: "CBDT (API >= 19)"
             description: "CBDT bitmap emoji"
             update_json: "https://github.com/Losketch/UnicodeFontSet-magisk-module/raw/main/update-cbdt.json"
             update_json_nightly: "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/update-nightly-cbdt.json"
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Reset module.prop (avoid matrix pollution)
         run: |
@@ -147,7 +147,7 @@ jobs:
           toolchain: stable
 
       - name: Cache cargo
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry
@@ -164,10 +164,10 @@ jobs:
           fi
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Cache Android NDK
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.ANDROID_SDK_ROOT }}/ndk/${{ env.NDK_VERSION }}
           key: android-ndk-${{ env.NDK_VERSION }}
@@ -186,7 +186,7 @@ jobs:
             x86_64-linux-android
 
       - name: Cache UPX
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/upx-${{ env.UPX_VERSION }}-amd64_linux
           key: upx-${{ env.UPX_VERSION }}
@@ -253,7 +253,7 @@ jobs:
           mv "${{ env.MODULE_DIR }}/../${{ matrix.variant.zip_name }}" "${{ env.BUILD_DIR }}/"
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: module-artifacts-${{ matrix.variant.name }}
           path: ${{ env.BUILD_DIR }}
@@ -265,13 +265,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download COLRv1 artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: module-artifacts-colrv1
           path: ./artifacts
 
       - name: Download CBDT artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: module-artifacts-cbdt
           path: ./artifacts
@@ -293,19 +293,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           fetch-tags: true
 
       - name: Download COLRv1 artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: module-artifacts-colrv1
           path: ./artifacts
 
       - name: Download CBDT artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: module-artifacts-cbdt
           path: ./artifacts
@@ -401,23 +401,22 @@ jobs:
             ## Variants
             - **COLRv1**
               - Format: Vector
-              - Features: Lossless scaling, supports any resolution, fast rendering
-              - Compatibility: Android 12L + (requires built-in COLRv1 renderer)
-              - Size: Typically smaller than bitmap, faster to transfer and load
+              - Features: Lossless scaling, supports any resolution
+              - Compatibility: Android 13 (API >= 33) (requires built-in COLRv1 renderer)
+              - Size: Typically smaller than bitmap
             
             - **CBDT**
               - Format: Bitmap
               - Features: Traditional NotoColorEmoji.ttf, ensures compatibility on older devices
-              - Compatibility: Android 5.0 +
-              - Drawback: May appear pixelated when scaled, slower to load
+              - Compatibility: Android 4.4 (API >= 19)
+              - Drawback: May appear pixelated when scaled
             
             ### Key Differences
             | Feature | COLRv1 | CBDT |
             |---|---|---|
             | Data Type | Vector | Bitmap |
             | Scaling | Lossless, any resolution | May pixelate when enlarged |
-            | Load & Render | Faster (usually smaller file size) | Slower (larger file size) |
-            | Device Support | Android 12L + | Android 5.0 + |
+            | Device Support | Android 13 (API >= 33) | Android 4.4 (API >= 19) |
             
             ## Commits
             ${{ steps.commits.outputs.COMMITS }}

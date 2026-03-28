@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cuneiformnumericsignonen35" format="2">
+  <advance width="1269"/>
+  <outline>
+    <contour>
+      <point x="894" y="253" type="curve"/>
+      <point x="894" y="586"/>
+      <point x="246" y="674"/>
+      <point x="153" y="674" type="curve"/>
+      <point x="100" y="674" type="line"/>
+      <point x="100" y="-168" type="line"/>
+      <point x="153" y="-168" type="line"/>
+      <point x="246" y="-168"/>
+      <point x="894" y="-80"/>
+    </contour>
+    <contour>
+      <point x="853" y="253" type="curve"/>
+      <point x="853" y="-57"/>
+      <point x="223" y="-128"/>
+      <point x="153" y="-128" type="curve"/>
+      <point x="157" y="-114"/>
+      <point x="340" y="-67"/>
+      <point x="340" y="253" type="curve"/>
+      <point x="340" y="573"/>
+      <point x="161" y="607"/>
+      <point x="153" y="633" type="curve"/>
+      <point x="223" y="633"/>
+      <point x="853" y="563"/>
+    </contour>
+    <contour>
+      <point x="322" y="203" type="line"/>
+      <point x="395" y="238"/>
+      <point x="1013" y="239"/>
+      <point x="1169" y="239" type="curve"/>
+      <point x="1169" y="259" type="line"/>
+      <point x="1013" y="259"/>
+      <point x="395" y="260"/>
+      <point x="322" y="295" type="curve"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.6,0.996078431372549,1,1</string>
+    </dict>
+  </lib>
+</glyph>

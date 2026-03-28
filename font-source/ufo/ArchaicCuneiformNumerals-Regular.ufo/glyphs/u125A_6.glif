@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u125A6" format="2">
+  <advance width="1888"/>
+  <unicode hex="125A6"/>
+  <outline>
+  <component base="u125A3" yOffset="-350"/>
+  <component base="u125A3" xOffset="850" yOffset="-350"/>
+  <component base="u125A3" yOffset="500"/>
+  <component base="u125A3" xOffset="850" yOffset="500"/>
+  </outline>
+</glyph>

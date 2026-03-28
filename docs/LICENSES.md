@@ -10,8 +10,9 @@
 - [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp) (请注意：此字体的字形提取自 Unicode PDF，作者未明确声明许可证，请谨慎使用)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
 - [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
-- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
+- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
+- [Temp Seal](https://github.com/Losketch/Fonts/releases/tag/TempSeal) (WTFPL)
 - [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts) (作者声明/﻿JSesh Fonts Licenses/OFL)
 - [NotoSansSuper.otf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper)：此字体是由多个 Noto 家族及其他 OFL-1.1 许可的字体合并而成的
 
@@ -27,8 +28,9 @@ The fonts included in this module (including previously used fonts) and their li
 - [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp) (note: glyphs derived from Unicode PDF; license not clearly declared -- use with caution)
 - [Noto Emoji](https://github.com/googlefonts/noto-emoji)
 - [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
-- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
 - [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
+- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
+- [Temp Seal](https://github.com/Losketch/Fonts/releases/tag/TempSeal) (WTFPL)
 - [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts) (author statement/﻿JSesh Fonts Licenses/OFL)
 - [NotoSansSuper.otf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper): this font is a merge of several Noto families and other OFL-1.1 licensed fonts
 

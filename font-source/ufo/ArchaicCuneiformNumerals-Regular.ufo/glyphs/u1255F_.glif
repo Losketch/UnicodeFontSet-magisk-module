@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u1255F" format="2">
+  <advance width="1123"/>
+  <unicode hex="1255F"/>
+  <outline>
+  <component base="u12559" yOffset="437"/>
+  <component base="u12559" yOffset="109"/>
+  <component base="u12559" yOffset="-232"/>
+  <component base="u12559" yOffset="-605"/>
+  <component base="u12559" xOffset="490" yOffset="437"/>
+  <component base="u12559" xOffset="490" yOffset="109"/>
+  <component base="u12559" xOffset="490" yOffset="-232"/>
+  </outline>
+</glyph>
