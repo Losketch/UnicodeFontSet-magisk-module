@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u125EA" format="2">
+  <advance width="781"/>
+  <unicode hex="125EA"/>
+  <outline>
+    <contour>
+      <point x="279" y="383" type="line"/>
+      <point x="385" y="339"/>
+      <point x="640" y="194"/>
+      <point x="671" y="176" type="curve"/>
+      <point x="681" y="193" type="line"/>
+      <point x="650" y="211"/>
+      <point x="398" y="363"/>
+      <point x="305" y="428" type="curve"/>
+    </contour>
+  <component base="u125AA"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.803921568627451,0.6,1,1</string>
+    </dict>
+  </lib>
+</glyph>

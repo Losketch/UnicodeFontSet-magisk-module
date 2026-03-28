@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u125F4" format="2">
+  <advance width="862"/>
+  <unicode hex="125F4"/>
+  <outline>
+    <contour>
+      <point x="746" y="2" type="line"/>
+      <point x="680" y="40" type="line"/>
+      <point x="493" y="146"/>
+      <point x="427" y="179" type="qcurve"/>
+      <point x="464" y="236" type="line"/>
+      <point x="637" y="113"/>
+      <point x="762" y="27" type="qcurve"/>
+    </contour>
+  <component base="u12562" xOffset="1" yOffset="-13"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.803921568627451,0.6,1,1</string>
+    </dict>
+  </lib>
+</glyph>

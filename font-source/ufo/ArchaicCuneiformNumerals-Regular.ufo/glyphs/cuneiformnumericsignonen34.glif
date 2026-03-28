@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cuneiformnumericsignonen34" format="2">
+  <advance width="1014"/>
+  <outline>
+    <contour>
+      <point x="914" y="283" type="curve"/>
+      <point x="914" y="616"/>
+      <point x="246" y="704"/>
+      <point x="153" y="704" type="curve"/>
+      <point x="100" y="704" type="line"/>
+      <point x="100" y="-138" type="line"/>
+      <point x="153" y="-138" type="line"/>
+      <point x="246" y="-138"/>
+      <point x="914" y="-50"/>
+    </contour>
+    <contour>
+      <point x="873" y="283" type="curve"/>
+      <point x="873" y="-27"/>
+      <point x="223" y="-98"/>
+      <point x="153" y="-98" type="curve"/>
+      <point x="157" y="-84"/>
+      <point x="380" y="-37"/>
+      <point x="380" y="283" type="curve"/>
+      <point x="380" y="603"/>
+      <point x="161" y="637"/>
+      <point x="153" y="663" type="curve"/>
+      <point x="223" y="663"/>
+      <point x="873" y="593"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.6,0.996078431372549,1,1</string>
+    </dict>
+  </lib>
+</glyph>

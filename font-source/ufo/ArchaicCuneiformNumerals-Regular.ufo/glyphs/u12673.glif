@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u12673" format="2">
+  <advance width="2105"/>
+  <unicode hex="12673"/>
+  <outline>
+  <component base="u1266C" yOffset="500"/>
+  <component base="u1266C" yOffset="-350"/>
+  <component base="u1266C" xOffset="980" yOffset="500"/>
+  <component base="u1266C" xOffset="490" yOffset="500"/>
+  <component base="u1266C" xOffset="490" yOffset="-350"/>
+  <component base="u1266C" xOffset="980" yOffset="-350"/>
+  <component base="u1266C" xOffset="1470" yOffset="-350"/>
+  <component base="u1266C" xOffset="1470" yOffset="500"/>
+  </outline>
+</glyph>

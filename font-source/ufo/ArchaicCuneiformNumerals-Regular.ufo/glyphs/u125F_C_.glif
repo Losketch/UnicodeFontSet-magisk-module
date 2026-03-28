@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u125FC" format="2">
+  <advance width="2702"/>
+  <unicode hex="125FC"/>
+  <outline>
+  <component base="u125F4" xOffset="1840" yOffset="230"/>
+  <component base="u125F4" xOffset="460" yOffset="-231"/>
+  <component base="u125F4" xOffset="460" yOffset="230"/>
+  <component base="u125F4" yOffset="-231"/>
+  <component base="u125F4" yOffset="230"/>
+  <component base="u125F4" xOffset="920" yOffset="-231"/>
+  <component base="u125F4" xOffset="920" yOffset="230"/>
+  <component base="u125F4" xOffset="1380" yOffset="-231"/>
+  <component base="u125F4" xOffset="1380" yOffset="230"/>
+  </outline>
+</glyph>

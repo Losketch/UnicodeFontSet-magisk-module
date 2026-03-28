@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="u125F3" format="2">
+  <advance width="1989"/>
+  <unicode hex="125F3"/>
+  <outline>
+  <component base="cuneiformnumericsignonen03" xOffset="1158" yOffset="230"/>
+  <component base="cuneiformnumericsignonen03" yOffset="230"/>
+  <component base="cuneiformnumericsignonen03" xOffset="579" yOffset="230"/>
+  <component base="cuneiformnumericsignonen03" yOffset="-231"/>
+  <component base="cuneiformnumericsignonen03" xOffset="579" yOffset="-231"/>
+  </outline>
+</glyph>
