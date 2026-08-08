@@ -1,15 +1,11 @@
 #!/system/bin/sh
 
-. "${0%/*}/lib/lib.sh"
+MODDIR=${0%/*}
+. "$MODDIR/lib/lib.sh"
+ufs_init_context
 
-API=$(getprop ro.build.version.sdk)
+[ -n "$API" ] || exit 0
 [ "$API" -lt 26 ] && exit 0
-
-MODULE_PARENT="/data/adb/modules"
-SELF_MOD_NAME=$(basename "$MODPATH")
-
-SHA1_DIR="$MODPATH/sha1"
-mkdir -p "$SHA1_DIR"
 
 if ! acquire_lock; then
     ui_print "$TXT_LOCK_BUSY"
@@ -17,5 +13,4 @@ if ! acquire_lock; then
 fi
 
 trap 'release_lock; exit 0' INT TERM EXIT
-
 monitor_font_modules "ui_print"

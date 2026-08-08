@@ -1,28 +1,35 @@
 #!/system/bin/sh
 
 MODPATH=${0%/*}
-MODULE_PARENT="/data/adb/modules"
-LOCK_DIR="/data/adb/ufs_lock"
+MODULE_PARENT="${UFS_MODULE_PARENT:-/data/adb/modules}"
+LOCK_DIR="${UFS_LOCK_DIR:-/data/adb/ufs_lock}"
+BACKUP_DIR="$MODPATH/backup"
+FILE_LIST="$MODPATH/.uninstall-files.$$"
 
 log_msg() {
-    echo "[UnicodeFontSet] $1"
+    printf '[UnicodeFontSet] %s\n' "$1"
+}
+
+cleanup() {
+    rm -f "$FILE_LIST" 2>/dev/null || true
+    rmdir "$LOCK_DIR" 2>/dev/null || true
 }
 
 log_msg "Starting uninstall restore..."
 
 i=0
 while ! mkdir "$LOCK_DIR" 2>/dev/null; do
-    i=$((i+1))
+    i=$((i + 1))
     sleep 0.1
-    [ "$i" -gt 300 ] && {
+    if [ "$i" -gt 300 ]; then
         log_msg "[!] Failed to acquire lock, abort uninstall restore"
         exit 1
-    }
+    fi
 done
 
-trap 'rmdir "$LOCK_DIR" 2>/dev/null; exit 0' INT TERM EXIT
-
-BACKUP_DIR="$MODPATH/backup"
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 if [ ! -d "$BACKUP_DIR" ]; then
     log_msg "[!] WARNING: backup directory missing."
@@ -35,9 +42,9 @@ SKIPPED_COUNT=0
 FAILED_COUNT=0
 
 for MOD_BACKUP in "$BACKUP_DIR"/*; do
-    [ ! -d "$MOD_BACKUP" ] && continue
+    [ -d "$MOD_BACKUP" ] || continue
 
-    MOD_NAME=$(basename "$MOD_BACKUP")
+    MOD_NAME="$(basename "$MOD_BACKUP")"
     DST_MOD_DIR="$MODULE_PARENT/$MOD_NAME"
 
     if [ ! -d "$DST_MOD_DIR" ]; then
@@ -46,48 +53,56 @@ for MOD_BACKUP in "$BACKUP_DIR"/*; do
         continue
     fi
 
-    if [ -f "$DST_MOD_DIR/disable" ]; then
-        log_msg "[!] Target module is disabled: $MOD_NAME"
-        log_msg "[!] Restoring anyway, but the module may not function properly."
-    fi
-
     if [ -f "$DST_MOD_DIR/remove" ]; then
         log_msg "[-] Target module pending removal: $MOD_NAME"
         SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
         continue
     fi
 
-    log_msg "[+] Restoring module: $MOD_NAME"
+    if [ -f "$DST_MOD_DIR/disable" ]; then
+        log_msg "[!] Target module is disabled: $MOD_NAME"
+        log_msg "[!] Restoring anyway, but the module may not function until re-enabled."
+    fi
 
-    FILE_COUNT=0
-    while read -r SRC_FILE; do
+    log_msg "[+] Restoring module: $MOD_NAME"
+    if ! find "$MOD_BACKUP" -type f -print > "$FILE_LIST" 2>/dev/null; then
+        log_msg "[!] Failed to enumerate backup files: $MOD_NAME"
+        FAILED_COUNT=$((FAILED_COUNT + 1))
+        continue
+    fi
+
+    MODULE_FAILED=0
+    while IFS= read -r SRC_FILE; do
+        [ -n "$SRC_FILE" ] || continue
         REL_PATH="${SRC_FILE#$MOD_BACKUP/}"
         DST_FILE="$DST_MOD_DIR/$REL_PATH"
+        DST_PARENT="$(dirname "$DST_FILE")"
 
         log_msg "    -> $REL_PATH"
-
-        if ! mkdir -p "$(dirname "$DST_FILE")" 2>/dev/null; then
-            log_msg "[!] Failed to create directory: $(dirname "$DST_FILE")"
+        if ! mkdir -p "$DST_PARENT" 2>/dev/null; then
+            log_msg "[!] Failed to create directory: $DST_PARENT"
+            FAILED_COUNT=$((FAILED_COUNT + 1))
+            MODULE_FAILED=1
             continue
         fi
 
         if ! cp -af "$SRC_FILE" "$DST_FILE" 2>/dev/null; then
             log_msg "[!] Failed to restore: $REL_PATH"
-            continue
+            FAILED_COUNT=$((FAILED_COUNT + 1))
+            MODULE_FAILED=1
         fi
+    done < "$FILE_LIST"
 
-        FILE_COUNT=$((FILE_COUNT + 1))
-    done < <(find "$MOD_BACKUP" -type f 2>/dev/null)
-
-    RESTORED_COUNT=$((RESTORED_COUNT + 1))
+    [ "$MODULE_FAILED" -eq 0 ] && RESTORED_COUNT=$((RESTORED_COUNT + 1))
 done
 
-rm -rf "$MODPATH/sha1" 2>/dev/null
+rm -rf "$MODPATH/sha1" 2>/dev/null || true
 
 log_msg "=========================================="
 log_msg "Restore complete."
 log_msg "  Restored modules: $RESTORED_COUNT"
 log_msg "  Skipped modules:  $SKIPPED_COUNT"
+log_msg "  Failed files:     $FAILED_COUNT"
 log_msg "=========================================="
 
-exit 0
+[ "$FAILED_COUNT" -eq 0 ]

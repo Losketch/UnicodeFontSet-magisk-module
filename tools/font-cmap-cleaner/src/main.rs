@@ -1,232 +1,114 @@
-use anyhow::{Result, bail, Context};
-use clap::{Parser, Subcommand};
-use tracing::{info, warn, debug, error, span, Level};
-use tracing_subscriber::{fmt, EnvFilter};
 use std::{
-    collections::HashSet,
-    env,
+    collections::{BTreeSet, HashSet},
     fs,
-    path::{Path, PathBuf},
     panic::{catch_unwind, AssertUnwindSafe},
+    path::{Path, PathBuf},
 };
 
+use anyhow::{bail, Context, Result};
+use clap::Parser;
+use font_cmap_tool::{
+    cli::{Args, Command},
+    discovery::{collect_find_font_dirs, collect_font_xml_paths, collect_system_font_dirs},
+    find::find_fonts_containing,
+    font::{is_rewritable_font_path, unicode_codepoints, variation_sequence_base_codepoints},
+    fonts_xml::{collect_effective_fonts, EffectiveFonts},
+    logging::init_tracing,
+    rewrite::rewrite_font,
+    scan::scan_effective_system_unicode,
+};
+use tracing::{debug, error, info, span, warn, Level};
 use ttf_parser::Face;
-use walkdir::WalkDir;
-
-use font_cmap_tool::fonts_xml::collect_effective_fonts;
-use font_cmap_tool::scan::scan_effective_system_unicode;
-use font_cmap_tool::rewrite::rewrite_font;
-
-#[derive(Parser, Debug)]
-#[command(name = "font-cmap-tool")]
-#[command(author, version, about = "字体 cmap 清理工具")]
-struct Args {
-    /// 系统字体目录
-    #[arg(short = 's', long, default_value = "/system/fonts")]
-    system_fonts: PathBuf,
-
-    /// 模块字体目录
-    #[arg(short = 'm', long, default_value = "./fonts")]
-    module_fonts: PathBuf,
-
-    /// 输出目录（不指定则原地修改）
-    #[arg(short = 'o', long)]
-    output: Option<PathBuf>,
-
-    /// 只显示统计，不实际修改文件
-    #[arg(short = 'n', long)]
-    dry_run: bool,
-
-    /// 详细输出模式
-    #[arg(short = 'v', long)]
-    verbose: bool,
-
-    /// 跳过处理的字体文件名（可多次指定）
-    #[arg(long = "skip-font")]
-    skip_fonts: Vec<String>,
-
-    /// 跳过处理的字体白名单文件（每行一个文件名）
-    #[arg(long = "skip-font-file", default_value = "./whitelist.txt")]
-    skip_font_file: PathBuf,
-
-    /// 显式指定 fonts.xml（可多次指定，优先级最高）
-    #[arg(long = "fonts-xml")]
-    fonts_xml: Vec<PathBuf>,
-
-    /// 忽略 fonts.xml 限制，处理所有字体
-    #[arg(long = "ignore-xml")]
-    ignore_xml: bool,
-
-    /// system 字体 cmap 安全阈值（超过则不并入 system_unicode）
-    #[arg(long = "system-cmap-threshold", default_value = "1114112")]
-    system_cmap_threshold: usize,
-
-    /// 禁用彩色输出
-    #[arg(long = "no-color")]
-    no_color: bool,
-
-    /// 子命令
-    #[command(subcommand)]
-    command: Option<Command>,
-}
-
-#[derive(Subcommand, Debug)]
-enum Command {
-    /// 在系统字体中查找包含某个 Unicode 码位的字体
-    Find {
-        /// Unicode 码位，例如：U+4E00 / 4E00 / 1F600
-        codepoint: String,
-    },
-}
-
-const FONT_XML_FILES: &[&str; 10] = &[
-    "fonts.xml",
-    "fonts_base.xml",
-    "fonts_fallback.xml",
-    "font_fallback.xml",
-    "fonts_inter.xml",
-    "fonts_slate.xml",
-    "fonts_ule.xml",
-    "fonts_flyme.xml",
-    "flyme_fallback.xml",
-    "flyme_font_fallback.xml",
-];
-
-const FONT_XML_SUBDIRS: &[&str; 5] = &[
-    "/system/etc",
-    "/system/product/etc",
-    "/system/system_ext/etc",
-    "/vendor/etc",
-    "/product/etc",
-];
-
-fn collect_font_xml_paths() -> Vec<PathBuf> {
-    use std::collections::BTreeSet;
-
-    let mut set = BTreeSet::new();
-
-    for dir in FONT_XML_SUBDIRS {
-        let base = Path::new(dir);
-        if !base.exists() {
-            continue;
-        }
-
-        for file in FONT_XML_FILES {
-            let p = base.join(file);
-            if p.exists() {
-                set.insert(p);
-            }
-        }
-    }
-
-    set.into_iter().collect()
-}
 
 fn main() -> Result<()> {
     let args = Args::parse();
-
-    let filter = if args.verbose {
-        EnvFilter::new("trace")
-    } else {
-        EnvFilter::from_default_env()
-            .add_directive("font_cmap_tool=info".parse().unwrap())
-    };
-
-    let disable_color =
-        args.no_color
-        || env::var_os("NO_COLOR").is_some()
-        || env::var("TERM").map(|v| v == "dumb").unwrap_or(false);
-
-    fmt()
-        .with_env_filter(filter)
-        .with_target(false)
-        .with_line_number(false)
-        .with_ansi(!disable_color)
-        .compact()
-        .init();
+    init_tracing(args.verbose, args.no_color);
 
     info!(
         os = std::env::consts::OS,
         arch = std::env::consts::ARCH,
-         "🖥️ 运行环境"
+        "🖥️ 运行环境"
     );
 
+    if let Some(Command::Find { codepoint }) = &args.command {
+        let cp = parse_codepoint(codepoint)?;
+        info!("🔍 查找 Unicode U+{:X}", cp);
+
+        let system_font_dirs = collect_find_font_dirs(&args.system_fonts);
+        let mut fonts = BTreeSet::new();
+        for directory in &system_font_dirs {
+            fonts.extend(find_fonts_containing(directory, cp)?);
+        }
+
+        if fonts.is_empty() {
+            println!("❌ 没有任何系统字体包含 U+{:X}", cp);
+        } else {
+            println!("✅ 以下系统字体包含 U+{:X}:", cp);
+            for font in fonts {
+                println!("  - {}", font.display());
+            }
+        }
+        return Ok(());
+    }
+
     let font_xml_paths = if args.ignore_xml {
-        vec![]
+        Vec::new()
     } else if !args.fonts_xml.is_empty() {
         args.fonts_xml.clone()
     } else {
         collect_font_xml_paths()
     };
 
-    let effective_fonts: std::collections::HashSet<String> = if args.ignore_xml {
+    let effective_fonts: EffectiveFonts = if args.ignore_xml {
         info!("🔓 忽略 fonts.xml 限制，将处理所有系统字体");
-        std::collections::HashSet::new()
+        EffectiveFonts::new()
     } else if font_xml_paths.is_empty() {
         bail!("❌ 未提供 fonts.xml，无法保证 fallback 安全性");
     } else {
         info!("📄 发现 {} 个 fonts.xml:", font_xml_paths.len());
-        for p in &font_xml_paths {
-            debug!(path = %p.display(), "📄 发现 fonts.xml");
+        for path in &font_xml_paths {
+            debug!(path = %path.display(), "📄 发现 fonts.xml");
         }
 
-    let xml_refs: Vec<&Path> = font_xml_paths.iter().map(PathBuf::as_path).collect();
-    let fonts = collect_effective_fonts(&xml_refs)?;
+        let xml_refs: Vec<&Path> = font_xml_paths.iter().map(PathBuf::as_path).collect();
+        let fonts = collect_effective_fonts(&xml_refs)?;
 
-    if fonts.is_empty() {
-        bail!("❌ fonts.xml 解析成功但未得到任何有效字体");
-    }
+        if fonts.is_empty() {
+            bail!("❌ fonts.xml 解析成功但未得到任何有效字体");
+        }
 
-    debug!(fonts = fonts.len(), ?fonts, "🧩 有效字体集合");
+        debug!(fonts = fonts.len(), ?fonts, "🧩 有效字体集合");
         fonts
     };
 
-    if let Some(Command::Find { codepoint }) = &args.command {
-        let cp = parse_codepoint(codepoint)?;
-        info!("🔍 查找 Unicode U+{:X}", cp);
-
-        let fonts = find_fonts_containing(
-            &args.system_fonts,
-            cp,
-            &effective_fonts,
-        )?;
-
-        if fonts.is_empty() {
-            println!("❌ 没有任何系统字体包含 U+{:X}", cp);
-        } else {
-            println!("✅ 以下系统字体包含 U+{:X}:", cp);
-            for f in fonts {
-                println!("  - {}", f);
-            }
-        }
-        return Ok(());
-    }
-
     let skip_fonts = build_skip_font_set(&args)?;
 
-    info!("系统字体目录: {:?}", args.system_fonts);
+    let system_font_dirs = collect_system_font_dirs(&args.system_fonts);
+    info!("系统字体目录: {:?}", system_font_dirs);
     info!("模块字体目录: {:?}", args.module_fonts);
 
     if args.dry_run {
         info!("🔍 Dry-run 模式：仅统计，不修改文件");
     }
 
-    if let Some(ref out) = args.output {
-        info!("输出目录: {:?}", out);
-        fs::create_dir_all(out)?;
+    if let Some(ref output) = args.output {
+        info!("输出目录: {:?}", output);
+        fs::create_dir_all(output)?;
     }
 
     info!("扫描有效系统字体 Unicode...");
-    let system_unicode =
-        scan_effective_system_unicode(
-        &args.system_fonts,
-        &effective_fonts,
-        args.system_cmap_threshold,
-    )?;
+    let mut system_unicode = HashSet::new();
+    for directory in &system_font_dirs {
+        system_unicode.extend(scan_effective_system_unicode(
+            directory,
+            &effective_fonts,
+            args.system_cmap_threshold,
+        )?);
+    }
 
     info!(count = system_unicode.len(), "🔍 系统 Unicode 扫描完成");
-
     info!("处理模块字体...");
+
     let mut total_kept = 0usize;
     let mut total_removed = 0usize;
     let mut processed_count = 0usize;
@@ -238,8 +120,8 @@ fn main() -> Result<()> {
             continue;
         }
 
-        let file_name = match path.file_name().and_then(|n| n.to_str()) {
-            Some(n) => n,
+        let file_name = match path.file_name().and_then(|name| name.to_str()) {
+            Some(name) => name,
             None => continue,
         };
 
@@ -248,48 +130,61 @@ fn main() -> Result<()> {
             "🔤 处理字体",
             file = %file_name,
             path = %path.display(),
-        ).entered();
+        );
         let _enter = font_span.enter();
 
         if skip_fonts.contains(file_name) {
             info!("🛑 跳过白名单字体");
 
-            if let Some(ref out_dir) = args.output {
-                let dst = out_dir.join(file_name);
-                if dst != path {
-                    fs::create_dir_all(dst.parent().unwrap())?;
-                    fs::copy(&path, &dst)?;
+            if let Some(ref output_dir) = args.output {
+                let destination = output_dir.join(file_name);
+                if destination != path {
+                    if let Some(parent) = destination.parent() {
+                        fs::create_dir_all(parent)?;
+                    }
+                    fs::copy(&path, &destination)?;
                 }
             }
             continue;
         }
 
-        let ext = path.extension().and_then(|e| e.to_str());
-        if !matches!(ext, Some("ttf") | Some("otf")) {
+        if !is_rewritable_font_path(&path) {
+            if path
+                .extension()
+                .and_then(|extension| extension.to_str())
+                .is_some_and(|extension| {
+                    extension.eq_ignore_ascii_case("ttc") || extension.eq_ignore_ascii_case("otc")
+                })
+            {
+                warn!("⚠️ 模块字体为 TTC/OTC collection，当前仅扫描/查找支持 collection；为避免错误重写已跳过");
+            }
             continue;
         }
 
         let data = fs::read(&path)?;
         let face = match Face::parse(&data, 0) {
-            Ok(f) => f,
-            Err(e) => {
-                warn!(error = ?e, "⚠️ 字体解析失败");
+            Ok(face) => face,
+            Err(error) => {
+                warn!(error = ?error, "⚠️ 字体解析失败");
                 continue;
             }
         };
 
-        let mut all_chars = HashSet::new();
-        let mut keep = HashSet::new();
+        let all_chars = unicode_codepoints(&face);
+        let variation_bases = variation_sequence_base_codepoints(&data);
+        let keep: HashSet<u32> = all_chars
+            .iter()
+            .copied()
+            .filter(|codepoint| {
+                !system_unicode.contains(codepoint) || variation_bases.contains(codepoint)
+            })
+            .collect();
 
-        if let Some(cmap) = face.tables().cmap {
-            for sub in cmap.subtables {
-                sub.codepoints(|cp| {
-                    all_chars.insert(cp);
-                    if !system_unicode.contains(&cp) {
-                        keep.insert(cp);
-                    }
-                });
-            }
+        if !variation_bases.is_empty() {
+            debug!(
+                variation_bases = variation_bases.len(),
+                "保留 format 14 UVS/IVS 所引用的基础码位"
+            );
         }
 
         let total_chars = all_chars.len();
@@ -312,24 +207,32 @@ fn main() -> Result<()> {
             continue;
         }
 
-        let dst_path = if let Some(ref out_dir) = args.output {
-            out_dir.join(file_name)
+        let destination = if let Some(ref output_dir) = args.output {
+            output_dir.join(file_name)
         } else {
             path.clone()
         };
 
         if keep_count == 0 {
             warn!(
-                "🗑️ {}: 无可保留字符，已跳过（不输出空字体）",
+                "🗑️ {}: 无可保留字符，为避免生成空 cmap 字体将保持原文件不变",
                 file_name
             );
+            if destination != path {
+                if let Some(parent) = destination.parent() {
+                    fs::create_dir_all(parent)?;
+                }
+                fs::copy(&path, &destination)?;
+            }
             continue;
         }
 
         if keep_count == total_chars {
-            if dst_path != path {
-                fs::create_dir_all(dst_path.parent().unwrap())?;
-                fs::copy(&path, &dst_path)?;
+            if destination != path {
+                if let Some(parent) = destination.parent() {
+                    fs::create_dir_all(parent)?;
+                }
+                fs::copy(&path, &destination)?;
             }
             processed_count += 1;
             continue;
@@ -340,8 +243,10 @@ fn main() -> Result<()> {
 
         let result = catch_unwind(AssertUnwindSafe(|| {
             rewrite_font(
-                path.to_str().unwrap(),
-                dst_path.to_str().unwrap(),
+                path.to_str().expect("font path must be valid UTF-8"),
+                destination
+                    .to_str()
+                    .expect("destination path must be valid UTF-8"),
                 &keep_vec,
             )
         }));
@@ -353,7 +258,7 @@ fn main() -> Result<()> {
                 total_removed += removed;
                 debug!("✅ 重写成功");
             }
-            Ok(Err(e)) => warn!(error = %e, "⚠️ 重写失败，已跳过"),
+            Ok(Err(error)) => warn!(error = %error, "⚠️ 重写失败，已跳过"),
             Err(_) => error!("💥 rewrite_font panic"),
         }
     }
@@ -377,10 +282,9 @@ fn build_skip_font_set(args: &Args) -> Result<HashSet<String>> {
     }
 
     let file = &args.skip_font_file;
-
     if file.exists() {
-        let content = fs::read_to_string(file)
-            .with_context(|| format!("读取白名单文件失败: {:?}", file))?;
+        let content =
+            fs::read_to_string(file).with_context(|| format!("读取白名单文件失败: {:?}", file))?;
 
         for line in content.lines() {
             let line = line.trim();
@@ -401,88 +305,26 @@ fn build_skip_font_set(args: &Args) -> Result<HashSet<String>> {
 fn warn_if_non_emoji(name: &str) {
     let lower = name.to_lowercase();
     let looks_like_emoji = lower.contains("emoji");
-    let ext_ok = name.ends_with(".ttf") || name.ends_with(".otf");
+    let extension_ok = name.ends_with(".ttf") || name.ends_with(".otf");
 
-    if !looks_like_emoji || !ext_ok {
-        warn!(
-            "⚠️ 白名单条目可能不规范（非 emoji 字体？）: {}",
-            name
-        );
+    if !looks_like_emoji || !extension_ok {
+        warn!("⚠️ 白名单条目可能不规范（非 emoji 字体？）: {}", name);
     }
 }
 
-fn parse_codepoint(s: &str) -> Result<u32> {
-    let hex = s.trim()
+fn parse_codepoint(input: &str) -> Result<u32> {
+    let trimmed = input.trim();
+    let hex = trimmed
         .strip_prefix("U+")
-        .or_else(|| s.trim().strip_prefix("u+"))
-        .unwrap_or(s);
+        .or_else(|| trimmed.strip_prefix("u+"))
+        .unwrap_or(trimmed);
 
-    let cp = u32::from_str_radix(hex, 16)
-        .with_context(|| format!("无效的 Unicode 码位: {}", s))?;
+    let codepoint =
+        u32::from_str_radix(hex, 16).with_context(|| format!("无效的 Unicode 码位: {}", input))?;
 
-    if cp > 0x10FFFF {
-        bail!("Unicode 码位超出范围: U+{:X}", cp);
+    if char::from_u32(codepoint).is_none() {
+        bail!("不是有效的 Unicode 标量值: U+{:X}", codepoint);
     }
 
-    Ok(cp)
-}
-
-fn find_fonts_containing(
-    dir: &PathBuf,
-    cp: u32,
-    effective_fonts: &HashSet<String>,
-) -> Result<Vec<String>> {
-    let mut result = Vec::new();
-
-    for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
-        let path = entry.path();
-
-        if !matches!(
-            path.extension().and_then(|e| e.to_str()),
-            Some("ttf") | Some("otf")
-        ) {
-            continue;
-        }
-
-        let file_name = match path.file_name().and_then(|n| n.to_str()) {
-            Some(n) => n,
-            None => continue,
-        };
-
-        if !effective_fonts.is_empty() && !effective_fonts.contains(file_name) {
-            continue;
-        }
-
-        let data = match fs::read(path) {
-            Ok(d) => d,
-            Err(_) => continue,
-        };
-
-        let face = match Face::parse(&data, 0) {
-            Ok(f) => f,
-            Err(_) => continue,
-        };
-
-        if let Some(cmap) = face.tables().cmap {
-            let mut found = false;
-            for sub in cmap.subtables {
-                if sub.is_unicode() {
-                    sub.codepoints(|p| {
-                        if p == cp {
-                            found = true;
-                        }
-                    });
-                }
-                if found {
-                    break;
-                }
-            }
-
-            if found {
-                result.push(file_name.to_string());
-            }
-        }
-    }
-
-    Ok(result)
+    Ok(codepoint)
 }

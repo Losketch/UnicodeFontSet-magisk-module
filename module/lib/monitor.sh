@@ -1,31 +1,26 @@
-
 monitor_xml_font_modules() {
     local print_func="$1"
-    local ACTION_FLAG_NAME="$2"
+    local action_flag_name="$2"
+    local module_dir mod_name subdir target_dir file target_file backup_file sha1_file
 
-    for MODULE_DIR in "$MODULE_PARENT"/*; do
-        [ ! -d "$MODULE_DIR" ] && continue
-        local MOD_NAME=$(basename "$MODULE_DIR")
-        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
+    for module_dir in "$MODULE_PARENT"/*; do
+        [ -d "$module_dir" ] || continue
+        mod_name="$(basename "$module_dir")"
+        if [ "$mod_name" = "$SELF_MOD_NAME" ] || [ -f "$module_dir/disable" ] || [ -f "$module_dir/remove" ]; then
             continue
         fi
 
-        for SUB in $FONT_XML_SUBDIRS; do
-            local TARGET_DIR="$MODULE_DIR/$SUB"
-            for F in $FONT_XML_FILES; do
-                local TARGET_FILE="$TARGET_DIR/$F"
-                local BACKUP_FILE="$MODPATH/backup/$MOD_NAME/$SUB/$F"
-                local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_$F")"
+        for subdir in $FONT_XML_SUBDIRS; do
+            target_dir="$module_dir/$subdir"
+            for file in $FONT_XML_FILES; do
+                target_file="$target_dir/$file"
+                [ -f "$target_file" ] || continue
 
-                if [ -f "$TARGET_FILE" ]; then
-                    process_xml_font_action "$print_func" "$MOD_NAME" "$SUB" "$F" "$TARGET_FILE" "$BACKUP_FILE" "$SHA1_FILE" "$ACTION_FLAG_NAME"
-                elif [ -f "$BACKUP_FILE" ]; then
-                    if [ ! -d "$MODULE_DIR" ]; then
-                        $print_func "$(safe_printf TXT_MODULE_REMOVED_XML "$MOD_NAME" "$SUB")"
-                        rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
-                        rm -f "$SHA1_FILE"
-                    fi
-                fi
+                backup_file="$MODPATH/backup/$mod_name/$subdir/$file"
+                sha1_file="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${mod_name}_${subdir}_$file")"
+                process_xml_font_action \
+                    "$print_func" "$mod_name" "$subdir" "$file" "$target_file" \
+                    "$backup_file" "$sha1_file" "$action_flag_name"
             done
         done
     done
@@ -33,83 +28,90 @@ monitor_xml_font_modules() {
 
 monitor_binary_font_modules() {
     local print_func="$1"
-    local ACTION_FLAG_NAME="$2"
-    local THIS_MODULE_BINARY_FONTS="$3"
+    local action_flag_name="$2"
+    local this_module_binary_fonts="$3"
+    local module_dir mod_name subdir target_dir font_file font_filename backup_file sha1_file
 
-    for MODULE_DIR in "$MODULE_PARENT"/*; do
-        [ ! -d "$MODULE_DIR" ] && continue
-        local MOD_NAME=$(basename "$MODULE_DIR")
-        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
+    [ -n "$this_module_binary_fonts" ] || return 0
+
+    for module_dir in "$MODULE_PARENT"/*; do
+        [ -d "$module_dir" ] || continue
+        mod_name="$(basename "$module_dir")"
+        if [ "$mod_name" = "$SELF_MOD_NAME" ] || [ -f "$module_dir/disable" ] || [ -f "$module_dir/remove" ]; then
             continue
         fi
 
-        for SUB in $FONT_BINARY_SUBDIRS; do
-            local TARGET_DIR="$MODULE_DIR/$SUB"
-            [ ! -d "$TARGET_DIR" ] && continue
+        for subdir in $FONT_BINARY_SUBDIRS; do
+            target_dir="$module_dir/$subdir"
+            [ -d "$target_dir" ] || continue
 
-            for FONT_FILE in "$TARGET_DIR"/*; do
-                [ ! -f "$FONT_FILE" ] && continue
-                local FONT_FILENAME=$(basename "$FONT_FILE")
-                [ -z "$THIS_MODULE_BINARY_FONTS" ] && continue
-
-                case " $THIS_MODULE_BINARY_FONTS " in
-                    *" $FONT_FILENAME "*)
-                        local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$SUB"
-                        local BACKUP_FILE="$BACKUP_DIR/$FONT_FILENAME"
-                        local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_${FONT_FILENAME}")"
-                        process_binary_font_action "$print_func" "$MOD_NAME" "$SUB" "$FONT_FILE" "$FONT_FILENAME" "$BACKUP_DIR" "$BACKUP_FILE" "$SHA1_FILE" "$ACTION_FLAG_NAME"
-                        ;;
+            for font_file in "$target_dir"/*; do
+                [ -f "$font_file" ] || continue
+                font_filename="$(basename "$font_file")"
+                case " $this_module_binary_fonts " in
+                    *" $font_filename "*) ;;
+                    *) continue ;;
                 esac
+
+                backup_file="$MODPATH/backup/$mod_name/$subdir/$font_filename"
+                sha1_file="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${mod_name}_${subdir}_${font_filename}")"
+                process_binary_font_action \
+                    "$print_func" "$mod_name" "$subdir" "$font_file" "$font_filename" \
+                    "$backup_file" "$sha1_file" "$action_flag_name"
             done
         done
     done
 }
 
-handle_removed_binary_modules() {
+cleanup_removed_module_backups() {
     local print_func="$1"
+    local backup_root="$MODPATH/backup"
+    local module_backup mod_name subdir safe_prefix
 
-    for MODULE_DIR in "$MODULE_PARENT"/*; do
-        [ ! -d "$MODULE_DIR" ] && continue
-        local MOD_NAME=$(basename "$MODULE_DIR")
-        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
-            continue
-        fi
+    [ -d "$backup_root" ] || return 0
 
-        if [ ! -d "$MODULE_DIR" ]; then
-            for SUB in $FONT_BINARY_SUBDIRS; do
-                if [ -d "$MODPATH/backup/$MOD_NAME/$SUB" ]; then
-                    $print_func "$(safe_printf TXT_MODULE_REMOVED_BIN "$MOD_NAME" "$SUB")"
-                    rm -rf "$MODPATH/backup/$MOD_NAME/$SUB"
-                    local SAFE_PREFIX=$(get_safe_sha1_filename "${MOD_NAME}_${SUB}_")
-                    rm -f "$SHA1_DIR/sha1_${SAFE_PREFIX}"* 2>/dev/null
-                fi
-            done
-        fi
+    for module_backup in "$backup_root"/*; do
+        [ -d "$module_backup" ] || continue
+        mod_name="$(basename "$module_backup")"
+        [ -d "$MODULE_PARENT/$mod_name" ] && continue
+
+        for subdir in $FONT_XML_SUBDIRS; do
+            if [ -d "$module_backup/$subdir" ]; then
+                "$print_func" "$(safe_printf TXT_MODULE_REMOVED_XML "$mod_name" "$subdir")"
+            fi
+        done
+        for subdir in $FONT_BINARY_SUBDIRS; do
+            if [ -d "$module_backup/$subdir" ]; then
+                "$print_func" "$(safe_printf TXT_MODULE_REMOVED_BIN "$mod_name" "$subdir")"
+            fi
+        done
+
+        rm -rf "$module_backup"
+        safe_prefix="$(get_safe_sha1_filename "${mod_name}_")"
+        rm -f "$SHA1_DIR/sha1_${safe_prefix}"* 2>/dev/null || true
     done
 }
 
 monitor_font_modules() {
     local print_func="$1"
+    local found_xml_actions=0
+    local found_binary_actions=0
+    local this_module_binary_fonts
 
-    local FOUND_XML_ACTIONS=0
-    local FOUND_BINARY_ACTIONS=0
+    "$print_func" "$(safe_text TXT_START_MONITOR)"
 
-    $print_func "$(safe_text TXT_START_MONITOR)"
-
-    local THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
-    if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
-        $print_func "$(safe_text TXT_WARN_NO_SELF_FONTS)"
+    this_module_binary_fonts="$(get_this_module_font_binaries)"
+    if [ -z "$this_module_binary_fonts" ]; then
+        "$print_func" "$(safe_text TXT_WARN_NO_SELF_FONTS)"
     fi
 
-    monitor_xml_font_modules "$print_func" FOUND_XML_ACTIONS
+    monitor_xml_font_modules "$print_func" found_xml_actions
+    monitor_binary_font_modules "$print_func" found_binary_actions "$this_module_binary_fonts"
+    cleanup_removed_module_backups "$print_func"
 
-    monitor_binary_font_modules "$print_func" FOUND_BINARY_ACTIONS "$THIS_MODULE_BINARY_FONTS"
-
-    handle_removed_binary_modules "$print_func"
-
-    if [ "$FOUND_XML_ACTIONS" -eq 0 ] && [ "$FOUND_BINARY_ACTIONS" -eq 0 ]; then
-        $print_func "$(safe_text TXT_NO_CONFLICT)"
+    if [ "$found_xml_actions" -eq 0 ] && [ "$found_binary_actions" -eq 0 ]; then
+        "$print_func" "$(safe_text TXT_NO_CONFLICT)"
     fi
 
-    $print_func "$(safe_text TXT_MONITOR_DONE)"
+    "$print_func" "$(safe_text TXT_MONITOR_DONE)"
 }

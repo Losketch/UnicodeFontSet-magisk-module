@@ -79,6 +79,7 @@
 
 ## 字体信息
 
+- 🛠️ [开发与验证](docs/DEVELOPMENT.md)
 - 📄 [字体来源与许可](docs/LICENSES.md)
 - 🙏 [鸣谢名单](docs/CREDITS.md)
 

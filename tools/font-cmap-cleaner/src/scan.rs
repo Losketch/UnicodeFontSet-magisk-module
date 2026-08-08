@@ -1,12 +1,18 @@
-use anyhow::Result;
 use std::{collections::HashSet, fs, path::Path};
+
+use anyhow::Result;
+use tracing::{debug, trace, warn};
 use ttf_parser::Face;
 use walkdir::WalkDir;
-use tracing::{debug, trace};
+
+use crate::{
+    font::{face_indices, is_font_path, unicode_codepoints},
+    fonts_xml::EffectiveFonts,
+};
 
 pub fn scan_effective_system_unicode(
     dir: &Path,
-    effective_fonts: &HashSet<String>,
+    effective_fonts: &EffectiveFonts,
     cmap_threshold: usize,
 ) -> Result<HashSet<u32>> {
     debug!(
@@ -17,65 +23,92 @@ pub fn scan_effective_system_unicode(
 
     let mut set = HashSet::new();
 
-    for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
-        let path = entry.path();
+    for entry in WalkDir::new(dir).follow_links(true) {
+        let entry = match entry {
+            Ok(entry) => entry,
+            Err(error) => {
+                warn!(error = %error, "walk system font directory failed; entry skipped");
+                continue;
+            }
+        };
 
-        if !is_font(path) {
+        let path = entry.path();
+        if !entry.file_type().is_file() && !entry.file_type().is_symlink() {
+            continue;
+        }
+        if !is_font_path(path) {
             continue;
         }
 
-        let file_name = match path.file_name().and_then(|n| n.to_str()) {
-            Some(n) => n,
+        let file_name = match path.file_name().and_then(|name| name.to_str()) {
+            Some(name) => name,
             None => continue,
         };
 
-        if !effective_fonts.is_empty() && !effective_fonts.contains(file_name) {
-            trace!(font = %file_name, "skip non-effective system font");
-            continue;
-        }
+        let referenced_indices = if effective_fonts.is_empty() {
+            None
+        } else {
+            match effective_fonts.get(file_name) {
+                Some(indices) => Some(indices),
+                None => {
+                    trace!(font = %file_name, "skip non-effective system font");
+                    continue;
+                }
+            }
+        };
 
         let data = match fs::read(path) {
-            Ok(d) => d,
-            Err(_) => continue,
+            Ok(data) => data,
+            Err(error) => {
+                warn!(path = %path.display(), error = %error, "read system font failed; skipped");
+                continue;
+            }
         };
 
-        let face = match Face::parse(&data, 0) {
-            Ok(f) => f,
-            Err(_) => continue,
-        };
+        let mut parsed_faces = 0usize;
 
-        if let Some(cmap) = face.tables().cmap {
-            let mut local = HashSet::new();
-
-            for sub in cmap.subtables {
-                sub.codepoints(|cp| {
-                    local.insert(cp);
-                });
+        for face_index in face_indices(&data) {
+            if referenced_indices.is_some_and(|indices| !indices.contains(&face_index)) {
+                trace!(font = %file_name, face_index, "skip unreferenced collection face");
+                continue;
             }
 
+            let face = match Face::parse(&data, face_index) {
+                Ok(face) => face,
+                Err(error) => {
+                    trace!(
+                        font = %file_name,
+                        face_index,
+                        error = ?error,
+                        "font face parse failed; skipped"
+                    );
+                    continue;
+                }
+            };
+
+            parsed_faces += 1;
+            let local = unicode_codepoints(&face);
             let count = local.len();
 
             if count > cmap_threshold {
-                tracing::warn!(
+                warn!(
                     font = %file_name,
+                    face_index,
                     count,
                     threshold = cmap_threshold,
-                    "system font cmap exceeds threshold, excluded from system_unicode"
+                    "system font face cmap exceeds threshold, face excluded from system_unicode"
                 );
                 continue;
             }
 
             set.extend(local);
         }
+
+        if parsed_faces == 0 {
+            warn!(font = %file_name, "no parseable faces found; skipped");
+        }
     }
 
     debug!(total = set.len(), "system unicode collected");
     Ok(set)
-}
-
-fn is_font(p: &Path) -> bool {
-    matches!(
-        p.extension().and_then(|e| e.to_str()),
-        Some("ttf") | Some("otf") | Some("ttc")
-    )
 }

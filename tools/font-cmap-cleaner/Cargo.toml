@@ -2,16 +2,17 @@
 name = "font-cmap-tool"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.97.1"
 license = "MPL-2.0"
 
 [dependencies]
 anyhow = "1.0"
 ttf-parser = "0.25.1"
-read-fonts = { git = "https://github.com/googlefonts/fontations"}
-write-fonts = { git = "https://github.com/googlefonts/fontations"}
-walkdir = "2.4"
-clap = { version = "4.5", features = ["derive"] }
-quick-xml = "0.39.0"
+read-fonts = "0.42.1"
+write-fonts = "0.51.0"
+walkdir = "2.5"
+clap = { version = "4.6", features = ["derive"] }
+quick-xml = "0.41.0"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 
@@ -19,11 +20,3 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 assert_cmd = "2.0"
 predicates = "3.1"
 tempfile = "3.10"
-
-[profile.release]
-lto = true
-debug = false
-opt-level = "z"
-codegen-units = 1
-panic = "unwind"
-strip = true
