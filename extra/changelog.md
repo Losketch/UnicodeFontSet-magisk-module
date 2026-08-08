@@ -1,3 +1,11 @@
+## 2.0.0-beta.1
+
+- Too many refactors to list individually; we’ve lost track of the original diffs. :D
+
+---
+
+<details>
+<summary><h4>Historical update content</h4></summary>
 
 ## V1.7.5
 
@@ -27,9 +35,6 @@
 - **fontdiff.py**
 
 ---
-
-<details>
-<summary><h4>Historical update content</h4></summary>
 
 ## V1.7.4
 
@@ -230,41 +235,36 @@
 
 ### 🔤 Unicode Codepoint Coverage / Unicode 码点显示情况
 
-- **Unicode 17.0 Full Support**: Complete glyph coverage for all defined characters in Unicode 17.0
-- **Unicode 17.0 标准码点全覆盖**：本模块实现了对 Unicode 17.0 标准码点的完整字形显示。
-
-- **Unicode 18.0 Alpha Complete**: All target codepoints are now covered!
-- **Unicode 18.0 Alpha 全面支持**：所有目标码点现已完全覆盖！
-
 ```bash
-PS .\UnicodeFontSet-magisk-module\module\system\fonts> py check_fonts_unicode.py UnicodeData.txt *.*tf
 1) Parsing UnicodeData.txt ...
-   → Total codepoints to cover: 172914 (excluded Cs/Co/Cn categories)
+   → Total codepoints to cover: 172873 (excluded Cs/Co/Cn categories)
 
-   Read KreativeSquare.ttf codepoints from 6244
-   Read NewGardiner.ttf codepoints from 4639
-   Read NotoColorEmoji.ttf codepoints from 1499
-   Read NotoEmoji-Regular.ttf codepoints from 1503
-   Read NotoSansSuper.otf codepoints from 17693
-   Read NotoUnicode.otf codepoints from 21755
-   Read PlangothicP1-Regular.otf codepoints from 65435
-   Read PlangothicP2-Regular.otf codepoints from 42542
-   Read SourceHanSansSC-Regular.otf codepoints from 44853
-   Read TempSeal.ttf codepoints from 22554
-   Read UFSTempAlpha.otf codepoints from 1720
-   Read UFSZeroExt.otf codepoints from 378
-   Read UnicodiaDaarage.otf codepoints from 101
-   Read UnicodiaSesh.ttf codepoints from 4719
+   Read 3048 target codepoints from module/system/fonts/KreativeSquare.ttf
+   Skipped terminal fallback: module/system/fonts/LastResort-Regular.ttf
+   Read 4555 target codepoints from module/system/fonts/NewGardiner.ttf
+   Read 1480 target codepoints from module/system/fonts/NotoColorEmoji.ttf
+   Read 1482 target codepoints from module/system/fonts/NotoEmoji-Regular.ttf
+   Read 10098 target codepoints from module/system/fonts/NotoSansHistorical-Regular.ttf
+   Read 17233 target codepoints from module/system/fonts/NotoSansLiving-Regular.ttf
+   Read 4616 target codepoints from module/system/fonts/NotoSansSymbols-Regular-Subsetted.ttf
+   Read 21729 target codepoints from module/system/fonts/NotoUnicode.otf
+   Read 63944 target codepoints from module/system/fonts/PlangothicP1-Regular.otf
+   Read 42038 target codepoints from module/system/fonts/PlangothicP2-Regular.otf
+   Read 44853 target codepoints from module/system/fonts/SourceHanSansSC-Regular.otf
+   Read 22554 target codepoints from module/system/fonts/TempSeal.ttf
+   Read 1677 target codepoints from module/system/fonts/UFSTempAlpha.otf
+   Read 377 target codepoints from module/system/fonts/UFSZeroExt.otf
+   Read 100 target codepoints from module/system/fonts/UnicodiaDaarage.otf
+   Read 1439 target codepoints from module/system/fonts/UnicodiaFunky.ttf
+   Read 4720 target codepoints from module/system/fonts/UnicodiaSesh.ttf
 
-   Union of fonts supports 177436 codepoints
+   Union of fonts covers 172870 target codepoints
 
-✅ All target Unicode codepoints are covered!
+❌ Missing 3 codepoints:
+::warning title=Unicode coverage::Missing 3 target codepoints
+  U+11DF0--U+11DF1
+  U+18802    TANGUT COMPONENT-003
 ```
-
----
-***Coverage Notes / 覆盖情况说明：***
-- *V1.7.5: Full Unicode 18.0 Alpha support — Jurchen (18E00-19191), Seal (3D000-3FC3F), Archaic Cuneiform Numerals (12550-12686)*
-- *V1.7.5 已完成 Unicode 18.0 Alpha 全部字符支持，包括女真文(Jurchen 18E00-19191)、篆书(Seal 3D000–3FC3F)和古楔形文字数字(Archaic Cuneiform Numerals 12550-12686)区块*
 
 ### 🎨 Emoji Font Variants / Emoji 字体格式变体
 - Please refer to [`Variants`](https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/tag/nightly)

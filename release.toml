@@ -1,0 +1,27 @@
+[project]
+id = "unicode_font_set"
+name = "Unicode Font Set - 字体集"
+author = "Losketch"
+description = "Expand Android font fallback coverage for Unicode characters. / 扩充 Android 字体回退，实现 Unicode 字形覆盖。"
+repository = "https://github.com/Losketch/UnicodeFontSet-magisk-module"
+
+[release]
+framework_version = "2.0.0-beta.1"
+version_code = 2000001
+unicode_version = "18.0.0-beta"
+unicode_label = "Unicode 18.0.0 Beta"
+unicode_data_url = "https://www.unicode.org/Public/18.0.0/ucd/UnicodeData.txt"
+
+[variants.colrv1]
+label = "COLRv1"
+min_api = 33
+artifact = "UnicodeFontSet-COLRv1-module.zip"
+update_asset = "update-colrv1.json"
+nightly_update_asset = "update-nightly-colrv1.json"
+
+[variants.cbdt]
+label = "CBDT"
+min_api = 26
+artifact = "UnicodeFontSet-CBDT-module.zip"
+update_asset = "update-cbdt.json"
+nightly_update_asset = "update-nightly-cbdt.json"

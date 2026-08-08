@@ -1,31 +1,19 @@
-# ================================
-# 中文语言包 (Simplified Chinese)
-# ================================
 
-# --- 通用 ---
-TXT_SERVICE_START="🚀 === 开始执行字体模块监控任务 ==="
-TXT_START_MONITOR="📹 开始监控其他字体模块的变化..."
-TXT_MONITOR_DONE="✅ 字体模块监控完成"
-TXT_NO_CONFLICT="  ✅ 未发现其他字体模块的冲突"
+TXT_SERVICE_START="🔎 正在检查字体配置变化..."
+TXT_START_MONITOR="正在检查其它字体模块..."
+TXT_MONITOR_DONE="✅ 字体配置检查完成"
+TXT_NO_CONFLICT="  ✅ 字体配置已是最新状态"
 
-TXT_LOCK_BUSY="⛔ 另一实例正在运行，跳过本次监控"
-TXT_SERVICE_BUSY="⛔ 另一实例正在运行，退出本次 service 启动"
+TXT_LOCK_BUSY="ℹ️ 另一项字体任务正在运行，本次已跳过"
+TXT_SERVICE_BUSY="ℹ️ 另一项字体任务正在运行，本次检查已跳过"
 
-TXT_API_TOO_LOW="⏬ Android版本过低，跳过字体注入"
+TXT_API_TOO_LOW="❌ 当前构建需要 Android API %s 或更高版本"
 TXT_ERROR_API_LEVEL="❌ 错误：API 级别未设置。"
+TXT_ERROR_MIN_API="❌ 当前构建缺少最低 Android API 配置"
+TXT_ERROR_SOURCE_PACKAGE="❌ 这是源码占位目录，不是可安装的模块包。请使用 Release 或构建生成的 ZIP。"
 
-# --- 字体 XML ---
-TXT_XML_NEW="🆕️ 检测到模块 %1\$s 新增了字体XML文件 %2\$s/%3\$s。"
-TXT_XML_UPDATE="♻️ 检测到模块 %1\$s 更新了字体XML文件 %2\$s/%3\$s，重新处理。"
-TXT_XML_RECREATE="🔁 检测到模块 %1\$s 重新创建了字体XML文件 %2\$s/%3\$s。"
+TXT_XML_INJECT_OK="  ✅ 已更新字体配置：%s"
 
-TXT_XML_BACKUP_FAIL="  ❌ 备份失败：%s，跳过处理"
-TXT_XML_COPY_FAIL="  ❌ 复制失败：%s"
-
-TXT_XML_INJECT_OK="  ✅ 已向 %s 注入字体配置"
-TXT_XML_REPLACED="✅ 已替换 %1\$s 的 %2\$s/%3\$s 并重新注入字体。"
-
-# --- 错误信息 ---
 TXT_ERROR_COPY="  ❌ 复制失败：从 %1\$s 到 %2\$s"
 TXT_ERROR_WRITE="  ❌ 写入失败：%s"
 TXT_ERROR_PROCESS="  ❌ 处理失败：%s"
@@ -34,91 +22,72 @@ TXT_ERROR_MOVE="  ❌ 移动失败：从 %1\$s 到 %2\$s"
 TXT_XML_FORMAT_WARN="  ⚠️ 警告：%s 格式可能不正确，跳过处理。"
 TXT_XML_NOT_FOUND="  ❌ 文件不存在：%s"
 TXT_XML_FRAGMENT_MISSING="  ❌ 缺少字体注入配置"
-TXT_XML_NONE="  ℹ️ 未发现其他字体XML模块"
+TXT_XML_NONE="  ℹ️ 字体配置无需修改"
 
-# --- 字体二进制 ---
 TXT_WARN_NO_SELF_FONTS="⚠️ 本模块的 system/fonts 目录下未发现字体文件，无法处理其他模块的重名字体"
-TXT_BIN_NEW="🆕️ 检测到模块 %1\$s 新增了重名字体二进制文件 %2\$s/%3\$s。"
-TXT_BIN_UPDATE="♻️ 检测到模块 %1\$s 更新了重名字体二进制文件 %2\$s/%3\$s，重新处理。"
-TXT_BIN_RECREATE="🔁 检测到模块 %1\$s 重新创建了重名字体二进制文件 %2\$s/%3\$s。"
+TXT_BIN_NEW="🆕️ 模块 %1\$s 新增了同名字体：%2\$s/%3\$s"
+TXT_BIN_UPDATE="♻️ 模块 %1\$s 更新了同名字体：%2\$s/%3\$s"
+TXT_BIN_RECREATE="🔁 模块 %1\$s 重新提供了同名字体：%2\$s/%3\$s"
 
-TXT_BIN_BACKUP_OK="✅ 已删除并备份：%1\$s/%2\$s/%3\$s"
+TXT_BIN_BACKUP_OK="✅ 已处理同名字体：%1\$s/%2\$s/%3\$s"
 TXT_BIN_BACKUP_FAIL="  ❌ 备份失败：%s，跳过处理"
 TXT_BIN_NONE="  ℹ️ 未发现其他重名字体二进制模块"
 
-# --- 安装阶段 ---
-TXT_INSTALL_XML_SCAN="📄 正在处理其他模块的字体XML文件..."
-TXT_INSTALL_BIN_SCAN="📦 正在处理其他模块的字体二进制文件..."
-TXT_INSTALL_SYSTEM_XML="🧩 正在扫描系统字体XML文件..."
-TXT_INSTALL_DONE="- ✅ 安装完成,已清理冲突的字体文件"
-TXT_INSTALL_PROCESS="  ⚙️ 处理: %1\$s/%2\$s"
-TXT_INSTALL_COPY_FAIL=" ❌ 复制失败：%s"
-TXT_SYSTEM_XML_NONE="  ℹ️ 未发现系统字体XML文件"
+TXT_INSTALL_XML_SCAN="📄 正在整理字体配置..."
+TXT_INSTALL_BIN_SCAN="📦 正在检查同名字体文件..."
+TXT_INSTALL_SYSTEM_XML="🧩 正在读取系统字体配置..."
+TXT_INSTALL_DONE="- ✅ 字体文件准备完成"
 
-# --- 模块生命周期 ---
 TXT_MODULE_FOUND="  🔍 发现模块: %s"
 TXT_MODULE_REMOVED_XML="🧹 模块 %1\$s 已被删除，清理相关字体XML备份 (%2\$s)。"
 TXT_MODULE_REMOVED_BIN="🧹 模块 %1\$s 已被删除，清理相关字体二进制备份 (%2\$s)。"
 
-# --- 输入检测 ---
 TXT_KEYCHECK_DETECT="- 🎚️ 使用 keycheck 检测音量键（%s 秒）"
 TXT_GETEVENT_DETECT="- 🎚️ 使用 getevent 检测音量键（%s 秒）"
 TXT_NO_INPUT_METHOD="- ℹ️ 未检测到可用的输入方式"
 
-# --- cmap 清理 ---
-TXT_CMAP_TITLE="📌 可选操作：cmap 字符表清理"
-TXT_CMAP_DESC_1="📖 如遇到以下问题："
-TXT_CMAP_DESC_2=" - 😵 颜文字（如 ʕ•ᴥ•ʔ、 (╯°□°）、 ๑⃙⃘´༥`๑⃙⃘ 、 (ͼ̤͂ ͜ ͽ̤͂)✧、 ٩(๑ᵒ̴̶̷͈᷄ᗨᵒ̴̶̷͈᷅)و）显示异常"
-TXT_CMAP_DESC_3=" - 😀 Emoji 显示为空白 / 方块 / 错位（如😀.png 、🤓:书呆子脸）"
-TXT_CMAP_DESC_4="👉 这通常是字体 cmap 冲突导致的"
-TXT_CMAP_DESC_5="⚠️ 此操作会修改模块内字体文件（安全，可恢复）"
-
-# --- Magisk ---
-TXT_MAGISK_MIRROR_UNAVAIL="⚠️ Magisk 镜像路径不可用，将直接使用系统路径"
-TXT_MAGISK_CMD_UNAVAIL="⚠️ Magisk 命令不可用，将直接使用系统路径"
+TXT_CMAP_TITLE="📌 可选：修复字体字符映射冲突"
+TXT_CMAP_DESC_1="如果 Emoji、颜文字或符号显示成方框、空白或错误样式，可以尝试此操作。"
+TXT_CMAP_DESC_2="它会移除重复或按配置指定的 Unicode 映射，减少字体互相抢占字符。"
+TXT_CMAP_DESC_3="处理失败的特殊字体会自动保留原文件。"
+TXT_CMAP_DESC_5="⚠️ 此操作会修改模块内字体；重新安装模块即可恢复原文件。"
 
 TXT_CMAP_CHOICE="⏳ 15 秒内："
 TXT_CMAP_SKIP_HINT="  ⬆️ [+]音量【上】 → 跳过"
 TXT_CMAP_RUN_HINT="  ⬇️ [-]音量【下】 → 执行清理"
 
-TXT_CMAP_RUN="🚀 选择执行 cmap 清理"
-TXT_CMAP_SKIP="↩️ 用户选择跳过"
+TXT_CMAP_RUN="🔧 开始修复字体字符映射"
+TXT_CMAP_SKIP="↩️ 已跳过字符映射清理"
 TXT_CMAP_TIMEOUT="⏱️ 超时未操作，已跳过"
 TXT_CMAP_UNSUPPORTED="ℹ️ 当前环境不支持按键检测，已跳过"
 
-TXT_CMAP_START="🔧 执行 font-cmap-cleaner..."
-TXT_CMAP_DONE="✅ font-cmap-cleaner 处理完成"
-TXT_CMAP_FAIL="⚠️ font-cmap-cleaner 执行失败 (exit=%s)"
+TXT_CMAP_START="🔧 正在清理字体字符映射..."
+TXT_CMAP_DONE="✅ 字体字符映射清理完成"
+TXT_CMAP_FAIL="⚠️ 字体字符映射清理未完成（错误码 %s）"
 TXT_CMAP_COPY_FAIL="❌ 复制 font-cmap-tool 失败"
-TXT_CMAP_CANNOT_RUN="⚠️ font-cmap-cleaner 无法在当前系统执行"
+TXT_CMAP_CANNOT_RUN="⚠️ 当前设备无法运行字体清理工具"
 TXT_CMAP_TOOL_PATH="  📍 %s"
 
-# --- ABI / 工具 ---
 TXT_ABI_PRIMARY="- 🧬 主要 ABI: %s"
 TXT_ABI_LIST="- 🧬 ABI 列表: %s"
 TXT_ABI_UNSUPPORTED="❌ ! 不支持的 ABI: %s"
-TXT_CMAP_TOOL_MISSING="❌ ! font-cmap-cleaner 二进制文件不存在或不可执行"
-TXT_CMAP_TOOL_USING="- 🔧 使用 font-cmap-cleaner: %s"
+TXT_CMAP_TOOL_MISSING="❌ 找不到适用于当前设备的字体清理工具"
+TXT_CMAP_TOOL_USING="- 🔧 字体清理工具: %s"
 
-# --- 安装界面 ---
 TXT_INSTALL_TITLE="🎨 Unicode Font Set 安装程序"
 TXT_INSTALL_HEADER="========================================"
 TXT_VERSION="🏷️ 版本: %s"
 TXT_INSTALL_COMPLETE="🎉 安装完成！"
 TXT_REBOOT_REQUIRED="🔄 请重启设备以应用字体配置。"
-TXT_START_SERVICE="▶️ 启动字体模块服务..."
 
-# --- 锁 ---
 TXT_LOCK_TIMEOUT="⏰⚠️ 锁获取超时（30秒），可能存在死锁或长时间运行的实例"
 
-# --- 安装步骤 ---
-TXT_STEP_1="①📄 扫描其他字体模块的XML文件..."
-TXT_STEP_2="②📦 处理其他字体模块的二进制字体文件..."
-TXT_STEP_3="③🧩 处理系统字体XML文件..."
+TXT_STEP_1="①🧱 保存系统原始字体配置..."
+TXT_STEP_2="②📄 合并其它字体模块的配置..."
+TXT_STEP_3="③📦 处理同名字体文件..."
 TXT_STEP_4="④✅ 完成安装准备..."
 TXT_INSTALL_SEPARATOR="========================================"
 
-# --- 日志消息 ---
 TXT_LOG_FILE_NOT_FOUND="❌ 文件未找到：%s"
 TXT_LOG_FRAGMENT_NOT_FOUND="❌ 字体片段文件未找到：%s"
 TXT_LOG_INVALID_XML_FORMAT="❌ XML格式无效：%s"
@@ -134,6 +103,15 @@ TXT_LOG_XML_PROCESSED="✅ 成功处理字体XML：%s"
 TXT_LOG_SHA1_WRITE_FAILED="❌ 写入SHA1值失败：%s"
 TXT_LOG_SHA1_MOVE_FAILED="❌ 移动SHA1文件失败：从 %1\$s 到 %2\$s"
 
-# --- 语言加载器 ---
-TXT_LANG_DEFAULT_MISSING="⚠️ 默认语言文件 lang_en_US.sh 未找到"
-TXT_LANG_UNSUPPORTED="⚠️ 不支持的语言 %s，使用英文"
+TXT_STOCK_XML_UPDATED="🧱 已保存系统字体配置：%1\$s/%2\$s"
+TXT_STOCK_XML_REMOVED="🧹 系统字体配置已移除，已清理旧备份：%1\$s/%2\$s"
+TXT_XML_CAPTURED="💾 已保存模块 %1\$s 的原始字体配置：%2\$s/%3\$s"
+TXT_XML_SIBLING_PATCHED="✅ 已更新模块 %1\$s 的字体配置：%2\$s/%3\$s"
+TXT_XML_NATIVE_PRECEDENCE="🔀 %1\$s/%2\$s 由 %3\$s 个字体模块提供，将按模块管理器原有顺序处理"
+TXT_XML_PROVIDER_NONE="🧹 %1\$s/%2\$s 没有可用字体配置，已移除 UFS 对应文件"
+TXT_XML_STOCK_REBASED="♻️ 已使用最新系统配置更新 UFS：%1\$s/%2\$s"
+TXT_XML_REBASE_FAILED="❌ 更新字体配置失败"
+TXT_STATE_IMPORT_FAIL="❌ 无法导入上一版本的 UFS 备份状态"
+TXT_STOCK_XML_FAIL="❌ 无法读取系统原始字体配置"
+TXT_STOCK_XML_DEFERRED="ℹ️ 安装时无法读取系统原始字体配置，将在下次启动时自动完成"
+TXT_EARLY_REBASE_START="🧱 正在更新系统字体配置..."

@@ -1,9 +1,15 @@
 
 detect_arch() {
-    local ABI ARCH
+    local ABI UNAME_ARCH MANAGER_ABI
+
+    MANAGER_ABI="$(ufs_manager_arch_to_abi 2>/dev/null || true)"
+    if [ -n "$MANAGER_ABI" ]; then
+        printf '%s\n' "$MANAGER_ABI"
+        return 0
+    fi
 
     ABI="$(getprop ro.product.cpu.abi 2>/dev/null)"
-    ARCH="$(uname -m 2>/dev/null)"
+    UNAME_ARCH="$(uname -m 2>/dev/null)"
 
     if [ -n "$ABI" ]; then
         case "$ABI" in
@@ -15,8 +21,8 @@ detect_arch() {
         esac
     fi
 
-    if [ -n "$ARCH" ]; then
-        case "$ARCH" in
+    if [ -n "$UNAME_ARCH" ]; then
+        case "$UNAME_ARCH" in
             aarch64)      echo "arm64-v8a"; return 0 ;;
             armv8*|armv7*) echo "armeabi-v7a"; return 0 ;;
             arm*)         echo "armeabi"; return 0 ;;
@@ -31,8 +37,10 @@ detect_arch() {
 select_font_cmap_tool() {
     local ABI ABI_LIST DETECTED_ABI
 
-    ABI="$(getprop ro.product.cpu.abi)"
-    ABI_LIST="$(getprop ro.product.cpu.abilist)"
+    ABI="$(getprop ro.product.cpu.abi 2>/dev/null || true)"
+    ABI_LIST="$(getprop ro.product.cpu.abilist 2>/dev/null || true)"
+    [ -n "$ABI" ] || ABI="${ARCH:-unknown}"
+    [ -n "$ABI_LIST" ] || ABI_LIST="$ABI"
 
     ui_print "$(safe_printf TXT_ABI_PRIMARY "$ABI")"
     ui_print "$(safe_printf TXT_ABI_LIST "$ABI_LIST")"
@@ -77,10 +85,11 @@ run_font_cmap_cleaner() {
 
     ui_print "$TXT_CMAP_START"
 
-    TMP_BIN="$TEMP_DIR/$CMAP_TOOL_PREFIX.$$"
-    local SYSTEM_FONTS_DIR="/system/fonts"
+    local TMP_BIN="$TEMP_DIR/$CMAP_TOOL_PREFIX.$$"
+    local SYSTEM_FONTS_DIR="${UFS_SYSTEM_FONTS_DIR:-/system/fonts}"
     local MODULE_FONTS_DIR="$MODPATH/system/fonts"
-    local WHITELIST_FILE="$MODPATH/config/whitelist.txt"
+    local FONT_POLICY_FILE="$MODPATH/config/font-policy.tsv"
+    local RET
 
     cp -f "$FONT_CMAP_TOOL" "$TMP_BIN" || {
         ui_print "$TXT_CMAP_COPY_FAIL"
@@ -98,10 +107,10 @@ run_font_cmap_cleaner() {
     "$TMP_BIN" \
         --system-fonts "$SYSTEM_FONTS_DIR" \
         --module-fonts "$MODULE_FONTS_DIR" \
-        --skip-font-file "$WHITELIST_FILE" \
+        --font-policy "$FONT_POLICY_FILE" \
         --no-color
 
-    local RET=$?
+    RET=$?
 
     rm -f "$TMP_BIN"
 
@@ -118,7 +127,7 @@ detect_keycheck_tool() {
 
     if [ -x "/keycheck" ]; then
         KEYCHECK="/keycheck"
-    elif [ -n "$MAGISKBIN" ] && [ -x "$MAGISKBIN/keycheck" ]; then
+    elif [ -n "${MAGISKBIN:-}" ] && [ -x "$MAGISKBIN/keycheck" ]; then
         KEYCHECK="$MAGISKBIN/keycheck"
     fi
 
@@ -131,8 +140,9 @@ wait_with_keycheck() {
 
     ui_print "$(safe_printf TXT_KEYCHECK_DETECT "$TIMEOUT")"
 
-    local START_TS=$(date +%s)
+    local START_TS
     local NOW
+    START_TS=$(date +%s)
     while :; do
         "$KEYCHECK"
         case "$?" in
@@ -167,7 +177,8 @@ wait_with_getevent() {
 wait_volume_key() {
     local TIMEOUT="${1:-15}"
 
-    local KEYCHECK=$(detect_keycheck_tool)
+    local KEYCHECK
+    KEYCHECK=$(detect_keycheck_tool)
 
     if [ -n "$KEYCHECK" ]; then
         wait_with_keycheck "$KEYCHECK" "$TIMEOUT"
@@ -192,7 +203,6 @@ ask_run_cmap_cleaner() {
     ui_print "$TXT_CMAP_DESC_2"
     ui_print "$TXT_CMAP_DESC_3"
     ui_print ""
-    ui_print "$TXT_CMAP_DESC_4"
     ui_print "$TXT_CMAP_DESC_5"
     ui_print ""
     ui_print "$TXT_CMAP_CHOICE"

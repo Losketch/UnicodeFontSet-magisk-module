@@ -1,0 +1,23 @@
+<familyset>
+    <!-- The first family participates in the default fallback even though it is named. -->
+    <family name="sans-serif">
+        <font>DefaultNamed.ttf</font>
+    </family>
+
+    <!-- Later named families are selectable Typefaces only. -->
+    <family name="serif">
+        <font>SerifOnly.ttf</font>
+    </family>
+
+    <!-- Unnamed families are global fallback providers. -->
+    <family>
+        <font>GlobalFallback.ttf</font>
+        <font fallbackFor="serif">SerifSpecificFallback.ttf</font>
+    </family>
+
+    <family-list name="optional-product-style">
+        <family>
+            <font>OptionalNamedList.ttf</font>
+        </family>
+    </family-list>
+</familyset>

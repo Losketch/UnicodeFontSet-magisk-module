@@ -1,7 +1,8 @@
 id=unicode_font_set
 name=Unicode Font Set - 字体集
-version=V18.0.0 Alpha
-versionCode=202603020
+version=SOURCE
+versionCode=0
 author=Losketch
-description=Expand the font to achieve full Unicode glyph coverage. / 扩充字体，实现Unicode全字形覆盖。GitHub project URL: https://github.com/Losketch/UnicodeFontSet-magisk-module.
-updateJson=https://github.com/Losketch/UnicodeFontSet-magisk-module/raw/main/update.json
+description=Source tree placeholder. Build a module package before installation. / 源码占位文件，请构建模块后再安装。
+updateJson=
+buildState=source

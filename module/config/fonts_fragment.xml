@@ -25,8 +25,13 @@
         </font>
     </family>
     <family>
-        <font weight="400" style="normal" postScriptName="NotoSansSuper-Regular">
-            NotoSansSuper.otf
+        <font weight="400" style="normal" postScriptName="NotoSansLiving-Regular">
+            NotoSansLiving-Regular.ttf
+        </font>
+    </family>
+    <family>
+        <font weight="400" style="normal" postScriptName="NotoSansHistorical-Regular">
+            NotoSansHistorical-Regular.ttf
         </font>
     </family>
     <family>
@@ -42,6 +47,11 @@
     <family>
         <font weight="400" style="normal" postScriptName="UFSZeroExt-Regular">
             UFSZeroExt.otf
+        </font>
+    </family>
+    <family>
+        <font weight="400" style="normal" postScriptName="UnicodiaFunky">
+            UnicodiaFunky.ttf
         </font>
     </family>
     <family>

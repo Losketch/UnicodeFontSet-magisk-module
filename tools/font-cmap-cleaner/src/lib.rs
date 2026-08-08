@@ -1,3 +1,15 @@
+pub mod cli;
+pub mod config;
+pub mod discovery;
+pub mod filter;
+pub mod find;
+pub mod font;
 pub mod fonts_xml;
-pub mod scan;
+pub mod logging;
+pub mod policy;
+pub mod range_filter;
+pub mod ranges;
 pub mod rewrite;
+pub mod safe_rewrite;
+pub mod scan;
+pub mod updatable;

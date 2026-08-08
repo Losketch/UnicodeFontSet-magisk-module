@@ -1,22 +1,13 @@
-
 remove_old_fonts() {
     local file="$1"
-    [ ! -f "$file" ] && return 1
+    [ -f "$file" ] || return 1
     grep -q "^[[:space:]]*$MODULE_START_COMMENT" "$file" || return 0
     sed -i "/^[[:space:]]*$MODULE_START_COMMENT/,/^[[:space:]]*$MODULE_END_COMMENT/d" "$file"
-    return $?
-}
-
-remove_module_fonts() {
-    local file="$1"
-    local module_name="$2"
-    [ ! -f "$file" ] && return 1
-    sed -i "/<!-- ${module_name} fonts start -->/,/<!-- ${module_name} fonts end -->/d" "$file"
 }
 
 check_xml_format() {
     local file="$1"
-    if ! grep -q '<familyset' "$file" || ! grep -q '^[[:space:]]*</familyset>' "$file"; then
+    if ! grep -q '<familyset' "$file" || ! grep -q '</familyset[[:space:]]*>' "$file"; then
         ui_print "$(safe_printf TXT_XML_FORMAT_WARN "$file")"
         return 1
     fi
@@ -25,7 +16,7 @@ check_xml_format() {
 
 validate_insert_fonts_input() {
     local file="$1"
-    local FRAGMENT="$2"
+    local fragment="$2"
 
     if [ ! -f "$file" ]; then
         ui_print "$(safe_printf TXT_XML_NOT_FOUND "$file")"
@@ -33,45 +24,38 @@ validate_insert_fonts_input() {
         return 1
     fi
 
-    if [ ! -f "$FRAGMENT" ]; then
+    if [ ! -f "$fragment" ]; then
         safe_ui_print TXT_XML_FRAGMENT_MISSING
-        log_print "$(safe_printf TXT_LOG_FRAGMENT_NOT_FOUND "$FRAGMENT")"
+        log_print "$(safe_printf TXT_LOG_FRAGMENT_NOT_FOUND "$fragment")"
         return 1
     fi
 
-    check_xml_format "$file" || {
+    if ! check_xml_format "$file"; then
         log_print "$(safe_printf TXT_LOG_INVALID_XML_FORMAT "$file")"
         return 1
-    }
-
-    return 0
+    fi
 }
 
-prepare_temp_files() {
+copy_xml_to_temp() {
     local file="$1"
     local tmp_file="$2"
-    local block_file="$3"
 
     if ! cp -f "$file" "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_COPY "$file" "$tmp_file")"
         log_print "$(safe_printf TXT_LOG_COPY_FAILED "$file" "$tmp_file")"
         return 1
     fi
-
-    return 0
 }
 
 create_font_module_block() {
-    local FRAGMENT="$1"
+    local fragment="$1"
     local block_file="$2"
-    local tmp_file
-
-    tmp_file="${block_file}.tmp"
+    local tmp_file="${block_file}.tmp"
 
     if ! {
-        echo "$MODULE_START_COMMENT"
-        cat "$FRAGMENT"
-        echo "$MODULE_END_COMMENT"
+        printf '%s\n' "$MODULE_START_COMMENT"
+        cat "$fragment"
+        printf '%s\n' "$MODULE_END_COMMENT"
     } > "$tmp_file"; then
         ui_print "$(safe_printf TXT_ERROR_WRITE "$block_file")"
         log_print "$(safe_printf TXT_LOG_WRITE_FAILED "$tmp_file")"
@@ -93,8 +77,6 @@ create_font_module_block() {
         rm -f "$tmp_file"
         return 1
     fi
-
-    return 0
 }
 
 insert_module_block() {
@@ -108,8 +90,18 @@ insert_module_block() {
             }
             close(block_file)
         }
-        /^[[:space:]]*<\/familyset>/ { print block }
-        { print }
+        {
+            close_at = index($0, "</familyset>")
+            if (close_at > 0) {
+                prefix = substr($0, 1, close_at - 1)
+                suffix = substr($0, close_at)
+                if (length(prefix) > 0) print prefix
+                printf "%s", block
+                print suffix
+                next
+            }
+            print
+        }
     ' "$tmp_file" > "${tmp_file}.new"; then
         ui_print "$(safe_printf TXT_ERROR_PROCESS "$tmp_file")"
         log_print "$(safe_printf TXT_LOG_PROCESS_FAILED "$tmp_file")"
@@ -122,8 +114,6 @@ insert_module_block() {
         rm -f "${tmp_file}.new"
         return 1
     fi
-
-    return 0
 }
 
 finalize_insert_fonts() {
@@ -131,9 +121,7 @@ finalize_insert_fonts() {
     local tmp_file="$2"
     local block_file="$3"
 
-    if ! rm -f "$block_file"; then
-        log_print "$(safe_printf TXT_LOG_REMOVE_FAILED "$block_file")"
-    fi
+    rm -f "$block_file" || log_print "$(safe_printf TXT_LOG_REMOVE_FAILED "$block_file")"
 
     if ! mv -f "$tmp_file" "$file"; then
         ui_print "$(safe_printf TXT_ERROR_MOVE "$tmp_file" "$file")"
@@ -144,91 +132,28 @@ finalize_insert_fonts() {
 
     ui_print "$(safe_printf TXT_XML_INJECT_OK "$(basename "$file")")"
     log_print "$(safe_printf TXT_LOG_XML_PROCESSED "$file")"
-    return 0
 }
 
 insert_fonts() {
     local file="$1"
-    local FRAGMENT="$MODPATH/config/fonts_fragment.xml"
-
-    validate_insert_fonts_input "$file" "$FRAGMENT" || return 1
-
+    local fragment="$MODPATH/config/fonts_fragment.xml"
     local tmp_file="${file}.tmp.$$"
     local block_file="${file}.block.$$"
 
-    prepare_temp_files "$file" "$tmp_file" "$block_file" || {
-        return 1
-    }
+    validate_insert_fonts_input "$file" "$fragment" || return 1
+    copy_xml_to_temp "$file" "$tmp_file" || return 1
 
-    remove_old_fonts "$tmp_file" || {
-        log_print "$(safe_printf TXT_LOG_OLD_FONTS_REMOVE_FAILED "$tmp_file")"
-    }
+    remove_old_fonts "$tmp_file" || log_print "$(safe_printf TXT_LOG_OLD_FONTS_REMOVE_FAILED "$tmp_file")"
 
-    create_font_module_block "$FRAGMENT" "$block_file" || {
+    if ! create_font_module_block "$fragment" "$block_file"; then
         rm -f "$tmp_file"
         return 1
-    }
+    fi
 
-    insert_module_block "$tmp_file" "$block_file" || {
+    if ! insert_module_block "$tmp_file" "$block_file"; then
         rm -f "$tmp_file" "$block_file"
         return 1
-    }
-
-    finalize_insert_fonts "$file" "$tmp_file" "$block_file" || {
-        return 1
-    }
-
-    return 0
-}
-
-process_xml_font_action() {
-    local print_func="$1"
-    local MOD_NAME="$2"
-    local SUB="$3"
-    local F="$4"
-    local TARGET_FILE="$5"
-    local BACKUP_FILE="$6"
-    local SHA1_FILE="$7"
-    local ACTION_FLAG_NAME="$8"
-
-    local NEW_SHA1=$(sha1sum "$TARGET_FILE" | cut -d' ' -f1)
-    local ACTION_TAKEN=0
-
-    if [ -f "$SHA1_FILE" ]; then
-        local OLD_SHA1=$(cat "$SHA1_FILE")
-        if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
-            $print_func "$(safe_printf TXT_XML_UPDATE "$MOD_NAME" "$SUB" "$F")"
-            ACTION_TAKEN=1
-            eval "$ACTION_FLAG_NAME=1"
-        else
-            $print_func "$(safe_printf TXT_XML_RECREATE "$MOD_NAME" "$SUB" "$F")"
-            ACTION_TAKEN=1
-            eval "$ACTION_FLAG_NAME=1"
-        fi
-    else
-        $print_func "$(safe_printf TXT_XML_NEW "$MOD_NAME" "$SUB" "$F")"
-        ACTION_TAKEN=1
-        eval "$ACTION_FLAG_NAME=1"
     fi
 
-    if [ "$ACTION_TAKEN" -eq 1 ]; then
-        mkdir -p "$(dirname "$BACKUP_FILE")"
-        if ! cp -af "$TARGET_FILE" "$BACKUP_FILE"; then
-            $print_func "$(safe_printf TXT_XML_BACKUP_FAIL "$TARGET_FILE")"
-            return
-        fi
-        write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
-
-        local MY_FILE=$(get_module_target_path "$SUB")/$F
-        mkdir -p "$(dirname "$MY_FILE")"
-        cp -af "$TARGET_FILE" "$MY_FILE"
-        insert_fonts "$MY_FILE"
-
-        rm -f "$TARGET_FILE"
-        local TARGET_DIR=$(dirname "$TARGET_FILE")
-        if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
-            rmdir "$TARGET_DIR" 2>/dev/null
-        fi
-        $print_func "$(safe_printf TXT_XML_REPLACED "$MOD_NAME" "$SUB" "$F")"
-    fi
+    finalize_insert_fonts "$file" "$tmp_file" "$block_file"
 }
