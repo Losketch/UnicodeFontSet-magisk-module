@@ -1,13 +1,20 @@
-# Declare files that will always have LF line endings on checkout.
-META-INF/** text eol=lf
-*.prop text eol=lf
+* text=auto
 *.sh text eol=lf
-*.md text eol=lf
-*.svg text eol=lf
-*.xml text eol=lf
-*.json text eol=lf
+*.conf text eol=lf
+*.tsv text eol=lf
 *.toml text eol=lf
-*.lock text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.py text eol=lf
+*.rs text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+*.ttf binary
+*.otf binary
+*.ttc binary
+*.otc binary
+*.zip binary
 
-# Denote all files that are truly binary and should not be modified.
-module/system/** binary
+*.example text eol=lf

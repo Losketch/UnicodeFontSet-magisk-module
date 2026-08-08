@@ -10,133 +10,188 @@
 # Magisk 模块：扩展 Unicode 字体合集（UFS-Magisk）
 
 <img src="https://api.visitorbadge.io/api/visitors?path=Losketch.UnicodeFontSet-magisk-module&countColor=%234ecdc4" alt="Github Visitors">
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/stargazers">
-  <img src="https://img.shields.io/github/stars/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=yellow" alt="GitHub Stars">
-</a>
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/forks">
-  <img src="https://img.shields.io/github/forks/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=8a2be2" alt="GitHub Forks">
-</a>
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/issues">
-  <img src="https://img.shields.io/github/issues-raw/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&label=Issues&color=orange" alt="Github Issues">
-</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/stargazers"><img src="https://img.shields.io/github/stars/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=yellow" alt="GitHub Stars"></a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/forks"><img src="https://img.shields.io/github/forks/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=8a2be2" alt="GitHub Forks"></a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/issues"><img src="https://img.shields.io/github/issues-raw/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&label=Issues&color=orange" alt="Github Issues"></a>
 <br/>
-
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/latest">
-  <img src="https://img.shields.io/github/downloads/Losketch/UnicodeFontSet-magisk-module/total?style=for-the-badge" alt="Github Downloads">
-</a>
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/releases">
-  <img src="https://img.shields.io/github/v/release/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=brightgreen" alt="Version">
-</a>
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/actions">
-  <img src="https://img.shields.io/github/actions/workflow/status/Losketch/UnicodeFontSet-magisk-module/main.yml?style=for-the-badge" alt="Github Action">
-</a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/latest"><img src="https://img.shields.io/github/downloads/Losketch/UnicodeFontSet-magisk-module/total?style=for-the-badge" alt="Github Downloads"></a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/releases"><img src="https://img.shields.io/github/v/release/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge&color=brightgreen" alt="Version"></a>
+<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/actions"><img src="https://img.shields.io/github/actions/workflow/status/Losketch/UnicodeFontSet-magisk-module/main.yml?style=for-the-badge" alt="Github Action"></a>
 <img src="https://img.shields.io/badge/Platform-Android-lightgreen?style=for-the-badge" alt="Platform">
-<br/>
-
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/commits">
-  <img src="https://img.shields.io/github/last-commit/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge" alt="Last Commit">
-</a>
-<a href="https://github.com/Losketch/UnicodeFontSet-magisk-module/commits">
-  <img src="https://img.shields.io/github/commit-activity/m/Losketch/UnicodeFontSet-magisk-module?style=for-the-badge" alt="Commit Activity">
-</a>
-<img src="https://img.shields.io/badge/language-Bash/sh-89e051?style=for-the-badge">
 
 </div>
-<br/>
 
-> **本模块无需依赖系统自带字体，通过联合多个字体，实现了对 Unicode 18.0 Alpha 标准中所有已定义字符的完整字形覆盖（不包括代理区和私用区）。**  
-> **本模块以增量方式安装字体和配置，其他字体模块显示得以保留。**
+UFS 为已 Root 的 Android 设备补充大量系统缺失字符。模块组合多套字体，并把它们加入 Android 的字体回退链。Unicode 覆盖目标与 UFS 框架版本相互独立；当前目标由 `release.toml` 的 `unicode_version` 定义（当前为 Unicode 18.0.0 Beta，不包括代理区与私用区）。
 
-本模块专为已 Root 的 Android 设备设计，通过 Magisk 框架安装一套完整的 Unicode 字体及其配置文件。
+模块支持 Magisk，并可配合 KernelSU / APatch 使用；也会尽量兼容其它字体模块和系统 OTA 后的字体配置变化。
 
-本项目借鉴了 [simonsmh 的 notocjk 模块](https://github.com/simonsmh/notocjk) 和 [lakejason0 的 又又一个遍黑体 Magisk 模块](https://github.com/lakejason0/AAnother-Plangothic-magisk-module) 的实现思路——通过脚本工具动态修改字体配置文件。
+## 下载与安装
 
-## 模块简介
-本模块的核心功能是在系统字体目录（`/system/fonts`）中安装多个字体文件，并通过脚本动态的修改系统的 `fonts.xml` 及相关配置文件，为系统字体提供大量补充字符。
+1. 前往 [Releases](https://github.com/Losketch/UnicodeFontSet-magisk-module/releases) 下载模块 ZIP。
+2. 在 Magisk / KernelSU / APatch 的模块页面安装。
+3. 选择与你系统匹配的 Variant：
+   - **CBDT**：API 26+（Android 8.0+）。
+   - **COLRv1**：API 33+（Android 13+）。
+4. 安装时会询问是否执行 cmap 清理：
+   - **音量上键**：跳过清理。
+   - **音量下键**：执行清理。
+   - 15 秒无操作：自动跳过。
+5. 安装完成后重启。
 
-## 下载方式
+普通使用通常无需修改任何配置。
 
-请前往 [Releases 页面](https://github.com/Losketch/UnicodeFontSet-magisk-module/releases) 下载最新版本。
+### KernelSU 用户
 
-## 使用须知
+KernelSU 需要可挂载 `/system` 的元模块（例如 `meta-overlayfs`），否则 `system/fonts/` 中的字体不会真正生效。详见 [KernelSU Metamodule 文档](https://kernelsu.org/zh_CN/guide/metamodule.html)。
 
-- **兼容性**: 本模块可能无法兼容所有机型和高定制化系统。更多兼容性信息可参考：
-  - [lxgw 的 CJK 字体 Magisk 模块兼容性调整指南](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#兼容性调整-仅供参考)
-  - [simonsmh 的 notocjk 模块说明](https://github.com/simonsmh/notocjk)
-  - **应用闪退**: - Android 12+ 引入了重大变化：字体加载从 zygote 进程预加载转变为按需加载，这可能导致传统 Magisk 字体模块出现兼容性问题，如遇应用闪退，请安装 [FontLoader](https://github.com/JingMatrix/FontLoader) 模块
-- 如果系统中已安装其它字体类 Magisk 模块，本模块将以增量方式插入新字体和 XML 配置，不会覆盖原有字体配置，确保已装模块的功能得以保留。
-- **安装顺序**:  
-  - 推荐先安装其他模块并重启一次，再安装本字体模块并重启，以确保兼容性。  
-  - 若后续其他字体模块更新后导致本模块字体未即时生效，可重启 1–2 次（或再次重新激活 Magisk 模块）即可恢复显示。
-- **字体特性说明**: 本合集旨在最大化字符覆盖率与显示稳定性，**不包含也无需依赖**任何连字或复杂排版特性。对于彩色字体，请确保您的系统和应用支持 COLRv1 格式（Android 12L+ 及现代浏览器已提供支持）。
-- **内核管理器 (KernelSU, APatch)**:
-  - **KernelSU 用户**: 
-    - ⚠️ **必须先安装元模块**（如 `meta-overlayfs`），否则 `system/fonts/` 中的字体文件将无法挂载生效
-    - 更多信息详见 [KernelSU 元模块文档](https://kernelsu.org/zh_CN/guide/metamodule.html)
-    - 建议关闭 KernelSU 的"默认卸载模块"功能以确保字体正常工作
-  - **隐藏工具**: 如使用 Shamiko 等，请配置为黑名单模式
-- **免责声明**: 本模块按"原样"提供，仅供个人学习与交流使用。使用者需自行承担风险，作者对因安装此模块而可能导致的任何设备问题不承担责任。
+## 配置
 
-## 字体信息
+UFS 的运行时字体策略集中在：
 
-- 📄 [字体来源与许可](docs/LICENSES.md)
-- 🙏 [鸣谢名单](docs/CREDITS.md)
+```text
+module/config/
+├── font-policy.tsv      # 字体角色、顺序、保护/删除范围
+├── fonts_fragment.xml   # 写入 Android fallback 的字体列表和顺序
+└── discovery.conf       # 系统字体/XML 的发现范围
+```
 
-## 字体缓存清理工具
+### `font-policy.tsv`
 
-### 功能说明
+这是一个 **TAB 分隔**文件，每只字体一行：
 
-模块内置了 `font-cmap-cleaner` 工具，用于清理字体的 cmap 表，解决以下问题：
-- 颜文字（如 ʕ•ᴥ•ʔ、(╯°□°）、 ๑⃙⃘´༥`๑⃙⃘ 、(ͼ̤͂ ͜ ͽ̤͂)✧）显示异常
-- Emoji 显示为空白 / 方块 / 错位（如😀.png 、🤓:书呆子脸）
+```text
+role<TAB>font filename<TAB>protect<TAB>remove
+```
 
-### 使用方法
+例如：
 
-安装过程中，模块会提示您是否执行 cmap 清理：
-- 按下「音量上键」跳过清理
-- 按下「音量下键」执行清理
-- 15秒无操作将自动跳过
+```text
+normal-fallback	PlangothicP2-Regular.otf	[U+0080-U+009F]	-
+```
 
-### 注意事项
+请使用真正的 TAB，不要用空格代替。
 
-- 此操作会修改模块内的字体文件，但操作是安全且可逆的
-- 清理过程可能需要几分钟时间，请耐心等待
-- 清理完成后，您需要重启设备才能看到效果
+| role | 用途 | 是否需要写进 `fonts_fragment.xml` |
+|---|---|---|
+| `system-overlay` | 用同名文件替换系统原字体 | 通常不需要 |
+| `normal-fallback` | 普通补字字体，按表中顺序处理 | 需要 |
+| `terminal-fallback` | 最后的兜底字体 | 需要，并应放在最后 |
 
-## 常见问题解答（FAQ）
+`normal-fallback` / `terminal-fallback` 在 `font-policy.tsv` 中的顺序应与 `fonts_fragment.xml` 的 fallback 顺序一致；仓库校验会检查两边是否漂移。
 
-### Q: 安装后某些应用闪退怎么办？
-A: Android 12+ 引入了字体加载机制的变化，可能导致传统 Magisk 字体模块出现兼容性问题。请安装 [FontLoader](https://github.com/JingMatrix/FontLoader) 模块来解决此问题。
+### `protect` 与 `remove`
 
-### Q: 安装后字体没有变化怎么办？
-A: 请尝试以下解决方案：
-1. 重启设备 1-2 次
-2. 重新激活模块
-3. 检查是否与其他字体模块冲突
-4. 查看模块日志 `${MODPATH:-/cache}/ufs.log` 了解详细信息
+- `protect`：字体原本存在的这些 cmap 映射不会因与前序字体重复而被清理。
+- `remove`：无论前序字体是否包含这些字符，都强制删除这些 nominal Unicode cmap 映射。
+- 同一码点同时出现时，**`remove` 优先**。
 
-### Q: 如何检查模块是否正常工作？
-A: 您可以通过以下方式验证：
-1. 查看 `/system/fonts` 目录中是否存在模块安装的字体文件
-2. 检查 `/system/etc/fonts.xml` 或 `/system/product/etc/fonts.xml` 中是否包含 UnicodeFontSetModule 相关配置
-3. 使用支持 Unicode 测试的应用查看特殊字符是否能正常显示
+支持的范围写法：
 
-### Q: 模块支持哪些 Android 版本？
-A: 模块支持 Android 8.0+（API 26+）。
+```text
+-                              不指定任何码点
+*                              全部码点
+80-9f                          一个范围
+U+0080-U+009F                  同上
+1df02                          单个码点
+[ff-4e02,1df02,30ede]          多个范围/码点
+[U+00FF-U+4E02,U+1DF02]        也可以带 U+
+```
 
-## 故障排除
+保护示例：
 
-### 查看模块日志
+```text
+normal-fallback	PlangothicP2-Regular.otf	[80-9f]	-
+```
 
-模块运行时会生成日志文件，您可以通过以下方式查看：
-- 日志路径：`${MODPATH:-/cache}/ufs.log`
-- 使用 ADB 命令查看：`adb pull ${MODPATH:-/cache}/ufs.log`
+`protect` 只保留字体本来存在的映射，不会凭空增加字形。
 
-### 清理模块残留
+删除示例：
 
-如果卸载模块后仍有问题，您可以清理模块残留文件：
+```text
+normal-fallback	ExampleFont.otf	-	[e000-f8ff]
+```
+
+当前 range rewrite 支持普通 TTF/OTF。TTC/OTC 可以被识别和查询，但不会被重写。如果去重/过滤后字体没有任何 Unicode 映射，cleaner 会警告并跳过输出，而不会生成空 cmap 字体。
+
+### `discovery.conf`
+
+`discovery.conf` 定义：
+
+- 哪些 familyset XML 用于默认 fallback 配置；
+- 哪些系统字体目录参与 cmap cleaner 的默认/global fallback baseline；
+- `find` 命令可搜索哪些更宽的字体目录；
+- sibling 字体模块常见的 XML/字体位置；
+- Android 动态更新字体目录。
+
+默认情况下，`/product/fonts` 与 `/system/product/fonts` **只参与 `find` 诊断，不进入 cmap cleaner 的全局 baseline**。现代 Android 中 product 字体常用于可选或命名字体，文件存在并不代表其参与默认 fallback。特殊 ROM 若确实把 product 字体加入全局 fallback，可在这里显式调整 baseline 路径。
+
+Shell 在运行时读取该配置；Rust cleaner 在构建时嵌入它，因此修改后需要重新编译模块才能让 Rust 侧生效。
+
+## cmap cleaner
+
+cleaner 用于减少 fallback 字体之间重复的 cmap 映射，降低某些符号、Emoji 或长尾字符被错误字体抢先匹配的概率。
+
+- 不确定是否需要时，可以先跳过 cleaner。
+- cleaner 的行为由 `font-policy.tsv` 控制。
+- cleaner 会修改模块中的 TTF/OTF；重新安装模块可恢复发布包原字体。
+- 清理完成后需要重启设备。
+
+## 与其它字体模块一起使用
+
+UFS 会尝试与其它字体模块共存，并在模块变化或 OTA 后重新整理自己的字体 XML。
+
+如果安装后没有生效：
+
+1. 重启一次。
+2. 在模块管理器中执行 UFS 的 **Action**。
+3. KernelSU 用户确认已安装并启用可挂载 `/system` 的元模块。
+4. 查看日志：
+
+```text
+/data/adb/modules/unicode_font_set/ufs.log
+```
+
+UFS 为解决同名字体/cmap 冲突会备份并移除其它字体模块中的冲突文件。仅“禁用” UFS 不等价于回滚这些改动；停止使用时请正常**卸载** UFS，让卸载脚本恢复备份。
+
+## 常见问题
+
+### 安装后某些 App 闪退
+
+Android 12+ 的字体加载方式与旧版本不同。若传统字体模块导致应用崩溃，可尝试 [FontLoader](https://github.com/JingMatrix/FontLoader)。
+
+### 怎么确认 UFS 已生效？
+
+可以检查：
+
+```text
+/system/fonts/
+/system/etc/fonts.xml
+/system/product/etc/fonts.xml
+```
+
+也可以直接打开包含生僻字、扩展汉字、古文字或符号的测试文本查看显示结果。
+
+### 支持哪些 Android 版本？
+
+以 `release.toml` 为准：
+
+- **CBDT**：API 26+（Android 8.0+）。
+- **COLRv1**：API 33+（Android 13+）。
+
+安装器会读取当前构建的 `minApi`；低于门槛时会停止安装。
+
+### 卸载后还有残留怎么办？
+
+通常正常卸载即可。如果需要手动清理锁文件：
 
 ```bash
 su -c rm -rf /data/adb/ufs_lock
-su -c rm -rf /cache/ufs.log
 ```
+
+## 其它文档
+
+- 📄 [字体来源与许可](docs/LICENSES.md)
+- 🙏 [鸣谢](docs/CREDITS.md)
+- 🛠️ [构建与测试](docs/DEVELOPMENT.md)
+
+本模块按“原样”提供。修改字体、过滤 cmap 或替换系统字体前请自行备份，并自行承担使用风险。

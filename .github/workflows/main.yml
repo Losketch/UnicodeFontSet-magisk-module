@@ -2,10 +2,10 @@ name: Build & Release UnicodeFontSet Module
 
 on:
   push:
-    branches:
-      - main
-    tags:
-      - '[vV]*'
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -13,417 +13,293 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
 
 env:
   MODULE_DIR: module
-  MODULE_PROP: module/module.prop
   MODULE_BIN_DIR: module/bin
   FONT_DIR: module/system/fonts
   UPDATE_BIN: module/META-INF/com/google/android/update-binary
   BUILD_DIR: build
   CLEANER_DIR: tools/font-cmap-cleaner
-  UPX_VERSION: 5.1.0
+  RUST_VERSION: 1.97.1
+  CARGO_NDK_VERSION: 4.1.2
+  UPX_VERSION: 5.1.1
   NDK_VERSION: 29.0.14206865
+  MAGISK_INSTALLER_COMMIT: ede844bdaa4d673617c0f14a991a79542c95967c
 
 jobs:
+  prepare:
+    name: Release metadata
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.meta.outputs.matrix }}
+      prerelease: ${{ steps.meta.outputs.prerelease }}
+      release_name: ${{ steps.meta.outputs.release_name }}
+      unicode_data_url: ${{ steps.meta.outputs.unicode_data_url }}
+      unicode_label: ${{ steps.meta.outputs.unicode_label }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - id: meta
+        shell: bash
+        run: |
+          echo "matrix=$(python3 tools/python/release_metadata.py matrix)" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$(python3 tools/python/release_metadata.py info --field prerelease)" >> "$GITHUB_OUTPUT"
+          echo "release_name=$(python3 tools/python/release_metadata.py info --field release_name)" >> "$GITHUB_OUTPUT"
+          echo "unicode_data_url=$(python3 tools/python/release_metadata.py info --field unicode_data_url)" >> "$GITHUB_OUTPUT"
+          echo "unicode_label=$(python3 tools/python/release_metadata.py info --field unicode_label)" >> "$GITHUB_OUTPUT"
+      - name: Validate release tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: python3 tools/python/release_metadata.py validate-tag "${{ github.ref_name }}"
+
+  quality:
+    name: Quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions-rust-lang/setup-rust-toolchain@v1.17.0
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          components: rustfmt, clippy
+      - run: cargo fmt --all -- --check
+      - run: cargo check --workspace --all-targets --locked
+      - run: cargo test --workspace --all-targets --locked
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - name: Shell syntax and runtime tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' script; do bash -n "$script"; done < <(find module tests/shell -type f -name '*.sh' -print0)
+          for test_script in tests/shell/*_test.sh; do bash "$test_script"; done
+          if command -v busybox >/dev/null 2>&1; then
+            for test_script in tests/shell/*_test.sh; do busybox ash "$test_script"; done
+          fi
+      - name: Python static checks
+        run: |
+          python3 -m compileall -q tools/python
+          python3 tools/python/validate_repository.py
+          python3 -m unittest discover -s tests/python -p 'test_*.py'
+
   build:
-    name: Build ZIP Artifact — ${{ matrix.variant.suffix }}
+    name: Build — ${{ matrix.variant.label }}
+    needs: [prepare, quality]
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        variant:
-          - name: "colrv1"
-            emoji_url: "https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf"
-            zip_name: "UnicodeFontSet-COLRv1-module.zip"
-            suffix: "COLRv1 (API >= 33)"
-            description: "COLRv1 vector emoji"
-            update_json: "https://github.com/Losketch/UnicodeFontSet-magisk-module/raw/main/update-colrv1.json"
-            update_json_nightly: "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/update-nightly-colrv1.json"
-          - name: "cbdt"
-            emoji_url: "https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf"
-            zip_name: "UnicodeFontSet-CBDT-module.zip"
-            suffix: "CBDT (API >= 19)"
-            description: "CBDT bitmap emoji"
-            update_json: "https://github.com/Losketch/UnicodeFontSet-magisk-module/raw/main/update-cbdt.json"
-            update_json_nightly: "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/update-nightly-cbdt.json"
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v7.0.1
+      - name: Create build directories
+        run: mkdir -p "${{ env.MODULE_BIN_DIR }}" "${{ env.BUILD_DIR }}" "$(dirname "${{ env.UPDATE_BIN }}")"
 
-      - name: Reset module.prop (avoid matrix pollution)
+      - name: Prepare current upstream font snapshot
         run: |
-          git checkout -- ${{ env.MODULE_PROP }}
+          python3 tools/python/prepare_fonts.py \
+            --variant "${{ matrix.variant.name }}" \
+            --font-dir "${{ env.FONT_DIR }}" \
+            --licenses-output "${{ env.MODULE_DIR }}/META-INF/licenses"
 
-      - name: Create directories
+      - name: Download Magisk installer
         run: |
-          mkdir -p "${{ env.FONT_DIR }}" "${{ env.BUILD_DIR }}" "$(dirname "${{ env.UPDATE_BIN }}")"
+          curl --fail --silent --show-error --location --retry 3 \
+            "https://raw.githubusercontent.com/topjohnwu/Magisk/${{ env.MAGISK_INSTALLER_COMMIT }}/scripts/module_installer.sh" \
+            -o "${{ env.UPDATE_BIN }}"
+          chmod 755 "${{ env.UPDATE_BIN }}"
 
-      - name: Download fonts & scripts
+      - name: Generate module metadata
+        shell: bash
         run: |
-          set -e
-          TMP_DIR=$(mktemp -d)
-          echo "Using temp dir: $TMP_DIR"
-          
-          CSS_FILE="$TMP_DIR/fonts.css"
-          FONT_FILE="$TMP_DIR/NotoEmoji-Regular.ttf"
-          
-          curl -fsSL \
-            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
-            "https://fonts.googleapis.com/css2?family=Noto+Emoji" \
-            -o "$CSS_FILE"
-          
-          FONT_URL=$(grep -o 'https://[^)]*\.ttf' "$CSS_FILE" | head -n 1)
-          
-          if [ -z "$FONT_URL" ]; then
-            echo "⚠ Warning: Failed to extract TTF URL from Google Fonts CSS" >&2
-            exit 1
-          fi
-          
-          curl -fsSL "$FONT_URL" -o "$FONT_FILE"
-          cp "$FONT_FILE" "${{ env.FONT_DIR }}/NotoEmoji-Regular.ttf"
-          rm -rf "$TMP_DIR"
-          
-          declare -A files=(
-            [NotoColorEmoji.ttf]=${{ matrix.variant.emoji_url }}
-            [SourceHanSansSC-Regular.otf]=https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf
-            
-            [NotoUnicode.otf]=https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf
-            
-            [NewGardiner.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf
-            [UnicodiaDaarage.otf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaDaarage.otf
-            [UnicodiaSesh.ttf]=https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf
-            
-            [PlangothicP1-Regular.otf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP1-Regular.otf
-            [PlangothicP2-Regular.otf]=https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP2-Regular.otf
-            
-            [KreativeSquare.ttf]=https://github.com/kreativekorp/open-relay/raw/master/KreativeSquare/KreativeSquare.ttf
-            
-            [TempSeal.ttf]=https://github.com/Losketch/Fonts/releases/download/TempSeal/TempSeal.ttf
-            [LastResort-Regular.ttf]=https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf
-          )
-          for name in "${!files[@]}"; do
-            echo "⬇ Downloading $name..."
-            if ! wget --tries=3 -q "${files[$name]}" -O "module/system/fonts/$name"; then
-              echo "⚠ Warning: Failed to download $name, skipping..."
-            fi
-          done
-          wget --tries=5 -q https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh \
-               -O "${{ env.UPDATE_BIN }}"
+          channel=build
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then channel=release; fi
+          if [[ "${GITHUB_EVENT_NAME}" == push && "${GITHUB_REF}" == refs/heads/main ]]; then channel=nightly; fi
+          python3 tools/python/release_metadata.py module-prop \
+            --variant "${{ matrix.variant.name }}" \
+            --channel "$channel" \
+            --run-number "${{ github.run_number }}" \
+            --sha "${{ github.sha }}" \
+            --output "${{ env.MODULE_DIR }}/module.prop"
 
-      - name: Update module.prop for variant
-        run: |
-          sed -i "s|^updateJson=.*|updateJson=${{ matrix.variant.update_json }}|" ${{ env.MODULE_PROP }}
-
-      - name: Update versionCode for Nightly Builds
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          VERSION_DATE=$(date +%Y%m%d)
-          BUILD_NUM=${{ github.run_number }}
-          VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
-          awk -v date="$VERSION_DATE" -v num="$BUILD_NUM" -v sha="${GITHUB_SHA:0:7}" '
-            /^version=/ {sub(/^version=/, ""); print "version=" $0 "." date "." num " [" sha "-Nightly-COLRv1]"; next}
-            /^versionCode=/ {print "versionCode=" date num; next}
-            {print}
-          ' ${{ env.MODULE_PROP }} > ${{ env.MODULE_PROP }}.tmp && mv ${{ env.MODULE_PROP }}.tmp ${{ env.MODULE_PROP }}
-          sed -i "s|^updateJson=.*|updateJson=${{ matrix.variant.update_json_nightly }}|" ${{ env.MODULE_PROP }}
-
-      - name: Update version for Release
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          VERSION_DATE=$(date +%Y%m%d)
-          BUILD_NUM=${{ github.run_number }}
-          VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
-          awk -v date="$VERSION_DATE" -v num="$BUILD_NUM" '
-            /^version=/ {sub(/^version=/, ""); print "version=" $0 "." date "." num " [COLRv1]"; next}
-            /^versionCode=/ {print "versionCode=" date num; next}
-            {print}
-          ' ${{ env.MODULE_PROP }} > ${{ env.MODULE_PROP }}.tmp && mv ${{ env.MODULE_PROP }}.tmp ${{ env.MODULE_PROP }}
-
-      - name: Setup Rust toolchain
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - uses: actions-rust-lang/setup-rust-toolchain@v1.17.0
         with:
-          toolchain: stable
-
-      - name: Cache cargo
-        uses: actions/cache@v5
+          toolchain: ${{ env.RUST_VERSION }}
+      - uses: actions/cache@v6.1.0
         with:
           path: |
             ~/.cargo/registry
-            ~/.cargo/git
-            ${{ env.CLEANER_DIR }}/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('tools/font-cmap-cleaner/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-
-      - name: Install cargo-ndk
-        run: |
-          if ! command -v cargo-ndk >/dev/null; then
-            cargo install cargo-ndk
-          fi
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v4
-
-      - name: Cache Android NDK
-        uses: actions/cache@v5
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+      - run: cargo install cargo-ndk --version "${{ env.CARGO_NDK_VERSION }}" --locked
+      - uses: android-actions/setup-android@v4.0.1
+      - uses: actions/cache@v6.1.0
         with:
           path: ${{ env.ANDROID_SDK_ROOT }}/ndk/${{ env.NDK_VERSION }}
           key: android-ndk-${{ env.NDK_VERSION }}
-
       - name: Install Android NDK
         run: |
           sdkmanager "ndk;${{ env.NDK_VERSION }}" "build-tools;34.0.0" "platforms;android-34"
-          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/${{ env.NDK_VERSION }}" >> $GITHUB_ENV
-
-      - name: Add Rust Android targets
-        run: |
-          rustup target add \
-            aarch64-linux-android \
-            armv7-linux-androideabi \
-            i686-linux-android \
-            x86_64-linux-android
-
-      - name: Cache UPX
-        uses: actions/cache@v5
-        with:
-          path: /tmp/upx-${{ env.UPX_VERSION }}-amd64_linux
-          key: upx-${{ env.UPX_VERSION }}
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/${{ env.NDK_VERSION }}" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/${{ env.NDK_VERSION }}" >> "$GITHUB_ENV"
+      - run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
       - name: Install UPX
         run: |
           if ! command -v upx >/dev/null; then
             cd /tmp
-            wget -q https://github.com/upx/upx/releases/download/v${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz
-            tar -xf upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz
-            sudo mv upx-${{ env.UPX_VERSION }}-amd64_linux/upx /usr/local/bin/
-            cd -
+            curl --fail --silent --show-error --location --retry 3 \
+              "https://github.com/upx/upx/releases/download/v${{ env.UPX_VERSION }}/upx-${{ env.UPX_VERSION }}-amd64_linux.tar.xz" -o upx.tar.xz
+            tar -xf upx.tar.xz
+            sudo install -m 0755 "upx-${{ env.UPX_VERSION }}-amd64_linux/upx" /usr/local/bin/upx
           fi
-          upx --version
 
       - name: Build font-cmap-tool for Android
         run: |
-          cd ${{ env.CLEANER_DIR }}
-          
-          cargo ndk \
-            -t arm64-v8a \
-            -t armeabi-v7a \
-            -t x86 \
-            -t x86_64 \
-            build --release
-          
-          mkdir -p ../../${{ env.MODULE_BIN_DIR }}
-          
-          declare -A TARGETS=(
+          set -euo pipefail
+          export CARGO_TARGET_DIR="$GITHUB_WORKSPACE/target"
+          cargo ndk -t arm64-v8a -t armeabi-v7a -t x86 -t x86_64 build \
+            --manifest-path "${{ env.CLEANER_DIR }}/Cargo.toml" --package font-cmap-tool --release --locked
+          declare -A targets=(
             [aarch64-linux-android]=arm64-v8a
             [armv7-linux-androideabi]=armeabi-v7a
             [i686-linux-android]=x86
             [x86_64-linux-android]=x86_64
           )
-          
-          for target in "${!TARGETS[@]}"; do
-            bin="target/$target/release/font-cmap-tool"
-            out="../../${{ env.MODULE_BIN_DIR }}/font-cmap-tool-${TARGETS[$target]}"
+          for target in "${!targets[@]}"; do
+            bin="$CARGO_TARGET_DIR/$target/release/font-cmap-tool"
+            out="${{ env.MODULE_BIN_DIR }}/font-cmap-tool-${targets[$target]}"
+            test -x "$bin"
             upx --best --lzma "$bin" || true
-            cp "$bin" "$out"
+            install -m 0755 "$bin" "$out"
           done
-          
-          cd ../..
 
-      - name: Copy font-cmap-cleaner whitelist
+      - name: Unicode coverage report (warning only)
+        shell: bash
         run: |
-          if [ -f ${{ env.CLEANER_DIR }}/whitelist.txt ]; then
-            cp ${{ env.CLEANER_DIR }}/whitelist.txt ${{ env.MODULE_DIR }}/config/whitelist.txt
+          report="${{ env.BUILD_DIR }}/unicode-coverage-${{ matrix.variant.name }}.txt"
+          ucd="${RUNNER_TEMP}/UnicodeData.txt"
+          if python3 -m pip install --disable-pip-version-check -q fonttools \
+             && curl --fail --silent --show-error --location --retry 3 "${{ needs.prepare.outputs.unicode_data_url }}" -o "$ucd"; then
+            python3 tools/python/check_fonts_unicode.py "$ucd" "${{ env.FONT_DIR }}"/* \
+              --font-policy module/config/font-policy.tsv \
+              --warn-only --github-warning --lang en | tee "$report"
           else
-            echo "⚠ Warning: whitelist.txt not found!" >&2
-            exit 1
+            echo "::warning title=Unicode coverage::Coverage report could not be generated" | tee "$report"
           fi
-          cp LICENSE ${{ env.MODULE_DIR }}/LICENSE
-          cp README.md ${{ env.MODULE_DIR }}/README.md
-          cp README.en.md ${{ env.MODULE_DIR }}/README.en.md
 
-      - name: Package ZIP & compute checksum
+      - name: Copy runtime documentation
         run: |
-          cd "${{ env.MODULE_DIR }}"
-          zip -9 -r "../${{ matrix.variant.zip_name }}" .
+          cp LICENSE "${{ env.MODULE_DIR }}/LICENSE"
+          cp "${{ env.CLEANER_DIR }}/LICENSE" "${{ env.MODULE_DIR }}/META-INF/licenses/LICENSE-font-cmap-tool"
+          cp README.md "${{ env.MODULE_DIR }}/README.md"
+          cp README.en.md "${{ env.MODULE_DIR }}/README.en.md"
 
-      - name: Collect artifacts
+      - name: Validate built module assets
+        run: python3 tools/python/validate_module.py --module "${{ env.MODULE_DIR }}"
+
+      - name: Package module and reports
         run: |
-          mv "${{ env.MODULE_DIR }}/../${{ matrix.variant.zip_name }}" "${{ env.BUILD_DIR }}/"
+          set -euo pipefail
+          (cd "${{ env.MODULE_DIR }}" && zip -9 -r "../${{ matrix.variant.artifact }}" .)
+          unzip -t "${{ matrix.variant.artifact }}"
+          mv "${{ matrix.variant.artifact }}" "${{ env.BUILD_DIR }}/"
+          cp "${{ env.MODULE_DIR }}/META-INF/licenses/font-manifest.tsv" \
+             "${{ env.BUILD_DIR }}/font-manifest-${{ matrix.variant.name }}.tsv"
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v7.0.1
         with:
           name: module-artifacts-${{ matrix.variant.name }}
           path: ${{ env.BUILD_DIR }}
+          if-no-files-found: error
 
   release:
-    name: 正式 Release
-    needs: build
+    name: Versioned Release
+    needs: [prepare, build]
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Download COLRv1 artifacts
-        uses: actions/download-artifact@v8
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/download-artifact@v8.0.1
         with:
           name: module-artifacts-colrv1
           path: ./artifacts
-
-      - name: Download CBDT artifacts
-        uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v8.0.1
         with:
           name: module-artifacts-cbdt
           path: ./artifacts
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Require reviewed font licenses before publishing
+        shell: bash
+        run: |
+          if grep -R -n -F 'REVIEW_REQUIRED' artifacts/font-manifest-*.tsv; then
+            echo '::error title=Font licensing::Public releases require reviewed font licenses'
+            exit 1
+          fi
+      - name: Generate Release metadata assets
+        run: |
+          cp extra/changelog.md artifacts/changelog.md
+          python3 tools/python/release_metadata.py update-json --variant colrv1 --channel release --tag "${{ github.ref_name }}" --output artifacts/update-colrv1.json
+          python3 tools/python/release_metadata.py update-json --variant cbdt --channel release --tag "${{ github.ref_name }}" --output artifacts/update-cbdt.json
+      - uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ github.ref_name }}
-          name: UFS-Magisk ${{ github.ref_name }}
-          files: |
-            ./artifacts/*.zip
+          name: ${{ needs.prepare.outputs.release_name }}
+          body_path: extra/changelog.md
+          files: ./artifacts/*
           draft: false
-          prerelease: false
+          prerelease: ${{ fromJSON(needs.prepare.outputs.prerelease) }}
+          make_latest: ${{ !fromJSON(needs.prepare.outputs.prerelease) }}
 
   nightly:
     name: Nightly Release
-    needs: build
+    needs: [prepare, build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           fetch-tags: true
-
-      - name: Download COLRv1 artifacts
-        uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v8.0.1
         with:
           name: module-artifacts-colrv1
           path: ./artifacts
-
-      - name: Download CBDT artifacts
-        uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v8.0.1
         with:
           name: module-artifacts-cbdt
           path: ./artifacts
-
-      - name: Get commits since last release
-        id: commits
+      - name: Require reviewed font licenses before publishing
+        shell: bash
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 --exclude='*nightly*' --match='[vV]*' 2>/dev/null || echo "")
-          
-          if [ -n "$LAST_TAG" ]; then
-            echo "Comparing against tag: $LAST_TAG"
-            RANGE="${LAST_TAG}..HEAD"
-          else
-            echo "No previous release tag found, showing recent commits."
-            RANGE="-10"
+          if grep -R -n -F 'REVIEW_REQUIRED' artifacts/font-manifest-*.tsv; then
+            echo '::error title=Font licensing::Public releases require reviewed font licenses'
+            exit 1
           fi
-          
-          COMMITS=$(git log $RANGE --pretty=format:"- %h: %s (%an)%n%b" | \
-            awk '
-              match($0, /^- [0-9a-f]+:/) {
-                if (NR != 1) print "";
-                print $0;
-                next
-              }
-              {
-                if (length($0) > 0)
-                  printf "  > %s\n", $0;
-                else
-                  print "  >";
-            }'
-          )
-          
-          {
-            echo 'COMMITS<<EOF'
-            echo "$COMMITS"
-            echo 'EOF'
-          } >> $GITHUB_OUTPUT
-
-      - name: Generate nightly update.json files
+      - name: Generate nightly changelog
+        id: commits
+        shell: bash
         run: |
-          VERSION_DATE=$(date +%Y%m%d)
-          BUILD_NUM=${{ github.run_number }}
-          VERSION_CODE="${VERSION_DATE}${BUILD_NUM}"
-          
-          cat > changelog.md << EOF
-          # Nightly Build Changelog
-          
-          ## Changes
-          ${{ steps.commits.outputs.COMMITS }}
-          
-          Built from commit: ${{ github.sha }}
-          EOF
-          
-          COLR_VERSION=$(grep '^version=' ${{ env.MODULE_PROP }} | cut -d= -f2- | sed 's/ \[.*\]//')
-          CBDT_VERSION="$COLR_VERSION"
-          
-          cat > update-nightly-colrv1.json << EOF
-          {
-              "version": "${COLR_VERSION}.${VERSION_DATE}.${BUILD_NUM} [${GITHUB_SHA:0:7}-Nightly-COLRv1]",
-              "versionCode": ${VERSION_CODE},
-              "zipUrl": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/UnicodeFontSet-COLRv1-module.zip",
-              "changelog": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/changelog.md"
-          }
-          EOF
-          
-          cat > update-nightly-cbdt.json << EOF
-          {
-              "version": "${CBDT_VERSION}.${VERSION_DATE}.${BUILD_NUM} [${GITHUB_SHA:0:7}-Nightly-CBDT]",
-              "versionCode": ${VERSION_CODE},
-              "zipUrl": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/UnicodeFontSet-CBDT-module.zip",
-              "changelog": "https://github.com/Losketch/UnicodeFontSet-magisk-module/releases/download/nightly/changelog.md"
-          }
-          EOF
-
-      - name: Delete existing nightly release
+          last_tag=$(git describe --tags --abbrev=0 --exclude='*nightly*' --match='v*' 2>/dev/null || true)
+          if [ -n "$last_tag" ]; then range="${last_tag}..HEAD"; else range="-10"; fi
+          git log $range --pretty=format:'- %h: %s (%an)' > artifacts/changelog.md
+      - name: Generate nightly update metadata
         run: |
-          set -x
-          gh release delete nightly --yes -R ${{ github.repository }} || true
-          git push --delete origin nightly || true
+          python3 tools/python/release_metadata.py update-json --variant colrv1 --channel nightly --run-number "${{ github.run_number }}" --sha "${{ github.sha }}" --output artifacts/update-nightly-colrv1.json
+          python3 tools/python/release_metadata.py update-json --variant cbdt --channel nightly --run-number "${{ github.run_number }}" --sha "${{ github.sha }}" --output artifacts/update-nightly-cbdt.json
+      - name: Replace rolling nightly release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate timestamp
-        id: timestamp
-        run: echo "timestamp=$(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_OUTPUT
-
-      - name: Create Nightly Release
-        uses: softprops/action-gh-release@v2
+        run: |
+          gh release delete nightly --yes -R "${{ github.repository }}" || true
+          git push --delete origin nightly || true
+      - uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: nightly
-          name: Nightly Build ${{ steps.timestamp.outputs.timestamp }}
-          body: |
-            ## Variants
-            - **COLRv1**
-              - Format: Vector
-              - Features: Lossless scaling, supports any resolution
-              - Compatibility: Android 13 (API >= 33) (requires built-in COLRv1 renderer)
-              - Size: Typically smaller than bitmap
-            
-            - **CBDT**
-              - Format: Bitmap
-              - Features: Traditional NotoColorEmoji.ttf, ensures compatibility on older devices
-              - Compatibility: Android 4.4 (API >= 19)
-              - Drawback: May appear pixelated when scaled
-            
-            ### Key Differences
-            | Feature | COLRv1 | CBDT |
-            |---|---|---|
-            | Data Type | Vector | Bitmap |
-            | Scaling | Lossless, any resolution | May pixelate when enlarged |
-            | Device Support | Android 13 (API >= 33) | Android 4.4 (API >= 19) |
-            
-            ## Commits
-            ${{ steps.commits.outputs.COMMITS }}
-          files: |
-            ./artifacts/*.zip
-            update-nightly-colrv1.json
-            update-nightly-cbdt.json
-            changelog.md
+          name: Nightly Build
+          body_path: artifacts/changelog.md
+          files: ./artifacts/*
           prerelease: true
           make_latest: false

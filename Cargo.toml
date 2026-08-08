@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = ["tools/font-cmap-cleaner"]
+
+[profile.release]
+lto = true
+debug = false
+opt-level = "z"
+codegen-units = 1
+panic = "unwind"
+strip = true

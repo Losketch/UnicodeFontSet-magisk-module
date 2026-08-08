@@ -1,0 +1,122 @@
+schema = 1
+
+# Build-time font sources and license metadata.
+# `variant` defaults to "all".
+# `license` is the HTTPS URL of the reviewed license/permission text.
+# Omit it when redistribution terms still need manual review.
+
+[[fonts]]
+file = "NotoSansSymbols-Regular-Subsetted.ttf"
+acquisition = "local"
+source_location = "module/system/fonts/NotoSansSymbols-Regular-Subsetted.ttf"
+license = "https://raw.githubusercontent.com/notofonts/symbols/main/OFL.txt"
+
+[[fonts]]
+file = "UFSTempAlpha.otf"
+acquisition = "local"
+source_location = "module/system/fonts/UFSTempAlpha.otf"
+license = "https://raw.githubusercontent.com/spdx/license-list-data/main/text/OFL-1.1.txt"
+
+[[fonts]]
+file = "UFSZeroExt.otf"
+acquisition = "local"
+source_location = "module/system/fonts/UFSZeroExt.otf"
+license = "https://raw.githubusercontent.com/spdx/license-list-data/main/text/OFL-1.1.txt"
+
+[[fonts]]
+file = "NotoEmoji-Regular.ttf"
+acquisition = "google-css"
+source_location = "https://fonts.googleapis.com/css2?family=Noto+Emoji"
+license = "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/LICENSE"
+
+[[fonts]]
+file = "NotoColorEmoji.ttf"
+variant = "colrv1"
+acquisition = "direct"
+source_location = "https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf"
+license = "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/LICENSE"
+
+[[fonts]]
+file = "NotoColorEmoji.ttf"
+variant = "cbdt"
+acquisition = "direct"
+source_location = "https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf"
+license = "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/LICENSE"
+
+[[fonts]]
+file = "NotoSansHistorical-Regular.ttf"
+acquisition = "direct"
+source_location = "https://github.com/notofonts/notofonts.github.io/raw/main/megamerge/NotoSansHistorical-Regular.ttf"
+license = "https://raw.githubusercontent.com/notofonts/notofonts.github.io/main/fonts/LICENSE"
+
+[[fonts]]
+file = "NotoSansLiving-Regular.ttf"
+acquisition = "direct"
+source_location = "https://github.com/notofonts/notofonts.github.io/raw/main/megamerge/NotoSansLiving-Regular.ttf"
+license = "https://raw.githubusercontent.com/notofonts/notofonts.github.io/main/fonts/LICENSE"
+
+[[fonts]]
+file = "SourceHanSansSC-Regular.otf"
+acquisition = "direct"
+source_location = "https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf"
+license = "https://raw.githubusercontent.com/adobe-fonts/source-han-sans/release/LICENSE.txt"
+
+[[fonts]]
+file = "NotoUnicode.otf"
+acquisition = "direct"
+source_location = "https://github.com/MY1L/Unicode/releases/download/NotoUni7/NotoUnicode-7.3.otf"
+license = "https://openfontlicense.org/documents/OFL.txt"
+
+[[fonts]]
+file = "NewGardiner.ttf"
+acquisition = "direct"
+source_location = "https://github.com/Mercury13/unicodia/raw/main/Fonts/NewGardiner.ttf"
+license = "https://raw.githubusercontent.com/nederhof/newgardiner/main/fonts/OFL.txt"
+
+[[fonts]]
+file = "UnicodiaDaarage.otf"
+acquisition = "direct"
+source_location = "https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaDaarage.otf"
+license = "https://raw.githubusercontent.com/Mercury13/unicodia/main/Fonts/LICENSE-Daarage"
+
+[[fonts]]
+file = "UnicodiaFunky.ttf"
+acquisition = "direct"
+source_location = "https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaFunky.ttf"
+license = "https://raw.githubusercontent.com/Mercury13/unicodia/main/Fonts/LICENSE-Funky"
+
+[[fonts]]
+file = "UnicodiaSesh.ttf"
+acquisition = "direct"
+source_location = "https://github.com/Mercury13/unicodia/raw/main/Fonts/UnicodiaSesh.ttf"
+license = "https://raw.githubusercontent.com/Mercury13/unicodia/main/Fonts/LICENSE-Sesh"
+
+[[fonts]]
+file = "PlangothicP1-Regular.otf"
+acquisition = "direct"
+source_location = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP1-Regular.otf"
+license = "https://raw.githubusercontent.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/main/LICENSE-OFL.txt"
+
+[[fonts]]
+file = "PlangothicP2-Regular.otf"
+acquisition = "direct"
+source_location = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/raw/build/fonts/otf/PlangothicP2-Regular.otf"
+license = "https://raw.githubusercontent.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/main/LICENSE-OFL.txt"
+
+[[fonts]]
+file = "KreativeSquare.ttf"
+acquisition = "direct"
+source_location = "https://github.com/kreativekorp/open-relay/raw/master/KreativeSquare/KreativeSquare.ttf"
+license = "https://raw.githubusercontent.com/kreativekorp/open-relay/master/KreativeSquare/OFL.txt"
+
+[[fonts]]
+file = "TempSeal.ttf"
+acquisition = "direct"
+source_location = "https://github.com/Losketch/Fonts/releases/download/TempSeal/TempSeal.ttf"
+license = "https://raw.githubusercontent.com/Losketch/Fonts/refs/heads/main/TempSeal/LICENSE"
+
+[[fonts]]
+file = "LastResort-Regular.ttf"
+acquisition = "direct"
+source_location = "https://github.com/unicode-org/last-resort-font/releases/latest/download/LastResort-Regular.ttf"
+license = "https://raw.githubusercontent.com/unicode-org/last-resort-font/main/LICENSE"

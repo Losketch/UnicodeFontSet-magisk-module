@@ -1,58 +1,69 @@
-# 字体来源与许可 / Font Sources and Licenses
+# 字体许可证
 
-## 中文版 / Chinese
+UFS 不根据字体名、来源仓库或同仓库其它文件猜测许可证。每只字体的来源与人工确认后的许可文本 URL 统一维护在：
 
-本模块包含的字体（包括曾使用的字体）及其许可证如下：
+```text
+font-source/font-sources.toml
+```
 
-- [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1) (作者声明)
-- [KreativeSquare](https://github.com/kreativekorp/open-relay/tree/master/KreativeSquare)
-- [Last Resort](https://github.com/unicode-org/last-resort-font)
-- [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp) (请注意：此字体的字形提取自 Unicode PDF，作者未明确声明许可证，请谨慎使用)
-- [Noto Emoji](https://github.com/googlefonts/noto-emoji)
-- [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
-- [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
-- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
-- [Temp Seal](https://github.com/Losketch/Fonts/releases/tag/TempSeal) (WTFPL)
-- [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts) (作者声明/﻿JSesh Fonts Licenses/OFL)
-- [NotoSansSuper.otf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper)：此字体是由多个 Noto 家族及其他 OFL-1.1 许可的字体合并而成的
+## 本仓库自有字体源码
 
-无特殊说明则默认其为 OFL-1.1 许可。
+`font-source/LICENSE-OFL-1.1` 是本仓库自有 OFL-1.1 字体源码/资产的随附许可证，例如 UFSZero Ext。最终模块中的字体许可证由 `font-sources.toml` 的 `license` URL 获取并生成。
 
-## English
+## 配置方式
 
-The fonts included in this module (including previously used fonts) and their licenses are as follows:
+`license` 直接填写可下载到**原始许可证/授权文本**的 HTTPS URL，优先使用字体上游仓库中的 raw 文件：
 
-- [Ctrl Ctrl](https://github.com/MY1L/Ctrl/releases/tag/Ctr1) (author statement)
-- [KreativeSquare](https://github.com/kreativekorp/open-relay/tree/master/KreativeSquare)
-- [Last Resort](https://github.com/unicode-org/last-resort-font)
-- [Monu Temp](https://github.com/MY1L/Unicode/releases/tag/Temp) (note: glyphs derived from Unicode PDF; license not clearly declared -- use with caution)
-- [Noto Emoji](https://github.com/googlefonts/noto-emoji)
-- [Noto Unicode](https://github.com/MY1L/Unicode/releases/tag/NotoUni7)
-- [Plangothic](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic)
-- [SourceHanSans SC](https://github.com/adobe-fonts/source-han-sans)
-- [Temp Seal](https://github.com/Losketch/Fonts/releases/tag/TempSeal) (WTFPL)
-- [Unicodia* & NewGardiner](https://github.com/Mercury13/unicodia/tree/main/Fonts) (author statement/﻿JSesh Fonts Licenses/OFL)
-- [NotoSansSuper.otf](https://github.com/Losketch/UnicodeFontSet-magisk-module/tree/NotoSansSuper): this font is a merge of several Noto families and other OFL-1.1 licensed fonts
+```toml
+[[fonts]]
+file = "SourceHanSansSC-Regular.otf"
+acquisition = "direct"
+source_location = "https://example.com/SourceHanSansSC-Regular.otf"
+license = "https://example.com/raw/LICENSE.txt"
+```
 
-Unless stated otherwise, fonts are distributed under the OFL-1.1 license.
+构建时会下载该文本并按字体文件名保存到：
 
-## Unicode 区块覆盖范围 / Unicode Block Coverage
+```text
+module/META-INF/licenses/LICENSE-SourceHanSansSC-Regular
+```
 
-<details>
-<summary><b>点击查看字体 Unicode 区块覆盖范围 / Click to view Unicode block coverage per font</b></summary>
+许可证文件不带 `.txt`。同一个许可证 URL 被多只字体使用时，构建器会复用本次下载结果，但仍为每只字体生成独立的 `LICENSE-<font stem>`，使最终模块中的归属关系保持显式。
 
-<div align="center">
-<img alt="KreativeSquare" src="./samples/KreativeSquare_unicode_coverage.svg">
-<img alt="NewGardiner" src="./samples/NewGardiner_unicode_coverage.svg">
-<img alt="NotoColorEmoji" src="./samples/NotoColorEmoji_unicode_coverage.svg">
-<img alt="NotoSansSuper" src="./samples/NotoSansSuper_unicode_coverage.svg">
-<img alt="NotoUnicode" src="./samples/NotoUnicode_unicode_coverage.svg">
-<img alt="PlangothicP1-Regular" src="./samples/PlangothicP1-Regular_unicode_coverage.svg">
-<img alt="PlangothicP2-Regular" src="./samples/PlangothicP2-Regular_unicode_coverage.svg">
-<img alt="SourceHanSansSC-Regular" src="./samples/SourceHanSansSC-Regular_unicode_coverage.svg">
-<img alt="UFSTempAlpha" src="./samples/UFSTempAlpha_unicode_coverage.svg">
-<img alt="UFSZeroExt" src="./samples/UFSZeroExt_unicode_coverage.svg">
-<img alt="UnicodiaDaarage" src="./samples/UnicodiaDaarage_unicode_coverage.svg">
-<img alt="UnicodiaSesh" src="./samples/UnicodiaSesh_unicode_coverage.svg">
-</div>
-</details>
+如果许可证尚未确认，省略 `license`。CI 会产生 `Font licensing` warning，构建 manifest 会记录 `REVIEW_REQUIRED`；公开 Release 会拒绝未完成审核的字体。
+
+## URL 选择原则
+
+优先级从高到低：
+
+1. 字体**原始上游仓库**中与该字体直接对应的许可证/授权文本；
+2. 当前分发仓库中与该字体直接对应的许可证文本；
+3. 对于项目自有字体且上游没有独立许可文件，使用可信的标准许可证原文 URL。
+
+不要把仓库主页、GitHub `blob` HTML 页面、README 摘要或 SPDX 标识本身写进 `license`。这里需要的是构建时可以直接保存进模块的许可文本 URL。
+
+对于混合来源字体，应优先指向上游已经整理好的**该字体专用许可文件**，因为这种文件可能包含多个来源、额外授权条件或版权信息；不要用通用许可证文本覆盖这些信息。
+
+## 人工审核要点
+
+每只公开分发字体至少确认：
+
+1. 许可证允许 UFS 的实际分发方式，以及项目会执行的字体/cmap 修改。
+2. `license` URL 确实对应当前字体，并包含需要保留的版权、Reserved Font Name、重命名等信息。
+3. 混合来源或特殊授权字体已经确认其专用许可文本覆盖当前分发内容和用途。
+
+## 构建结果
+
+每次构建会为有 `license` URL 的字体生成：
+
+```text
+module/META-INF/licenses/LICENSE-<font stem>
+```
+
+随后生成：
+
+```text
+module/META-INF/licenses/font-manifest.tsv
+```
+
+manifest 记录本次构建实际使用的字体来源、解析后的下载地址、SHA-256、文件大小、许可证 URL 与审核状态。它是构建记录，不是字体 lockfile。

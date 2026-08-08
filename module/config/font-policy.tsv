@@ -1,0 +1,32 @@
+# UnicodeFontSet font policy. TAB-separated, one font per row.
+# role<TAB>font filename<TAB>protect<TAB>remove
+#
+# role:
+#   system-overlay    replaces a stock font; preserves its cmap by default unless remove is configured.
+#   normal-fallback   processed in this exact order; deduplicated against system + earlier retained fallbacks.
+#   terminal-fallback processed after all normal fallbacks; deduplicated against all preceding effective coverage.
+#
+# protect/remove syntax:
+#   -                         no codepoints
+#   *                         all valid Unicode scalar values
+#   [ff-4e02,1df02,30ede]     ranges and/or single codepoints (hex; U+ prefix also accepted)
+#   remove always wins over protect. Range filtering applies to the nominal Unicode cmap;
+#   cmap format 14 UVS/IVS records are preserved unchanged.
+system-overlay	NotoSansSymbols-Regular-Subsetted.ttf	-	-
+system-overlay	NotoColorEmoji.ttf	-	-
+normal-fallback	NotoEmoji-Regular.ttf	*	-
+normal-fallback	PlangothicP1-Regular.otf	-	-
+normal-fallback	PlangothicP2-Regular.otf	[U+0080-U+009F]	-
+normal-fallback	SourceHanSansSC-Regular.otf	-	-
+normal-fallback	NotoUnicode.otf	-	-
+normal-fallback	NotoSansLiving-Regular.ttf	-	-
+normal-fallback	NotoSansHistorical-Regular.ttf	-	-
+normal-fallback	KreativeSquare.ttf	-	-
+normal-fallback	UFSTempAlpha.otf	-	-
+normal-fallback	UFSZeroExt.otf	-	-
+normal-fallback	UnicodiaFunky.ttf	-	-
+normal-fallback	UnicodiaSesh.ttf	-	-
+normal-fallback	NewGardiner.ttf	-	-
+normal-fallback	UnicodiaDaarage.otf	-	-
+normal-fallback	TempSeal.ttf	-	-
+terminal-fallback	LastResort-Regular.ttf	-	-

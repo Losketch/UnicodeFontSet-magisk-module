@@ -1,4 +1,0 @@
-# emoji
-NotoColorEmoji.ttf
-NotoEmoji-Regular.ttf
-

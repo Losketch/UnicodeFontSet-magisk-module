@@ -1,13 +1,4 @@
-# ================================
-# UnicodeFontSet - Language Loader
-# ================================
 
-# _getprop()
-# 安全获取系统属性的值
-# 参数:
-#   $1 - 属性名
-# 返回:
-#   属性值或空
 _getprop() {
     local value
     value="$(getprop "$1" 2>/dev/null)"
@@ -15,13 +6,6 @@ _getprop() {
     echo "$value"
 }
 
-# _settings_get()
-# 安全获取settings命令的值
-# 参数:
-#   $1 - namespace
-#   $2 - key
-# 返回:
-#   设置值或空
 _settings_get() {
     local value
     value="$(settings get "$1" "$2" 2>/dev/null)"
@@ -29,16 +13,6 @@ _settings_get() {
     [ -n "$value" ] && [ "$value" != "null" ] && ! echo "$value" | grep -q "Failed transaction" && echo "$value"
 }
 
-# get_system_locale()
-# 从多个来源获取系统语言设置，按优先级尝试
-# 优先级:
-#   1. persist.sys.locale (直接)
-#   2. persist.sys.language + persist.sys.country
-#   3. settings get system system_locales
-#   4. settings get global device_locale
-#   5. 默认为 zh_CN
-# 返回:
-#   标准 locale 字符串 (如 zh_CN, en_US, zh_TW)
 get_system_locale() {
     local locale=""
     local lang=""
@@ -59,77 +33,103 @@ get_system_locale() {
         fi
     fi
 
+    # settings talks to Android system services, which are not available during pre-mount
+    # boot stages. Avoid binder calls there; persisted properties are sufficient.
     if [ -z "$locale" ] || [ "$locale" = "null" ]; then
-        locale="$(_settings_get system system_locales)"
+        if [ "${UFS_EARLY_BOOT:-0}" != "1" ]; then
+            locale="$(_settings_get system system_locales)"
+        fi
     fi
 
     if [ -z "$locale" ] || [ "$locale" = "null" ]; then
-        locale="$(_settings_get global device_locale)"
+        if [ "${UFS_EARLY_BOOT:-0}" != "1" ]; then
+            locale="$(_settings_get global device_locale)"
+        fi
     fi
 
     if [ -z "$locale" ] || [ "$locale" = "null" ]; then
         locale="zh_CN"
     fi
 
-    locale="${locale%,*}"
-    locale="${locale//-/_}"
+    locale="${locale%%,*}"
+    locale="$(printf '%s' "$locale" | tr '-' '_')"
     echo "$locale"
 }
 
-# parse_locale()
-# 解析 locale 字符串，提取语言、脚本、地区等组成部分
-# 参数:
-#   $1 - locale 字符串 (如 zh_CN, zh_Hans_CN, en_US_POSIX)
-# 设置全局变量:
-#   _LOCALE_LANG - 语言代码 (如 zh, en)
-#   _LOCALE_SCRIPT - 脚本代码 (如 Hans, Hant)
-#   _LOCALE_REGION - 地区代码 (如 CN, TW, US)
-#   _LOCALE_VARIANT - 变体 (如 POSIX)
 parse_locale() {
     local input="$1"
-    local rest
+    local rest token first remainder variants=""
 
     _LOCALE_LANG=""
     _LOCALE_SCRIPT=""
     _LOCALE_REGION=""
     _LOCALE_VARIANT=""
 
-    if [ -z "$input" ]; then
-        return 1
+    [ -n "$input" ] || return 1
+
+    input="$(printf '%s' "$input" | tr '-' '_')"
+    _LOCALE_LANG="${input%%_*}"
+    _LOCALE_LANG="$(printf '%s' "$_LOCALE_LANG" | tr '[:upper:]' '[:lower:]')"
+    [ -n "$_LOCALE_LANG" ] || return 1
+
+    if [ "$input" = "${input#*_}" ]; then
+        return 0
     fi
+    rest="${input#*_}"
 
-    input="$(echo "$input" | tr '[:upper:]' '[:lower:]')"
+    while [ -n "$rest" ]; do
+        token="${rest%%_*}"
+        if [ "$rest" = "$token" ]; then
+            rest=""
+        else
+            rest="${rest#*_}"
+        fi
+        [ -n "$token" ] || continue
 
-    _LOCALE_LANG="${input%%[-_]*}"
-    rest="${input#${_LOCALE_LANG}}"
-    rest="${rest#[-_]}"
+        # A one-character alphanumeric singleton starts a BCP 47 extension (for example `u`).
+        # The extension payload does not participate in language/script/region selection.
+        if [ "${#token}" -eq 1 ]; then
+            case "$token" in
+                [A-Za-z0-9]) break ;;
+            esac
+        fi
 
-    if [ -n "$rest" ] && [ ${#rest} -eq 4 ]; then
-        _LOCALE_SCRIPT="$(echo "${rest:0:1}" | tr '[:lower:]' '[:upper:]')${rest:1:3}"
-        rest="${rest#????}"
-        rest="${rest#[-_]}"
-    fi
+        if [ -z "$_LOCALE_SCRIPT" ] && [ "${#token}" -eq 4 ]; then
+            case "$token" in
+                *[!A-Za-z]*) ;;
+                *)
+                    first="$(printf '%s' "$token" | cut -c1 | tr '[:lower:]' '[:upper:]')"
+                    remainder="$(printf '%s' "$token" | cut -c2- | tr '[:upper:]' '[:lower:]')"
+                    _LOCALE_SCRIPT="${first}${remainder}"
+                    continue
+                    ;;
+            esac
+        fi
 
-    if [ -n "$rest" ]; then
-        local lower_reg="${rest%%[-_]*}"
-        _LOCALE_REGION="$(echo "$lower_reg" | tr '[:lower:]' '[:upper:]')"
-        rest="${rest#${lower_reg}}"
-        rest="${rest#[-_]}"
-    fi
+        if [ -z "$_LOCALE_REGION" ]; then
+            case "$token" in
+                [A-Za-z][A-Za-z])
+                    _LOCALE_REGION="$(printf '%s' "$token" | tr '[:lower:]' '[:upper:]')"
+                    continue
+                    ;;
+                [0-9][0-9][0-9])
+                    _LOCALE_REGION="$token"
+                    continue
+                    ;;
+            esac
+        fi
 
-    if [ -n "$rest" ]; then
-        _LOCALE_VARIANT="$rest"
-    fi
+        if [ -z "$variants" ]; then
+            variants="$token"
+        else
+            variants="${variants}_$token"
+        fi
+    done
 
-    [ -n "$_LOCALE_LANG" ]
+    _LOCALE_VARIANT="$variants"
+    return 0
 }
 
-# get_fallback_language()
-# 根据当前系统语言获取合适的回退语言
-# 参数:
-#   $1 - 语言代码
-# 返回:
-#   最佳匹配的语言代码
 get_fallback_language() {
     local lang="$1"
     case "$lang" in
@@ -145,13 +145,6 @@ get_fallback_language() {
     esac
 }
 
-# load_language_file()
-# 尝试加载语言文件，支持多级回退
-# 参数:
-#   $1 - 语言目录
-#   $2 - 语言代码 (如 zh_CN, en_US, zh_TW)
-# 返回:
-#   0 - 成功加载, 1 - 未找到文件
 load_language_file() {
     local lang_dir="$1"
     local lang_code="$2"
@@ -193,8 +186,6 @@ load_language_file() {
     return 1
 }
 
-# log_locale_info()
-# 记录语言检测的详细信息到日志
 log_locale_info() {
     local log_file="${UFS_LOG_FILE:-${LOG_FILE:-/cache/ufs.log}}"
     local locale="$1"
@@ -206,12 +197,6 @@ log_locale_info() {
     [ -n "$lang" ] && echo "[Language] Parsed - Lang: $lang, Script: $script, Region: $region" >> "$log_file" 2>/dev/null
 }
 
-# init_language()
-# 初始化语言环境，根据系统设置加载对应语言包
-# 优先级:
-#   1. UFS_LANG 环境变量 (手动指定，最高优先级)
-#   2. 系统语言设置 (自动检测)
-#   3. 默认英文 (fallback)
 init_language() {
     local system_locale=""
     local detected_lang=""
@@ -254,12 +239,6 @@ init_language() {
     log_locale_info "$system_locale" "$_LOCALE_LANG" "$_LOCALE_SCRIPT" "$_LOCALE_REGION"
 }
 
-# safe_text()
-# 获取本地化文本，如果未定义则返回变量名
-# 参数:
-#   $1 - 变量名
-# 返回:
-#   变量的值或变量名本身
 safe_text() {
     local var_name="$1"
     local value
@@ -272,24 +251,6 @@ safe_text() {
     fi
 }
 
-# safe_printf()
-# 安全格式化输出，支持位置参数 %N$s / %N$d / %N$u
-#
-# 支持的格式说明符:
-#   %s, %d, %u, %% (字面量百分号)
-#   %1$s, %2$d, %3$u 等位置参数
-#
-# 不支持的格式说明符（会原样输出）:
-#   %f, %x, %c, %o, %b, %e, %g 等
-#   宽度/精度修饰符，如 %10s, %.5d
-#
-# 参数:
-#   $1 - 格式字符串变量名 或 直接的格式字符串
-#   $2... - 格式化参数
-#
-# 使用示例:
-#   safe_printf TXT_HELLO "world"           # TXT_HELLO="%s你好"
-#   safe_printf "Hello %1\$s from %2\$s" "A" "B"  # 位置参数
 safe_printf() {
     local key="$1"
     shift
@@ -303,7 +264,6 @@ safe_printf() {
 
     local out
 
-    # Check if format string contains positional parameters (e.g., %1$s, %2$d)
     case "$fmt" in
         *%[0-9]\$s*|*%[0-9]\$d*|*%[0-9]\$u*|*%[0-9][0-9]\$s*|*%[0-9][0-9]\$d*|*%[0-9][0-9]\$u*)
             out="$(_printf_with_positional "$fmt" "$@")"
@@ -316,15 +276,8 @@ safe_printf() {
     printf '%s' "$out"
 }
 
-# _escape_value()
-# 转义参数值中的特殊字符，防止字符串替换时出问题
-# 参数:
-#   $1 - 要转义的字符串
-# 返回:
-#   转义后的字符串
 _escape_value() {
     local value="$1"
-    # 转义顺序重要：先转义换行，再转义其他
     value="${value//$'\n'/ }"    # 换行转为空格
     value="${value//$'\r'/ }"    # 回车转为空格
     value="${value//\\/\\\\}"    # \ 转义
@@ -333,18 +286,11 @@ _escape_value() {
     printf '%s' "$value"
 }
 
-# _find_max_positional_index()
-# 从格式字符串中提取最大位置参数索引
-# 参数:
-#   $1 - 格式字符串
-# 返回:
-#   最大索引数字（通过返回值传递到全局变量 _MAX_POS_INDEX）
 _find_max_positional_index() {
     local fmt="$1"
     local max_idx=0
     local pos
 
-    # 快速检查是否包含位置参数
     case "$fmt" in
         *%[0-9]\$s*|*%[0-9]\$d*|*%[0-9]\$u*|*%[0-9][0-9]\$s*|*%[0-9][0-9]\$d*|*%[0-9][0-9]\$u*)
             ;;
@@ -354,8 +300,6 @@ _find_max_positional_index() {
             ;;
     esac
 
-    # 提取所有位置参数索引，找出最大值
-    # 方式：逐个检查可能的索引
     pos=1
     while [ "$pos" -le 99 ]; do
         case "$fmt" in
@@ -369,18 +313,11 @@ _find_max_positional_index() {
     _MAX_POS_INDEX=$max_idx
 }
 
-# _replace_positional_params()
-# 将格式字符串中的位置参数替换为占位符
-# 参数:
-#   $1 - 格式字符串
-# 返回:
-#   替换后的字符串（通过全局变量 _FMT_WITH_PLACEHOLDERS 返回）
 _replace_positional_params() {
     local fmt="$1"
     local result="$fmt"
     local pos=1
 
-    # 逐个替换位置参数为占位符
     while [ "$pos" -le 99 ]; do
         case "$result" in
             *%"$pos"\$s*)
@@ -399,26 +336,6 @@ _replace_positional_params() {
     _FMT_WITH_PLACEHOLDERS="$result"
 }
 
-# _printf_with_positional()
-# 模拟 printf 的位置参数功能（纯 shell 实现）
-#
-# 工作原理:
-# 1. 找出格式字符串中最大的位置参数索引
-#   2. 将所有位置参数替换为临时占位符（___POS_N___）
-# 3. 用实际参数值替换占位符
-# 4. 输出结果
-#
-# 限制:
-# - 不支持混用 %s 和 %1$s
-# - 不支持宽度/精度修饰符（%10s, %.5d）
-# - 不支持特殊格式（%f, %x, %c, %o 等）
-# - 参数值中的换行会被替换为空格
-#
-# 参数:
-#   $1 - 格式字符串
-#   $2... - 格式化参数
-# 返回:
-#   格式化后的字符串
 _printf_with_positional() {
     local fmt="$1"
     shift
@@ -429,21 +346,17 @@ _printf_with_positional() {
     local arg
     local value
 
-    # 查找最大位置参数索引
     _find_max_positional_index "$fmt"
     max_index=$_MAX_POS_INDEX
 
-    # 如果没有位置参数，直接使用原生 printf
     if [ "$max_index" -eq 0 ]; then
         printf '%s' "$fmt"
         return $?
     fi
 
-    # 将位置参数替换为占位符
     _replace_positional_params "$fmt"
     result="$_FMT_WITH_PLACEHOLDERS"
 
-    # 替换占位符为实际参数值
     i=1
     while [ "$i" -le "$max_index" ]; do
         eval "arg=\${$i}"

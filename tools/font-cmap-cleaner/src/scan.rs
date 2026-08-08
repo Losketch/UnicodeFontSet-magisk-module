@@ -1,81 +1,145 @@
-use anyhow::Result;
 use std::{collections::HashSet, fs, path::Path};
+
+use anyhow::Result;
+use tracing::{debug, trace, warn};
 use ttf_parser::Face;
 use walkdir::WalkDir;
-use tracing::{debug, trace};
 
-pub fn scan_effective_system_unicode(
+use crate::{
+    font::{face_indices, is_font_path, postscript_name, unicode_codepoints},
+    fonts_xml::EffectiveFonts,
+};
+
+#[derive(Clone, Debug, Default)]
+pub struct SystemScanResult {
+    pub unicode: HashSet<u32>,
+    /// PostScript names referenced by the effective stock XML, including faces later shadowed.
+    pub referenced_postscript_names: HashSet<String>,
+}
+
+pub fn scan_effective_system_view(
     dir: &Path,
-    effective_fonts: &HashSet<String>,
+    effective_fonts: &EffectiveFonts,
     cmap_threshold: usize,
-) -> Result<HashSet<u32>> {
+    shadowed_filenames: &HashSet<String>,
+    shadowed_postscript_names: &HashSet<String>,
+) -> Result<SystemScanResult> {
     debug!(
         dir = %dir.display(),
         effective_fonts = effective_fonts.len(),
-        "scan effective system unicode"
+        "scan effective system font view"
     );
 
-    let mut set = HashSet::new();
+    let mut result = SystemScanResult::default();
 
-    for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
+    for entry in WalkDir::new(dir).follow_links(true) {
+        let entry = match entry {
+            Ok(entry) => entry,
+            Err(error) => {
+                warn!(error = %error, "walk system font directory failed; entry skipped");
+                continue;
+            }
+        };
+
         let path = entry.path();
-
-        if !is_font(path) {
+        if !entry.file_type().is_file() && !entry.file_type().is_symlink() {
+            continue;
+        }
+        if !is_font_path(path) {
             continue;
         }
 
-        let file_name = match path.file_name().and_then(|n| n.to_str()) {
-            Some(n) => n,
+        let file_name = match path.file_name().and_then(|name| name.to_str()) {
+            Some(name) => name,
             None => continue,
         };
 
-        if !effective_fonts.is_empty() && !effective_fonts.contains(file_name) {
-            trace!(font = %file_name, "skip non-effective system font");
+        let referenced_indices = if effective_fonts.is_empty() {
+            None
+        } else {
+            match effective_fonts.get(file_name) {
+                Some(indices) => Some(indices),
+                None => {
+                    trace!(font = %file_name, "skip non-effective system font");
+                    continue;
+                }
+            }
+        };
+
+        if shadowed_filenames.contains(file_name) {
+            trace!(font = %file_name, "skip stock font shadowed by module system-overlay");
             continue;
         }
 
         let data = match fs::read(path) {
-            Ok(d) => d,
-            Err(_) => continue,
-        };
-
-        let face = match Face::parse(&data, 0) {
-            Ok(f) => f,
-            Err(_) => continue,
-        };
-
-        if let Some(cmap) = face.tables().cmap {
-            let mut local = HashSet::new();
-
-            for sub in cmap.subtables {
-                sub.codepoints(|cp| {
-                    local.insert(cp);
-                });
+            Ok(data) => data,
+            Err(error) => {
+                warn!(path = %path.display(), error = %error, "read system font failed; skipped");
+                continue;
             }
+        };
 
-            let count = local.len();
-
-            if count > cmap_threshold {
-                tracing::warn!(
-                    font = %file_name,
-                    count,
-                    threshold = cmap_threshold,
-                    "system font cmap exceeds threshold, excluded from system_unicode"
-                );
+        let mut parsed_faces = 0usize;
+        for face_index in face_indices(&data) {
+            if referenced_indices.is_some_and(|indices| !indices.contains(&face_index)) {
+                trace!(font = %file_name, face_index, "skip unreferenced collection face");
                 continue;
             }
 
-            set.extend(local);
+            let face = match Face::parse(&data, face_index) {
+                Ok(face) => face,
+                Err(error) => {
+                    trace!(font = %file_name, face_index, error = ?error, "font face parse failed; skipped");
+                    continue;
+                }
+            };
+            parsed_faces += 1;
+
+            let ps_name = postscript_name(&face);
+            if let Some(name) = &ps_name {
+                result.referenced_postscript_names.insert(name.clone());
+                if shadowed_postscript_names.contains(name) {
+                    trace!(font = %file_name, face_index, postscript_name = %name, "skip stock face shadowed by active updated font");
+                    continue;
+                }
+            }
+
+            let local = unicode_codepoints(&face);
+            let count = local.len();
+            if count > cmap_threshold {
+                warn!(
+                    font = %file_name,
+                    face_index,
+                    count,
+                    threshold = cmap_threshold,
+                    "system font face cmap exceeds threshold, face excluded from system baseline"
+                );
+                continue;
+            }
+            result.unicode.extend(local);
+        }
+
+        if parsed_faces == 0 {
+            warn!(font = %file_name, "no parseable referenced faces found; skipped");
         }
     }
 
-    debug!(total = set.len(), "system unicode collected");
-    Ok(set)
+    debug!(total = result.unicode.len(), "system unicode collected");
+    Ok(result)
 }
 
-fn is_font(p: &Path) -> bool {
-    matches!(
-        p.extension().and_then(|e| e.to_str()),
-        Some("ttf") | Some("otf") | Some("ttc")
-    )
+/// Backward-compatible helper used by focused tests/callers without a shadow model.
+pub fn scan_effective_system_unicode(
+    dir: &Path,
+    effective_fonts: &EffectiveFonts,
+    cmap_threshold: usize,
+) -> Result<HashSet<u32>> {
+    Ok(scan_effective_system_view(
+        dir,
+        effective_fonts,
+        cmap_threshold,
+        &HashSet::new(),
+        &HashSet::new(),
+    )?
+    .unicode)
 }

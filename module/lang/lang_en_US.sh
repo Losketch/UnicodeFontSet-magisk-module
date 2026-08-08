@@ -1,31 +1,19 @@
-# ================================
-# English Language Pack
-# ================================
 
-# --- General ---
-TXT_SERVICE_START="🚀 === Starting font module monitor task ==="
-TXT_START_MONITOR="📹 Starting monitoring of other font modules..."
-TXT_MONITOR_DONE="✅ Font module monitoring completed"
-TXT_NO_CONFLICT="  ✅ No conflicting font modules detected"
+TXT_SERVICE_START="🔎 Checking font configuration changes..."
+TXT_START_MONITOR="Checking other font modules..."
+TXT_MONITOR_DONE="✅ Font configuration check completed"
+TXT_NO_CONFLICT="  ✅ Font configuration is already up to date"
 
-TXT_LOCK_BUSY="⛔ Another instance is running, skipping this run"
-TXT_SERVICE_BUSY="⛔ Another instance is running, exiting service"
+TXT_LOCK_BUSY="ℹ️ Another font task is running; this run was skipped"
+TXT_SERVICE_BUSY="ℹ️ Another font task is running; this check was skipped"
 
-TXT_API_TOO_LOW="⏬ Android version too low, skipping font injection"
+TXT_API_TOO_LOW="❌ This build requires Android API %s or newer"
 TXT_ERROR_API_LEVEL="❌ Error: API level not set."
+TXT_ERROR_MIN_API="❌ This build is missing its minimum Android API setting"
+TXT_ERROR_SOURCE_PACKAGE="❌ This is a source-tree placeholder, not an installable module build. Use a Release or a generated ZIP."
 
-# --- Font XML ---
-TXT_XML_NEW="🆕️ Detected new font XML from module %1\$s: %2\$s/%3\$s."
-TXT_XML_UPDATE="♻️ Detected updated font XML from module %1\$s: %2\$s/%3\$s, reprocessing."
-TXT_XML_RECREATE="🔁 Detected recreated font XML from module %1\$s: %2\$s/%3\$s."
+TXT_XML_INJECT_OK="  ✅ Updated font configuration: %s"
 
-TXT_XML_BACKUP_FAIL="  ❌ Backup failed: %s, skipping"
-TXT_XML_COPY_FAIL="  ❌ Copy failed: %s"
-
-TXT_XML_INJECT_OK="  ✅ Injected font configuration into %s"
-TXT_XML_REPLACED="✅ Replaced %1\$s %2\$s/%3\$s and re-injected fonts."
-
-# --- Error messages ---
 TXT_ERROR_COPY="  ❌ Copy failed: from %1\$s to %2\$s"
 TXT_ERROR_WRITE="  ❌ Write failed: %s"
 TXT_ERROR_PROCESS="  ❌ Process failed: %s"
@@ -34,91 +22,72 @@ TXT_ERROR_MOVE="  ❌ Move failed: from %1\$s to %2\$s"
 TXT_XML_FORMAT_WARN="  ⚠️ Warning: %s format may be invalid, skipping."
 TXT_XML_NOT_FOUND="  ❌ File not found: %s"
 TXT_XML_FRAGMENT_MISSING="  ❌ Font fragment configuration missing"
-TXT_XML_NONE="  ℹ️ No other font XML modules found"
+TXT_XML_NONE="  ℹ️ Font configuration does not need changes"
 
-# --- Font binaries ---
 TXT_WARN_NO_SELF_FONTS="⚠️ No font files found in this module's system/fonts, binary conflicts cannot be handled"
-TXT_BIN_NEW="🆕️ Detected new conflicting font binary from module %1\$s: %2\$s/%3\$s."
-TXT_BIN_UPDATE="♻️ Detected updated conflicting font binary from module %1\$s: %2\$s/%3\$s."
-TXT_BIN_RECREATE="🔁 Detected recreated conflicting font binary from module %1\$s: %2\$s/%3\$s."
+TXT_BIN_NEW="🆕️ Module %1\$s added a same-name font: %2\$s/%3\$s"
+TXT_BIN_UPDATE="♻️ Module %1\$s updated a same-name font: %2\$s/%3\$s"
+TXT_BIN_RECREATE="🔁 Module %1\$s restored a same-name font: %2\$s/%3\$s"
 
-TXT_BIN_BACKUP_OK="✅ Removed and backed up: %1\$s/%2\$s/%3\$s"
+TXT_BIN_BACKUP_OK="✅ Handled same-name font: %1\$s/%2\$s/%3\$s"
 TXT_BIN_BACKUP_FAIL="  ❌ Backup failed: %s, skipping"
 TXT_BIN_NONE="  ℹ️ No conflicting font binaries found"
 
-# --- Install phase ---
-TXT_INSTALL_XML_SCAN="📄 Processing font XML files from other modules..."
-TXT_INSTALL_BIN_SCAN="📦 Processing font binary files from other modules..."
-TXT_INSTALL_SYSTEM_XML="🧩 Scanning system font XML files..."
-TXT_INSTALL_DONE="- ✅ Installation completed, font conflicts resolved"
-TXT_INSTALL_PROCESS="  ⚙️ Processing: %1\$s/%2\$s"
-TXT_INSTALL_COPY_FAIL="  ❌ Copy failed: %s"
-TXT_SYSTEM_XML_NONE="  ℹ️ No system font XML files found"
+TXT_INSTALL_XML_SCAN="📄 Updating font configuration..."
+TXT_INSTALL_BIN_SCAN="📦 Checking duplicate font files..."
+TXT_INSTALL_SYSTEM_XML="🧩 Reading system font configuration..."
+TXT_INSTALL_DONE="- ✅ Font files are ready"
 
-# --- Module lifecycle ---
 TXT_MODULE_FOUND="  🔍 Found module: %s"
 TXT_MODULE_REMOVED_XML="🧹 Module %1\$s removed, cleaning XML backups (%2\$s)."
 TXT_MODULE_REMOVED_BIN="🧹 Module %1\$s removed, cleaning binary backups (%2\$s)."
 
-# --- Input detection ---
 TXT_KEYCHECK_DETECT="- 🎚️ Using keycheck for volume key detection (%s seconds)"
 TXT_GETEVENT_DETECT="- 🎚️ Using getevent for volume key detection (%s seconds)"
 TXT_NO_INPUT_METHOD="- ℹ️ No available input method detected"
 
-# --- cmap cleanup ---
-TXT_CMAP_TITLE="📌 Optional: cmap table cleanup"
-TXT_CMAP_DESC_1="📖 If you encounter:"
-TXT_CMAP_DESC_2=" - 😵 Kaomoji (like ʕ•ᴥ•ʔ、 (╯°□°)、 ๑⃙⃘´༥`๑⃙⃘ 、 (ͼ̤͂ ͜ ͽ̤͂)✧、 ٩(๑ᵒ̴̶̷͈᷄ᗨᵒ̴̶̷͈᷅)و) display abnormally"
-TXT_CMAP_DESC_3=" - 😀 Emoji shows as blank / squares / misaligned (like😀.png 、🤓:nerd face)"
-TXT_CMAP_DESC_4="👉 This is usually caused by font cmap conflicts"
-TXT_CMAP_DESC_5="⚠️ This operation modifies module font files (safe & reversible)"
-
-# --- Magisk ---
-TXT_MAGISK_MIRROR_UNAVAIL="⚠️ Magisk mirror path unavailable, will use system path directly"
-TXT_MAGISK_CMD_UNAVAIL="⚠️ Magisk command unavailable, will use system path directly"
+TXT_CMAP_TITLE="📌 Optional: fix font character-mapping conflicts"
+TXT_CMAP_DESC_1="Try this if emoji, kaomoji, or symbols appear as boxes, blanks, or the wrong style."
+TXT_CMAP_DESC_2="It removes duplicate or explicitly filtered Unicode mappings so fonts do not claim the wrong characters."
+TXT_CMAP_DESC_3="Special fonts that cannot be modified safely are kept unchanged."
+TXT_CMAP_DESC_5="⚠️ This changes fonts inside the module; reinstall the module to restore the originals."
 
 TXT_CMAP_CHOICE="⏳ Within 15 seconds:"
 TXT_CMAP_SKIP_HINT="  ⬆️ [+]Volume Up → Skip"
 TXT_CMAP_RUN_HINT="  ⬇️ [-]Volume Down → Run cleanup"
 
-TXT_CMAP_RUN="🚀 User chose to run cmap cleanup"
-TXT_CMAP_SKIP="↩️ User chose to skip"
+TXT_CMAP_RUN="🔧 Starting font character-map cleanup"
+TXT_CMAP_SKIP="↩️ Character-map cleanup skipped"
 TXT_CMAP_TIMEOUT="⏱️ Timeout, skipped"
 TXT_CMAP_UNSUPPORTED="ℹ️ Key detection not supported, skipped"
 
-TXT_CMAP_START="🔧 Running font-cmap-cleaner..."
-TXT_CMAP_DONE="✅ font-cmap-cleaner completed"
-TXT_CMAP_FAIL="⚠️ font-cmap-cleaner failed (exit=%s)"
+TXT_CMAP_START="🔧 Cleaning font character mappings..."
+TXT_CMAP_DONE="✅ Font character-map cleanup completed"
+TXT_CMAP_FAIL="⚠️ Font character-map cleanup did not complete (exit %s)"
 TXT_CMAP_COPY_FAIL="❌ Failed to copy font-cmap-tool"
-TXT_CMAP_CANNOT_RUN="⚠️ font-cmap-cleaner cannot run on current system"
+TXT_CMAP_CANNOT_RUN="⚠️ The font cleanup tool cannot run on this device"
 TXT_CMAP_TOOL_PATH="  📍 %s"
 
-# --- ABI / tool ---
 TXT_ABI_PRIMARY="- 🧬 Primary ABI: %s"
 TXT_ABI_LIST="- 🧬 ABI list: %s"
 TXT_ABI_UNSUPPORTED="❌ ! Unsupported ABI: %s"
-TXT_CMAP_TOOL_MISSING="❌ ! font-cmap-cleaner binary not found or not executable"
-TXT_CMAP_TOOL_USING="- 🔧 Using font-cmap-cleaner: %s"
+TXT_CMAP_TOOL_MISSING="❌ No font cleanup tool is available for this device"
+TXT_CMAP_TOOL_USING="- 🔧 Font cleanup tool: %s"
 
-# --- Install UI ---
 TXT_INSTALL_TITLE="🎨 Unicode Font Set Installer"
 TXT_INSTALL_HEADER="========================================"
 TXT_VERSION="🏷️ Version: %s"
 TXT_INSTALL_COMPLETE="🎉 Installation completed!"
 TXT_REBOOT_REQUIRED="🔄 Please reboot your device to apply font configurations."
-TXT_START_SERVICE="▶️ Starting font module service..."
 
-# --- Lock ---
 TXT_LOCK_TIMEOUT="⏰⚠️ Lock acquisition timeout (30s), possible deadlock"
 
-# --- Installation steps ---
-TXT_STEP_1="①📄 Scanning font XML files from other modules..."
-TXT_STEP_2="②📦 Processing font binary files from other modules..."
-TXT_STEP_3="③🧩 Processing system font XML files..."
+TXT_STEP_1="①🧱 Saving the original system font configuration..."
+TXT_STEP_2="②📄 Merging other font-module configurations..."
+TXT_STEP_3="③📦 Handling duplicate font files..."
 TXT_STEP_4="④✅ Completing installation preparations..."
 TXT_INSTALL_SEPARATOR="========================================"
 
-# --- Log messages ---
 TXT_LOG_FILE_NOT_FOUND="❌ File not found: %s"
 TXT_LOG_FRAGMENT_NOT_FOUND="❌ Font fragment file not found: %s"
 TXT_LOG_INVALID_XML_FORMAT="❌ Invalid XML format: %s"
@@ -134,6 +103,15 @@ TXT_LOG_XML_PROCESSED="✅ Successfully processed font XML: %s"
 TXT_LOG_SHA1_WRITE_FAILED="❌ Failed to write SHA1 value to %s"
 TXT_LOG_SHA1_MOVE_FAILED="❌ Failed to move %1\$s to %2\$s"
 
-# --- Language loader ---
-TXT_LANG_DEFAULT_MISSING="⚠️ Default language file lang_en_US.sh not found"
-TXT_LANG_UNSUPPORTED="⚠️ Unsupported language %s, using English"
+TXT_STOCK_XML_UPDATED="🧱 Saved system font configuration: %1\$s/%2\$s"
+TXT_STOCK_XML_REMOVED="🧹 System font configuration was removed; cleaned old backup: %1\$s/%2\$s"
+TXT_XML_CAPTURED="💾 Saved original font configuration for module %1\$s: %2\$s/%3\$s"
+TXT_XML_SIBLING_PATCHED="✅ Updated font configuration for module %1\$s: %2\$s/%3\$s"
+TXT_XML_NATIVE_PRECEDENCE="🔀 %1\$s/%2\$s is provided by %3\$s font modules; the module manager will keep its normal order"
+TXT_XML_PROVIDER_NONE="🧹 %1\$s/%2\$s has no available font configuration; removed the matching UFS file"
+TXT_XML_STOCK_REBASED="♻️ Updated UFS from the latest system configuration: %1\$s/%2\$s"
+TXT_XML_REBASE_FAILED="❌ Failed to update font configuration"
+TXT_STATE_IMPORT_FAIL="❌ Failed to import backups from the previous UFS installation"
+TXT_STOCK_XML_FAIL="❌ Failed to read the original system font configuration"
+TXT_STOCK_XML_DEFERRED="ℹ️ The original system font configuration is not available during installation; it will be captured automatically on the next boot"
+TXT_EARLY_REBASE_START="🧱 Updating system font configuration..."

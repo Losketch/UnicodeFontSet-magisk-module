@@ -1,77 +1,70 @@
-
 get_this_module_font_binaries() {
-    [ -n "$THIS_MODULE_BINARY_FONTS_CACHE" ] && {
-        echo "$THIS_MODULE_BINARY_FONTS_CACHE"
+    if [ -n "$THIS_MODULE_BINARY_FONTS_CACHE" ]; then
+        printf '%s\n' "$THIS_MODULE_BINARY_FONTS_CACHE"
         return 0
-    }
+    fi
 
     local module_fonts_dir="$MODPATH/system/fonts"
     local font_list_raw=""
-    local font_files
+    local font_file
 
     if [ -d "$module_fonts_dir" ]; then
         for font_file in "$module_fonts_dir"/*; do
-            [ -f "$font_file" ] && {
-                font_list_raw="$font_list_raw $(basename "$font_file")"
-            }
+            [ -f "$font_file" ] || continue
+            font_list_raw="$font_list_raw $(basename "$font_file")"
         done
     fi
 
     THIS_MODULE_BINARY_FONTS_CACHE="$font_list_raw"
-    echo "$THIS_MODULE_BINARY_FONTS_CACHE"
+    printf '%s\n' "$THIS_MODULE_BINARY_FONTS_CACHE"
 }
 
 process_binary_font_action() {
     local print_func="$1"
-    local MOD_NAME="$2"
-    local SUB="$3"
-    local FONT_FILE="$4"
-    local FONT_FILENAME="$5"
-    local BACKUP_DIR="$6"
-    local BACKUP_FILE="$7"
-    local SHA1_FILE="$8"
-    local ACTION_FLAG_NAME="$9"
+    local mod_name="$2"
+    local subdir="$3"
+    local font_file="$4"
+    local font_filename="$5"
+    local backup_file="$6"
+    local sha1_file="$7"
+    local action_flag_name="$8"
+    local new_sha1 old_sha1 target_dir
 
-    local NEW_SHA1=$(sha1sum "$FONT_FILE" | cut -d' ' -f1)
-    local ACTION_TAKEN=0
+    new_sha1="$(sha1sum "$font_file" | cut -d' ' -f1)"
 
-    if [ -f "$SHA1_FILE" ]; then
-        local OLD_SHA1=$(cat "$SHA1_FILE")
-        if [ "$OLD_SHA1" != "$NEW_SHA1" ]; then
-            $print_func "$(safe_printf TXT_BIN_UPDATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-            ACTION_TAKEN=1
-            eval "$ACTION_FLAG_NAME=1"
+    if [ -f "$sha1_file" ]; then
+        old_sha1="$(cat "$sha1_file")"
+        if [ "$old_sha1" != "$new_sha1" ]; then
+            "$print_func" "$(safe_printf TXT_BIN_UPDATE "$mod_name" "$subdir" "$font_filename")"
         else
-            $print_func "$(safe_printf TXT_BIN_RECREATE "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-            ACTION_TAKEN=1
-            eval "$ACTION_FLAG_NAME=1"
+            "$print_func" "$(safe_printf TXT_BIN_RECREATE "$mod_name" "$subdir" "$font_filename")"
         fi
     else
-        $print_func "$(safe_printf TXT_BIN_NEW "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-        ACTION_TAKEN=1
-        eval "$ACTION_FLAG_NAME=1"
+        "$print_func" "$(safe_printf TXT_BIN_NEW "$mod_name" "$subdir" "$font_filename")"
+    fi
+    ufs_set_flag "$action_flag_name" 1 || return 1
+
+    mkdir -p "$(dirname "$backup_file")" || return 1
+    if ! cp -af "$font_file" "$backup_file"; then
+        "$print_func" "$(safe_printf TXT_BIN_BACKUP_FAIL "$font_file")"
+        return 1
     fi
 
-    if [ "$ACTION_TAKEN" -eq 1 ]; then
-        mkdir -p "$(dirname "$BACKUP_FILE")"
-        if ! cp -af "$FONT_FILE" "$BACKUP_FILE"; then
-            $print_func "$(safe_printf TXT_BIN_BACKUP_FAIL "$FONT_FILE")"
-            return
-        fi
-        write_sha1_atomic "$NEW_SHA1" "$SHA1_FILE"
-        rm -f "$FONT_FILE"
-        $print_func "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$SUB" "$FONT_FILENAME")"
-        local TARGET_DIR=$(dirname "$FONT_FILE")
-        if [ -d "$TARGET_DIR" ] && [ -z "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
-            rmdir "$TARGET_DIR" 2>/dev/null
-        fi
+    write_sha1_atomic "$new_sha1" "$sha1_file" || return 1
+
+    if ! rm -f "$font_file"; then
+        "$print_func" "$(safe_printf TXT_ERROR_PROCESS "$font_file")"
+        return 1
     fi
+
+    "$print_func" "$(safe_printf TXT_BIN_BACKUP_OK "$mod_name" "$subdir" "$font_filename")"
+    target_dir="$(dirname "$font_file")"
+    ufs_remove_empty_dir "$target_dir"
+    return 0
 }
 
 check_module_has_fonts() {
-    local THIS_MODULE_BINARY_FONTS="$1"
-
-    if [ -z "$THIS_MODULE_BINARY_FONTS" ]; then
+    if [ -z "$1" ]; then
         ui_print "$TXT_WARN_NO_SELF_FONTS"
         return 1
     fi
@@ -79,82 +72,65 @@ check_module_has_fonts() {
 }
 
 process_single_binary_font() {
-    local MOD_NAME="$1"
-    local sub_dir="$2"
+    local mod_name="$1"
+    local subdir="$2"
     local font_file="$3"
     local font_filename="$4"
-    local THIS_MODULE_BINARY_FONTS="$5"
-    local MODULE_HAS_FONTS_BINARY_NAME="$6"
-    local FOUND_BINARY_MODULES_NAME="$7"
+    local this_module_binary_fonts="$5"
+    local module_has_fonts_name="$6"
+    local found_binary_modules_name="$7"
+    local module_has_fonts backup_file sha1_file
 
-    case " $THIS_MODULE_BINARY_FONTS " in
-        *" $font_filename "*)
-            local MODULE_HAS_FONTS_BINARY
-            eval "MODULE_HAS_FONTS_BINARY=\${${MODULE_HAS_FONTS_BINARY_NAME}:-0}"
-            if [ "$MODULE_HAS_FONTS_BINARY" -eq 0 ]; then
-                ui_print "$(safe_printf TXT_MODULE_FOUND "$MOD_NAME")"
-                eval "$MODULE_HAS_FONTS_BINARY_NAME=1"
-                local CURRENT_COUNT
-                eval "CURRENT_COUNT=\${${FOUND_BINARY_MODULES_NAME}:-0}"
-                eval "$FOUND_BINARY_MODULES_NAME=$((CURRENT_COUNT + 1))"
-            fi
-
-            local BACKUP_DIR="$MODPATH/backup/$MOD_NAME/$sub_dir"
-            local BACKUP_FILE="$BACKUP_DIR/$font_filename"
-            local SHA1_FILE="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${MOD_NAME}_${sub_dir}_${font_filename}")"
-
-            mkdir -p "$BACKUP_DIR"
-            if ! cp -af "$font_file" "$BACKUP_FILE"; then
-                ui_print "$(safe_printf TXT_BIN_BACKUP_FAIL "$font_file")"
-                return
-            fi
-
-            local SHA1_VALUE=$(sha1sum "$font_file" | cut -d' ' -f1)
-            write_sha1_atomic "$SHA1_VALUE" "$SHA1_FILE"
-
-            rm -f "$font_file"
-            ui_print "$(safe_printf TXT_BIN_BACKUP_OK "$MOD_NAME" "$sub_dir" "$font_filename")"
-
-            local target_dir=$(dirname "$font_file")
-            if [ -z "$(ls -A "$target_dir" 2>/dev/null)" ]; then
-                rmdir "$target_dir" 2>/dev/null
-            fi
-            ;;
+    case " $this_module_binary_fonts " in
+        *" $font_filename "*) ;;
+        *) return 0 ;;
     esac
+
+    module_has_fonts="$(ufs_get_flag "$module_has_fonts_name")"
+    if [ "$module_has_fonts" -eq 0 ]; then
+        ui_print "$(safe_printf TXT_MODULE_FOUND "$mod_name")"
+        ufs_set_flag "$module_has_fonts_name" 1
+    fi
+
+    backup_file="$MODPATH/backup/$mod_name/$subdir/$font_filename"
+    sha1_file="$SHA1_DIR/sha1_$(get_safe_sha1_filename "${mod_name}_${subdir}_${font_filename}")"
+
+    process_binary_font_action \
+        "ui_print" "$mod_name" "$subdir" "$font_file" "$font_filename" \
+        "$backup_file" "$sha1_file" "$found_binary_modules_name"
 }
 
 process_binary_fonts_install() {
-    local FOUND_BINARY_MODULES=0
-    local THIS_MODULE_BINARY_FONTS=$(get_this_module_font_binaries)
+    local found_binary_modules=0
+    local this_module_binary_fonts module_dir mod_name module_has_fonts
+    local subdir target_dir font_file font_filename
 
-    check_module_has_fonts "$THIS_MODULE_BINARY_FONTS" || return 0
+    this_module_binary_fonts="$(get_this_module_font_binaries)"
+    check_module_has_fonts "$this_module_binary_fonts" || return 0
 
     ui_print "$TXT_INSTALL_BIN_SCAN"
 
-    for MODULE_DIR in "$MODULE_PARENT"/*; do
-        [ ! -d "$MODULE_DIR" ] && continue
+    for module_dir in "$MODULE_PARENT"/*; do
+        [ -d "$module_dir" ] || continue
+        mod_name="$(basename "$module_dir")"
 
-        local MOD_NAME=$(basename "$MODULE_DIR")
+        [ "$mod_name" = "$SELF_MOD_NAME" ] && continue
+        ufs_module_is_active "$module_dir" || continue
 
-        if [ "$MOD_NAME" = "$SELF_MOD_NAME" ] || [ -f "$MODULE_DIR/disable" ]; then
-            continue
-        fi
-
-        local MODULE_HAS_FONTS_BINARY=0
-
-        for sub_dir in $FONT_BINARY_SUBDIRS; do
-            local target_dir="$MODULE_DIR/$sub_dir"
-
-            [ ! -d "$target_dir" ] && continue
+        module_has_fonts=0
+        for subdir in $FONT_BINARY_SUBDIRS; do
+            target_dir="$module_dir/$subdir"
+            [ -d "$target_dir" ] || continue
 
             for font_file in "$target_dir"/*; do
-                [ ! -f "$font_file" ] && continue
-
-                local font_filename=$(basename "$font_file")
-                process_single_binary_font "$MOD_NAME" "$sub_dir" "$font_file" "$font_filename" "$THIS_MODULE_BINARY_FONTS" MODULE_HAS_FONTS_BINARY FOUND_BINARY_MODULES
+                [ -f "$font_file" ] || continue
+                font_filename="$(basename "$font_file")"
+                process_single_binary_font \
+                    "$mod_name" "$subdir" "$font_file" "$font_filename" \
+                    "$this_module_binary_fonts" module_has_fonts found_binary_modules
             done
         done
     done
 
-    [ "$FOUND_BINARY_MODULES" -eq 0 ] && ui_print "$TXT_BIN_NONE"
+    [ "$found_binary_modules" -eq 0 ] && ui_print "$TXT_BIN_NONE"
 }

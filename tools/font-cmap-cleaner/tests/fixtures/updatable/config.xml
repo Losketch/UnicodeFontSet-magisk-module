@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<fontConfig>
+  <lastModifiedDate value="~~not-an-active-dir"/>
+  <updatedFontDir value="~~active"/>
+  <updatedFontDir value="~~named"/>
+  <family name="ufs-test-family">
+    <font name="SharedUpdatePS" weight="400" slant="0" index="0" axis=""/>
+    <font name="NamedOnlyPS" weight="400" slant="0" index="0" axis=""/>
+  </family>
+</fontConfig>

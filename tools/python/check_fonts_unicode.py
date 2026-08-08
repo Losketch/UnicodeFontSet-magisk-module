@@ -5,9 +5,12 @@ import sys
 import os
 import glob
 import argparse
-from fontTools.ttLib import TTFont
 
 EXCLUDED_CATEGORIES = {'Cs', 'Co', 'Cn'}
+
+
+class MissingDependencyError(RuntimeError):
+    pass
 
 LANG = 'en'
 
@@ -15,29 +18,37 @@ MESSAGES = {
     'en': {
         'parsing_unicodedata': '1) Parsing UnicodeData.txt ...',
         'total_codepoints': '   → Total codepoints to cover: {} (excluded Cs/Co/Cn categories)',
-        'reading_font': '   Read {} codepoints from {}',
+        'reading_font': '   Read {} target codepoints from {}',
         'font_read_failed': '   ⚠️ Failed to read font {}: {}',
-        'union_codepoints': '   Union of fonts supports {} codepoints',
+        'union_codepoints': '   Union of fonts covers {} target codepoints',
         'full_coverage': '✅ All target Unicode codepoints are covered!',
         'missing_codepoints': '❌ Missing {} codepoints:',
         'no_fonts': '⚠️ No font files found',
         'arg_unicodedata': 'Path to UnicodeData.txt',
         'arg_fonts': 'TTF/OTF font files to check',
         'arg_lang': 'Language for output (en/zh), default follows LANG env',
+        'arg_warn_only': 'Report missing codepoints without failing the command',
+        'arg_github_warning': 'Emit a GitHub Actions warning when coverage is incomplete',
+        'arg_font_policy': 'Path to font-policy.tsv; terminal-fallback fonts are excluded',
+        'skipped_terminal': '   Skipped terminal fallback: {}',
         'desc': 'Check Unicode coverage of multiple fonts (skip surrogate/private-use)',
     },
     'zh': {
         'parsing_unicodedata': '1) 解析 UnicodeData.txt ...',
         'total_codepoints': '   → 需覆盖码点总计：{} 个（已剔除 Cs/Co/Cn 分类）',
-        'reading_font': '   已从 {} 读取 {} 个码点',
+        'reading_font': '   已从 {} 读取 {} 个目标码点',
         'font_read_failed': '   ⚠️ 读取字体 {} 失败：{}',
-        'union_codepoints': '   字体联合后共支持 {} 个码点',
+        'union_codepoints': '   字体联合后共覆盖 {} 个目标码点',
         'full_coverage': '✅ 联合覆盖了全部目标 Unicode 码点！',
         'missing_codepoints': '❌ 缺少 {} 个码点：',
         'no_fonts': '⚠️ 未找到任何字体文件',
         'arg_unicodedata': 'UnicodeData.txt 的路径',
         'arg_fonts': '要联合检查的 TTF/OTF 字体文件',
         'arg_lang': '输出语言 (en/zh)，默认跟随 LANG 环境变量',
+        'arg_warn_only': '存在缺失码点时仅报告，不令命令失败',
+        'arg_github_warning': '覆盖不完整时输出 GitHub Actions warning',
+        'arg_font_policy': 'font-policy.tsv 的路径；terminal-fallback 字体不计入覆盖率',
+        'skipped_terminal': '   已跳过终端兜底字体：{}',
         'desc': '检查多个字体联合后的 Unicode 覆盖率（跳过代理/私用区）',
     }
 }
@@ -86,11 +97,38 @@ def parse_unicode_data(ud_path):
     return full, names
 
 def get_font_codepoints(font_path):
+    try:
+        from fontTools.ttLib import TTFont
+    except ModuleNotFoundError as e:
+        if e.name == 'fontTools' or (e.name and e.name.startswith('fontTools.')):
+            raise MissingDependencyError(
+                'fontTools is required to read font cmap tables; install the fonttools package'
+            ) from e
+        raise
+
     tt = TTFont(font_path, recalcBBoxes=False, recalcTimestamp=False)
     cps = set()
     for table in tt['cmap'].tables:
-        cps.update(table.cmap.keys())
+        if not table.isUnicode():
+            continue
+        cps.update(cp for cp, glyph in table.cmap.items() if glyph != '.notdef')
     return cps
+
+def parse_terminal_fallbacks(policy_path):
+    terminal = set()
+    with open(policy_path, encoding='utf-8') as f:
+        for line_no, raw in enumerate(f, 1):
+            line = raw.strip()
+            if not line or line.startswith('#'):
+                continue
+            fields = line.split('\t')
+            if len(fields) != 4:
+                raise ValueError(
+                    f'{policy_path}:{line_no}: expected role<TAB>font<TAB>protect<TAB>remove'
+                )
+            if fields[0] == 'terminal-fallback':
+                terminal.add(fields[1])
+    return terminal
 
 def summarize_ranges(sorted_cps):
     if not sorted_cps:
@@ -125,6 +163,9 @@ def create_parser():
     p.add_argument('fonts', nargs='+', help=t('arg_fonts'))
     p.add_argument('--lang', choices=['en', 'zh'], default=LANG,
                    help=t('arg_lang'))
+    p.add_argument('--warn-only', action='store_true', help=t('arg_warn_only'))
+    p.add_argument('--github-warning', action='store_true', help=t('arg_github_warning'))
+    p.add_argument('--font-policy', help=t('arg_font_policy'))
     return p
 
 def main():
@@ -154,15 +195,27 @@ def main():
     print(t('total_codepoints', len(full_set)))
     print()
 
+    terminal_fallbacks = set()
+    if args.font_policy:
+        try:
+            terminal_fallbacks = parse_terminal_fallbacks(args.font_policy)
+        except (OSError, ValueError) as e:
+            p.error(str(e))
+
     union_cps = set()
     for fp in font_files:
+        if os.path.basename(fp) in terminal_fallbacks:
+            print(t('skipped_terminal', fp))
+            continue
         try:
-            cps = get_font_codepoints(fp)
+            cps = get_font_codepoints(fp) & full_set
             union_cps |= cps
             if LANG == 'zh':
-                print(t('reading_font', len(cps), fp))
-            else:
                 print(t('reading_font', fp, len(cps)))
+            else:
+                print(t('reading_font', len(cps), fp))
+        except MissingDependencyError as e:
+            p.error(str(e))
         except Exception as e:
             print(t('font_read_failed', fp, e))
     print()
@@ -175,13 +228,15 @@ def main():
         sys.exit(0)
 
     print(t('missing_codepoints', len(missing)))
+    if args.github_warning:
+        print(f'::warning title=Unicode coverage::Missing {len(missing)} target codepoints')
     for start, end in summarize_ranges(missing):
         if start == end:
             name = cp_to_name.get(start, '')
             print(f"  U+{start:04X}    {name}")
         else:
             print(f"  U+{start:04X}--U+{end:04X}")
-    sys.exit(1)
+    sys.exit(0 if args.warn_only else 1)
 
 if __name__ == '__main__':
     main()
