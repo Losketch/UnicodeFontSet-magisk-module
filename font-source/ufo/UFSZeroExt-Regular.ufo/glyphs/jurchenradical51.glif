@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="jurchenradical51" format="2">
+  <advance width="1000"/>
+  <unicode hex="191D2"/>
+  <outline>
+    <contour>
+      <point x="759" y="325" type="line"/>
+      <point x="807" y="397"/>
+      <point x="865" y="510"/>
+      <point x="909" y="604" type="curve"/>
+      <point x="830" y="636" type="line"/>
+      <point x="800" y="548"/>
+      <point x="742" y="427"/>
+      <point x="696" y="352" type="curve"/>
+    </contour>
+    <contour>
+      <point x="157" y="321" type="line"/>
+      <point x="221" y="394"/>
+      <point x="261" y="514"/>
+      <point x="286" y="613" type="curve"/>
+      <point x="214" y="637" type="line"/>
+      <point x="191" y="540"/>
+      <point x="149" y="427"/>
+      <point x="87" y="356" type="curve"/>
+    </contour>
+    <contour>
+      <point x="105" y="-78" type="curve"/>
+      <point x="333" y="8"/>
+      <point x="440" y="152"/>
+      <point x="492" y="323" type="curve"/>
+      <point x="566" y="122"/>
+      <point x="696" y="-11"/>
+      <point x="909" y="-72" type="curve"/>
+      <point x="919" y="-51"/>
+      <point x="941" y="-20"/>
+      <point x="957" y="-3" type="curve"/>
+      <point x="715" y="54"/>
+      <point x="581" y="214"/>
+      <point x="522" y="449" type="curve"/>
+      <point x="520" y="449" type="line"/>
+      <point x="538" y="568"/>
+      <point x="539" y="697"/>
+      <point x="540" y="825" type="curve"/>
+      <point x="460" y="825" type="line"/>
+      <point x="458" y="475"/>
+      <point x="470" y="134"/>
+      <point x="55" y="-17" type="curve"/>
+      <point x="74" y="-33"/>
+      <point x="95" y="-59"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>

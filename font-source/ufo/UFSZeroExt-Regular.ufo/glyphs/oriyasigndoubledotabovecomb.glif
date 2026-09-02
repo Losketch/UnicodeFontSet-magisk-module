@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="oriyasigndoubledotabovecomb" format="2">
+  <advance width="0"/>
+  <unicode hex="0B54"/>
+  <anchor x="-328" y="669" name="Anchor_11"/>
+  <anchor x="-328" y="630" name="top"/>
+  <anchor x="-328" y="770" name="top"/>
+  <outline>
+    <contour>
+      <point x="-486" y="669" type="qcurve"/>
+      <point x="-486" y="691"/>
+      <point x="-459" y="722"/>
+      <point x="-433" y="722" type="qcurve"/>
+      <point x="-406" y="722"/>
+      <point x="-379" y="691"/>
+      <point x="-379" y="669" type="qcurve"/>
+      <point x="-379" y="648"/>
+      <point x="-406" y="619"/>
+      <point x="-433" y="619" type="qcurve"/>
+      <point x="-459" y="619"/>
+      <point x="-486" y="648"/>
+    </contour>
+    <contour>
+      <point x="-276" y="668" type="qcurve"/>
+      <point x="-276" y="690"/>
+      <point x="-249" y="721"/>
+      <point x="-222" y="721" type="qcurve"/>
+      <point x="-196" y="721"/>
+      <point x="-169" y="690"/>
+      <point x="-169" y="668" type="qcurve"/>
+      <point x="-169" y="647"/>
+      <point x="-196" y="618"/>
+      <point x="-222" y="618" type="qcurve"/>
+      <point x="-249" y="618"/>
+      <point x="-276" y="647"/>
+    </contour>
+  </outline>
+</glyph>

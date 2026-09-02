@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="leibnizianlessthanwithsmallp" format="2">
+  <advance width="750"/>
+  <unicode hex="1DB06"/>
+  <outline>
+    <contour>
+      <point x="407" y="180" type="curve"/>
+      <point x="358" y="180"/>
+      <point x="330" y="159"/>
+      <point x="320" y="143" type="curve"/>
+      <point x="315" y="164"/>
+      <point x="317" y="154"/>
+      <point x="314" y="175" type="curve"/>
+      <point x="264" y="175" type="line"/>
+      <point x="264" y="-222" type="line"/>
+      <point x="323" y="-222" type="line"/>
+      <point x="323" y="-76"/>
+      <point x="321" y="-76"/>
+      <point x="321" y="-76" type="curve"/>
+      <point x="330" y="-88"/>
+      <point x="360" y="-108"/>
+      <point x="406" y="-108" type="curve"/>
+      <point x="481" y="-108"/>
+      <point x="531" y="-57"/>
+      <point x="531" y="36" type="curve"/>
+      <point x="531" y="130"/>
+      <point x="481" y="180"/>
+    </contour>
+    <contour>
+      <point x="399" y="131" type="curve"/>
+      <point x="449" y="131"/>
+      <point x="471" y="95"/>
+      <point x="471" y="37" type="curve"/>
+      <point x="471" y="-21"/>
+      <point x="449" y="-60"/>
+      <point x="400" y="-60" type="curve"/>
+      <point x="340" y="-60"/>
+      <point x="323" y="-28"/>
+      <point x="323" y="36" type="curve"/>
+      <point x="323" y="103"/>
+      <point x="340" y="131"/>
+    </contour>
+    <contour>
+      <point x="198" y="-9" type="line"/>
+      <point x="133" y="-9" type="line"/>
+      <point x="133" y="325" type="line"/>
+      <point x="635" y="325" type="line"/>
+      <point x="635" y="-312" type="line"/>
+      <point x="570" y="-312" type="line"/>
+      <point x="570" y="260" type="line"/>
+      <point x="198" y="260" type="line"/>
+    </contour>
+  </outline>
+</glyph>

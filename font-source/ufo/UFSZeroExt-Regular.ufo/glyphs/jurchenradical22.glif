@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="jurchenradical22" format="2">
+  <advance width="1000"/>
+  <unicode hex="191B5"/>
+  <outline>
+    <contour>
+      <point x="185" y="565" type="line"/>
+      <point x="285" y="430"/>
+      <point x="360" y="185" type="qcurve"/>
+      <point x="300" y="165" type="line"/>
+      <point x="235" y="400"/>
+      <point x="135" y="525" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="451" y="770" type="line"/>
+      <point x="451" y="-85" type="line"/>
+      <point x="391" y="-85" type="line"/>
+      <point x="391" y="770" type="line"/>
+    </contour>
+    <contour>
+      <point x="850" y="520" type="line"/>
+      <point x="770" y="335"/>
+      <point x="655" y="105" type="qcurve"/>
+      <point x="605" y="135" type="line"/>
+      <point x="720" y="365"/>
+      <point x="800" y="540" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="582" y="770" type="line"/>
+      <point x="582" y="-85" type="line"/>
+      <point x="522" y="-85" type="line"/>
+      <point x="522" y="770" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

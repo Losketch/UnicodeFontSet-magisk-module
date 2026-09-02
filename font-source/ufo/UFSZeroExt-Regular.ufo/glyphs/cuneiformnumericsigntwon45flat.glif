@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cuneiformnumericsigntwon45flat" format="2">
+  <advance width="601"/>
+  <unicode hex="12669"/>
+  <outline>
+    <contour>
+      <point x="101" y="278" type="line"/>
+      <point x="501" y="278" type="line"/>
+      <point x="501" y="-122" type="line"/>
+      <point x="101" y="-122" type="line"/>
+    </contour>
+    <contour>
+      <point x="100" y="756" type="line"/>
+      <point x="500" y="756" type="line"/>
+      <point x="500" y="356" type="line"/>
+      <point x="100" y="356" type="line"/>
+    </contour>
+  </outline>
+</glyph>

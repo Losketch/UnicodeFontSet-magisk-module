@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="lowerleftflattenedrighttriangle" format="2">
+  <advance width="1000"/>
+  <unicode hex="1F7FD"/>
+  <outline>
+    <contour>
+      <point x="865" y="113" type="line"/>
+      <point x="336" y="113" type="line"/>
+      <point x="865" y="463" type="line"/>
+    </contour>
+    <contour>
+      <point x="100" y="43" type="line"/>
+      <point x="935" y="43" type="line"/>
+      <point x="935" y="594" type="line"/>
+    </contour>
+  </outline>
+</glyph>

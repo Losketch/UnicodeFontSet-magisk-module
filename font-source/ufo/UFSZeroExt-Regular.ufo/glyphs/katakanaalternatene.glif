@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="katakanaalternatene" format="2">
+  <advance width="1000"/>
+  <unicode hex="1B127"/>
+  <outline>
+    <contour>
+      <point x="753" y="781" type="qcurve"/>
+      <point x="783" y="721" type="line"/>
+      <point x="680" y="598"/>
+      <point x="552" y="500" type="qcurve"/>
+      <point x="553" y="465"/>
+      <point x="554" y="442" type="qcurve"/>
+      <point x="757" y="462"/>
+      <point x="919" y="462" type="qcurve"/>
+      <point x="919" y="385" type="line"/>
+      <point x="759" y="385"/>
+      <point x="555" y="364" type="qcurve"/>
+      <point x="555" y="-36" type="line"/>
+      <point x="469" y="-53" type="line"/>
+      <point x="421" y="68"/>
+      <point x="340" y="109" type="qcurve"/>
+      <point x="376" y="173" type="line"/>
+      <point x="399" y="161"/>
+      <point x="450" y="116"/>
+      <point x="474" y="70" type="qcurve"/>
+      <point x="474" y="357" type="line"/>
+      <point x="331" y="344"/>
+      <point x="140" y="328"/>
+      <point x="87" y="328" type="qcurve"/>
+      <point x="87" y="405" type="line"/>
+      <point x="135" y="405"/>
+      <point x="328" y="422"/>
+      <point x="476" y="435" type="qcurve"/>
+      <point x="477" y="450"/>
+      <point x="472" y="479" type="qcurve"/>
+      <point x="478" y="535" type="line"/>
+      <point x="581" y="613"/>
+      <point x="668" y="707" type="qcurve"/>
+      <point x="467" y="693"/>
+      <point x="238" y="641" type="qcurve"/>
+      <point x="222" y="718" type="line"/>
+      <point x="363" y="744"/>
+      <point x="647" y="781"/>
+    </contour>
+  </outline>
+</glyph>

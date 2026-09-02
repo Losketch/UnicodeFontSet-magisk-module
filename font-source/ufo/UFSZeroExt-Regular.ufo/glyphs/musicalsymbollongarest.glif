@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="musicalsymbollongarest" format="2">
+  <advance width="261"/>
+  <unicode hex="1D1FF"/>
+  <outline>
+    <contour>
+      <point x="0" y="246" type="line"/>
+      <point x="0" y="238"/>
+      <point x="0" y="234"/>
+      <point x="8" y="234" type="curve"/>
+      <point x="68" y="234" type="line"/>
+      <point x="68" y="-218" type="line"/>
+      <point x="18" y="-218" type="line"/>
+      <point x="10" y="-218"/>
+      <point x="10" y="-222"/>
+      <point x="10" y="-230" type="curve"/>
+      <point x="10" y="-238" type="line"/>
+      <point x="10" y="-246"/>
+      <point x="10" y="-250"/>
+      <point x="18" y="-250" type="curve"/>
+      <point x="253" y="-250" type="line"/>
+      <point x="261" y="-250"/>
+      <point x="261" y="-246"/>
+      <point x="261" y="-238" type="curve"/>
+      <point x="261" y="-230" type="line"/>
+      <point x="261" y="-222"/>
+      <point x="261" y="-218"/>
+      <point x="253" y="-218" type="curve"/>
+      <point x="193" y="-218" type="line"/>
+      <point x="193" y="234" type="line"/>
+      <point x="253" y="234" type="line"/>
+      <point x="261" y="234"/>
+      <point x="261" y="238"/>
+      <point x="261" y="246" type="curve"/>
+      <point x="261" y="254" type="line"/>
+      <point x="261" y="262"/>
+      <point x="261" y="266"/>
+      <point x="253" y="266" type="curve"/>
+      <point x="8" y="266" type="line"/>
+      <point x="0" y="266"/>
+      <point x="0" y="262"/>
+      <point x="0" y="254" type="curve"/>
+    </contour>
+    <contour>
+      <point x="0" y="246" type="line"/>
+      <point x="0" y="238"/>
+      <point x="0" y="234"/>
+      <point x="8" y="234" type="curve"/>
+      <point x="68" y="234" type="line"/>
+      <point x="68" y="-218" type="line"/>
+      <point x="18" y="-218" type="line"/>
+      <point x="10" y="-218"/>
+      <point x="10" y="-222"/>
+      <point x="10" y="-230" type="curve"/>
+      <point x="10" y="-238" type="line"/>
+      <point x="10" y="-246"/>
+      <point x="10" y="-250"/>
+      <point x="18" y="-250" type="curve"/>
+      <point x="253" y="-250" type="line"/>
+      <point x="261" y="-250"/>
+      <point x="261" y="-246"/>
+      <point x="261" y="-238" type="curve"/>
+      <point x="261" y="-230" type="line"/>
+      <point x="261" y="-222"/>
+      <point x="261" y="-218"/>
+      <point x="253" y="-218" type="curve"/>
+      <point x="193" y="-218" type="line"/>
+      <point x="193" y="234" type="line"/>
+      <point x="253" y="234" type="line"/>
+      <point x="261" y="234"/>
+      <point x="261" y="238"/>
+      <point x="261" y="246" type="curve"/>
+      <point x="261" y="254" type="line"/>
+      <point x="261" y="262"/>
+      <point x="261" y="266"/>
+      <point x="253" y="266" type="curve"/>
+      <point x="8" y="266" type="line"/>
+      <point x="0" y="266"/>
+      <point x="0" y="262"/>
+      <point x="0" y="254" type="curve"/>
+    </contour>
+    <contour>
+      <point x="0" y="4" type="line"/>
+      <point x="0" y="-4"/>
+      <point x="0" y="-8"/>
+      <point x="8" y="-8" type="curve"/>
+      <point x="253" y="-8" type="line"/>
+      <point x="261" y="-8"/>
+      <point x="261" y="-4"/>
+      <point x="261" y="4" type="curve"/>
+      <point x="261" y="12" type="line"/>
+      <point x="261" y="20"/>
+      <point x="261" y="24"/>
+      <point x="253" y="24" type="curve"/>
+      <point x="8" y="24" type="line"/>
+      <point x="0" y="24"/>
+      <point x="0" y="20"/>
+      <point x="0" y="12" type="curve"/>
+    </contour>
+  </outline>
+</glyph>

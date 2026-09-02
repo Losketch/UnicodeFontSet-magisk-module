@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="musicalsymbolfingeredtremolo5" format="2">
+  <advance width="162"/>
+  <unicode hex="1D25E"/>
+  <outline>
+    <contour>
+      <point x="-162" y="-370" type="line"/>
+      <point x="-162" y="-495" type="line"/>
+      <point x="162" y="-390" type="line"/>
+      <point x="162" y="-265" type="line"/>
+    </contour>
+    <contour>
+      <point x="-162" y="265" type="line"/>
+      <point x="162" y="370" type="line"/>
+      <point x="162" y="495" type="line"/>
+      <point x="-162" y="390" type="line"/>
+    </contour>
+    <contour>
+      <point x="-162" y="-180" type="line"/>
+      <point x="-162" y="-305" type="line"/>
+      <point x="162" y="-200" type="line"/>
+      <point x="162" y="-75" type="line"/>
+    </contour>
+    <contour>
+      <point x="-162" y="75" type="line"/>
+      <point x="162" y="180" type="line"/>
+      <point x="162" y="305" type="line"/>
+      <point x="-162" y="200" type="line"/>
+    </contour>
+    <contour>
+      <point x="-162" y="10" type="line"/>
+      <point x="-162" y="-115" type="line"/>
+      <point x="162" y="-10" type="line"/>
+      <point x="162" y="115" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-230407" format="2">
+  <advance width="1000"/>
+  <unicode hex="18F34"/>
+  <outline>
+    <contour>
+      <point x="120" y="795" type="qcurve"/>
+      <point x="120" y="795"/>
+      <point x="180" y="795" type="qcurve"/>
+      <point x="185" y="595"/>
+      <point x="95" y="525" type="qcurve"/>
+      <point x="55" y="575" type="line"/>
+      <point x="125" y="625"/>
+    </contour>
+    <contour>
+      <point x="120" y="750" type="line"/>
+      <point x="915" y="750" type="line"/>
+      <point x="915" y="690" type="line"/>
+      <point x="120" y="690" type="line"/>
+    </contour>
+    <contour>
+      <point x="910" y="705" type="line"/>
+      <point x="880" y="645"/>
+      <point x="810" y="545" type="qcurve"/>
+      <point x="760" y="575" type="line"/>
+      <point x="830" y="675"/>
+      <point x="860" y="735" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="535" y="660" type="qcurve"/>
+      <point x="360" y="375"/>
+      <point x="65" y="245" type="qcurve"/>
+      <point x="45" y="295" type="line"/>
+      <point x="320" y="425"/>
+      <point x="485" y="690" type="qcurve"/>
+      <point x="535" y="660"/>
+    </contour>
+    <contour>
+      <point x="515" y="680" type="line"/>
+      <point x="685" y="450"/>
+      <point x="905" y="360" type="qcurve"/>
+      <point x="900" y="345"/>
+      <point x="885" y="305"/>
+      <point x="885" y="300" type="qcurve"/>
+      <point x="645" y="400"/>
+      <point x="465" y="640" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="155" y="235" type="line"/>
+      <point x="845" y="235" type="line"/>
+      <point x="845" y="175" type="line"/>
+      <point x="155" y="175" type="line"/>
+    </contour>
+    <contour>
+      <point x="530" y="490" type="line"/>
+      <point x="530" y="-80" type="line"/>
+      <point x="470" y="-80" type="line"/>
+      <point x="470" y="490" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

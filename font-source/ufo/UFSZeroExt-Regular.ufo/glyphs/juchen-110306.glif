@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-110306" format="2">
+  <advance width="1000"/>
+  <unicode hex="18ECF"/>
+  <outline>
+    <contour>
+      <point x="135" y="680" type="line"/>
+      <point x="865" y="680" type="line"/>
+      <point x="865" y="620" type="line"/>
+      <point x="135" y="620" type="line"/>
+    </contour>
+    <contour>
+      <point x="530" y="775" type="line"/>
+      <point x="530" y="450" type="line"/>
+      <point x="470" y="450" type="line"/>
+      <point x="470" y="775" type="line"/>
+    </contour>
+    <contour>
+      <point x="70" y="510" type="line"/>
+      <point x="930" y="510" type="line"/>
+      <point x="930" y="450" type="line"/>
+      <point x="70" y="450" type="line"/>
+    </contour>
+    <contour>
+      <point x="150" y="300" type="line"/>
+      <point x="855" y="300" type="line"/>
+      <point x="855" y="240" type="line"/>
+      <point x="150" y="240" type="line"/>
+    </contour>
+    <contour>
+      <point x="720" y="-5" type="qcurve"/>
+      <point x="790" y="65"/>
+      <point x="795" y="270" type="qcurve"/>
+      <point x="855" y="270" type="line"/>
+      <point x="850" y="35"/>
+      <point x="760" y="-45" type="qcurve"/>
+      <point x="715" y="-95"/>
+      <point x="600" y="-65" type="qcurve"/>
+      <point x="610" y="-5" type="line"/>
+      <point x="695" y="-25"/>
+    </contour>
+    <contour>
+      <point x="530" y="430" type="line"/>
+      <point x="505" y="-15"/>
+      <point x="100" y="-115" type="qcurve"/>
+      <point x="90" y="-55" type="line"/>
+      <point x="445" y="35"/>
+      <point x="470" y="430" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="310" y="215" type="line"/>
+      <point x="485" y="180"/>
+      <point x="545" y="110" type="qcurve"/>
+      <point x="495" y="70" type="line"/>
+      <point x="455" y="125"/>
+      <point x="300" y="155" type="qcurve"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

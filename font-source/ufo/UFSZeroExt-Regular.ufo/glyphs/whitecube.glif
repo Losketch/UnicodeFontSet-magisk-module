@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="whitecube" format="2">
+  <advance width="1000"/>
+  <unicode hex="1F7F7"/>
+  <outline>
+    <contour>
+      <point x="65" y="-100" type="line"/>
+      <point x="744" y="-100" type="line"/>
+      <point x="955" y="111" type="line"/>
+      <point x="955" y="790" type="line"/>
+      <point x="276" y="790" type="line"/>
+      <point x="65" y="579" type="line"/>
+    </contour>
+    <contour>
+      <point x="127" y="508" type="line"/>
+      <point x="673" y="508" type="line"/>
+      <point x="673" y="-38" type="line"/>
+      <point x="127" y="-38" type="line"/>
+    </contour>
+    <contour>
+      <point x="735" y="528" type="line"/>
+      <point x="893" y="686" type="line"/>
+      <point x="893" y="134" type="line"/>
+      <point x="735" y="-24" type="line"/>
+    </contour>
+    <contour>
+      <point x="300" y="728" type="line"/>
+      <point x="851" y="728" type="line"/>
+      <point x="693" y="570" type="line"/>
+      <point x="142" y="570" type="line"/>
+    </contour>
+  </outline>
+</glyph>

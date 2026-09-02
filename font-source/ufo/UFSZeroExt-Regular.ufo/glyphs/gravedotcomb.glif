@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="gravedotcomb" format="2">
+  <advance width="0"/>
+  <unicode hex="1ADE"/>
+  <outline>
+    <contour>
+      <point x="-372" y="766" type="curve"/>
+      <point x="-477" y="766" type="line"/>
+      <point x="-477" y="756" type="line"/>
+      <point x="-454" y="719"/>
+      <point x="-381" y="642"/>
+      <point x="-335" y="606" type="curve"/>
+      <point x="-276" y="606" type="line"/>
+      <point x="-276" y="618" type="line"/>
+      <point x="-307" y="655"/>
+      <point x="-350" y="721"/>
+    </contour>
+    <contour>
+      <point x="-156" y="737" type="curve"/>
+      <point x="-185" y="737"/>
+      <point x="-208" y="720"/>
+      <point x="-208" y="681" type="curve"/>
+      <point x="-208" y="643"/>
+      <point x="-185" y="625"/>
+      <point x="-156" y="625" type="curve"/>
+      <point x="-129" y="625"/>
+      <point x="-105" y="643"/>
+      <point x="-105" y="681" type="curve"/>
+      <point x="-105" y="720"/>
+      <point x="-129" y="737"/>
+    </contour>
+  </outline>
+</glyph>

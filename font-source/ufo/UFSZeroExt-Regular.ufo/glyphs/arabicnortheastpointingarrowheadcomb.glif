@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="arabicnortheastpointingarrowheadcomb" format="2">
+  <advance width="0"/>
+  <unicode hex="10ECB"/>
+  <outline>
+    <contour>
+      <point x="295" y="820" type="line"/>
+      <point x="266" y="692"/>
+      <point x="236" y="564" type="qcurve"/>
+      <point x="175" y="712" type="line"/>
+      <point x="17" y="772" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

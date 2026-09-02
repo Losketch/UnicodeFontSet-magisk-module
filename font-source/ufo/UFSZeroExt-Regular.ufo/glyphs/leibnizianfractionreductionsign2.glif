@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="leibnizianfractionreductionsign2" format="2">
+  <advance width="400"/>
+  <unicode hex="1CEF5"/>
+  <outline>
+    <contour>
+      <point x="282" y="584" type="line"/>
+      <point x="234" y="584"/>
+      <point x="198" y="599"/>
+      <point x="172" y="628" type="curve"/>
+      <point x="147" y="656"/>
+      <point x="134" y="691"/>
+      <point x="134" y="732" type="curve"/>
+      <point x="134" y="772"/>
+      <point x="147" y="807"/>
+      <point x="172" y="836" type="curve"/>
+      <point x="197" y="865"/>
+      <point x="234" y="880"/>
+      <point x="282" y="880" type="curve"/>
+      <point x="272" y="934" type="line"/>
+      <point x="216" y="933"/>
+      <point x="170" y="913"/>
+      <point x="134" y="874" type="curve"/>
+      <point x="98" y="834"/>
+      <point x="80" y="787"/>
+      <point x="80" y="732" type="curve"/>
+      <point x="80" y="677"/>
+      <point x="98" y="630"/>
+      <point x="134" y="590" type="curve"/>
+      <point x="170" y="551"/>
+      <point x="216" y="531"/>
+      <point x="272" y="530" type="curve"/>
+    </contour>
+    <contour>
+      <point x="284" y="-249" type="line"/>
+      <point x="284" y="585" type="line"/>
+      <point x="225" y="585" type="line"/>
+      <point x="225" y="-249" type="line"/>
+    </contour>
+  </outline>
+</glyph>

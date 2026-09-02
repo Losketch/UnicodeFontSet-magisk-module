@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="musicalsymbolsuspension" format="2">
+  <advance width="552"/>
+  <unicode hex="1D261"/>
+  <outline>
+    <contour>
+      <point x="20" y="457" type="qcurve"/>
+      <point x="101" y="525"/>
+      <point x="203" y="543" type="qcurve"/>
+      <point x="189" y="563"/>
+      <point x="189" y="588" type="qcurve"/>
+      <point x="189" y="635"/>
+      <point x="256" y="703"/>
+      <point x="295" y="703" type="qcurve"/>
+      <point x="326" y="703"/>
+      <point x="371" y="658"/>
+      <point x="371" y="627" type="qcurve"/>
+      <point x="371" y="580"/>
+      <point x="337" y="546" type="qcurve"/>
+      <point x="459" y="533"/>
+      <point x="533" y="457" type="qcurve"/>
+      <point x="526" y="443"/>
+      <point x="510" y="430" type="qcurve"/>
+      <point x="441" y="475"/>
+      <point x="328" y="484" type="qcurve"/>
+      <point x="303" y="486"/>
+      <point x="276" y="486" type="qcurve"/>
+      <point x="131" y="486"/>
+      <point x="41" y="427" type="qcurve"/>
+      <point x="26" y="444"/>
+    </contour>
+    <contour>
+      <point x="327" y="607" type="qcurve"/>
+      <point x="327" y="631"/>
+      <point x="304" y="666"/>
+      <point x="285" y="666" type="qcurve"/>
+      <point x="264" y="666"/>
+      <point x="233" y="633"/>
+      <point x="233" y="608" type="qcurve"/>
+      <point x="233" y="584"/>
+      <point x="256" y="550"/>
+      <point x="275" y="550" type="qcurve"/>
+      <point x="296" y="550"/>
+      <point x="327" y="581"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

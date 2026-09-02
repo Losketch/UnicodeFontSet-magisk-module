@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="arabicsmalllowuprightrectangularzerocomb" format="2">
+  <advance width="0"/>
+  <unicode hex="10EF0"/>
+  <outline>
+    <contour>
+      <point x="110" y="-260" type="curve"/>
+      <point x="181" y="-260"/>
+      <point x="208" y="-201"/>
+      <point x="208" y="-136" type="curve"/>
+      <point x="208" y="-73"/>
+      <point x="182" y="-16"/>
+      <point x="113" y="-16" type="curve"/>
+      <point x="38" y="-16"/>
+      <point x="15" y="-85"/>
+      <point x="15" y="-142" type="curve"/>
+      <point x="15" y="-202"/>
+      <point x="40" y="-260"/>
+    </contour>
+    <contour>
+      <point x="111" y="-211" type="curve"/>
+      <point x="73" y="-211"/>
+      <point x="68" y="-164"/>
+      <point x="68" y="-139" type="curve"/>
+      <point x="68" y="-114"/>
+      <point x="73" y="-66"/>
+      <point x="112" y="-66" type="curve"/>
+      <point x="150" y="-66"/>
+      <point x="155" y="-114"/>
+      <point x="155" y="-139" type="curve"/>
+      <point x="155" y="-164"/>
+      <point x="150" y="-211"/>
+    </contour>
+  </outline>
+</glyph>

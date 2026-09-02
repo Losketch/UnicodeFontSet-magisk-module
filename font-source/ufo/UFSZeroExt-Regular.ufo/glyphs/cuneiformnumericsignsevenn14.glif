@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cuneiformnumericsignsevenn14" format="2">
+  <advance width="1980"/>
+  <unicode hex="12568"/>
+  <outline>
+    <contour>
+      <point x="1680" y="340" type="curve"/>
+      <point x="1790" y="340"/>
+      <point x="1880" y="430"/>
+      <point x="1880" y="540" type="curve"/>
+      <point x="1880" y="650"/>
+      <point x="1790" y="740"/>
+      <point x="1680" y="740" type="curve"/>
+      <point x="1570" y="740"/>
+      <point x="1480" y="650"/>
+      <point x="1480" y="540" type="curve"/>
+      <point x="1480" y="430"/>
+      <point x="1570" y="340"/>
+    </contour>
+    <contour>
+      <point x="1220" y="340" type="curve"/>
+      <point x="1330" y="340"/>
+      <point x="1420" y="430"/>
+      <point x="1420" y="540" type="curve"/>
+      <point x="1420" y="650"/>
+      <point x="1330" y="740"/>
+      <point x="1220" y="740" type="curve"/>
+      <point x="1110" y="740"/>
+      <point x="1020" y="650"/>
+      <point x="1020" y="540" type="curve"/>
+      <point x="1020" y="430"/>
+      <point x="1110" y="340"/>
+    </contour>
+    <contour>
+      <point x="1220" y="-121" type="curve"/>
+      <point x="1330" y="-121"/>
+      <point x="1420" y="-32"/>
+      <point x="1420" y="79" type="curve"/>
+      <point x="1420" y="190"/>
+      <point x="1330" y="279"/>
+      <point x="1220" y="279" type="curve"/>
+      <point x="1110" y="279"/>
+      <point x="1020" y="190"/>
+      <point x="1020" y="79" type="curve"/>
+      <point x="1020" y="-32"/>
+      <point x="1110" y="-121"/>
+    </contour>
+    <contour>
+      <point x="300" y="340" type="curve"/>
+      <point x="410" y="340"/>
+      <point x="500" y="430"/>
+      <point x="500" y="540" type="curve"/>
+      <point x="500" y="650"/>
+      <point x="410" y="740"/>
+      <point x="300" y="740" type="curve"/>
+      <point x="190" y="740"/>
+      <point x="100" y="650"/>
+      <point x="100" y="540" type="curve"/>
+      <point x="100" y="430"/>
+      <point x="190" y="340"/>
+    </contour>
+    <contour>
+      <point x="300" y="-121" type="curve"/>
+      <point x="410" y="-121"/>
+      <point x="500" y="-32"/>
+      <point x="500" y="79" type="curve"/>
+      <point x="500" y="190"/>
+      <point x="410" y="279"/>
+      <point x="300" y="279" type="curve"/>
+      <point x="190" y="279"/>
+      <point x="100" y="190"/>
+      <point x="100" y="79" type="curve"/>
+      <point x="100" y="-32"/>
+      <point x="190" y="-121"/>
+    </contour>
+    <contour>
+      <point x="760" y="340" type="curve"/>
+      <point x="870" y="340"/>
+      <point x="960" y="430"/>
+      <point x="960" y="540" type="curve"/>
+      <point x="960" y="650"/>
+      <point x="870" y="740"/>
+      <point x="760" y="740" type="curve"/>
+      <point x="650" y="740"/>
+      <point x="560" y="650"/>
+      <point x="560" y="540" type="curve"/>
+      <point x="560" y="430"/>
+      <point x="650" y="340"/>
+    </contour>
+    <contour>
+      <point x="760" y="-121" type="curve"/>
+      <point x="870" y="-121"/>
+      <point x="960" y="-32"/>
+      <point x="960" y="79" type="curve"/>
+      <point x="960" y="190"/>
+      <point x="870" y="279"/>
+      <point x="760" y="279" type="curve"/>
+      <point x="650" y="279"/>
+      <point x="560" y="190"/>
+      <point x="560" y="79" type="curve"/>
+      <point x="560" y="-32"/>
+      <point x="650" y="-121"/>
+    </contour>
+  </outline>
+</glyph>

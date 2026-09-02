@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="chisoisignanusvaracomb" format="2">
+  <advance width="0"/>
+  <unicode hex="16D98"/>
+  <outline>
+    <contour>
+      <point x="-170" y="696" type="qcurve"/>
+      <point x="-249" y="743"/>
+      <point x="-249" y="838" type="qcurve"/>
+      <point x="-249" y="866"/>
+      <point x="-231" y="898" type="qcurve"/>
+      <point x="-194" y="966"/>
+      <point x="-111" y="966" type="qcurve"/>
+      <point x="-70" y="966"/>
+      <point x="-32" y="943" type="qcurve"/>
+      <point x="47" y="895"/>
+      <point x="47" y="800" type="qcurve"/>
+      <point x="47" y="772"/>
+      <point x="29" y="741" type="qcurve"/>
+      <point x="-8" y="673"/>
+      <point x="-91" y="673" type="qcurve"/>
+      <point x="-132" y="673"/>
+    </contour>
+    <contour>
+      <point x="-147" y="803" type="qcurve"/>
+      <point x="-147" y="787"/>
+      <point x="-106" y="787"/>
+      <point x="-87" y="798" type="qcurve"/>
+      <point x="-55" y="817"/>
+      <point x="-55" y="835" type="qcurve"/>
+      <point x="-55" y="840"/>
+      <point x="-63" y="852"/>
+      <point x="-79" y="852"/>
+      <point x="-98" y="851"/>
+      <point x="-116" y="840" type="qcurve"/>
+      <point x="-147" y="822"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.501960784313726,0,0.501960784313726,1</string>
+    </dict>
+  </lib>
+</glyph>

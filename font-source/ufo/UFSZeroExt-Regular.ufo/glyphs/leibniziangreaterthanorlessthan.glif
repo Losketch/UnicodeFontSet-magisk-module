@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="leibniziangreaterthanorlessthan" format="2">
+  <advance width="750"/>
+  <unicode hex="1DB07"/>
+  <outline>
+    <contour>
+      <point x="103" y="668" type="line"/>
+      <point x="103" y="-19" type="line"/>
+      <point x="168" y="-19" type="line"/>
+      <point x="168" y="603" type="line"/>
+      <point x="430" y="603" type="line"/>
+      <point x="430" y="374" type="line"/>
+      <point x="495" y="374" type="line"/>
+      <point x="495" y="668" type="line"/>
+    </contour>
+    <contour>
+      <point x="273" y="-18" type="line"/>
+      <point x="338" y="-18" type="line"/>
+      <point x="338" y="260" type="line"/>
+      <point x="596" y="260" type="line"/>
+      <point x="596" y="-259" type="line"/>
+      <point x="661" y="-259" type="line"/>
+      <point x="661" y="325" type="line"/>
+      <point x="273" y="325" type="line"/>
+    </contour>
+  </outline>
+</glyph>

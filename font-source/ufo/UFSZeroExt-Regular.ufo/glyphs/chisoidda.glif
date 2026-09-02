@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="chisoidda" format="2">
+  <advance width="612"/>
+  <unicode hex="16D9A"/>
+  <outline>
+    <contour>
+      <point x="221" y="144" type="line"/>
+      <point x="347" y="178"/>
+      <point x="426" y="253" type="qcurve"/>
+      <point x="452" y="278"/>
+      <point x="472" y="317" type="qcurve"/>
+      <point x="428" y="317"/>
+      <point x="376" y="371"/>
+      <point x="376" y="409" type="qcurve"/>
+      <point x="376" y="453"/>
+      <point x="411" y="485" type="qcurve"/>
+      <point x="436" y="507"/>
+      <point x="471" y="507" type="qcurve"/>
+      <point x="511" y="506"/>
+      <point x="542" y="480" type="qcurve"/>
+      <point x="592" y="437"/>
+      <point x="592" y="353" type="qcurve"/>
+      <point x="592" y="253"/>
+      <point x="516" y="165" type="qcurve"/>
+      <point x="415" y="46"/>
+      <point x="190" y="1" type="qcurve"/>
+      <point x="100" y="77" type="line"/>
+      <point x="100" y="492" type="line"/>
+      <point x="20" y="492" type="line"/>
+      <point x="0" y="621" type="line"/>
+      <point x="162" y="621" type="line"/>
+      <point x="221" y="539" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.501960784313726,0,0.501960784313726,1</string>
+    </dict>
+  </lib>
+</glyph>

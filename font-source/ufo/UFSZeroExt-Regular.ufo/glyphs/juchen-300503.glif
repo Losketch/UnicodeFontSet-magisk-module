@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-300503" format="2">
+  <advance width="1000"/>
+  <unicode hex="18FDC"/>
+  <outline>
+    <contour>
+      <point x="190" y="480" type="line"/>
+      <point x="190" y="-75" type="line"/>
+      <point x="130" y="-75" type="line"/>
+      <point x="130" y="480" type="line"/>
+    </contour>
+    <contour>
+      <point x="130" y="0" type="line"/>
+      <point x="875" y="0" type="line"/>
+      <point x="875" y="-60" type="line"/>
+      <point x="130" y="-60" type="line"/>
+    </contour>
+    <contour>
+      <point x="760" y="720" type="line"/>
+      <point x="530" y="655"/>
+      <point x="270" y="640" type="qcurve"/>
+      <point x="270" y="640"/>
+      <point x="270" y="655"/>
+      <point x="270" y="685"/>
+      <point x="270" y="695"/>
+      <point x="265" y="700" type="qcurve"/>
+      <point x="520" y="715"/>
+      <point x="745" y="780" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="285" y="535" type="line"/>
+      <point x="775" y="535" type="line"/>
+      <point x="775" y="475" type="line"/>
+      <point x="285" y="475" type="line"/>
+    </contour>
+    <contour>
+      <point x="220" y="330" type="line"/>
+      <point x="840" y="330" type="line"/>
+      <point x="840" y="270" type="line"/>
+      <point x="220" y="270" type="line"/>
+    </contour>
+    <contour>
+      <point x="560" y="705" type="line"/>
+      <point x="560" y="10" type="line"/>
+      <point x="500" y="10" type="line"/>
+      <point x="500" y="705" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

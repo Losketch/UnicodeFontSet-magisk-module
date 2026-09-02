@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="doublegravebelowcomb" format="2">
+  <advance width="0"/>
+  <unicode hex="1AEE"/>
+  <outline>
+    <contour>
+      <point x="-429" y="-55" type="line"/>
+      <point x="-408" y="-90"/>
+      <point x="-341" y="-169"/>
+      <point x="-296" y="-205" type="curve"/>
+      <point x="-246" y="-205" type="line"/>
+      <point x="-246" y="-193" type="line"/>
+      <point x="-274" y="-155"/>
+      <point x="-312" y="-90"/>
+      <point x="-333" y="-45" type="curve"/>
+      <point x="-429" y="-45" type="line"/>
+    </contour>
+    <contour>
+      <point x="-253" y="-55" type="line"/>
+      <point x="-232" y="-90"/>
+      <point x="-165" y="-169"/>
+      <point x="-120" y="-205" type="curve"/>
+      <point x="-70" y="-205" type="line"/>
+      <point x="-70" y="-193" type="line"/>
+      <point x="-98" y="-155"/>
+      <point x="-135" y="-90"/>
+      <point x="-157" y="-45" type="curve"/>
+      <point x="-253" y="-45" type="line"/>
+    </contour>
+  </outline>
+</glyph>

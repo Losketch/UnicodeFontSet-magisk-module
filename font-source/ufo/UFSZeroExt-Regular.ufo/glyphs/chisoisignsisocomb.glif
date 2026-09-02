@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="chisoisignsisocomb" format="2">
+  <advance width="0"/>
+  <unicode hex="16D9D"/>
+  <outline>
+    <contour>
+      <point x="-213" y="-142" type="line"/>
+      <point x="-182" y="-30" type="line"/>
+      <point x="6" y="-160" type="line"/>
+      <point x="39" y="-272" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.501960784313726,0,0.501960784313726,1</string>
+    </dict>
+  </lib>
+</glyph>

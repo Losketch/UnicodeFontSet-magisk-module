@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cuneiformnumericsigntwon34" format="2">
+  <advance width="1819"/>
+  <unicode hex="1256C"/>
+  <outline>
+    <contour>
+      <point x="914" y="283" type="curve"/>
+      <point x="914" y="616"/>
+      <point x="246" y="704"/>
+      <point x="153" y="704" type="curve"/>
+      <point x="100" y="704" type="line"/>
+      <point x="100" y="-138" type="line"/>
+      <point x="153" y="-138" type="line"/>
+      <point x="246" y="-138"/>
+      <point x="914" y="-50"/>
+    </contour>
+    <contour>
+      <point x="873" y="283" type="curve"/>
+      <point x="873" y="-27"/>
+      <point x="223" y="-98"/>
+      <point x="153" y="-98" type="curve"/>
+      <point x="157" y="-84"/>
+      <point x="380" y="-37"/>
+      <point x="380" y="283" type="curve"/>
+      <point x="380" y="603"/>
+      <point x="161" y="637"/>
+      <point x="153" y="663" type="curve"/>
+      <point x="223" y="663"/>
+      <point x="873" y="593"/>
+    </contour>
+    <contour>
+      <point x="1719" y="283" type="curve"/>
+      <point x="1719" y="616"/>
+      <point x="1051" y="704"/>
+      <point x="958" y="704" type="curve"/>
+      <point x="905" y="704" type="line"/>
+      <point x="905" y="-138" type="line"/>
+      <point x="958" y="-138" type="line"/>
+      <point x="1051" y="-138"/>
+      <point x="1719" y="-50"/>
+    </contour>
+    <contour>
+      <point x="1678" y="283" type="curve"/>
+      <point x="1678" y="-27"/>
+      <point x="1028" y="-98"/>
+      <point x="958" y="-98" type="curve"/>
+      <point x="962" y="-84"/>
+      <point x="1185" y="-37"/>
+      <point x="1185" y="283" type="curve"/>
+      <point x="1185" y="603"/>
+      <point x="966" y="637"/>
+      <point x="958" y="663" type="curve"/>
+      <point x="1028" y="663"/>
+      <point x="1678" y="593"/>
+    </contour>
+  </outline>
+</glyph>

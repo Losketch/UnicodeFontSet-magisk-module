@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="rufiyaasign" format="2">
+  <advance width="641"/>
+  <unicode hex="20C2"/>
+  <outline>
+    <contour>
+      <point x="457" y="190" type="line"/>
+      <point x="511" y="255" type="line"/>
+      <point x="392" y="287" type="line"/>
+      <point x="433" y="335" type="line"/>
+      <point x="551" y="303" type="line"/>
+      <point x="607" y="368" type="line"/>
+      <point x="487" y="400" type="line"/>
+      <point x="604" y="518" type="line"/>
+      <point x="535" y="537" type="line"/>
+      <point x="419" y="418" type="line"/>
+      <point x="340" y="439" type="line"/>
+      <point x="285" y="374" type="line"/>
+      <point x="364" y="353" type="line"/>
+      <point x="324" y="305" type="line"/>
+      <point x="244" y="326" type="line"/>
+      <point x="190" y="261" type="line"/>
+      <point x="270" y="240" type="line"/>
+      <point x="59" y="-11" type="line"/>
+      <point x="127" y="-29" type="line"/>
+      <point x="338" y="222" type="line"/>
+    </contour>
+  </outline>
+</glyph>

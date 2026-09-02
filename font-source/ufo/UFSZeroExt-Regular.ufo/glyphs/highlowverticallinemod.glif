@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="highlowverticallinemod" format="2">
+  <advance width="205"/>
+  <unicode hex="208F"/>
+  <outline>
+    <contour>
+      <point x="136" y="855" type="line"/>
+      <point x="136" y="562" type="line"/>
+      <point x="68" y="562" type="line"/>
+      <point x="68" y="855" type="line"/>
+    </contour>
+    <contour>
+      <point x="136" y="49" type="line"/>
+      <point x="136" y="-244" type="line"/>
+      <point x="68" y="-244" type="line"/>
+      <point x="68" y="49" type="line"/>
+    </contour>
+  </outline>
+</glyph>

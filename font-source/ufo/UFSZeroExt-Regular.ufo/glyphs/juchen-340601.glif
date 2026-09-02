@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-340601" format="2">
+  <advance width="1000"/>
+  <unicode hex="19086"/>
+  <outline>
+    <contour>
+      <point x="390" y="765" type="qcurve"/>
+      <point x="265" y="475"/>
+      <point x="85" y="245" type="qcurve"/>
+      <point x="40" y="285"/>
+      <point x="40" y="285" type="qcurve"/>
+      <point x="215" y="505"/>
+      <point x="335" y="785" type="qcurve"/>
+      <point x="335" y="785"/>
+      <point x="350" y="780"/>
+      <point x="375" y="770"/>
+      <point x="385" y="765"/>
+    </contour>
+    <contour>
+      <point x="270" y="485" type="line"/>
+      <point x="270" y="-80" type="line"/>
+      <point x="210" y="-80" type="line"/>
+      <point x="210" y="485" type="line"/>
+    </contour>
+    <contour>
+      <point x="625" y="175" type="qcurve"/>
+      <point x="835" y="80"/>
+      <point x="925" y="-60" type="qcurve"/>
+      <point x="875" y="-90" type="line"/>
+      <point x="795" y="30"/>
+      <point x="595" y="125" type="qcurve"/>
+      <point x="595" y="125"/>
+      <point x="605" y="140"/>
+      <point x="615" y="165"/>
+      <point x="620" y="175"/>
+    </contour>
+    <contour>
+      <point x="335" y="145" type="qcurve"/>
+      <point x="315" y="195" type="line"/>
+      <point x="410" y="300"/>
+      <point x="440" y="430" type="qcurve"/>
+      <point x="500" y="410" type="line"/>
+      <point x="470" y="300"/>
+      <point x="400" y="200" type="qcurve"/>
+      <point x="480" y="200"/>
+      <point x="595" y="220" type="qcurve"/>
+      <point x="595" y="220"/>
+      <point x="600" y="200"/>
+      <point x="600" y="175"/>
+      <point x="605" y="165"/>
+      <point x="605" y="160" type="qcurve"/>
+      <point x="430" y="135"/>
+    </contour>
+    <contour>
+      <point x="695" y="390" type="line"/>
+      <point x="670" y="25"/>
+      <point x="310" y="-115" type="qcurve"/>
+      <point x="310" y="-110"/>
+      <point x="295" y="-70"/>
+      <point x="290" y="-55" type="qcurve"/>
+      <point x="610" y="65"/>
+      <point x="635" y="390" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="375" y="655" type="line"/>
+      <point x="865" y="655" type="line"/>
+      <point x="865" y="595" type="line"/>
+      <point x="375" y="595" type="line"/>
+    </contour>
+    <contour>
+      <point x="650" y="770" type="line"/>
+      <point x="650" y="390" type="line"/>
+      <point x="590" y="390" type="line"/>
+      <point x="590" y="770" type="line"/>
+    </contour>
+    <contour>
+      <point x="330" y="450" type="line"/>
+      <point x="910" y="450" type="line"/>
+      <point x="910" y="390" type="line"/>
+      <point x="330" y="390" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

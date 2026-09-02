@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="katakanadigraphtote" format="2">
+  <advance width="1000"/>
+  <unicode hex="1B125"/>
+  <outline>
+    <contour>
+      <point x="309" y="728" type="line"/>
+      <point x="805" y="728" type="line"/>
+      <point x="805" y="655" type="line"/>
+      <point x="309" y="655" type="line"/>
+    </contour>
+    <contour>
+      <point x="135" y="770" type="line"/>
+      <point x="214" y="770" type="line"/>
+      <point x="214" y="20" type="line"/>
+      <point x="135" y="20" type="line"/>
+    </contour>
+    <contour>
+      <point x="235" y="484" type="line"/>
+      <point x="910" y="484" type="line"/>
+      <point x="910" y="410" type="line"/>
+      <point x="645" y="410" type="line"/>
+      <point x="645" y="320" type="line"/>
+      <point x="645" y="256"/>
+      <point x="595" y="107"/>
+      <point x="475" y="-29"/>
+      <point x="371" y="-75" type="qcurve"/>
+      <point x="323" y="-18" type="line"/>
+      <point x="422" y="25"/>
+      <point x="529" y="143"/>
+      <point x="570" y="270"/>
+      <point x="570" y="322" type="qcurve"/>
+      <point x="570" y="410" type="line"/>
+      <point x="235" y="410" type="line"/>
+    </contour>
+  </outline>
+</glyph>

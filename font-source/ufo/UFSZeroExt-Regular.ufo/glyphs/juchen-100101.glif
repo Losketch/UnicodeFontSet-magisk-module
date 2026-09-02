@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-100101" format="2">
+  <advance width="1000"/>
+  <unicode hex="18EC1"/>
+  <outline>
+    <contour>
+      <point x="150" y="720" type="line"/>
+      <point x="850" y="720" type="line"/>
+      <point x="850" y="660" type="line"/>
+      <point x="150" y="660" type="line"/>
+    </contour>
+    <contour>
+      <point x="75" y="405" type="line"/>
+      <point x="925" y="405" type="line"/>
+      <point x="925" y="345" type="line"/>
+      <point x="75" y="345" type="line"/>
+    </contour>
+    <contour>
+      <point x="530" y="720" type="line"/>
+      <point x="530" y="-75" type="line"/>
+      <point x="470" y="-75" type="line"/>
+      <point x="470" y="720" type="line"/>
+    </contour>
+    <contour>
+      <point x="580" y="315" type="line"/>
+      <point x="755" y="230"/>
+      <point x="810" y="85" type="qcurve"/>
+      <point x="750" y="65" type="line"/>
+      <point x="705" y="190"/>
+      <point x="550" y="265" type="qcurve"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

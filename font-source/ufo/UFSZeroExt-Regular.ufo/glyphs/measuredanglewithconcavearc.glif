@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="measuredanglewithconcavearc" format="2">
+  <advance width="931"/>
+  <unicode hex="1CEFA"/>
+  <outline>
+    <contour>
+      <point x="567" y="32" type="line"/>
+      <point x="541" y="58"/>
+      <point x="518" y="88" type="qcurve"/>
+      <point x="400" y="247"/>
+      <point x="429" y="442" type="qcurve"/>
+      <point x="503" y="519" type="line"/>
+      <point x="491" y="481"/>
+      <point x="485" y="439" type="qcurve"/>
+      <point x="459" y="263"/>
+      <point x="565" y="121" type="qcurve"/>
+      <point x="601" y="72"/>
+      <point x="646" y="37" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="35" y="50" type="line"/>
+      <point x="505" y="584" type="line"/>
+      <point x="555" y="533" type="line"/>
+      <point x="150" y="71" type="line"/>
+      <point x="830" y="71" type="line"/>
+      <point x="830" y="0" type="line"/>
+      <point x="35" y="0" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="chisoisa" format="2">
+  <advance width="669"/>
+  <unicode hex="16D87"/>
+  <outline>
+    <contour>
+      <point x="629" y="0" type="line"/>
+      <point x="507" y="37" type="line"/>
+      <point x="507" y="261" type="line"/>
+      <point x="156" y="261" type="line"/>
+      <point x="144" y="236"/>
+      <point x="144" y="210" type="qcurve"/>
+      <point x="144" y="135"/>
+      <point x="203" y="135" type="qcurve"/>
+      <point x="273" y="135"/>
+      <point x="340" y="207" type="qcurve"/>
+      <point x="408" y="94" type="line"/>
+      <point x="375" y="56"/>
+      <point x="277" y="0"/>
+      <point x="225" y="0" type="qcurve"/>
+      <point x="145" y="0"/>
+      <point x="40" y="139"/>
+      <point x="40" y="224" type="qcurve"/>
+      <point x="40" y="282"/>
+      <point x="62" y="330" type="qcurve"/>
+      <point x="95" y="401"/>
+      <point x="191" y="490" type="qcurve"/>
+      <point x="41" y="490" type="line"/>
+      <point x="20" y="621" type="line"/>
+      <point x="370" y="621" type="line"/>
+      <point x="415" y="499" type="line"/>
+      <point x="311" y="428"/>
+      <point x="240" y="360" type="qcurve"/>
+      <point x="507" y="360" type="line"/>
+      <point x="507" y="621" type="line"/>
+      <point x="629" y="584" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>0.501960784313726,0,0.501960784313726,1</string>
+    </dict>
+  </lib>
+</glyph>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="alchemicalsymbolforsaltoftartar" format="2">
+  <advance width="1000"/>
+  <unicode hex="1CED4"/>
+  <outline>
+    <contour>
+      <point x="500" y="485" type="curve"/>
+      <point x="571" y="485"/>
+      <point x="631" y="544"/>
+      <point x="631" y="616" type="curve"/>
+      <point x="631" y="687"/>
+      <point x="572" y="747"/>
+      <point x="500" y="747" type="curve"/>
+      <point x="429" y="747"/>
+      <point x="369" y="687"/>
+      <point x="369" y="616" type="curve"/>
+      <point x="369" y="544"/>
+      <point x="429" y="485"/>
+    </contour>
+    <contour>
+      <point x="500" y="544" type="curve"/>
+      <point x="460" y="544"/>
+      <point x="428" y="576"/>
+      <point x="428" y="616" type="curve"/>
+      <point x="428" y="656"/>
+      <point x="460" y="688"/>
+      <point x="500" y="688" type="curve"/>
+      <point x="540" y="688"/>
+      <point x="572" y="656"/>
+      <point x="572" y="616" type="curve"/>
+      <point x="572" y="576"/>
+      <point x="540" y="544"/>
+    </contour>
+    <contour>
+      <point x="540" y="184" type="line"/>
+      <point x="763" y="184" type="line"/>
+      <point x="763" y="650" type="line"/>
+      <point x="237" y="650" type="line"/>
+      <point x="237" y="184" type="line"/>
+      <point x="460" y="184" type="line"/>
+      <point x="460" y="84" type="line"/>
+      <point x="348" y="84" type="line"/>
+      <point x="348" y="18" type="line"/>
+      <point x="460" y="18" type="line"/>
+      <point x="460" y="-89" type="line"/>
+      <point x="540" y="-89" type="line"/>
+      <point x="540" y="18" type="line"/>
+      <point x="652" y="18" type="line"/>
+      <point x="652" y="84" type="line"/>
+      <point x="540" y="84" type="line"/>
+    </contour>
+    <contour>
+      <point x="319" y="253" type="line"/>
+      <point x="319" y="581" type="line"/>
+      <point x="681" y="581" type="line"/>
+      <point x="681" y="253" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>

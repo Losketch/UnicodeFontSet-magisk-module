@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="musicalsymboldigitsevenwithlowstroke" format="2">
+  <advance width="555"/>
+  <unicode hex="1D1FE"/>
+  <outline>
+    <contour>
+      <point x="200" y="0" type="curve"/>
+      <point x="295" y="0" type="line"/>
+      <point x="306" y="287"/>
+      <point x="338" y="457"/>
+      <point x="510" y="678" type="curve"/>
+      <point x="510" y="733" type="line"/>
+      <point x="51" y="733" type="line"/>
+      <point x="51" y="655" type="line"/>
+      <point x="406" y="655" type="line"/>
+      <point x="263" y="455"/>
+      <point x="212" y="278"/>
+    </contour>
+    <contour>
+      <point x="210" y="519" type="line"/>
+      <point x="440" y="215" type="line"/>
+      <point x="386" y="170" type="line"/>
+      <point x="155" y="474" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.8,0,1</string>
+    </dict>
+  </lib>
+</glyph>

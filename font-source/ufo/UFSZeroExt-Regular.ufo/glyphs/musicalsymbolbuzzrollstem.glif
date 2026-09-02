@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="musicalsymbolbuzzrollstem" format="2">
+  <advance width="0"/>
+  <unicode hex="1D25F"/>
+  <outline>
+    <contour>
+      <point x="-108" y="454" type="line"/>
+      <point x="-108" y="524" type="line"/>
+      <point x="109" y="715" type="line"/>
+      <point x="109" y="645" type="line"/>
+    </contour>
+    <contour>
+      <point x="-108" y="645" type="line"/>
+      <point x="-108" y="715" type="line"/>
+      <point x="109" y="715" type="line"/>
+      <point x="109" y="645" type="line"/>
+    </contour>
+    <contour>
+      <point x="-108" y="454" type="line"/>
+      <point x="-108" y="524" type="line"/>
+      <point x="109" y="524" type="line"/>
+      <point x="109" y="454" type="line"/>
+    </contour>
+    <contour>
+      <point x="19" y="160" type="line"/>
+      <point x="-18" y="160" type="line"/>
+      <point x="-18" y="822" type="line"/>
+      <point x="19" y="822" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

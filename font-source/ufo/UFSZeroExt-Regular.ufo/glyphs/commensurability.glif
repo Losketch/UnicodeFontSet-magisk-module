@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="commensurability" format="2">
+  <advance width="1200"/>
+  <unicode hex="1DB0C"/>
+  <outline>
+    <contour>
+      <point x="22" y="430" type="line"/>
+      <point x="260" y="430" type="line"/>
+      <point x="260" y="90" type="line"/>
+      <point x="1179" y="90" type="line"/>
+      <point x="1179" y="155" type="line"/>
+      <point x="935" y="155" type="line"/>
+      <point x="935" y="430" type="line"/>
+      <point x="936" y="430" type="line"/>
+      <point x="936" y="495" type="line"/>
+      <point x="22" y="495" type="line"/>
+    </contour>
+    <contour>
+      <point x="325" y="430" type="line"/>
+      <point x="870" y="430" type="line"/>
+      <point x="870" y="155" type="line"/>
+      <point x="325" y="155" type="line"/>
+    </contour>
+  </outline>
+</glyph>

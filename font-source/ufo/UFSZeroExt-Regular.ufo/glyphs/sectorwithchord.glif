@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="sectorwithchord" format="2">
+  <advance width="917"/>
+  <unicode hex="1CEF6"/>
+  <outline>
+    <contour>
+      <point x="460" y="-20" type="line"/>
+      <point x="882" y="431" type="line"/>
+      <point x="790" y="529"/>
+      <point x="637" y="616"/>
+      <point x="460" y="616" type="curve"/>
+      <point x="282" y="616"/>
+      <point x="130" y="529"/>
+      <point x="37" y="431" type="curve"/>
+    </contour>
+    <contour>
+      <point x="460" y="57" type="line"/>
+      <point x="114" y="425" type="line"/>
+      <point x="231" y="510"/>
+      <point x="352" y="560"/>
+      <point x="460" y="560" type="curve"/>
+      <point x="567" y="560"/>
+      <point x="688" y="510"/>
+      <point x="805" y="425" type="curve"/>
+    </contour>
+    <contour>
+      <point x="811" y="392" type="line"/>
+      <point x="811" y="456" type="line"/>
+      <point x="110" y="456" type="line"/>
+      <point x="110" y="392" type="line"/>
+    </contour>
+  </outline>
+</glyph>

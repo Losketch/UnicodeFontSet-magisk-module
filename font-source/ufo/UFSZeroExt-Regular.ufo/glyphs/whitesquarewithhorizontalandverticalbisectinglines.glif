@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="whitesquarewithhorizontalandverticalbisectinglines" format="2">
+  <advance width="800"/>
+  <unicode hex="1F7FC"/>
+  <outline>
+    <contour>
+      <point x="65" y="15" type="line"/>
+      <point x="735" y="15" type="line"/>
+      <point x="735" y="685" type="line"/>
+      <point x="65" y="685" type="line"/>
+    </contour>
+    <contour>
+      <point x="127" y="320" type="line"/>
+      <point x="372" y="320" type="line"/>
+      <point x="372" y="77" type="line"/>
+      <point x="127" y="77" type="line"/>
+    </contour>
+    <contour>
+      <point x="127" y="623" type="line"/>
+      <point x="372" y="623" type="line"/>
+      <point x="372" y="382" type="line"/>
+      <point x="127" y="382" type="line"/>
+    </contour>
+    <contour>
+      <point x="434" y="77" type="line"/>
+      <point x="434" y="320" type="line"/>
+      <point x="673" y="320" type="line"/>
+      <point x="673" y="77" type="line"/>
+    </contour>
+    <contour>
+      <point x="673" y="623" type="line"/>
+      <point x="673" y="382" type="line"/>
+      <point x="434" y="382" type="line"/>
+      <point x="434" y="623" type="line"/>
+    </contour>
+  </outline>
+</glyph>

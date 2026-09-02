@@ -12,12 +12,6 @@ source_location = "module/system/fonts/NotoSansSymbols-Regular-Subsetted.ttf"
 license = "https://raw.githubusercontent.com/notofonts/symbols/main/OFL.txt"
 
 [[fonts]]
-file = "UFSTempAlpha.otf"
-acquisition = "local"
-source_location = "module/system/fonts/UFSTempAlpha.otf"
-license = "https://raw.githubusercontent.com/spdx/license-list-data/main/text/OFL-1.1.txt"
-
-[[fonts]]
 file = "UFSZeroExt.otf"
 acquisition = "local"
 source_location = "module/system/fonts/UFSZeroExt.otf"

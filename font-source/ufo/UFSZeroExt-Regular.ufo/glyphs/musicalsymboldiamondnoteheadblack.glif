@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="musicalsymboldiamondnoteheadblack" format="2">
+  <advance width="244"/>
+  <unicode hex="1D269"/>
+  <outline>
+    <contour>
+      <point x="-209" y="208" type="line"/>
+    </contour>
+    <contour>
+      <point x="244" y="147" type="qcurve"/>
+      <point x="244" y="145"/>
+      <point x="125" y="24"/>
+      <point x="122" y="24" type="qcurve"/>
+      <point x="119" y="24"/>
+      <point x="0" y="145"/>
+      <point x="0" y="147" type="qcurve"/>
+      <point x="0" y="150"/>
+      <point x="118" y="269"/>
+      <point x="122" y="269" type="qcurve"/>
+      <point x="126" y="269"/>
+      <point x="244" y="150"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

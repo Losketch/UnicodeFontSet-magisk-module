@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="measuredanglewithdoublearc" format="2">
+  <advance width="931"/>
+  <unicode hex="1CEF9"/>
+  <outline>
+    <contour>
+      <point x="481" y="519" type="line"/>
+      <point x="532" y="488"/>
+      <point x="577" y="443" type="qcurve"/>
+      <point x="717" y="304"/>
+      <point x="717" y="106" type="qcurve"/>
+      <point x="717" y="56"/>
+      <point x="708" y="10" type="qcurve"/>
+      <point x="652" y="10" type="line"/>
+      <point x="661" y="53"/>
+      <point x="661" y="101" type="qcurve"/>
+      <point x="661" y="279"/>
+      <point x="536" y="405" type="qcurve"/>
+      <point x="492" y="448"/>
+      <point x="443" y="476" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="388" y="411" type="line"/>
+      <point x="431" y="388"/>
+      <point x="468" y="351" type="qcurve"/>
+      <point x="573" y="250"/>
+      <point x="573" y="106" type="qcurve"/>
+      <point x="573" y="55"/>
+      <point x="560" y="10" type="qcurve"/>
+      <point x="506" y="10" type="line"/>
+      <point x="520" y="52"/>
+      <point x="520" y="99" type="qcurve"/>
+      <point x="520" y="224"/>
+      <point x="429" y="311" type="qcurve"/>
+      <point x="393" y="347"/>
+      <point x="350" y="368" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="35" y="50" type="line"/>
+      <point x="505" y="584" type="line"/>
+      <point x="555" y="533" type="line"/>
+      <point x="150" y="71" type="line"/>
+      <point x="830" y="71" type="line"/>
+      <point x="830" y="0" type="line"/>
+      <point x="35" y="0" type="line"/>
+    </contour>
+  </outline>
+</glyph>

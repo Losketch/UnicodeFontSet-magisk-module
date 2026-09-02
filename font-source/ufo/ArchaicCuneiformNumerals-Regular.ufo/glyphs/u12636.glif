@@ -48,16 +48,6 @@
       <point x="725" y="431" type="line"/>
     </contour>
     <contour>
-      <point x="378" y="276" type="curve"/>
-      <point x="406" y="336" type="line"/>
-      <point x="445" y="295"/>
-      <point x="467" y="282"/>
-      <point x="500" y="266" type="curve"/>
-      <point x="491" y="248" type="line"/>
-      <point x="459" y="264"/>
-      <point x="434" y="272"/>
-    </contour>
-    <contour>
       <point x="406" y="336" type="line"/>
       <point x="445" y="295"/>
       <point x="467" y="282"/>

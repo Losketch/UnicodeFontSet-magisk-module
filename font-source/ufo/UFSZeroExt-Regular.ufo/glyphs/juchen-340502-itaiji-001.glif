@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-340502-itaiji-001" format="2">
+  <advance width="1000"/>
+  <unicode hex="19082"/>
+  <outline>
+    <contour>
+      <point x="420" y="760" type="line"/>
+      <point x="285" y="475"/>
+      <point x="80" y="245" type="qcurve"/>
+      <point x="40" y="285" type="line"/>
+      <point x="235" y="505"/>
+      <point x="370" y="790" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="290" y="485" type="line"/>
+      <point x="290" y="-80" type="line"/>
+      <point x="230" y="-80" type="line"/>
+      <point x="230" y="485" type="line"/>
+    </contour>
+    <contour>
+      <point x="885" y="785" type="line"/>
+      <point x="750" y="640"/>
+      <point x="450" y="580" type="qcurve"/>
+      <point x="435" y="640" type="line"/>
+      <point x="720" y="695"/>
+      <point x="845" y="825" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="370" y="535" type="line"/>
+      <point x="940" y="535" type="line"/>
+      <point x="940" y="475" type="line"/>
+      <point x="370" y="475" type="line"/>
+    </contour>
+    <contour>
+      <point x="485" y="360" type="line"/>
+      <point x="485" y="-60" type="line"/>
+      <point x="425" y="-60" type="line"/>
+      <point x="425" y="360" type="line"/>
+    </contour>
+    <contour>
+      <point x="425" y="360" type="line"/>
+      <point x="880" y="360" type="line"/>
+      <point x="880" y="300" type="line"/>
+      <point x="425" y="300" type="line"/>
+    </contour>
+    <contour>
+      <point x="880" y="360" type="line"/>
+      <point x="880" y="-60" type="line"/>
+      <point x="820" y="-60" type="line"/>
+      <point x="820" y="360" type="line"/>
+    </contour>
+    <contour>
+      <point x="425" y="15" type="line"/>
+      <point x="880" y="15" type="line"/>
+      <point x="880" y="-45" type="line"/>
+      <point x="425" y="-45" type="line"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="juchen-300533" format="2">
+  <advance width="1000"/>
+  <unicode hex="18FEC"/>
+  <outline>
+    <contour>
+      <point x="795" y="780" type="line"/>
+      <point x="600" y="635"/>
+      <point x="185" y="575" type="qcurve"/>
+      <point x="185" y="585"/>
+      <point x="175" y="625"/>
+      <point x="175" y="630" type="qcurve"/>
+      <point x="580" y="690"/>
+      <point x="755" y="825" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="200" y="560" type="line"/>
+      <point x="800" y="560" type="line"/>
+      <point x="800" y="500" type="line"/>
+      <point x="200" y="500" type="line"/>
+    </contour>
+    <contour>
+      <point x="800" y="560" type="line"/>
+      <point x="800" y="225" type="line"/>
+      <point x="740" y="225" type="line"/>
+      <point x="740" y="560" type="line"/>
+    </contour>
+    <contour>
+      <point x="200" y="440" type="line"/>
+      <point x="800" y="440" type="line"/>
+      <point x="800" y="380" type="line"/>
+      <point x="200" y="380" type="line"/>
+    </contour>
+    <contour>
+      <point x="200" y="300" type="line"/>
+      <point x="800" y="300" type="line"/>
+      <point x="800" y="240" type="line"/>
+      <point x="200" y="240" type="line"/>
+    </contour>
+    <contour>
+      <point x="530" y="705" type="line"/>
+      <point x="530" y="350" type="line"/>
+      <point x="530" y="-5"/>
+      <point x="75" y="-110" type="qcurve"/>
+      <point x="65" y="-50" type="line"/>
+      <point x="470" y="45"/>
+      <point x="470" y="350" type="qcurve"/>
+      <point x="470" y="705" type="line"/>
+    </contour>
+    <contour>
+      <point x="555" y="285" type="line"/>
+      <point x="615" y="65"/>
+      <point x="895" y="-25" type="qcurve"/>
+      <point x="875" y="-85" type="line"/>
+      <point x="565" y="15"/>
+      <point x="495" y="265" type="qcurve"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>public.markColor</key>
+      <string>1,0.6,0.8,1</string>
+    </dict>
+  </lib>
+</glyph>

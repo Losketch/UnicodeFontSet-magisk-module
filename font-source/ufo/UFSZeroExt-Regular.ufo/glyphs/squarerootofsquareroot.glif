@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="squarerootofsquareroot" format="2">
+  <advance width="1426"/>
+  <unicode hex="1CEDD"/>
+  <outline>
+    <contour>
+      <point x="799" y="546" type="line"/>
+      <point x="563" y="-127" type="line"/>
+      <point x="498" y="-127" type="line"/>
+      <point x="282" y="476" type="line"/>
+      <point x="337" y="546" type="line"/>
+      <point x="531" y="-6" type="line"/>
+      <point x="727" y="546" type="line"/>
+    </contour>
+    <contour>
+      <point x="799" y="546" type="line"/>
+      <point x="993" y="-6" type="line"/>
+      <point x="1325" y="930" type="line"/>
+      <point x="1396" y="930" type="line"/>
+      <point x="1025" y="-127" type="line"/>
+      <point x="960" y="-127" type="line"/>
+      <point x="744" y="476" type="line"/>
+    </contour>
+    <contour>
+      <point x="337" y="546" type="line"/>
+      <point x="143" y="-8" type="line"/>
+      <point x="78" y="-8" type="line"/>
+      <point x="265" y="546" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="cuneiformnumericsignonen01reversed" format="2">
+  <advance width="1112"/>
+  <unicode hex="12589"/>
+  <outline>
+    <contour>
+      <point x="100" y="310" type="curve"/>
+      <point x="100" y="148"/>
+      <point x="866" y="92"/>
+      <point x="959" y="92" type="curve"/>
+      <point x="1012" y="92" type="line"/>
+      <point x="1012" y="527" type="line"/>
+      <point x="959" y="527" type="line"/>
+      <point x="866" y="527"/>
+      <point x="100" y="472"/>
+    </contour>
+    <contour>
+      <point x="143" y="310" type="curve"/>
+      <point x="143" y="440"/>
+      <point x="889" y="487"/>
+      <point x="959" y="487" type="curve"/>
+      <point x="935" y="473"/>
+      <point x="896" y="380"/>
+      <point x="896" y="310" type="curve"/>
+      <point x="896" y="240"/>
+      <point x="931" y="159"/>
+      <point x="959" y="133" type="curve"/>
+      <point x="889" y="133"/>
+      <point x="143" y="180"/>
+    </contour>
+  </outline>
+</glyph>
