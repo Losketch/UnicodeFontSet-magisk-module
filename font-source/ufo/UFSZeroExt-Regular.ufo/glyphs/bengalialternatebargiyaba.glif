@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<glyph name="bengalisanskritba" format="2">
+<glyph name="bengalialternatebargiyaba" format="2">
   <advance width="596"/>
-  <unicode hex="09FF"/>
+  <unicode hex="11DF1"/>
   <outline>
     <contour>
       <point x="606" y="622" type="line"/>

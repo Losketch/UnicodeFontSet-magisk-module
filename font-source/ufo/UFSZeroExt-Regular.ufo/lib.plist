@@ -12,8 +12,6 @@
     <string>hebrewdageshhazaqmudgashcomb</string>
     <string>noonring-arab</string>
     <string>pepetcomb-arab</string>
-    <string>bengalisignanusvaraabovecomb</string>
-    <string>bengalisanskritba</string>
     <string>oriyasigndotabovecomb</string>
     <string>oriyasigndoubledotabovecomb</string>
     <string>mongolianalternateue</string>
@@ -128,6 +126,8 @@
     <string>smalllownooncomb-arab</string>
     <string>alefoverlaycomb-arab</string>
     <string>devanagarialternateddda</string>
+    <string>bengalisignanusvaraabovecomb</string>
+    <string>bengalialternatebargiyaba</string>
     <string>cuneiformnumericsignsevenashtenu</string>
     <string>cuneiformnumericsigneightashtenu</string>
     <string>cuneiformnumericsignnineashtenu</string>
@@ -504,6 +504,7 @@
     <string>u187FD</string>
     <string>u187FE</string>
     <string>u187FF</string>
+    <string>component003-tang</string>
     <string>component688-tang</string>
     <string>khitanscriptcharacter18cd6</string>
     <string>khitanscriptcharacter18cd7</string>

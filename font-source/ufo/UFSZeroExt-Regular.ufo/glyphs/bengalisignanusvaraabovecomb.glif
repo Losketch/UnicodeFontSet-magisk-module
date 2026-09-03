@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="bengalisignanusvaraabovecomb" format="2">
   <advance width="0"/>
-  <unicode hex="0984"/>
+  <unicode hex="11DF0"/>
   <anchor x="7" y="754" name="top-arab"/>
   <anchor x="-14" y="939" name="top-arab"/>
   <outline>

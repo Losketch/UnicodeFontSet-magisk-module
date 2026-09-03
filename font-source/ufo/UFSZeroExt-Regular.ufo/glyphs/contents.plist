@@ -140,8 +140,8 @@
   <string>armeniansmallinimod.glif</string>
   <key>armeniansmallyimod</key>
   <string>armeniansmallyimod.glif</string>
-  <key>bengalisanskritba</key>
-  <string>bengalisanskritba.glif</string>
+  <key>bengalialternatebargiyaba</key>
+  <string>bengalialternatebargiyaba.glif</string>
   <key>bengalisignanusvaraabovecomb</key>
   <string>bengalisignanusvaraabovecomb.glif</string>
   <key>biblicalendofverse-arab</key>
@@ -242,6 +242,8 @@
   <string>commensurability.glif</string>
   <key>commensurabilityinsquare</key>
   <string>commensurabilityinsquare.glif</string>
+  <key>component003-tang</key>
+  <string>component003-tang.glif</string>
   <key>component688-tang</key>
   <string>component688-tang.glif</string>
   <key>component769-tang</key>
