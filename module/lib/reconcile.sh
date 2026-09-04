@@ -57,6 +57,8 @@ ufs_refresh_stock_xml_from_root() {
     local root="$2"
     local subdir file src dst rc
 
+    ufs_refresh_special_partition_topology_from_root "$root" || return 1
+
     for subdir in $FONT_XML_SUBDIRS; do
         for file in $FONT_XML_FILES; do
             src="$(ufs_live_root_path "$root" "$subdir" "$file")"
@@ -208,6 +210,49 @@ ufs_patch_sibling_xml() {
     return 0
 }
 
+# Reconcile a configured XML directory only when there is actual payload/state to process. This
+# follows MFGA's lazy-materialization principle: merely listing product/system_ext in discovery.conf
+# must not create an empty module-side partition alias.
+ufs_xml_subdir_needs_reconcile() {
+    local subdir="$1"
+    local file module_dir backup_dir target_dir partition partition_dir
+
+    for file in $FONT_XML_FILES; do
+        [ -f "$(ufs_stock_snapshot_path "$subdir" "$file")" ] && return 0
+    done
+
+    target_dir="$(get_module_target_path "$subdir")" || return 1
+    if [ -e "$target_dir" ] || [ -L "$target_dir" ]; then
+        return 0
+    fi
+
+    partition="$(ufs_special_partition_for_module_subdir "$subdir" 2>/dev/null || true)"
+    if [ -n "$partition" ]; then
+        partition_dir="$MODPATH/system/$partition"
+        if [ -e "$partition_dir" ] || [ -L "$partition_dir" ]; then
+            return 0
+        fi
+    fi
+
+    for module_dir in "$MODULE_PARENT"/*; do
+        [ -d "$module_dir" ] || continue
+        [ "$(basename "$module_dir")" = "$SELF_MOD_NAME" ] && continue
+        ufs_module_is_active "$module_dir" || continue
+        for file in $FONT_XML_FILES; do
+            [ -f "$module_dir/$subdir/$file" ] && return 0
+        done
+    done
+
+    for backup_dir in "$MODPATH/backup"/*; do
+        [ -d "$backup_dir" ] || continue
+        for file in $FONT_XML_FILES; do
+            [ -f "$backup_dir/$subdir/$file" ] && return 0
+        done
+    done
+
+    return 1
+}
+
 # Reconcile one logical XML path. All active sibling providers are patched, preserving the host's
 # own precedence. UFS only owns the path when there is no active sibling provider.
 ufs_rebase_xml_path() {
@@ -258,6 +303,17 @@ ufs_rebase_xml_path() {
         return 0
     fi
 
+    # On guarded KSU/APatch symlink aliases, sibling patching above remains fully functional, but
+    # UFS must never create its own real system/<partition>/... tree.
+    if [ "${UFS_XML_SKIP_OWNED_TARGETS:-0}" -eq 1 ]; then
+        if [ -e "$target" ] || [ -L "$target" ]; then
+            rm -f "$target" || return 1
+            actions=$((actions + 1))
+        fi
+        UFS_XML_PATH_ACTIONS="$actions"
+        return 0
+    fi
+
     stock="$(ufs_stock_snapshot_path "$subdir" "$file")"
     if [ ! -f "$stock" ]; then
         if [ -f "$target" ]; then
@@ -292,16 +348,92 @@ ufs_rebase_xml_path() {
     return 0
 }
 
+ufs_finalize_guarded_owned_subdir() {
+    local print_func="$1"
+    local subdir="$2"
+    local partition="$3"
+    local topology="$4"
+    local target_dir partition_dir file target removed=0 manager
+
+    target_dir="$(get_module_target_path "$subdir")" || return 1
+    partition_dir="$MODPATH/system/$partition"
+    manager="$(ufs_root_manager_label)"
+
+    # UFS itself only creates real directories here. A symlink or unknown residual is not safe to
+    # follow/remove recursively, so stop rather than turning cleanup into a broader module manager.
+    if [ -L "$partition_dir" ] || [ -L "$target_dir" ]; then
+        "$print_func" "$(safe_printf TXT_XML_UNSAFE_RESIDUAL "$partition_dir")"
+        return 1
+    fi
+
+    for file in $FONT_XML_FILES; do
+        target="$target_dir/$file"
+        if [ -e "$target" ] || [ -L "$target" ]; then
+            rm -f "$target" || return 1
+            removed=$((removed + 1))
+        fi
+    done
+
+    ufs_prune_empty_parents "$target_dir" "$MODPATH"
+    if [ -e "$partition_dir" ] || [ -L "$partition_dir" ]; then
+        "$print_func" "$(safe_printf TXT_XML_UNSAFE_RESIDUAL "$partition_dir")"
+        return 1
+    fi
+
+    if [ "$topology" = "unknown" ]; then
+        "$print_func" "$(safe_printf TXT_XML_ALIAS_TOPOLOGY_DEFERRED "$subdir" "$partition" "$manager")"
+    else
+        "$print_func" "$(safe_printf TXT_XML_ALIAS_FALLBACK "$subdir" "$partition" "$manager")"
+    fi
+    UFS_XML_GUARD_ACTIONS="$removed"
+    return 0
+}
+
 ufs_rebase_all_xml() {
     local print_func="$1"
-    local subdir file actions=0
+    local subdir file actions=0 partition topology guard=0 force_notice=0
+
+    if [ -n "${UFS_SPECIAL_PARTITION_XML_MODE_INVALID:-}" ]; then
+        "$print_func" "$(safe_printf TXT_XML_SPECIAL_MODE_INVALID "$UFS_SPECIAL_PARTITION_XML_MODE_INVALID")"
+    fi
 
     for subdir in $FONT_XML_SUBDIRS; do
+        # MFGA-style lazy materialization: no XML/state means the module alias is not touched at all.
+        ufs_xml_subdir_needs_reconcile "$subdir" || continue
+
+        if [ "$force_notice" -eq 0 ] \
+            && ufs_special_partition_xml_force_enabled \
+            && ufs_special_partition_for_module_subdir "$subdir" >/dev/null 2>&1 \
+            && { [ "${APATCH:-false}" = true ] || [ "${KSU:-false}" = true ]; }; then
+            "$print_func" "$TXT_XML_SPECIAL_MODE_FORCE"
+            force_notice=1
+        fi
+
+        guard=0
+        partition=""
+        topology=""
+        if ufs_should_guard_owned_partition_alias "$subdir"; then
+            guard=1
+            partition="$UFS_GUARDED_PARTITION"
+            topology="$UFS_GUARD_TOPOLOGY"
+        fi
+
+        UFS_XML_SKIP_OWNED_TARGETS="$guard"
         for file in $FONT_XML_FILES; do
             UFS_XML_PATH_ACTIONS=0
-            ufs_rebase_xml_path "$print_func" "$subdir" "$file" || return 1
+            ufs_rebase_xml_path "$print_func" "$subdir" "$file" || {
+                UFS_XML_SKIP_OWNED_TARGETS=0
+                return 1
+            }
             actions=$((actions + UFS_XML_PATH_ACTIONS))
         done
+        UFS_XML_SKIP_OWNED_TARGETS=0
+
+        if [ "$guard" -eq 1 ]; then
+            UFS_XML_GUARD_ACTIONS=0
+            ufs_finalize_guarded_owned_subdir "$print_func" "$subdir" "$partition" "$topology" || return 1
+            actions=$((actions + UFS_XML_GUARD_ACTIONS))
+        fi
     done
     UFS_XML_REBASE_ACTIONS="$actions"
     return 0

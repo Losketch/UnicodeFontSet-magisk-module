@@ -40,13 +40,55 @@ UFS 为已 Root 的 Android 设备补充大量系统缺失字符。模块组合�
 
 普通使用通常无需修改任何配置。
 
-### KernelSU 用户
+### Magisk / KernelSU / APatch 挂载与特殊分区 XML
 
-KernelSU 需要可挂载 `/system` 的元模块（例如 `meta-overlayfs`），否则 `system/fonts/` 中的字体不会真正生效。详见 [KernelSU Metamodule 文档](https://kernelsu.org/zh_CN/guide/metamodule.html)。
+UFS 使用标准 Magisk 模块布局提供系统字体和字体 XML。原生 Magisk 的 magic mount 会处理 `system/system_ext`、`system/product` 等特殊分区路径；KernelSU / APatch 的实际挂载行为则取决于当前使用的挂载实现。UFS 不维护第三方 metamodule 的名称或能力列表，也不会自动判断某个 magic mount / OverlayFS 实现是否能够安全处理特殊分区。
+
+特殊分区 XML 使用 `SPECIAL_PARTITION_XML_MODE` 控制，支持两种模式：
+
+- **`safe`（默认）**：仅在存在实际字体 XML 时按需准备目标目录。在 KernelSU / APatch 下，如果预挂载状态中的 `/system/product`、`/system/system_ext` 等目标是符号链接，UFS 不创建自己的同名真实目录，而是跳过该处由 UFS 提供的 XML 覆盖并记录挂载安全降级。其它字体模块已经提供的 XML 仍按 sibling patch 和模块管理器原有优先级处理。原生 Magisk 保持标准特殊分区 XML 布局。
+- **`force`**：允许 UFS 在 KernelSU / APatch 下继续使用标准 Magisk 布局写入 `system/product/...`、`system/system_ext/...` 等特殊分区 XML，不因 `/system/<partition>` 是符号链接而降级。该模式不检测或认证当前 metamodule / 挂载实现的能力。
+
+> **安全提醒：** 只有在已经确认当前 magic mount / OverlayFS metamodule 能正确处理独立 `product`、`system_ext` 等分区时才应使用 `force`。不兼容的挂载实现可能让模块真实目录遮蔽系统符号链接，并造成关键系统文件不可达、启动失败或 bootloop。
+
+`system/fonts/`、`system/etc/` 等普通路径不受特殊分区 XML 模式限制。
 
 ## 配置
 
-UFS 的运行时字体策略集中在：
+### 特殊分区 XML 模式
+
+用户级挂载配置位于：
+
+```text
+/data/adb/ufs/config.conf
+```
+
+支持：
+
+```text
+SPECIAL_PARTITION_XML_MODE=safe
+SPECIAL_PARTITION_XML_MODE=force
+```
+
+配置文件不存在、值为空或值无效时均使用 `safe`。UFS 只读取 `SPECIAL_PARTITION_XML_MODE`，不会把该文件作为 shell 脚本执行。配置位于模块目录之外，因此模块更新不会覆盖用户选择。
+
+切换到 `force`：
+
+```sh
+su -c 'mkdir -p /data/adb/ufs && printf "%s\n" "SPECIAL_PARTITION_XML_MODE=force" > /data/adb/ufs/config.conf'
+```
+
+恢复默认的 `safe`：
+
+```sh
+su -c 'mkdir -p /data/adb/ufs && printf "%s\n" "SPECIAL_PARTITION_XML_MODE=safe" > /data/adb/ufs/config.conf'
+```
+
+修改后执行 UFS **Action** 或重启，使字体 XML 重新整理。
+
+> **安全提醒：** `force` 会关闭 KernelSU / APatch 下针对特殊分区符号链接的 UFS 自有 XML 安全降级。启用前应确认当前 magic mount / OverlayFS metamodule 支持标准 Magisk 特殊分区布局。
+
+模块随包的字体策略集中在：
 
 ```text
 module/config/
@@ -144,7 +186,7 @@ UFS 会尝试与其它字体模块共存，并在模块变化或 OTA 后重新�
 
 1. 重启一次。
 2. 在模块管理器中执行 UFS 的 **Action**。
-3. KernelSU 用户确认已安装并启用可挂载 `/system` 的元模块。
+3. KernelSU / APatch 用户确认当前挂载实现会挂载普通模块的 `system/` 内容；若日志出现“挂载安全降级”，表示 `safe` 模式已跳过可能遮蔽系统符号链接的 UFS 特殊分区 XML。只有在确认挂载实现兼容时才使用 `force`。
 4. 查看日志：
 
 ```text

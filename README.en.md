@@ -40,13 +40,55 @@ The module supports Magisk and can also be used with KernelSU / APatch. It attem
 
 Normal use does not require configuration changes.
 
-### KernelSU users
+### Magisk / KernelSU / APatch mounting and special-partition XML
 
-KernelSU needs a metamodule capable of mounting `/system` (for example `meta-overlayfs`); otherwise fonts under `system/fonts/` will not take effect. See the [KernelSU Metamodule documentation](https://kernelsu.org/guide/metamodule.html).
+UFS uses the standard Magisk module layout for system fonts and font XML. Native Magisk magic mount handles special-partition paths such as `system/system_ext` and `system/product`; the effective behavior under KernelSU / APatch depends on the active mount implementation. UFS does not maintain third-party metamodule names/capability lists and does not automatically certify whether a particular magic mount / OverlayFS implementation can safely handle special partitions.
+
+Special-partition XML is controlled by `SPECIAL_PARTITION_XML_MODE` with two modes:
+
+- **`safe` (default)**: target directories are prepared lazily only when an actual font XML needs processing. Under KernelSU / APatch, if pre-mount stock `/system/product`, `/system/system_ext`, or another target is a symlink, UFS does not create its own same-name real directory; the UFS-owned XML overlay at that location is skipped and a mount-safety fallback is logged. XML already supplied by sibling font modules still follows sibling-patch logic and the module manager's native precedence. Native Magisk keeps the standard special-partition XML layout.
+- **`force`**: under KernelSU / APatch, UFS continues to write special-partition XML through the standard Magisk layout such as `system/product/...` and `system/system_ext/...` even when `/system/<partition>` is a symlink. This mode does not detect or certify the active metamodule / mount implementation.
+
+> **Safety warning:** use `force` only after confirming that the active magic mount / OverlayFS metamodule correctly handles separate `product`, `system_ext`, and similar partitions. An incompatible mount implementation can let a real module directory shadow a system symlink, making critical system files unreachable and potentially causing a failed boot or bootloop.
+
+Ordinary paths such as `system/fonts/` and `system/etc/` are not restricted by the special-partition XML mode.
 
 ## Configuration
 
-Runtime font policy is concentrated in:
+### Special-partition XML mode
+
+The user-level mount configuration is stored at:
+
+```text
+/data/adb/ufs/config.conf
+```
+
+Supported values are:
+
+```text
+SPECIAL_PARTITION_XML_MODE=safe
+SPECIAL_PARTITION_XML_MODE=force
+```
+
+If the file is absent, the value is empty, or the value is invalid, UFS uses `safe`. UFS reads only `SPECIAL_PARTITION_XML_MODE`; the file is not executed as a shell script. Because this configuration is outside the module directory, module updates do not overwrite the user's selection.
+
+Switch to `force`:
+
+```sh
+su -c 'mkdir -p /data/adb/ufs && printf "%s\n" "SPECIAL_PARTITION_XML_MODE=force" > /data/adb/ufs/config.conf'
+```
+
+Restore the default `safe` mode:
+
+```sh
+su -c 'mkdir -p /data/adb/ufs && printf "%s\n" "SPECIAL_PARTITION_XML_MODE=safe" > /data/adb/ufs/config.conf'
+```
+
+After changing the mode, run UFS **Action** or reboot so font XML can be reconciled again.
+
+> **Safety warning:** `force` disables UFS's own special-partition symlink fallback under KernelSU / APatch. Enable it only when the active magic mount / OverlayFS metamodule is known to support the standard Magisk special-partition layout.
+
+Packaged font policy is concentrated in:
 
 ```text
 module/config/
@@ -144,7 +186,7 @@ If UFS appears inactive:
 
 1. Reboot once.
 2. Run UFS **Action** from the module manager.
-3. KernelSU users should verify that a `/system`-mounting metamodule is enabled.
+3. KernelSU / APatch users should verify that the current mount implementation actually mounts the `system/` tree of regular modules. If the log reports a “Mount-safety fallback”, `safe` mode skipped UFS-owned special-partition XML that could shadow a system symlink. Use `force` only with a mount implementation you have confirmed is compatible.
 4. Check the log:
 
 ```text

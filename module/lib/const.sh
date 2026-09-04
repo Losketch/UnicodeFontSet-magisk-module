@@ -33,6 +33,7 @@ FONT_BINARY_SUBDIRS="${UFS_FONT_BINARY_SUBDIRS:-$FONT_BINARY_MODULE_SUBDIRS}"
 
 LOCK_DIR="${UFS_LOCK_DIR:-/data/adb/ufs_lock}"
 MODULE_PARENT="${UFS_MODULE_PARENT:-/data/adb/modules}"
+USER_CONFIG="${UFS_USER_CONFIG:-/data/adb/ufs/config.conf}"
 
 MODULE_START_COMMENT="<!-- UnicodeFontSetModule Start -->"
 MODULE_END_COMMENT="<!-- UnicodeFontSetModule End -->"

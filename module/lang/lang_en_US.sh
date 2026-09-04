@@ -115,3 +115,9 @@ TXT_STATE_IMPORT_FAIL="❌ Failed to import backups from the previous UFS instal
 TXT_STOCK_XML_FAIL="❌ Failed to read the original system font configuration"
 TXT_STOCK_XML_DEFERRED="ℹ️ The original system font configuration is not available during installation; it will be captured automatically on the next boot"
 TXT_EARLY_REBASE_START="🧱 Updating system font configuration..."
+
+TXT_XML_ALIAS_FALLBACK="⚠️ Mount-safety fallback: running under %3\$s and stock /system/%2\$s is a symlink; skipped UFS-owned font XML at %1\$s so OverlayFS cannot shadow that link with a real directory. UFS does not identify or guess metamodule / magic mount capabilities; other safe paths continue normally. If your mount implementation is known to handle special partitions correctly, set SPECIAL_PARTITION_XML_MODE to force"
+TXT_XML_ALIAS_TOPOLOGY_DEFERRED="⚠️ Mount-safety fallback: running under %3\$s but the stock type of /system/%2\$s is not available yet; safe mode will not create UFS-owned %1\$s this time and will re-evaluate it during the next pre-mount reconciliation. If your mount implementation is known to handle special partitions correctly, set SPECIAL_PARTITION_XML_MODE to force"
+TXT_XML_UNSAFE_RESIDUAL="❌ Mount-safety check failed: %s cannot be cleaned safely by UFS; font XML reconciliation stopped to avoid shadowing a system symlink under OverlayFS. Check this path for non-UFS files or symlinks"
+TXT_XML_SPECIAL_MODE_FORCE="⚠️ Special-partition XML mode is force: under KernelSU / APatch, UFS may write product, system_ext, and other special-partition XML using the standard Magisk layout even when stock /system/<partition> is a symlink. Use this only when your current magic mount / OverlayFS metamodule is known to handle those partitions correctly; otherwise the device may fail to boot"
+TXT_XML_SPECIAL_MODE_INVALID="⚠️ Invalid SPECIAL_PARTITION_XML_MODE=%s; falling back to safe mode"
