@@ -6,10 +6,10 @@ description = "Expand Android font fallback coverage for Unicode characters. / æ
 repository = "https://github.com/Losketch/UnicodeFontSet-magisk-module"
 
 [release]
-framework_version = "2.0.0-beta.1"
-version_code = 2000001
-unicode_version = "18.0.0-beta"
-unicode_label = "Unicode 18.0.0 Beta"
+framework_version = "2.0.1"
+version_code = 2010000
+unicode_version = "18.0.0"
+unicode_label = "Unicode 18.0.0"
 unicode_data_url = "https://www.unicode.org/Public/18.0.0/ucd/UnicodeData.txt"
 
 [variants.colrv1]

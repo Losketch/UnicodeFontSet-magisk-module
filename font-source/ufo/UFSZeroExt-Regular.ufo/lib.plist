@@ -1896,7 +1896,6 @@
     <string>smallthookmod</string>
     <string>smallthookretroflexhookmod</string>
     <string>tomobikisymbol</string>
-    <string>lighthouse</string>
     <string>blackcirclewithwhiteverticalbar</string>
     <string>bulletindoublecircle</string>
     <string>circlewithdoubleverticalandhorizontalline</string>
@@ -1914,14 +1913,6 @@
     <string>lowerleftflattenedrighttriangle</string>
     <string>lowerrightflattenedrighttriangle</string>
     <string>rhombus</string>
-    <string>meteor</string>
-    <string>eraser</string>
-    <string>netwithhandle</string>
-    <string>monarchbutterfly</string>
-    <string>pickle</string>
-    <string>crackingface</string>
-    <string>leftwardsthumbsign</string>
-    <string>rightwardsthumbsign</string>
     <string>u18D1E.001</string>
   </array>
 </dict>

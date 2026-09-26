@@ -27,14 +27,14 @@ license = "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/LICENSE
 file = "NotoColorEmoji.ttf"
 variant = "colrv1"
 acquisition = "direct"
-source_location = "https://github.com/googlefonts/noto-emoji/raw/main/fonts/Noto-COLRv1.ttf"
+source_location = "https://github.com/googlefonts/noto-emoji/raw/main/2D/fonts/Noto-COLRv1.ttf"
 license = "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/LICENSE"
 
 [[fonts]]
 file = "NotoColorEmoji.ttf"
 variant = "cbdt"
 acquisition = "direct"
-source_location = "https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf"
+source_location = "https://github.com/googlefonts/noto-emoji/raw/main/2D/fonts/NotoColorEmoji.ttf"
 license = "https://raw.githubusercontent.com/googlefonts/noto-emoji/main/LICENSE"
 
 [[fonts]]
@@ -104,10 +104,10 @@ source_location = "https://github.com/kreativekorp/open-relay/raw/master/Kreativ
 license = "https://raw.githubusercontent.com/kreativekorp/open-relay/master/KreativeSquare/OFL.txt"
 
 [[fonts]]
-file = "TempSeal.ttf"
+file = "SealSans-Regular.otf"
 acquisition = "direct"
-source_location = "https://github.com/Losketch/Fonts/releases/download/TempSeal/TempSeal.ttf"
-license = "https://raw.githubusercontent.com/Losketch/Fonts/refs/heads/main/TempSeal/LICENSE"
+source_location = "https://github.com/Ghimist/seal-sans/raw/main/SealSans-Regular_v1.otf"
+license = "https://github.com/Ghimist/seal-sans/raw/main/LICENSE"
 
 [[fonts]]
 file = "LastResort-Regular.ttf"

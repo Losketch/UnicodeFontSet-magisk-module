@@ -476,8 +476,6 @@
   <string>component882-tang.glif</string>
   <key>component883-tang</key>
   <string>component883-tang.glif</string>
-  <key>crackingface</key>
-  <string>crackingface.glif</string>
   <key>cuneiformnumericsignashtimeseightdishtenu</key>
   <string>cuneiformnumericsignashtimeseightdishtenu.glif</string>
   <key>cuneiformnumericsignashtimesfivedishtenu</key>
@@ -1144,8 +1142,6 @@
   <string>doubleverticalbarbelowcomb-arab.glif</string>
   <key>emod</key>
   <string>emod.glif</string>
-  <key>eraser</key>
-  <string>eraser.glif</string>
   <key>facitsymbol</key>
   <string>facitsymbol.glif</string>
   <key>gravedotcomb</key>
@@ -3248,8 +3244,6 @@
   <string>latinzinferior.glif</string>
   <key>lefthalfwhitecircle</key>
   <string>lefthalfwhitecircle.glif</string>
-  <key>leftwardsthumbsign</key>
-  <string>leftwardsthumbsign.glif</string>
   <key>leibniziancoincidence</key>
   <string>leibniziancoincidence.glif</string>
   <key>leibniziancongruence</key>
@@ -3362,8 +3356,6 @@
   <string>ligaturesallallaahutaaalaaalayhiwasallam-arab.glif</string>
   <key>ligaturesallallahualayhiwaalaaaaliheewasallam-arab</key>
   <string>ligaturesallallahualayhiwaalaaaaliheewasallam-arab.glif</string>
-  <key>lighthouse</key>
-  <string>lighthouse.glif</string>
   <key>lowerleftflattenedrighttriangle</key>
   <string>lowerleftflattenedrighttriangle.glif</string>
   <key>lowerrightflattenedrighttriangle</key>
@@ -3376,10 +3368,6 @@
   <string>measuredanglewithdoublearc.glif</string>
   <key>measuredanglewithdoubleconcavearc</key>
   <string>measuredanglewithdoubleconcavearc.glif</string>
-  <key>meteor</key>
-  <string>meteor.glif</string>
-  <key>monarchbutterfly</key>
-  <string>monarchbutterfly.glif</string>
   <key>mongolianalternateue</key>
   <string>mongolianalternateue.glif</string>
   <key>musicalsymbolarpeggiatoupwitharrow</key>
@@ -3528,8 +3516,6 @@
   <string>musicalsymboltwohundredfiftysixthrest.glif</string>
   <key>musicalsymbolunstresscomb</key>
   <string>musicalsymbolunstresscomb.glif</string>
-  <key>netwithhandle</key>
-  <string>netwithhandle.glif</string>
   <key>noonring-arab</key>
   <string>noonring-arab.glif</string>
   <key>omanirialsign</key>
@@ -3546,16 +3532,12 @@
   <string>patternblank-brai.glif</string>
   <key>pepetcomb-arab</key>
   <string>pepetcomb-arab.glif</string>
-  <key>pickle</key>
-  <string>pickle.glif</string>
   <key>pmod</key>
   <string>pmod.glif</string>
   <key>rhombus</key>
   <string>rhombus.glif</string>
   <key>righthalfwhitecircle</key>
   <string>righthalfwhitecircle.glif</string>
-  <key>rightwardsthumbsign</key>
-  <string>rightwardsthumbsign.glif</string>
   <key>rufiyaasign</key>
   <string>rufiyaasign.glif</string>
   <key>sectorwithchord</key>

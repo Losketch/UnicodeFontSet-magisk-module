@@ -132,6 +132,8 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-
       - run: cargo install cargo-ndk --version "${{ env.CARGO_NDK_VERSION }}" --locked
       - uses: android-actions/setup-android@v4.0.1
+        with:
+          packages: platform-tools
       - uses: actions/cache@v6.1.0
         with:
           path: ${{ env.ANDROID_SDK_ROOT }}/ndk/${{ env.NDK_VERSION }}

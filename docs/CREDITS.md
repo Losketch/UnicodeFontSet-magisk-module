@@ -1,6 +1,7 @@
 ## 鸣谢 / Acknowledgements
 
 - [Fitzgerald Yu](https://github.com/Fitzgerald-Porthmouth-Koenigsegg)
+- [Ghimist](https://github.com/Ghimist)
 - [GoogleFonts](https://github.com/googlefonts)
 - [Kreative Software](https://github.com/kreativekorp)
 - [lakejason0](https://github.com/lakejason0)
