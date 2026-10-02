@@ -40,6 +40,11 @@
         </font>
     </family>
     <family>
+        <font weight="400" style="normal" postScriptName="AlariXuwasunJurchen">
+            AlariXuwasunJurchen-Regular.otf
+        </font>
+    </family>
+    <family>
         <font weight="400" style="normal" postScriptName="UFSZeroExt-Regular">
             UFSZeroExt.otf
         </font>
@@ -66,7 +71,7 @@
     </family>
     <family>
         <font weight="400" style="normal" postScriptName="SealSans-Regular">
-            SealSans-Regular.otf
+            SealSans-Regular.ttf
         </font>
     </family>
     <family>

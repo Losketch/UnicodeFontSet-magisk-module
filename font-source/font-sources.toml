@@ -12,6 +12,12 @@ source_location = "module/system/fonts/NotoSansSymbols-Regular-Subsetted.ttf"
 license = "https://raw.githubusercontent.com/notofonts/symbols/main/OFL.txt"
 
 [[fonts]]
+file = "AlariXuwasunJurchen-Regular.otf"
+acquisition = "direct"
+source_location = "https://www.dorontu.com/api/cloud/download_file/?file_path=%E5%A5%B3%E7%9C%9F%E6%96%87%E8%B5%84%E6%96%99%2F%E5%A5%B3%E7%9C%9F%E6%96%87%E5%AD%97%E4%BD%93%2FAlariXuwasunJurchen-Regular%EF%BC%88%E5%85%AC%E6%B5%8B%E7%89%88%EF%BC%89.otf"
+license = "https://openfontlicense.org/documents/OFL.txt"
+
+[[fonts]]
 file = "UFSZeroExt.otf"
 acquisition = "local"
 source_location = "module/system/fonts/UFSZeroExt.otf"
@@ -104,10 +110,10 @@ source_location = "https://github.com/kreativekorp/open-relay/raw/master/Kreativ
 license = "https://raw.githubusercontent.com/kreativekorp/open-relay/master/KreativeSquare/OFL.txt"
 
 [[fonts]]
-file = "SealSans-Regular.otf"
+file = "SealSans-Regular.ttf"
 acquisition = "direct"
-source_location = "https://github.com/Ghimist/seal-sans/raw/main/SealSans-Regular_v1.otf"
-license = "https://github.com/Ghimist/seal-sans/raw/main/LICENSE"
+source_location = "https://github.com/Losketch/seal-sans/raw/main/SealSans-Regular_v1.ttf"
+license = "https://github.com/Losketch/seal-sans/raw/main/LICENSE"
 
 [[fonts]]
 file = "LastResort-Regular.ttf"
